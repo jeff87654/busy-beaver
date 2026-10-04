@@ -1,0 +1,10 @@
+# Coq build products
+*.vo
+*.vos
+*.vok
+*.glob
+.*.aux
+*.vio
+.lia.cache
+.nia.cache
+__pycache__/

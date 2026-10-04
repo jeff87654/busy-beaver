@@ -1,0 +1,186 @@
+1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_1LC0RH_1RG1LF
+========================================================
+
+An 8-state, 2-symbol Turing machine that halts from the blank tape with
+
+    sigma = 12 * (2 ^^37 3) + 59        (exactly; machine-checked in Coq, see "Proofs")
+
+ones on the tape, where 2 ^^k n is Knuth's up-arrow 2 ↑^k n (2 ^^0 n = 2n, 2 ^^1 n = 2^n,
+2 ^^2 = tetration).  It therefore runs for more than 2 ^^37 3 steps, far above the BB(7)
+champion's 2 ^^11 2 ^^11 3.  Found 2026-10-03 by enumerating the 8-state TNF subtree that shares
+the first eight transitions (in first-use order) of the BB(7) champion
+1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_0RG0RF (Kropitz, May 2025) and grading the holdouts
+for that champion's digit-list behaviour.
+
+This description follows Shawn Ligocki's analysis of the BB(7) champion on the bbchallenge wiki
+(wiki.bbchallenge.org/wiki/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_0RG0RF) line by line, with
+the same notation, so that the two machines can be compared directly.
+
+
+Transition table
+----------------
+
+        0    1
+    A  1RB  0RA
+    B  1LC  1LF
+    C  1RD  0LB
+    D  1RA  1LE
+    E  1RZ  0LC        (E0 is the only halting transition; written --- in the Coq files)
+    F  1RG  1LD
+    G  1LC  0RH
+    H  1RG  1LF
+
+Relation to the BB(7) champion: states A-F are identical; G is rewritten (0RG 0RF -> 1LC 0RH) and
+H is new.  The two machines agree for the first 51 steps (G is first entered at step 51, H at 52).
+
+
+Configurations
+--------------
+
+General configurations match the regex
+
+    0^inf (1 (01)^*)^* G> 0^inf
+
+(the champion's are 0^inf 11 (1 (01)^*)^* 0011100 A> 0^inf: same body, different fixed blocks).
+
+
+Low level rules
+---------------
+
+One machine-level phase each.  The head returns to the right end of the tape in state G; the
+zeros after G> are the blank cells beyond the one under the head that the phase visits (the
+convention of the wiki's "A> 00").
+
+                 01 1 01^n G> 00   -->  1 01^n+2 G>                                       (a round)
+              01^3 11 01^n G> 0^4  -->  1 01^n+3 1 0101 G>                                (n >= 4)
+    01^3 (1 01)^k+1 11 01^n G> 0^4  -->  1 01^n+3 (1 01)^k+1 1 0101 G>
+    0^inf (1 01)^k 11 01^n G>       -->  0^inf 101011011011 (011)^2n+1 1 Z> 1110101010101010100 (101)^k-2 101 0^inf   (k >= 2)
+
+The first line is the champion's rule 1 with the suffix 0011100 removed.  The second and third
+lines end one round before the champion's corresponding lines (1 0101 instead of 11 01): the
+round 01 1 0101 G> 00 --> 11 01^4 G> then restores the B form below.  In the last line "1 Z>"
+is the 1 written by the halting transition E0.
+
+
+Mid level rules
+---------------
+
+Let
+
+    B(a; b, c, ..., z) = 0^inf 1 (01)^(3z+1) 1 ... 1 (01)^(3c+1) 1 (01)^(3b+1) 1 (01)^0 1 (01)^(3a+1) G> 0^inf
+
+and let B(a; [x]*k, y, ...) = B(a; x, ..., x, y, ...) with k copies of x (the wiki's notation).
+
+Then
+
+    B(a; b+1, ...)             ->  B(2a+3; b, ...)
+    B(a; [0]*k, 0, n+1, ...)   ->  B(1; [0]*k, a+1, n, ...)
+    B(a; [0]*k)                ->  Halt(12a + 2k + 23)
+
+    Start at step 6413:   B(1; [0]*35, 2)
+    then at step 47897:   B(5; [1]*36)
+
+(Champion, in the same form: B(a; b+1, ...) -> B(2a+4; b, ...), borrow writes a+2 and resets a
+to 0, Halt(3a + 2k + 10) with 12 digits; see "Comparison" for the start.)  Halt(n) counts the 1
+written by the halting transition.  The 35 zeros of the start configuration are what the
+start-up writes: the champion writes 11 zeros and one 2, this machine writes 35 zeros and one 2.
+Borrowing the 2 down through the zeros gives the all-ones list: 36 digits here, 12 there.
+
+
+High level rule
+---------------
+
+Let
+
+    g_0(x)     = 2x + 3
+    g_{k+1}(x) = g_k^(x+1)(1)
+
+then
+
+    B(a; [0]*k, n, ...)  ->  B(g_k^n(a); [0]*k, 0, ...)
+
+and in closed form
+
+    g_k(x) = (2 ^^k (x+3)) - 3
+
+(champion: g_0(x) = 2x+4, g_{k+1}(x) = g_k^(x+2)(0), g_k(x) = (2 ^^k (x+4)) - 4).
+
+
+Bound
+-----
+
+Let a_0 = 5 and a_{k+1} = g_k(a_k).  Then
+
+    B(a_0; [1]*36)  ->  B(a_36; [0]*36)  ->  Halt(12 a_36 + 2*36 + 23)
+
+so sigma = 12 a_36 + 95.  From a_0 + 3 = 8 = 2 ^^1 3 and a_{k+1} + 3 = 2 ^^k (a_k + 3) we get,
+for every k,
+
+    a_k + 3 = 2 ^^(k+1) 3            (8, 16, 2^16, 2 ^^3 4 = 2 ^^4 3, ...)
+
+hence a_36 = 2 ^^37 3 - 3 and
+
+    sigma = 12 * (2 ^^37 3) + 59.
+
+Equivalently, clearing the single 2 of B(1; [0]*35, 2) unit by unit:
+B(1; [0]*35, 2) -> B(g_35(1); [0]*35, 1) -> B(g_35(g_35(1)); [0]*36), and
+g_35(g_35(1)) + 3 = 2 ^^35 (2 ^^35 4) = 2 ^^36 4 = 2 ^^37 3.
+
+Weaker forms that compare directly with the wiki's bound for the champion:
+
+    sigma > 2 ^^37 3 > 2 ^^36 3 > 2 ^^35 2 ^^35 3 > 2 ^^11 2 ^^11 3.
+
+
+Comparison with the BB(7) champion
+----------------------------------
+
+Both machines run the same program: an accumulator doubled once per unit of the nearest digit,
+a borrow that copies the accumulator into the next digit, a halt when the digits are used up.
+Differences: the constants (2a+3 / a+1 / reset 1 against 2a+4 / a+2 / reset 0, which shift
+every g_k by one), the fixed blocks at the tape ends, the halting finale (12a against 3a ones),
+and the number of digits written at start-up: 36 against 12, i.e. 24 more up-arrows.
+
+For the champion, the same simulation that produced the numbers above gives the first B
+configuration B(0; [0]*11, 2) at step 2154, B(0; 2, [1]*11) at step 7984 and B(4; [1]*12) at
+step 8574, so a_0 = 4 and a_k + 4 = 2 ^^(k+1) 3 for every k; with Halt(3a + 2k + 10) this makes
+the champion's score exactly 3 * (2 ^^13 3) + 22.  (The wiki page gives a_0 = 2 from a reading of
+step 8178, and Halt(3a + 2k + 9); its lower bound 2 ^^11 2 ^^11 3 is unaffected, its upper bound
+2 ^^13 3 is not.  The two accumulator sequences are a_k(this machine) = a_k(champion) + 1.)
+
+
+Proofs
+------
+
+Machine-checked in Coq 8.20.1 with busycoq (github.com/meithecatte/busycoq, commit bd2e36f):
+
+    verify/BB8_champ35_1RB0RA.v   Theorem halt : halts tm c0.
+    verify/BB8_champ35_bound.v    sigma_lower_bound (2^^11 2^^11 3 < N), sigma_lower_bound_strong
+                                  (2^^35 2^^35 3 < N), sigma_gt_arrow36, score_exact (N = 24 bf + 106)
+    verify/BB8_champ35_exact.v    bf_closed (2 bf + 4 = 2^^37 3), score_closed (N = 12 (2^^37 3) + 58),
+                                  sigma_gt_arrow37
+
+Here N is the number of ones on the tape in the configuration where busycoq stops, i.e. before
+the halting transition writes its 1, so the score is N + 1.  "Print Assumptions" reports
+"Closed under the global context" for every theorem.  See verify/README.md for the exact
+compile commands (about 9 minutes, almost all of it the literal 6397-step start-up lemma).
+
+Dictionary between the Coq files and the notation above.  The Coq configuration is
+
+    Kc ds a b = 0^inf 1 (01)^(3 d_n+1) 1 ... 1 (01)^(3 d_1+1) 1 (01)^(3a+1) 1 (01)^(3b+1) 1 (01)^2 G> 0^inf
+
+with digits nearest-first in ds; 3b+1 rounds turn it into B(2b+1; a, d_1, ..., d_n).  So the
+accumulator above is A = 2b+1, the Coq a-slot is the nearest digit, the Coq list of 35 digits is
+the list of 36 digits above.  The Coq rules R1 / R2, R3 / R4 are rule 1 / rule 2 / halt; the Coq
+clearing functions U_j are g_{j+1} with 2 U_j(x) + 4 = 2 ^^(j+1) (2x+4) (lemma U_closed), and
+bf = U_34(U_34(0)) is a_36 = g_35(g_35(1)) with 2 bf + 4 = 2 ^^37 3 (lemma bf_closed).  The Coq
+start configuration Kc (0^34 ++ [2]) 0 0 at step 6397 is one round before B(1; [0]*35, 2).
+
+
+Independent check
+-----------------
+
+tools/ligocki_notation.py is a plain cell-by-cell simulator (no acceleration, nothing shared
+with the proofs).  It records every B configuration on a run from the blank tape for both
+machines, classifies the transitions between consecutive configurations as rule 1 / rule 2 and
+prints their constants, and runs constructed B(a; [0]*k) configurations to the halt.  It
+reproduces BB(2)-BB(5) exactly.  Run: python tools/ligocki_notation.py all  (about 15 s).

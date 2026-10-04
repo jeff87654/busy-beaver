@@ -1,0 +1,103 @@
+== BB82.v ==
+   ok, 16 s
+== Individual82.v ==
+   ok, 15 s
+== BB8_champ35_1RB0RA.v ==
+   ok, 569 s
+== BB8_champ35_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 43 s
+== BB8_champ35_exact.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 27 s
+== probe.v ==
+BB8_champ35_1RB0RA.tm =
+fun pat : Q * Sym =>
+match pat with
+| (A, 0) => Some (1, R, B)
+| (A, 1) => Some (0, R, A)
+| (C, 0) => Some (1, R, D)
+| (C, 1) => Some (0, L, B)
+| (D, 0) => Some (1, R, A)
+| (D, 1) => Some (1, L, E)
+| (E, 0) => None
+| (E, 1) => Some (0, L, C)
+| (F, 1) => Some (1, L, D)
+| (B, 0) | (G, 0) => Some (1, L, C)
+| (G, 1) => Some (0, R, H)
+| (F, 0) | (H, 0) => Some (1, R, G)
+| _ => Some (1, L, F)
+end
+     : TM
+BB8_champ35_1RB0RA.halt : halts BB8_champ35_1RB0RA.tm c0
+     : halts BB8_champ35_1RB0RA.tm c0
+BB8_champ35_bound.sigma_lower_bound
+:
+exists (c : Q * tape) (N : nat),
+  c0 -[ BB8_champ35_1RB0RA.tm ]->* c /\
+  halted BB8_champ35_1RB0RA.tm c /\
+  BB8_champ35_bound.ones c N /\
+  BB8_champ35_bound.arrow 11 2 (BB8_champ35_bound.arrow 11 2 3) < N
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB8_champ35_1RB0RA.tm ]->* c /\
+         halted BB8_champ35_1RB0RA.tm c /\
+         BB8_champ35_bound.ones c N /\
+         BB8_champ35_bound.arrow 11 2 (BB8_champ35_bound.arrow 11 2 3) < N
+BB8_champ35_bound.sigma_lower_bound_strong
+:
+exists (c : Q * tape) (N : nat),
+  c0 -[ BB8_champ35_1RB0RA.tm ]->* c /\
+  halted BB8_champ35_1RB0RA.tm c /\
+  BB8_champ35_bound.ones c N /\
+  BB8_champ35_bound.arrow 35 2 (BB8_champ35_bound.arrow 35 2 3) < N
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB8_champ35_1RB0RA.tm ]->* c /\
+         halted BB8_champ35_1RB0RA.tm c /\
+         BB8_champ35_bound.ones c N /\
+         BB8_champ35_bound.arrow 35 2 (BB8_champ35_bound.arrow 35 2 3) < N
+BB8_champ35_exact.bf_closed
+:
+2 * BB8_champ35_bound.bf + 4 = BB8_champ35_bound.arrow 37 2 3
+     : 2 * BB8_champ35_bound.bf + 4 = BB8_champ35_bound.arrow 37 2 3
+BB8_champ35_exact.score_closed
+:
+exists c : Q * tape,
+  c0 -[ BB8_champ35_1RB0RA.tm ]->* c /\
+  halted BB8_champ35_1RB0RA.tm c /\
+  BB8_champ35_bound.ones c (12 * BB8_champ35_bound.arrow 37 2 3 + 58)
+     : exists c : Q * tape,
+         c0 -[ BB8_champ35_1RB0RA.tm ]->* c /\
+         halted BB8_champ35_1RB0RA.tm c /\
+         BB8_champ35_bound.ones c (12 * BB8_champ35_bound.arrow 37 2 3 + 58)
+BB8_champ35_bound.arrow =
+fix arrow (k a b : nat) {struct k} : nat :=
+  match k with
+  | 0 => a * b
+  | S k' => PeanoNat.Nat.iter b (arrow k' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB8_champ35_bound.arrow (k a b)%nat_scope
+BB8_champ35_bound.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB8_champ35_bound.count1 L + BB8_champ35_bound.sym_val s +
+  BB8_champ35_bound.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB8_champ35_bound.ones c N%nat_scope
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 35 s
+COMPILE DONE
