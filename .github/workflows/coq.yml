@@ -1,0 +1,67 @@
+name: Coq proofs
+
+# Builds busycoq at the pinned commit with Coq 8.20.1, compiles the BB8 proofs in BB8/verify/,
+# and fails unless probe.v reports "Closed under the global context" for all five main theorems.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  bb8:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    env:
+      BUSYCOQ_COMMIT: bd2e36f6aa204eb011742d2ca6c8741102b2e59e
+    defaults:
+      run:
+        shell: bash   # bash -eo pipefail, so a failing coqc is not hidden by `| tee`
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v git >/dev/null || (apt-get update && apt-get install -y git)
+
+      - uses: actions/checkout@v4
+
+      - name: Coq version
+        run: coqc --version
+
+      - name: Build busycoq (pinned commit, only the files BB8 depends on)
+        run: |
+          git clone https://github.com/meithecatte/busycoq "$RUNNER_TEMP/busycoq"
+          cd "$RUNNER_TEMP/busycoq"
+          git checkout "$BUSYCOQ_COMMIT"
+          git log -1 --format='busycoq %H %ci %s'
+          cd verify
+          coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
+          make -f Makefile.coq Individual.vo Flip.vo
+
+      - name: Compile the BB8 proofs
+        working-directory: BB8/verify
+        run: BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
+
+      - name: Check that the main theorems use no axioms
+        working-directory: BB8/verify
+        run: |
+          coqc -Q "$RUNNER_TEMP/busycoq/verify" BusyCoq -Q . BB8 probe.v | tee probe_ci.log
+          closed=$(grep -c 'Closed under the global context' probe_ci.log || true)
+          echo "probe.v: $closed of 5 theorems closed under the global context"
+          if grep -q 'Axioms:' probe_ci.log || [ "$closed" -ne 5 ]; then
+            echo "::error::probe.v did not report five axiom-free theorems"
+            exit 1
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coq-logs
+          path: |
+            BB8/verify/compile_ci.log
+            BB8/verify/probe_ci.log
