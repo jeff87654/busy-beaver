@@ -1,5 +1,7 @@
 # busy-beaver
 
+[![Coq proofs](https://github.com/jeff87654/busy-beaver/actions/workflows/coq.yml/badge.svg?branch=main)](https://github.com/jeff87654/busy-beaver/actions/workflows/coq.yml)
+
 Busy beaver results, with machine-checked proofs.
 
 ## BB8/
