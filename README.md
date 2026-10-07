@@ -23,3 +23,26 @@ ones (Knuth up-arrows), hence after more than 2 ↑^37 3 steps. It runs the BB(7
   final write; score = N + 1). No axioms. See `BB8/verify/README.md` for the compile commands.
 - [`BB8/tools/ligocki_notation.py`](BB8/tools/ligocki_notation.py): an independent cell-by-cell
   simulator that extracts the `B(a; b, ..., z)` configurations and rules of both machines.
+
+## BB9/
+
+`1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_1RG1LD_0RH0RF_0RG0RE_0LH1RZ`, a 9-state, 2-symbol machine that halts
+from the blank tape with exactly
+
+    sigma = 3 * (2 ↑^(6T-33) 8) + (54 T + 26) / 5,      T = 2 ↑^13 3
+
+ones, hence more than 2 ↑^(2 ↑^13 3) 3 (a tower of 2 ↑^13 3 up-arrows; about f_ω(6 · 2 ↑^13 3) in the
+fast-growing hierarchy). It runs the BB(7) champion's program to the point where that champion halts,
+re-encodes the result as a fresh digit list with 12B−11 digits (2B+4 = 2 ↑^13 3), runs the champion's
+program on that list, and halts. It beats the 2024 BB(9) champion of Jacobzheng, whose exact score is
+computed in the same proof. A twin with H0 = 0RH has the same score.
+
+- [`BB9/1RB0RA_..._0LH1RZ.txt`](BB9/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_1RG1LD_0RH0RF_0RG0RE_0LH1RZ.txt):
+  the analysis (configurations, rules, the four phases of the run, the exact score, the hierarchy value,
+  the comparison with the champion).
+- [`BB9/verify/`](BB9/verify/): `BB9_record_1RB0RA_selfcontained.v`, ONE Coq file depending only on the
+  standard library (busycoq `bd2e36f` inlined, Coq 8.20.1): `halt`, the exact score, the champion's halting
+  and exact score, and `new_champion` (score(champion) < score(ours), with a factor-3 margin). No axioms used.
+  Check with plain `coqc` in about an hour. `verify/multifile/` has the original development on busycoq,
+  including the twin's proof.
+

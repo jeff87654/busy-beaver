@@ -1,0 +1,215 @@
+1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_1RG1LD_0RH0RF_0RG0RE_0LH1RZ
+==============================================================
+
+A 9-state, 2-symbol Turing machine that halts from the blank tape with
+
+    sigma = 3 * (2 ^^(6T-33) 8) + (54 T + 26) / 5,      T = 2 ^^13 3        (exactly; machine-checked)
+
+ones on the tape, where 2 ^^k n is Knuth's up-arrow 2 ↑^k n (2 ^^0 n = 2n, 2 ^^1 n = 2^n,
+2 ^^2 = tetration).  In particular sigma > 2 ^^(2 ^^13 3) 3: a tower of 2 ^^13 3 up-arrows.  This
+beats the BB(9) champion of Jacobzheng (2024), whose exact score the same proof computes:
+sigma(champion) + 1 < sigma, with a factor-3 margin (see "Comparison").  Found 2026-10-06 by
+enumerating the 9-state TNF subtree that keeps all transitions of the BB(7) champion
+1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_0RG0RF (Kropitz, May 2025) except its halting transition
+E0 and G0, grading the holdouts for that champion's digit-list behaviour, and following the
+surviving machines past the point where the champion halts.
+
+In the fast-growing hierarchy (f_0(n) = n+1, f_{k+1}(n) = f_k^n(n), f_omega(n) = f_n(n)):
+
+    f_omega(6T - 34) < sigma < f_omega(6T - 32),   hence   f_omega(f_13(2)) < sigma < f_omega(f_14(2)).
+
+(Paper argument, see "Hierarchy"; the arrow statements are the machine-checked ones.)
+
+The twin machine with H0 = 0RH, i.e. ..._0RH0RE_0LH1RZ, has the same run and the same score.
+
+
+Transition table
+----------------
+
+        0    1
+    A  1RB  0RA
+    B  1LC  1LF
+    C  1RD  0LB
+    D  1RA  1LE
+    E  1LI  0LC        (E0 is the BB(7) champion's halting transition; here it enters I)
+    F  1RG  1LD
+    G  0RH  0RF
+    H  0RG  0RE
+    I  0LH  1RZ        (I1 is the only halting transition; written --- in the Coq files)
+
+Relation to the BB(7) champion: states A-F are identical except E0 (1RZ -> 1LI); G0 is rewritten
+(0RG -> 0RH); H and I are new.  The run from the blank tape is the champion's run, configuration
+by configuration, until the champion halts.
+
+
+Configurations
+--------------
+
+Tokens are D(m) = (10)^m 1.  A configuration of the family is
+
+    Kt(d_1 .. d_n; m; r; t) = 0^inf 11 D(d_n) ... D(d_1) D(m) (10)^r 11 (11111100)^t 1001 B> 0^inf
+
+with the digits nearest-first (d_1 is next to the a-token D(m)), r the accumulator run and t the
+number of tail blocks.  The BB(7) champion's configurations have t = 0.  Ordinary digits have
+token length 3d+1, the a-token 3a+1 and the run 3b+2:
+
+    K(d_1 .. d_n; a; b; t) = Kt(3d_1+1 .. 3d_n+1; 3a+1; 3b+2; t).
+
+This is the dictionary of BB8/..._1RG1LF.txt: K(ds; a; b) is B(2b+1; a, d_1, ..., d_n) of the
+wiki page of the BB(7) champion after 3b+1 rounds, the Coq a-slot being the wiki's nearest digit.
+
+
+Champion rules
+--------------
+
+Proved at machine level for every tail length t and every rest of the list:
+
+    R1   K(ds; a+1; b)                       ->  K(ds; a; 2b+2)
+    R2   K(d+1, ds; 0; b)                    ->  K(d, ds; 2b+2; 0)
+    R3   K([0]*(k+1), d+1, ds; 0; b)         ->  K([0]*k, 2b+2, d, ds; 0; 0)
+
+R1 doubles the accumulator once per unit of a; R2 refills a from the nearest digit; R3 borrows
+across zero digits and writes the refill next to the borrowed digit.  These are the BB(7)
+champion's rules (the wiki's rule 1 and rule 2).  Clearing a digit at depth j costs the function
+
+    U_0(x) = 2^(2x+3) - 2,     U_{j+1}(x) = U_j^(2x+2)(0),     2 U_j(x) + 4 = 2 ^^(j+1) (2x+4),
+
+the same U_j as in the BB(8) analysis (lemma U_closed there, reused here).
+
+
+The run
+-------
+
+1. Start-up and the BB(7) champion's program.  The blank tape reaches
+
+       K([0]*10, 2; 0; 0; 0)          at step 2149
+
+   (ten zero digits nearest the head, a 2 at the far end: the champion's 12-digit start in the
+   wiki's notation).  The champion rules clear the list and leave
+
+       K([0]*11; 0; B; 0),            B = U_10(U_10(0)),   2B + 4 = 2 ^^13 3.
+
+   This is the configuration in which the BB(7) champion halts (its score is 3 (2 ^^13 3) + 22).
+
+2. Rebuild (states H and I).  Reading the exhausted list in state E, the machine enters I instead
+   of halting.  With R = 3B+2 the accumulator run, in exactly 36 R^2 + 2266 R + 5002 steps it
+   rewrites the tape as
+
+       Kt([1]*(12B-11), 20, 4, 21, 4; 1; 2; 6),
+
+   i.e. a fresh list in the same format: 12B-11 zero digits nearest the head, four fixed tokens
+   D20 D4 D21 D4 at the far end, a = 0, b = 0, six tail blocks.  The rebuild never reads B: it
+   expands the accumulator run four zero digits per pair (4(R-5)+1 = 12B-11) and folds the
+   constant-size leftovers (the eleven spent digits, the old tail) into the four tokens.  The
+   machine-level proof has 51 stages: re-encoding the run (10)^R as (1010)^(R-5), carrying the
+   eleven spent digits across it one by one, converting them to fixed blocks, re-encoding the run
+   twice more into (101)^(4R-20) = [1]*(4R-20) zero digits, and assembling the tokens and the tail.
+
+3. The champion rules again.  The token D20 is not an ordinary digit (20 = 3*6+2) but is borrowed
+   from like one: 20 -> 17 -> ... -> 5 -> 2 with the standard refill.  Clearing the 12B-11 zero
+   digits and the token down to 2 (lemma CLR2) gives
+
+       Kt([1]*(12B-11), 2, 4, 21, 4; 1; 3b'+2; 6),     b' = U_{12B-11}^6(0),   2b' + 4 = 2 ^^(12B-9) 8.
+
+4. The D2 stage and the halt.  The next borrow would come from the token D2, which is not a
+   champion rule.  What happens depends on k = 12B-11 mod 5.  Since 2B+4 = 2 ^^13 3 is a power of
+   2 with exponent divisible by 4, 2B+4 = 1 (mod 5), so B = 1 (mod 5) and k = 1 (mod 5).  For
+   k = 5q+11 the machine reaches, in a fixed pattern (lemma D2STAGE),
+
+       Kt([1]*(3q+4), 3q+11, 2r+8, 2, 21, 4; 0; 4; 8)        (r + 5 = 3b' + 2)
+
+   and halts about 1370 steps later in state I reading a 1 (lemma HALTRUN).  The tokens 4, 21, 4
+   are never consumed.  The halting tape holds 9q + 2r + 106 ones.
+
+
+Score
+-----
+
+With B = 5m + 1, q = 12m - 2 and r = 3b' - 3:
+
+    ones = 6 b' + 108 m + 82 = 3 (2 ^^(12B-9) 8) + 108 floor(B/5) + 70.
+
+The halting transition I1 reads a 1, so the standard score is this number: substituting
+T = 2B + 4 = 2 ^^13 3,
+
+    sigma = 3 * (2 ^^(6T-33) 8) + (54 T + 26) / 5.
+
+Weaker forms:  sigma > 2 ^^(6T-33) 8 > 2 ^^T 3 = 2 ^^(2 ^^13 3) 3.
+
+
+Hierarchy
+---------
+
+Not machine-checked (the arrow statements above are).  With f_k(n) >= 2 ^^(k-1) n (k >= 1,
+n >= 2) and f_k(n) <= 2 ^^(k-1) (4n) (k >= 3), both by induction on k:
+
+    f_omega(m) >= 2 ^^(m-1) m,    f_omega(m) <= 2 ^^(m+1) 4   (for m = 6T - 34, the offset
+    in the upper bound stabilises at level 13 because 2 ^^13 4 = 2 ^^12 T >> 6T),
+
+so f_omega(6T-34) <= 2 ^^(6T-33) 4 < sigma and sigma < 2 ^^(6T-33) 9 <= f_omega(6T-32).  Also
+4 f_k(2) + 1 <= 2 ^^k 3 for k >= 3 (from 4 * 2048 + 1 <= 65536), so f_13(2) < T, while
+f_14(2) >= 2 ^^12 5 > 6T; hence f_omega(f_13(2)) < sigma < f_omega(f_14(2)).  For the champions
+table: sigma > f_omega(f_13(2)), or more precisely sigma > f_omega(6 * 2 ^^13 3 - 34).
+
+
+Comparison with the BB(9) champion
+----------------------------------
+
+The champion 1RB1RA_0LC0LF_0RD1LC_1RA1RG_1RZ0RA_1LB1LF_1LH1RE_0LI1LH_1LB0LH (Jacobzheng, 2024;
+wiki "Champions" entry: sigma > f_omega(f_9(2)), self-reported) is a digit-list counter with
+rules b -> b+3 per unit of a, a refill a = b+2, borrows with k-1 digits 2, and a rebuild of the
+used-up list when b is even; it halts at the second restart with b_2 + 4 ones, where
+b_1 = U'_7(U'_7(U'_5(U'_3(U'_1(3))))) and b_2 is the result of the second restart from b_1 (exact
+clearing functions U'_j of that machine; verify/multifile/BB9_champion_*.v).  Bounds proved in
+Coq: b_1 <= 2 ^^10 11 and b_2 <= 2 ^^(b_1+4) (b_1+6), while our score exceeds 2 ^^(6T-33) 8 with
+T = 2 ^^13 3 and 6T - 34 >= b_1 + 4 (because 6 * 2 ^^10 11 <= 2 ^^13 3).  So the champion has about
+b_1 < 2 ^^10 11 up-arrows and this machine about 6 * 2 ^^13 3.  The Coq theorem is
+
+    new_champion : both machines halt, the champion with Nc ones and this machine with No ones,
+                   and Nc + 1 < No
+
+(the champion's E0 = 1RZ writes a 1 on a 0, so its score is Nc + 1; ours reads a 1 at I1, so its
+score is No), and new_champion_margin : 3 (Nc + 1) < No, so no convention about the final write
+can affect the comparison.  The listed bound f_omega(f_9(2)) < Nc + 1 is also proved.
+
+
+Proofs
+------
+
+verify/BB9_record_1RB0RA_selfcontained.v is ONE Coq file (Coq 8.20.1, standard library only;
+busycoq's core, github.com/meithecatte/busycoq commit bd2e36f, is inlined verbatim with its MIT
+notice) proving
+
+    halt                        halts tm c0
+    score_exact, score_closed   ones = 6 b' + 108 (B/5) + 82 = 3 (2^^(12B-9) 8) + 108 (B/5) + 70
+    Bx_arrow13                  2 B + 4 = 2 ^^13 3
+    sigma_lower_bound           2 ^^(2 ^^13 3) 3 < N
+    sigma_lower_bound_strong    2 ^^(6 (2 ^^13 3) - 33) 8 < N
+    Champion9.halt, Champion9.score_exact      the champion halts with b_2 + 3 ones
+    record_beats_champion, sigma_ours_gt_champion, new_champion, new_champion_margin
+
+Check with plain  coqc BB9_record_1RB0RA_selfcontained.v  (about an hour), then
+coqc probe_selfcontained.v  (re-checks both transition tables entry by entry, the statements'
+types, and prints the definitions and assumptions).  Twelve "Print Assumptions" at the end of
+the main file report "Closed under the global context".  The file declares no axiom of its own;
+the inlined LibTactics declares TLC's inj_pair2, which no theorem uses.  See verify/README.md
+and verify/VERIFICATION.txt.
+
+verify/multifile/ holds the original development on top of a busycoq checkout (the same
+theorems, plus the twin's halting proof BB9_record_twin_1RB0RA.v); the self-contained file is
+their concatenation.
+
+Dictionary between the Coq files and the notation above: Kt and Kg are Kt(ds; m; r; t) and
+K(ds; a; b; t); Bx is B; bp is b'; U is U_j; arrow k 2 n is 2 ^^k n; ones c N says the tape of
+c holds exactly N ones.  The halting configuration is c_end q r.
+
+
+History
+-------
+
+The first analysis (2026-10-06) predicted that the borrow from D2 would pass to the next token
+D4 and halt there; its end-of-run checks had been made from configurations the real run never
+reaches.  The Coq work found the D2 stage, its dependence on k mod 5, and the residue
+B = 1 (mod 5); the score formula was then derived from the real halting configuration.  The
+machine-level lemmas (rules, rebuild, D2 stage) were generated by a symbolic executor and are
+checked by Coq step by step; the literal start-up (2149 steps) is a single computation lemma.
