@@ -71,3 +71,5 @@ a minute each.
 `VERIFICATION.txt` and `sha256.txt` are from the from-scratch compile of this exact file with plain `coqc` (no `-Q`,
 no other `.vo` on the load path) in a directory containing nothing else, on 2026-10-06: exit 0, 3673 s, twelve
 "Closed under the global context"; probe exit 0, 195 s, eight "Closed under the global context".
+A second from-scratch compile of the same file on 2026-10-07 (6999 s on a loaded machine, probe 172 s) gave the same
+result; `build.log` and `probe.log` are its outputs.

@@ -1,0 +1,7 @@
+# Keep the proof files byte-identical on every platform (their SHA-256 is recorded in sha256.txt).
+*.v text eol=lf
+*.sh text eol=lf
+*.txt text eol=lf
+*.log text eol=lf
+*.md text eol=lf
+_CoqProject text eol=lf

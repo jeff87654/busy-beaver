@@ -1,0 +1,265 @@
+# coqc probe_selfcontained.v, 2026-10-07 13:56-13:59, exit 0, 172 s.  stdout, then stderr.
+eq_refl : tm (A, 0) = Some (1, R, B)
+     : tm (A, 0) = Some (1, R, B)
+eq_refl : tm (A, 1) = Some (0, R, A)
+     : tm (A, 1) = Some (0, R, A)
+eq_refl : tm (B, 0) = Some (1, L, C)
+     : tm (B, 0) = Some (1, L, C)
+eq_refl : tm (B, 1) = Some (1, L, F)
+     : tm (B, 1) = Some (1, L, F)
+eq_refl : tm (C, 0) = Some (1, R, D)
+     : tm (C, 0) = Some (1, R, D)
+eq_refl : tm (C, 1) = Some (0, L, B)
+     : tm (C, 1) = Some (0, L, B)
+eq_refl : tm (D, 0) = Some (1, R, A)
+     : tm (D, 0) = Some (1, R, A)
+eq_refl : tm (D, 1) = Some (1, L, E)
+     : tm (D, 1) = Some (1, L, E)
+eq_refl : tm (E, 0) = Some (1, L, I)
+     : tm (E, 0) = Some (1, L, I)
+eq_refl : tm (E, 1) = Some (0, L, C)
+     : tm (E, 1) = Some (0, L, C)
+eq_refl : tm (F, 0) = Some (1, R, G)
+     : tm (F, 0) = Some (1, R, G)
+eq_refl : tm (F, 1) = Some (1, L, D)
+     : tm (F, 1) = Some (1, L, D)
+eq_refl : tm (G, 0) = Some (0, R, H)
+     : tm (G, 0) = Some (0, R, H)
+eq_refl : tm (G, 1) = Some (0, R, F)
+     : tm (G, 1) = Some (0, R, F)
+eq_refl : tm (H, 0) = Some (0, R, G)
+     : tm (H, 0) = Some (0, R, G)
+eq_refl : tm (H, 1) = Some (0, R, E)
+     : tm (H, 1) = Some (0, R, E)
+eq_refl : tm (I, 0) = Some (0, L, H)
+     : tm (I, 0) = Some (0, L, H)
+eq_refl : tm (I, 1) = None
+     : tm (I, 1) = None
+eq_refl : Champion9.tm (A, 0) = Some (1, R, B)
+     : Champion9.tm (A, 0) = Some (1, R, B)
+eq_refl : Champion9.tm (A, 1) = Some (1, R, A)
+     : Champion9.tm (A, 1) = Some (1, R, A)
+eq_refl : Champion9.tm (B, 0) = Some (0, L, C)
+     : Champion9.tm (B, 0) = Some (0, L, C)
+eq_refl : Champion9.tm (B, 1) = Some (0, L, F)
+     : Champion9.tm (B, 1) = Some (0, L, F)
+eq_refl : Champion9.tm (C, 0) = Some (0, R, D)
+     : Champion9.tm (C, 0) = Some (0, R, D)
+eq_refl : Champion9.tm (C, 1) = Some (1, L, C)
+     : Champion9.tm (C, 1) = Some (1, L, C)
+eq_refl : Champion9.tm (D, 0) = Some (1, R, A)
+     : Champion9.tm (D, 0) = Some (1, R, A)
+eq_refl : Champion9.tm (D, 1) = Some (1, R, G)
+     : Champion9.tm (D, 1) = Some (1, R, G)
+eq_refl : Champion9.tm (E, 0) = None
+     : Champion9.tm (E, 0) = None
+eq_refl : Champion9.tm (E, 1) = Some (0, R, A)
+     : Champion9.tm (E, 1) = Some (0, R, A)
+eq_refl : Champion9.tm (F, 0) = Some (1, L, B)
+     : Champion9.tm (F, 0) = Some (1, L, B)
+eq_refl : Champion9.tm (F, 1) = Some (1, L, F)
+     : Champion9.tm (F, 1) = Some (1, L, F)
+eq_refl : Champion9.tm (G, 0) = Some (1, L, H)
+     : Champion9.tm (G, 0) = Some (1, L, H)
+eq_refl : Champion9.tm (G, 1) = Some (1, R, E)
+     : Champion9.tm (G, 1) = Some (1, R, E)
+eq_refl : Champion9.tm (H, 0) = Some (0, L, I)
+     : Champion9.tm (H, 0) = Some (0, L, I)
+eq_refl : Champion9.tm (H, 1) = Some (1, L, H)
+     : Champion9.tm (H, 1) = Some (1, L, H)
+eq_refl : Champion9.tm (I, 0) = Some (1, L, B)
+     : Champion9.tm (I, 0) = Some (1, L, B)
+eq_refl : Champion9.tm (I, 1) = Some (0, L, H)
+     : Champion9.tm (I, 1) = Some (0, L, H)
+eq_refl : c0 = (A, (const 0, 0, const 0))
+     : c0 = (A, (const 0, 0, const 0))
+halt : halts tm c0
+     : halts tm c0
+score_closed
+:
+exists c : Q * tape,
+  c0 -->* c /\
+  halted tm c /\ ones c (3 * arrow (12 * Bx - 9) 2 8 + 108 * (Bx / 5) + 70)
+     : exists c : Q * tape,
+         c0 -->* c /\
+         halted tm c /\
+         ones c (3 * arrow (12 * Bx - 9) 2 8 + 108 * (Bx / 5) + 70)
+Bx_arrow13 : 2 * Bx + 4 = arrow 13 2 3
+     : 2 * Bx + 4 = arrow 13 2 3
+sigma_lower_bound
+:
+exists (c : Q * tape) (N : nat),
+  c0 -->* c /\ halted tm c /\ ones c N /\ arrow (arrow 13 2 3) 2 3 < N
+     : exists (c : Q * tape) (N : nat),
+         c0 -->* c /\ halted tm c /\ ones c N /\ arrow (arrow 13 2 3) 2 3 < N
+sigma_lower_bound_strong
+:
+exists (c : Q * tape) (N : nat),
+  c0 -->* c /\
+  halted tm c /\ ones c N /\ arrow (6 * arrow 13 2 3 - 33) 2 8 < N
+     : exists (c : Q * tape) (N : nat),
+         c0 -->* c /\
+         halted tm c /\ ones c N /\ arrow (6 * arrow 13 2 3 - 33) 2 8 < N
+Champion9.halt : halts Champion9.tm c0
+     : halts Champion9.tm c0
+Champion9.score_exact
+:
+exists c : Q * tape,
+  c0 -[ Champion9.tm ]->* c /\
+  halted Champion9.tm c /\ Champion9.ones c (Champion9.b2 + 3)
+     : exists c : Q * tape,
+         c0 -[ Champion9.tm ]->* c /\
+         halted Champion9.tm c /\ Champion9.ones c (Champion9.b2 + 3)
+new_champion
+:
+exists (cc : Q * tape) (Nc : nat) (co : Q * tape) 
+(No : nat),
+  c0 -[ Champion9.tm ]->* cc /\
+  halted Champion9.tm cc /\
+  ones cc Nc /\ c0 -->* co /\ halted tm co /\ ones co No /\ Nc + 1 < No
+     : exists (cc : Q * tape) (Nc : nat) (co : Q * tape) 
+       (No : nat),
+         c0 -[ Champion9.tm ]->* cc /\
+         halted Champion9.tm cc /\
+         ones cc Nc /\
+         c0 -->* co /\ halted tm co /\ ones co No /\ Nc + 1 < No
+new_champion_margin
+:
+exists (cc : Q * tape) (Nc : nat) (co : Q * tape) 
+(No : nat),
+  c0 -[ Champion9.tm ]->* cc /\
+  halted Champion9.tm cc /\
+  ones cc Nc /\ c0 -->* co /\ halted tm co /\ ones co No /\ 3 * (Nc + 1) < No
+     : exists (cc : Q * tape) (Nc : nat) (co : Q * tape) 
+       (No : nat),
+         c0 -[ Champion9.tm ]->* cc /\
+         halted Champion9.tm cc /\
+         ones cc Nc /\
+         c0 -->* co /\ halted tm co /\ ones co No /\ 3 * (Nc + 1) < No
+halts =
+fun (tm : TM) (c0 : Q * tape) => exists n : nat, halts_in tm c0 n
+     : TM -> Q * tape -> Prop
+
+Arguments halts tm c0
+halts_in =
+fun (tm : TM) (c : Q * tape) (n : nat) =>
+exists ch : Q * tape, c -[ tm ]->> n / ch /\ halted tm ch
+     : TM -> Q * tape -> nat -> Prop
+
+Arguments halts_in tm c n%nat_scope
+halted =
+fun (tm : TM) (c : Q * tape) =>
+let (q, p) := c in let (p0, _) := p in let (_, s) := p0 in tm (q, s) = None
+     : TM -> Q * tape -> Prop
+
+Arguments halted tm c
+Inductive step (tm : TM) : Q * tape -> Q * tape -> Prop :=
+    step_left : forall (q q' : Q) (s s' : Sym) (l r : side),
+                tm (q, s) = Some (s', L, q') ->
+                (q, (l, s, r)) -[ tm ]-> (q', move_left (l, s', r))
+  | step_right : forall (q q' : Q) (s s' : Sym) (l r : side),
+                 tm (q, s) = Some (s', R, q') ->
+                 (q, (l, s, r)) -[ tm ]-> (q', move_right (l, s', r)).
+
+Arguments step tm _ _
+Arguments step_left {tm q q'} {s s'}%sym_scope {l r} _
+Arguments step_right {tm q q'} {s s'}%sym_scope {l r} _
+c0 = (q0, tape0)
+     : Q * tape
+tape0 = (const s0, s0, const s0)
+     : tape
+ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = count1 L + sym_val s + count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments ones c N%nat_scope
+count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments count1 xs%list_scope
+sym_val = fun s : Sym => match s with
+                         | 0 => 0
+                         | 1 => 1
+                         end
+     : Sym -> nat
+
+Arguments sym_val s%sym_scope
+arrow =
+fix arrow (k a b : nat) {struct k} : nat :=
+  match k with
+  | 0 => a * b
+  | S k' => Nat.iter b (arrow k' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments arrow (k a b)%nat_scope
+Bx = proj1_sig Bx_sig
+     : nat
+Bx_def = proj2_sig Bx_sig
+     : Bx = U 10 (U 10 0)
+bp = proj1_sig bp_sig
+     : nat
+bp_def = proj2_sig bp_sig
+     : bp = iter 6 (U (12 * Bx - 11)) 0
+U =
+fix U (j : nat) : nat -> nat :=
+  match j with
+  | 0 => fun x : nat => dbl (2 * x + 2) 0
+  | S i => fun x : nat => iter (2 * x + 2) (U i) 0
+  end
+     : nat -> nat -> nat
+
+Arguments U (j _)%nat_scope
+iter =
+fix iter (n : nat) (g : nat -> nat) (x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => g (iter n' g x)
+  end
+     : nat -> (nat -> nat) -> nat -> nat
+
+Arguments iter n%nat_scope g%function_scope x%nat_scope
+dbl =
+fix dbl (a b : nat) {struct a} : nat :=
+  match a with
+  | 0 => b
+  | S a' => dbl a' (2 * b + 2)
+  end
+     : nat -> nat -> nat
+
+Arguments dbl (a b)%nat_scope
+Champion9.ones =
+fun (c : state * tape) (N : nat) =>
+exists (q : state) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = Champion9.count1 L + Champion9.sym_val s + Champion9.count1 R
+     : state * tape -> nat -> Prop
+
+Arguments Champion9.ones c N%nat_scope
+Champion9.b2 = Champion9.second Champion9.b1
+     : nat
+Champion9.b1 = Uc 7 (Uc 7 (Uc 5 (Uc 3 (Uc 1 3))))
+     : nat
+Champion9.second =
+fun b : nat => Uc (S b) (Uc (S b) (Champion9.Pv (b / 2) 0 3))
+     : nat -> nat
+
+Arguments Champion9.second b%nat_scope
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+
+# ---- stderr ----

@@ -1,0 +1,43 @@
+# coqc BB9_record_1RB0RA_selfcontained.v  (Coq 8.20.1, Coq Platform 2025.01, Windows 11, plain coqc, no -Q,
+# in a directory holding only this file and probe_selfcontained.v), 2026-10-07 11:59-13:56, exit 0, 6999 s wall
+# (the first 80 minutes at Idle priority on a fully loaded 16-core laptop, then at Normal priority).
+# stderr (warnings only), then stdout.
+File ".\BB9_record_1RB0RA_selfcontained.v", line 233, characters 0-56:
+Warning: Automatically putting ltac_Mark in Prop even though it was declared
+with Type.
+Unset Automatic Proposition Inductives to prevent this (it will become the
+default in a future version).
+If you instead put ltac_Mark explicitly in Prop, set Dependent Proposition
+Eliminators around the declaration for full backwards compatibility.
+[automatic-prop-lowering,deprecated-since-8.20,deprecated,default]
+File ".\BB9_record_1RB0RA_selfcontained.v", line 12170, characters 0-56:
+Warning: Notation "_ --> _" was already used.
+[notation-overridden,parsing,default]
+File ".\BB9_record_1RB0RA_selfcontained.v", line 12171, characters 0-56:
+Warning: Notation "_ -->* _" was already used.
+[notation-overridden,parsing,default]
+File ".\BB9_record_1RB0RA_selfcontained.v", line 12172, characters 0-56:
+Warning: Notation "_ -->+ _" was already used.
+[notation-overridden,parsing,default]
+File ".\BB9_record_1RB0RA_selfcontained.v", line 13525, characters 43-57:
+Warning: Notation Nat.mul_div_le is deprecated since 8.17.
+Use Div0.mul_div_le instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB9_record_1RB0RA_selfcontained.v", line 13525, characters 43-57:
+Warning: Notation Nat.mul_div_le is deprecated since 8.17.
+Use Div0.mul_div_le instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+
+# ---- stdout ----
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

@@ -1,3 +1,5 @@
-Build: plain `coqc BB9_record_1RB0RA_selfcontained.v` (Coq 8.20.1) in an otherwise empty directory, 2026-10-06 14:31-15:32, exit 0, 3673 s wall on a loaded 16-core laptop; 12 x "Closed under the global context".
-Probe: `coqc probe_selfcontained.v`, exit 0, 195 s, 8 x "Closed under the global context".
-File SHA-256: see sha256.txt (41487fd2e1316a9d4a6ea939e7298f3644d4aeebdc8ca454941fa90b0886760d).
+Build 1: plain `coqc BB9_record_1RB0RA_selfcontained.v` (Coq 8.20.1) in an otherwise empty directory, 2026-10-06 14:31-15:32, exit 0, 3673 s wall on a loaded 16-core laptop; 12 x "Closed under the global context".
+Probe 1: `coqc probe_selfcontained.v`, exit 0, 195 s, 8 x "Closed under the global context".
+Build 2 (same file, same hash, fresh empty directory, 2026-10-07 11:59-13:56): exit 0, 6999 s wall (80 min at Idle priority on a fully loaded machine, then Normal), 12 x "Closed under the global context", stderr = the expected warnings only (build.log).
+Probe 2 (2026-10-07 13:56-13:59): exit 0, 172 s, 37 eq_refl checks (36 transition entries + c0), 8 x "Closed under the global context", no "Axioms:" line (probe.log).
+File SHA-256: 41487fd2e1316a9d4a6ea939e7298f3644d4aeebdc8ca454941fa90b0886760d (sha256.txt).
