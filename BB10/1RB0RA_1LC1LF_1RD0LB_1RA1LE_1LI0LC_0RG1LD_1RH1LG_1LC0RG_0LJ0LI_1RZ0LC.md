@@ -1,440 +1,462 @@
-# n1: a 10-state machine at the f_(ω+1) level
+# A 10-state machine at level f_(ω+1)
 
     1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_0RG1LD_1RH1LG_1LC0RG_0LJ0LI_1RZ0LC
 
-(standard text format; `1RZ` marks the undefined transition J0, the halt)
+Below we call this machine **n1**. It halts from the blank tape, its exact score is proved in Coq, and the score
+lies between two values of f_(ω+1). The current BB(10) champion has the published bound f_ω(f_ω(25)), at level ω of
+the fast-growing hierarchy. n1 beats it and moves BB(10) to level ω+1. Written 2026-10-08.
 
-Written 2026-10-08 in the style of the bbchallenge wiki page for the BB(7) champion
-`1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_0RG0RF`. Every formula is a Coq theorem in [`verify/multifile/`](verify/multifile/)
-or was re-checked with the independent literal simulator [`tools/bb10_n1_writeup_chk.py`](tools/bb10_n1_writeup_chk.py)
-(section 6.3); statements that are only on paper are marked as such.
+|   | 0   | 1   |                                                    |
+|---|-----|-----|----------------------------------------------------|
+| A | 1RB | 0RA |                                                    |
+| B | 1LC | 1LF |                                                    |
+| C | 1RD | 0LB |                                                    |
+| D | 1RA | 1LE |                                                    |
+| E | 1LI | 0LC | E0 was the halting transition of the base machine  |
+| F | 0RG | 1LD |                                                    |
+| G | 1RH | 1LG |                                                    |
+| H | 1LC | 0RG |                                                    |
+| I | 0LJ | 0LI | new                                                |
+| J | --- | 0LC | new; J0 is undefined and is the halt (`1RZ` in the string) |
+
+**Where it comes from.** States A–H form an 8-state machine that we call the **base machine**. It agrees with the
+BB(8) record `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_1LC0RH_1RG1LF` ([`../BB8/`](../BB8/)) on states A–E. It runs
+the same digit-list computation as the record, which is the BB(7) champion's program with 36 digits. n1 keeps the
+base machine, sends its halting transition E0 to a new state I, and adds the states I and J.
+
+**Main facts.** Here T = 2↑^37 3, the value the BB(8) record computes, and F(x) = 2↑^x 4 = 2↑^(x+1) 3. "ones" is the
+number of 1s on the tape when J reads 0. The standard score is σ = ones + 1, because the halting transition writes
+a 1.
 
 | | |
 |---|---|
-| States | 10 (A–J). One undefined transition, J0, which is the halt. |
-| Halts? | **Yes, machine-checked** (`verify/multifile/BB10_n1.v`, `Theorem halt : halts tm c0`, no axioms, clean rebuild OK). |
-| Score | Exactly 2W + f + 3k + 22 ones on the tape when J reads 0, with W ≥ F^(2J+1)(34). Coq-checked (`score_exact`). In closed form, 2W + 3·2↑^(W+1)(2↑^n 5) + 12J + 5, with (n, W) from the period map of section 4. Also Coq-checked (`score_closed`). Add 1 for the standard convention (the halting transition writes a 1). |
-| Lower bound | σ > G^N(33), where G(x) = 2↑^(x+1) 3, N = (6T − 19)/7 and T = 2↑^37 3. Coq-checked (`sigma_lower_bound`). |
-| Class | f_(ω+1), **machine-checked**: f_(ω+1)((3T−13)/7 − 2) < σ < f_(ω+1)(6T) (`fgh_level`, standard definitions, section 5). Also **σ > Graham's number**, machine-checked (`beats_graham`). |
-| Beats the BB(10) champion? | **Yes, machine-checked** (`beats_champion`). |
-| Found by | A computer search, 2026-10-08, over 10-state extensions of a sibling of the BB(8) record (section 6.4). |
-
-Notation used throughout: T = 2↑^37 3. B is the BB(8) record's final counter, defined by 2B + 4 = T. F(n) = 2↑^n 4,
-which equals 2↑^(n+1) 3. Knuth arrows: 2↑^0 x = 2x, 2↑^1 x = 2^x, and 2↑^(k+1) x = 2↑^k 2↑^k … 2 (x twos).
+| Halts | **Yes**, machine-checked (Coq, no axioms). |
+| Exact score | Machine-checked: ones = 2W + 3·2↑^(W+1)(2↑^n 5) + 12·JJ + 5, where JJ = (3T − 13)/7 and (n, W) come from an explicit recursion (section 4.4). |
+| Lower bound | Machine-checked: ones > F^N(33), that is, F applied N = (6T − 19)/7 ≈ 0.86·T times to 33. |
+| Level | Machine-checked, with the standard fast-growing hierarchy: f_(ω+1)(JJ − 2) < ones < f_(ω+1)(6T). |
+| Graham's number | Machine-checked: ones > Graham's number. |
+| BB(10) champion | **Beaten**, machine-checked against the champion's own Coq-proved exact score. |
 
 ---
 
-## 1. Overview (no Turing-machine background needed)
+## 1. How it works
 
-**What is being measured.** A Turing machine works on an infinite strip of cells, each holding 0 or 1. It has a small
-finite memory (its "state", here one of ten letters A–J) and a read/write head. At every step it reads the cell under
-the head, then follows a fixed rule table: write a bit, move one cell left or right, switch state. The table has one
-deliberately missing entry (state J reading a 0). The machine stops when it hits that entry. The Busy Beaver game
-asks which 10-state table that eventually stops leaves the most 1s on the strip. n1 is a candidate.
+### 1.1 Reading the tape
 
-**The number system on the tape.** n1 never stores numbers in binary. It writes blocks D(m) = 1 (01)^m, which encode
-m. Blocks are separated by their own 1s, with no gaps. The tape then reads as a list of digits plus one "accumulator"
-at the right end, where the head sits. A digit d is the block D(3d+1), so D(1) is the digit 0. Write v = (A+8)/3 for
-the accumulator block A; v is the "value". The machine's basic move is the one used by the current BB(7) and BB(8)
-champions. It lowers the nearest nonzero digit by one, with an effect on v that depends on that digit's depth (how
-many zero digits lie between it and the head):
+The notation follows Ligocki's analysis of the BB(7) champion (bbchallenge wiki page for
+`1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_0RG0RF`).
 
-> **Removing one unit from a digit at depth j turns v into 2↑^j v.**
+- **Tokens.** The tape is a string of blocks D(t) = (10)^t 1. So D0 = `1`, D1 = `101`, D2 = `10101`, and so on. A
+  string of blocks splits into tokens in only one way.
+- **Configurations.** `[t_1, t_2, …, t_k | A]` means the tape
 
-At depth 0 this doubles v. At depth 1 it maps v to 2^v. At depth 2 it gives a tower of v twos, and so on. Emptying a
-whole list in this way is an Ackermann-type computation. The BB(8) record uses it on a list of 35 zero digits behind a
-leading digit 2, and finishes with v = 2↑^37 3.
+      0^∞  D(t_1) D(t_2) … D(t_k)  D0  D(A)  H>  0^∞
 
-**Phase 1: the BB(8) record's computation.** The first eight states of n1 are a close relative of the BB(8) record
-(its "G/H sibling", one of the four 35-digit machines of the record family). For more than 2↑^37 3 steps, n1 does
-exactly what the record does. After 6447 steps it has the list "digit 2, then 35 zeros". It clears that list and reaches the
-moment when every digit is 0, with v = T = 2↑^37 3. Here the record halts. n1 does not.
+  The tokens are listed left to right, as on the tape, so t_k is next to the head. A is the **accumulator**. The
+  D0 just left of it is part of the notation and is not listed. The head is in state H on the blank cell right of
+  D(A). Inside a list, x^j means j copies of the token x.
+- **Digits and zeros.** A token 3d + 1 is the digit d. In particular the token 1 (that is, D1) is a **zero**, and
+  `1^n` means n zeros.
+- **Units and blockers.** A token 3d + c with c ∈ {0, 1, 2} holds d **units**. Clearing removes units one at a time.
+  When a token has no units left it becomes c. If c = 1 it is a zero. If c = 0 or c = 2 it is a **blocker**: the
+  clearing rules cannot borrow from D0 or D2.
+- **Depth.** The depth of a token is the number of zeros between it and the accumulator. In `[…, t, 1^j | A]` the
+  token t has depth j.
+- **Value.** The value of an accumulator A ≡ 1 (mod 3) is v = (A + 8)/3. A reset accumulator A = 4 has v = 4.
+- **Arrows.** 2↑^0 x = 2x, 2↑^1 x = 2^x, and 2↑^(k+1) x applies 2↑^k x times, starting from 1. Two identities are used
+  often: 2↑^k 2 = 4, and 2↑^(k+1) 3 = 2↑^k 4.
 
-**Phase 2: turning T into a countdown.** At this moment n1 rewrites its value as a unary counter: a block of about 6T
-zero digits, parked at the far left of the tape. It also starts a second list, the "zero list", of 34 zeros next to
-the head. The counter is fenced off by blocker blocks (D0 and D2), which the Ackermann move cannot cross. So the
-counter is never used as digits. It is only decremented, by 14 per period.
+In Ligocki's notation, B(a; d_1, …, d_k) = `[3d_k+1, …, 3d_1+1 | 3a+1]` and v = a + 3. His g_j(x) = 2↑^j(x+3) − 3
+(with the BB(8) record's constants) is the map v ↦ 2↑^j v below.
 
-**Phase 3: the periods.** The rest of the run is a loop of about 0.43T periods (exactly (3T − 13)/7). Each period
-runs the same sequence of events, and the zero list grows twice per period:
-1. The current huge value v is parked as a single block in front of the zero list.
-2. A small fresh value is cleared at the current depth n. It becomes a huge new value, a tower-like number of
-   height about n.
-3. The parked block is unpacked into about 2v new zero digits. The zero list grows from n to about n + 2v.
-4. The new value is cleared at the new depth. This gives a value of size about 2↑^(n+2v) (…), which is one step of
-   the fast-growing function f_ω.
+**Example.** At step 6447 n1 is in the configuration `[7, 1^35 | 4]`: one digit 2, then 35 zeros, then the
+accumulator 4 (v = 4). On the tape this is D7 (D1)^35 D0 D4, that is,
 
-Then the same happens again with the new value, and the counter loses 14 in total. Every growth step takes the depth
-from n to at least 2↑^n 4. The period map is n ↦ n' ≥ F(F(n)), so the whole run applies an f_ω-rate function
-N = (6T − 19)/7 ≈ 0.86·2↑^37 3 times. In the fast-growing hierarchy this is the step from f_ω to f_(ω+1), since
-f_(ω+1)(N) = f_ω applied N times.
+    101010101010101 (101)^35 1 101010101 H>
 
-**Why each growth step is "free".** The design can only work if unpacking the large parked value (step 3) costs
-nothing that is in short supply. In n1 it doesn't. The unpack event turns a block D(1+3p) into 2p+1 zero digits and
-carries the small "transit" value through unchanged, whatever the relative sizes. The Coq lemma `P2_B` holds for all
-p and r with no hypothesis relating them. The earlier 10-state candidate M3 failed exactly here. Its unpack produced
-a token 2R + 4 − (x−3)/2, so the small current value R had to pay for half of the parked value x. In the real run
-x ≫ R, the payment fails, and M3 halts after its first period. M3 is therefore only f_ω-class (σ > 2↑^(4T+40) 4).
-In n1 no small number ever pays for a large one.
+In Ligocki's notation it is B(1; [0]*35, 2), the start of the BB(8) record's main phase.
 
-**The end, and a lucky residue.** The counter starts at 6T − 19 and loses 14 per period. The final event needs
-exactly 7 to be left, so 6T − 19 ≡ 7 (mod 14), which is the same as T ≡ 2 (mod 7). T is a tower of 2s with a huge
-exponent, so T ≡ 2 (mod 7) does hold; Coq proves it (`T_mod7`). In other residue classes the countdown ends in a
-different configuration that does not halt: such runs were followed for 100+ stages without a halt. At the end n1 does
-one last unpack and clears the final value down to a D0 block. It then walks into a fixed 44-cell pattern left behind
-in the far region and reads a 0 in state J: the halt.
+### 1.2 The engine
 
-**How big.** The final tape has about 3·2↑^(W+1)(2↑^n 5) ones, where W is the last depth. The machine-checked lower
-bound is
+n1 uses the clearing rules of the BB(7) champion and the BB(8) record:
 
-    σ  >  G^N(33),   G(x) = 2↑^(x+1) 3,   N = (6·(2↑^37 3) − 19)/7,
+> **Clearing one unit of a token at depth j changes the value v into 2↑^j v.**
 
-i.e. G applied about 0.86·2↑^37 3 times. In the fast-growing hierarchy Coq pins it between f_(ω+1)((3T−13)/7 − 2)
-and f_(ω+1)(6T), and proves it exceeds Graham's number (section 5). For comparison, the published
-champions (bbchallenge wiki "Champions", fetched 2026-10-08) are:
+At depth 0 this doubles v. At depth 1 it gives 2^v, and at depth 2 a tower of v twos. Clearing always works on the
+nearest token that is not a zero. If that token is a blocker, no clearing rule applies and the list is
+**exhausted**. In the BB(8) record an exhausted list leads to the halt. In n1 it starts one of the special events
+of section 2.
 
-| n | published bound | relation to n1 | status of the comparison |
+### 1.3 Phase 1: the BB(8) record's computation
+
+From the blank tape, n1 reaches `[7, 1^35 | 4]` after 6447 steps. It then clears the two units of the 7 at depth
+35:
+
+    v = 4  →  2↑^35 4  →  2↑^35 (2↑^35 4) = 2↑^36 4 = 2↑^37 3 = T
+
+The result is `[1^36 | 3T − 8]`: 36 zeros and the value v = T. These are the record's own configurations. The BB(8)
+record halts here, and its final sweep writes about 12T ones. In simulation the rules used up to this point never
+read E0 (section 1.8), so here n1 behaves exactly like the base machine.
+
+### 1.4 Phase 2: T becomes a countdown
+
+The list is exhausted. A walk to the left (event H) writes 2A + 4 = 6T − 12 new zeros at the far left. Then S0 (the
+first read of E0) tidies the left end. A clearing, an event P4 with nothing parked yet, and another clearing then
+give the first **period start**:
+
+    [2, 5, 1^(6T−19), 0, 0, 2, 1^34 | A]
+
+Reading from the left:
+
+- the first 2 is debris: a run of D2 tokens, one here, with 4 more added each period;
+- the 5 is a marker;
+- `1^m` is the **counter**, here m = 6T − 19 zeros;
+- the D0 D0 pair is a wall;
+- the next D2 is a blocker;
+- `1^n` is the **active list**, here n = 34 zeros;
+- the accumulator holds a huge value, v > T.
+
+The clearing rules only ever act on the active list. Between the active list and the counter there is always a
+blocker (a D2, a D0, or the D0 D0 wall), so the clearing never uses the counter's zeros as digits. Only the special
+events touch the counter, and each removes a fixed number of zeros: 6 + 6 + 2 = 14 per period.
+
+### 1.5 Phase 3: the periods
+
+At a period start the active list is exhausted: it holds only zeros, and its far end is the blocker D2. A period
+runs the same four-step cycle twice.
+
+1. **Park.** The accumulator moves into the list, as a token just beyond the zeros (event P1, or P3 the second
+   time). Its value v is now stored. The accumulator resets to 6.
+2. **Fresh small value.** R2 borrows one unit from the parked token and writes the 6 into the zero next to it, as
+   a token 9 (three units, at depth n − 1). Clearing those units gives the fresh value v₁ = 2↑^n 5. The 9 ends as
+   a D0, so the list is exhausted again.
+3. **Unpack.** Event P2 (or P4) turns the parked token, which holds about v units, into about **2v new zeros** of the
+   active list. The accumulator, which holds v₁, becomes a token on the far side of the new zeros: the **transit
+   token**. The accumulator resets to 4.
+4. **Jump.** Clearing the transit token at the new depth n' ≈ n + 2v gives a new value of about 2↑^(n'+1) v₁. The
+   transit token ends as a D2 blocker, so the list is exhausted again and the next step is a park.
+
+Each half-period therefore takes the depth from n to about n + 2v, where v is already at least 2↑^n 4. So the depth
+goes from n to at least F(n) = 2↑^n 4 (Coq lemma `growth`), and one period goes from n to at least F(F(n)). F grows
+at the rate of f_ω: 2↑^n 4 is roughly f_(n+1)(4), and Coq proves f_ω(x) ≤ F(F(x)) for x ≥ 3.
+
+The unpack is free. P2 and P4 hold for every parked value and every transit value, with no condition relating the
+two. The small current value never has to pay for the large parked one.
+
+### 1.6 Phase 4: the end
+
+The counter starts at 6T − 19 and loses 14 per period. When a period starts with the counter at 7, P1 takes 6 and
+leaves 1. That is too few for P2, so the final unpack is a different event, E. It writes a fixed 44-cell pattern at
+the far left. Its transit token is ≡ 0 (mod 3), so it clears down to a D0 instead of a D2. The machine then walks
+left into the fixed pattern and reaches state J reading 0: the halt.
+
+The counter reaches exactly 7 only if 6T − 19 ≡ 7 (mod 14), that is, T ≡ 2 (mod 7). Coq proves T ≡ 2 (mod 7)
+(`T_mod7`). So there are JJ = (3T − 13)/7 ≈ 0.43·T full periods and then the endgame, which is half a period. In all
+there are N = 2·JJ + 1 = (6T − 19)/7 unpacks, not counting the empty P4 of the set-up.
+
+### 1.7 Why the level is ω+1
+
+f_(ω+1)(x) is f_ω applied x times to x. n1 makes N ≈ 0.86·T steps of f_ω size, starting from depth 34. So its score
+is about f_(ω+1)(T), up to a small change in the argument. Coq proves
+
+    f_(ω+1)((3T − 13)/7 − 2)  <  ones  <  f_(ω+1)(6T).
+
+A machine at level ω, such as the BB(10) champion, applies f_ω a fixed number of times. n1 applies it a number of
+times equal to the BB(8) record's value.
+
+### 1.8 What the new states cost
+
+Compared with the base machine, n1 changes one transition (E0) and adds two states (I and J). In simulation on
+small instances (section 6.3), R1, R2, H and P3 read only transitions of the base machine. E0, I0, I1 and J1 are
+read only inside S0, P1, P2, P4, E and the final walk, and J0 is read only at the halt. So the countdown, the
+parking and the unpacking all come from this one rewired transition and two new states.
+
+---
+
+## 2. The rules
+
+Every rule in this section is a lemma of [`verify/multifile/BB10_n1.v`](verify/multifile/BB10_n1.v). Each holds for
+all values of its parameters. Coq lists tokens nearest-first. Here they are written left to right, as in section 1.1.
+X stands for any tokens further left.
+
+### 2.1 Clearing
+
+    R1    [X, t+3 | A]              →  [X, t | 2A + 8]
+    R2    [X, t+3, 1^(k+1) | A]     →  [X, t, A+3, 1^k | 4]
+
+R1 lowers the token next to the accumulator and doubles v. R2 borrows one unit from the nearest nonzero token; the
+zero next to it becomes A + 3 (the digit v − 2), and the accumulator resets to 4. Composed, they give `CLR`
+(for n = 0, or for A ≡ 1 mod 3):
+
+    CLR   [X, c + 3d, 1^n | A]      →  [X, c, 1^n | U_n^d(A)]
+
+where U_n^d means U_n applied d times, U_0(A) = 2A + 8, and U_(j+1)(A) = U_j applied (A−1)/3 + 1 times to 4. The
+closed forms (`U_closed` in `BB10_n1.v`, `iterU` in `BB10_n1_exact.v`) are
+
+    U_j(A) + 8   = 3 · 2↑^j ((A + 8)/3)        one unit at depth j:  v ↦ 2↑^j v   (A ≡ 1 mod 3)
+    U_j^d(4) + 8 = 3 · 2↑^(j+1) (d + 2)        d units at depth j from a reset:  v = 2↑^(j+1)(d + 2)
+
+In the run every accumulator that a clearing produces is ≡ 1 (mod 3) (Coq `r1_U`). The only other accumulator
+value is the 6 left by H, P1 and P3. After H it is used by S0. After P1 and P3 it is used at once by DEP9, which is
+R2 followed by CLR:
+
+    DEP9  [X, t+3, 1^(d+1) | 6]     →  [X, t, 0, 1^d | U_d^3(4)]          U_d^3(4) = 3·2↑^(d+1) 5 − 8
+
+### 2.2 The special events
+
+Two far-left patterns appear:
+
+- FarP(k, m) = D2^(k+2) D5 D1^m D0 D0 D0 `00`. P2 writes it and P3 merges it back.
+- FarE(k) = D2^k followed by the fixed 44 cells `10110101010101010010000010111100100100100100`. E writes it.
+
+`FarP(k, m) + [list | A]` means the far pattern followed directly by the configuration `[list | A]`.
+
+| event | from | to | what it does |
 |---|---|---|---|
-| 8 | > 2↑^37 3 > f_ω(36) (the record) | n1's phase 1 alone reaches this value | Coq (both) |
-| 9 | > f_ω(2↑^13 3) > f_ω(f_ω(12)) | far smaller | on paper |
-| **10** | **> f_ω(f_ω(25))** (Racheline 2024) | **n1 is larger** | **machine-checked**: `beats_champion` compares against the champion's own Coq-proved exact score |
-| 11 | > f_ω(f_ω(10↑^4 4)) | n1's bound is larger | on paper |
-| 12 | > f_ω(f_ω(f_ω(f_ω(f_4(2))))) | n1's bound is larger | on paper |
-| 13 | > f_(ω+1)(2046) > g_64 | n1's bound is larger: f_ω-rate steps about 0.86·2↑^37 3 times versus 2046 times | on paper |
-| 14 | > f_(ω+1)(f_ω(f_ω(f_ω(f_ω(f_7(3)))))) | larger than n1: its f_(ω+1) argument is far above 2↑^37 3 | on paper |
+| H | `[1^(n+1) \| A]` | `[2, 1^(2A+4), 0, 1^n \| 6]` | the exhausted list writes 2A + 4 new zeros at the far left |
+| S0 | `[2, 1^(M+5), 0, 1^(n+2) \| A]` | `[2, 5, 1^M, 0, 0, 0, A+3, 1^n \| 4]` | sets up the marker and the wall; first read of E0 |
+| P1 | `[2^k, 5, 1^(m+6), 0, 0, 2, 1^n \| A]` | `[2^(k+2), 5, 1^m, 0, 0, 0, 1, A+3, 1^n \| 6]` | parks v as the token A + 3; counter −6 |
+| P2 | `[2^k, 5, 1^(m+6), 0, 0, 0, 1, 1+3p, 0, 1^(w+1) \| A]` | `FarP(k, m) + [2, A+1, 1^(w+2p+2) \| 4]` | unpack: the parked 1 + 3p gives 2p + 1 new zeros; A becomes the transit token A + 1; counter −6 |
+| P3 | `FarP(k, m) + [2, 2, 1^w \| A]` | `[2^(k+2), 5, 1^m, 0, 0, A+5, 1^w \| 6]` | merges the far pattern back; parks v as A + 5 |
+| P4 | `[2^k, 5, 1^(m+2), 0, 0, 3q, 0, 1^(w+1) \| A]` | `[2^k, 5, 1^m, 0, 0, A+1, 1^(w+2q+2) \| 4]` | unpack: the parked 3q gives 2q + 1 new zeros; transit token A + 1; counter −2 |
+| E | `[2^(k+6), 5, 1, 0, 0, 0, 1, 1+3p, 0, 1^(w+1) \| A]` | `FarE(k) + [A+2, 1^(w+2p+2) \| 4]` | the last unpack (P2 with one counter zero left); transit token A + 2 |
+| HALT | `FarE(k) + [0, 1^w \| f]` | J reads 0 | halts with exactly 2w + f + 3k + 22 ones |
 
-The BB(11)–BB(13) champions have published lower bounds only, with no proved upper bounds. So the paper comparisons
-say only that n1's proved lower bound exceeds their published lower bounds. They do not say that n1 outscores those
-machines. Since BB is increasing, the comparison does mean that, if accepted, n1 would give a better lower bound for
-BB(11), BB(12) and BB(13) than the ones listed today. The comparison against the BB(10) champion is the only one
-checked in Coq.
+In Coq these are `H_B`, `S0_B`, `P1_B`, `P2_B`, `P3_B`, `P4_B`, `E_B` and `HALT_B` (the ones count is `HALT_exact` and
+`ones_c_halt` in `BB10_n1_bound.v`). Coq writes the accumulator of P2, P4 and E as r + 1.
 
----
+**The transit token.** In the run, A ≡ 1 (mod 3), so the transit token A + 1 is 2 + 3x with x = (A − 1)/3 = v − 3.
+CLR clears its x units at the new depth and stops at the D2. E's token A + 2 = 3(v − 2) clears down to D0 instead.
 
-## 2. Notation and configuration families
+**Worked example (literal simulation).** Take P4 with k = 1, m = 0, q = 2, w = 0 and A = 4:
 
-### 2.1 Tokens and the B-form
+    [2, 5, 1, 1, 0, 0, 6, 0, 1 | 4]
+       = 10101 10101010101 101 101 1 1 1010101010101 1 101 1 101010101 H>
 
-- **Token.** D(m) = (10)^m 1, so D0 = `1`, D1 = `101`, D2 = `10101`, and so on. Juxtaposed tokens tokenize uniquely.
-- **B-form.** `[t1, t2, …, tn | A]` is the configuration
+After 534 steps the machine is in
 
-      0^∞  D(t1) D(t2) … D(tn)  D0  D(A)  H>  0^∞
+    [2, 5, 0, 0, 5, 1^6 | 4]
+       = 10101 10101010101 1 1 10101010101 (101)^6 1 101010101 H>
 
-  The list is written **farthest token first**: tn is next to the head. A is the **accumulator**. The head is in
-  state H on the blank cell right of the tape. `x^j` inside a list means j copies of token x; for example `1^35` is
-  35 zero digits.
-- **Digits.** D(3d+1) is the digit d, so `1` in a list is a zero digit and `4` is a one. Tokens of value < 3 that sit
-  between nonzero digits (D0, D2) act as **blockers**: the clearing rules cannot borrow from them.
-- **Value.** For an accumulator A ≡ 1 (mod 3), v = (A+8)/3 (Coq's g, with A = 3g − 8). Every accumulator from a
-  clearing is ≡ 1 (mod 3) (Coq `r1_U`).
-- **Far regions.** Some events move the counter part of the list to the left and leave a short gap. I write
-  `Far + [list | A]` for "these bits, then the B-form".
-  - `FarP(k, m)` = D2^(k+2) D5 D1^m D0 D0 D0 `00`, written by P2 and merged back by P3.
-  - `FarE(k)` = D2^k followed by the fixed 44-cell tail `10110101010101010010000010111100100100100100`, written by
-    the last unpack E.
-- **Period start.** `Per(k, m, n, a)` = `[2^k, 5, 1^m, 0, 0, 2, 1^n | a]`. Here k counts the D2 run, m is the
-  counter, n is the depth of the zero list, and a is the accumulator.
-
-### 2.2 Other notations in the sources
-
-All of them describe the same tape:
-
-| source | form | conversion to the B-form above |
-|---|---|---|
-| Coq (`BB10_n1.v`) | `Bf L ts A`, ts nearest-first | reverse the list. Event lemmas are parameterized as in Coq (e.g. P1 input `1^(m+6)`), and I keep that. |
-| Ligocki / record family | B(a; d1, d2, …) | A = 3a + 1, v = a + 3. Ligocki's g_k(x) = 2↑^k(x+3) − 3 is v ↦ 2↑^k v. |
-| BB(8) record Coq (`Kc ds a b`) | counter b | A = 6b + 4, v = 2b + 4. So the record's final b = B gives v = T. |
+The parked token 6 (q = 2) has become 2q + 1 = 5 new zeros, so the active list grew from 1 zero to 6. The
+accumulator 4 has become the transit token 5, which holds one unit. The counter lost its 2 zeros. With the parked
+token 30 (q = 10) instead, the same event gives 21 new zeros (1462 steps).
 
 ---
 
-## 3. Rules
+## 3. One period
 
-All rules below are Coq lemmas of `verify/multifile/BB10_n1.v`, each holding **for all values** of its parameters. I re-checked
-each one with my own simulator, on literal instances run to the next B-form (counts in section 6.3).
+Write v = (A + 8)/3 for the value at the period start, and
 
-### 3.1 The Ackermann list clearing (the record's R1/R2/R3)
+    Per(k, m, n, A) = [2^k, 5, 1^m, 0, 0, 2, 1^n | A]
 
-These are the BB(7)/BB(8) champions' rules in B-form. They read no new state: of E, I and J they use only E1.
+(debris k, counter m, depth n, accumulator A). Coq's `PERIOD` composes the events. Here A = 1 + 3p, so p = v − 3:
 
-    R1   [L, t+3 | A]             ->  [L, t | 2A+8]                    (lower the digit next to the head; v -> 2v)
-    R2   [L, t+3, 1^(k+1) | A]    ->  [L, t, A+3, 1^k | 4]             (borrow: the zero in front becomes A+3, i.e. the
-                                                                         digit v-2; the accumulator resets to v = 4)
+    Per(k, m+14, n, A)                                                   value v, depth n
+      P1    →  [2^(k+2), 5, 1^(m+8), 0,0,0, 1, A+3, 1^n | 6]             park v
+      DEP9  →  [2^(k+2), 5, 1^(m+8), 0,0,0, 1, A, 0, 1^(n−1) | A1]       v1 = 2↑^n 5
+      P2    →  FarP(k+2, m+2) + [2, A1+1, 1^n2 | 4]                      n2 = n + 2v − 6
+      CLR   →  FarP(k+2, m+2) + [2, 2, 1^n2 | A2]                        v2 = 2↑^(n2+1)(v1 − 1)
+      P3    →  [2^(k+4), 5, 1^(m+2), 0,0, A2+5, 1^n2 | 6]                park v2
+      DEP9  →  [2^(k+4), 5, 1^(m+2), 0,0, A2+2, 0, 1^(n2−1) | A3]        v3 = 2↑^n2 5
+      P4    →  [2^(k+4), 5, 1^m, 0,0, A3+1, 1^n4 | 4]                    n4 = n2 + 2v2 − 4
+      CLR   →  Per(k+4, m, n4, A')                                       v' = 2↑^(n4+1)(v3 − 1)
 
-R1 and R2 compose into the clearing rule (Coq `CLR`, for A ≡ 1 mod 3 when n ≥ 1):
+The values follow from the closed form of CLR, because every clearing here starts from the reset accumulator 4
+(DEP9 clears 3 units; the transit tokens hold v1 − 3 and v3 − 3 units). Per period the debris grows by 4 and the
+counter falls by 14. `PERIOD` keeps the invariant n ≥ 3, A ≡ 1 (mod 3), v ≥ F(n), and proves n4 ≥ F(F(n)).
 
-    CLR  [L, c+3d, 1^n | A]  ->  [L, c, 1^n | U_n^d(A)]        U_0(A) = 2A+8,  U_(j+1)(A) = U_j^((A-1)/3 + 1)(4)
+The exact period map is the function `step` of [`BB10_n1_exact.v`](verify/multifile/BB10_n1_exact.v):
 
-Closed forms (Coq `U_closed`; the second is `iterU` of `BB10_n1_exact.v`):
+    step(n, v) = (n4, 2↑^(n4+1)(2↑^n2 5 − 1))
+        where  n2 = n + 2v − 6,   n4 = n2 + 2·2↑^(n2+1)(2↑^n 5 − 1) − 4
 
-    U_j(A) + 8 = 3 · 2↑^j ((A+8)/3)          i.e.  v -> 2↑^j v   per unit at depth j
-    U_j^d(4) + 8 = 3 · 2↑^(j+1) (d+2)        (d units cleared at depth j, starting from a reset)
-
-The record's R3, which borrows across several zeros, is R2 applied repeatedly inside CLR, so it needs no separate
-rule here. The clearing stops when the token reaches c ∈ {0, 1, 2}. If c = 1 the token is a zero digit and the scan
-continues. If c = 0 or 2 the token is a blocker, and one of the special events below fires.
-
-**Worked example** (literal, my simulator). The list "digit 1 at depth 1" is [4, 1 | 4], with v = 4:
-
-    step    0   [4, 1 | 4]       v = 4
-    step  194   [1, 7 | 4]       R2: the 4 is borrowed to 1, the zero becomes 7 = digit 2 = v-2, reset
-    step  606   [1, 4 | 16]      R1: v = 8
-    step 2626   [1, 1 | 40]      R1: v = 16 = 2^4, as v -> 2↑^1 v predicts
-
-### 3.2 Start-up and the record phase
-
-    blank, state A   --6447 steps-->   [7, 1^35 | 4]          (digit 2 behind 35 zeros; Coq: `do 6447 step`)
-    [7, 1^35 | 4]    --CLR-->          [1^36 | 3T-8]          (v: 4 -> 2↑^35 4 -> 2↑^35 2↑^35 4 = 2↑^37 3 = T)
-
-The record's B is related by 3T − 8 = 6B + 4. Along the way the run passes [4^36 | 16] at step 48159, which is
-Ligocki's B(5; [1]^36). Both landmarks re-checked literally. The first 48159 steps use only the 15 base slots A0–H1
-without E0.
-
-### 3.3 Stage 0: from the exhausted list to the first period
-
-    H    [1^(n+1) | a]                 ->  [2, 1^(2a+4), 0, 1^n | 6]             (base states only: no E0 read)
-    S0   [2, 1^(M+5), 0, 1^(n+2) | a]  ->  [2, 5, 1^M, 0, 0, 0, a+3, 1^n | 4]    (first E0 read; uses I0, I1, J1)
-
-In the real run (Coq `reach_per`):
-
-    [1^36 | 3T-8]
-      -H->    [2, 1^(6T-12), 0, 1^35 | 6]                       (6T-12 = 12B+12: the counter is born)
-      -S0->   [2, 5, 1^(6T-17), 0, 0, 0, 9, 1^33 | 4]
-      -CLR->  [2, 5, 1^(6T-17), 0, 0, 0, 0, 1^33 | 3·2↑^34 5 - 8]      (the 9 = three units, cleared at depth 33)
-      -P4 (q = 0, nothing parked)->  [2, 5, 1^(6T-19), 0, 0, r+2, 1^34 | 4],  r+1 = 3·2↑^34 5 - 8
-      -CLR->  Per(1, 6T-19, 34, a0),   v0 = 2↑^35(2↑^34 5 - 1)
-
-So the first period starts with k = 1, counter m0 = 6T − 19 = 12B + 5, depth n0 = 34 and value v0 > T.
-
-### 3.4 The period events
-
-DEP9 is R2 followed by CLR of the deposited 9 (three units), as a single lemma:
-
-    DEP9 [L, t+3, 1^(d+1) | 6]  ->  [L, t, 0, 1^d | U_d^3(4)]        U_d^3(4) = 3·2↑^(d+1) 5 - 8
-
-The four special events (exact Coq statements, farthest-first):
-
-| event | before | after | what it does |
-|---|---|---|---|
-| **P1** | `[2^k, 5, 1^(m+6), 0, 0, 2, 1^n \| a]` | `[2^(k+2), 5, 1^m, 0, 0, 0, 1, a+3, 1^n \| 6]` | counter −6. Parks the value as token a+3 = P+3. |
-| **P2** | `[2^k, 5, 1^(m+6), 0, 0, 0, 1, 1+3p, 0, 1^(w+1) \| r+1]` | `FarP(k, m) + [2, r+2, 1^(w+2p+2) \| 4]` | **growth**: the parked P = 1+3p becomes 2p+1 new zeros. The counter (−6) moves to the far region. The accumulator becomes the transit token r+2. |
-| **P3** | `FarP(k, m) + [2, 2, 1^w \| a]` | `[2^(k+2), 5, 1^m, 0, 0, a+5, 1^w \| 6]` | merges the far region back. Parks the value as a+5 = Q+3. Base states only. |
-| **P4** | `[2^k, 5, 1^(m+2), 0, 0, 3q, 0, 1^(w+1) \| r+1]` | `[2^k, 5, 1^m, 0, 0, r+2, 1^(w+2q+2) \| 4]` | **growth**: the parked Q = 3q becomes 2q+1 new zeros. Counter −2. Transit token r+2. |
-
-P2 and P4 hold for **all** p, q, r. The unpack never compares the parked value with the transit, which is the
-property M3 lacked. I checked both literally in both size orders, e.g. p = 1000 against r = 2 and p = 1 against
-r = 999.
-
-**The transit jump.** After P2 or P4 the accumulator r+1 has become the token r+2 ≡ 2 (mod 3),
-in front of the enlarged zero list. Here r = 3x (the accumulator is ≡ 1 mod 3), so CLR clears the token's x = r/3 units down to D2, each at the new depth.
-This is where the new huge value is made.
-
-**One period, composed** (Coq `PERIOD`; values written in v = (a+8)/3):
-
-    Per(k, m+14, n, a)                                                         value v, depth n
-      -P1->    [2^(k+2), 5, 1^(m+8), 0,0,0, 1, a+3, 1^n | 6]
-      -DEP9->  [.., 1, a, 0, 1^(n-1) | ·]                                       v1 = 2↑^n 5
-      -P2->    FarP(k+2, m+2) + [2, ·, 1^n2 | 4]                                n2 = n + 2v - 6
-      -CLR->   FarP(k+2, m+2) + [2, 2, 1^n2 | ·]                                v2 = 2↑^(n2+1)(v1 - 1)
-      -P3->    [2^(k+4), 5, 1^(m+2), 0,0, a'+5, 1^n2 | 6]
-      -DEP9->  [.., 0,0, a'+2, 0, 1^(n2-1) | ·]                                 v3 = 2↑^n2 5
-      -P4->    [2^(k+4), 5, 1^m, 0,0, ·, 1^n4 | 4]                              n4 = n2 + 2v2 - 4
-      -CLR->   Per(k+4, m, n4, a'')                                             v' = 2↑^(n4+1)(v3 - 1)
-
-Per period: **k += 4, m −= 14** (P1 −6, P2 −6, P4 −2), and the depth grows twice. Coq proves n4 ≥ F(F(n)) and keeps
-the invariant a ≡ 1 (mod 3), a ≥ U_n(4). The exact map (n, v) ↦ (n4, v') is the `step` function of
-`BB10_n1_exact.v`:
-
-    n2 = n + 2v - 6
-    n4 = n2 + 2·2↑^(n2+1)(2↑^n 5 - 1) - 4
-    v' = 2↑^(n4+1)(2↑^n2 5 - 1)
-
-This map is machine-checked (`PERIOD_U`, `step`, `score_closed`). I also re-derived it by hand from the event lemmas
-above and the closed form of CLR.
-
-### 3.5 The endgame and the halt
-
-After JJ = (3T − 13)/7 periods the configuration is Per(4JJ+1, 7, n, a). The last period starts like the others:
-
-    E     [2^(k+6), 5, 1, 0,0,0, 1, 1+3p, 0, 1^(w+1) | r+1]  ->  FarE(k) + [r+3, 1^(w+2p+2) | 4]
-    HALT  FarE(k) + [0, 1^w | f]  ->  state J reads 0 (undefined): halt, with exactly 2w + f + 3k + 22 ones
-
-The run (Coq `ENDGAME`, `HALT_B`, `HALT_exact`):
-
-    Per(k+4, 7, n, a)
-      -P1->    [2^(k+6), 5, 1, 0,0,0, 1, a+3, 1^n | 6]          (the counter is down to one digit)
-      -DEP9->  [2^(k+6), 5, 1, 0,0,0, 1, a, 0, 1^(n-1) | ·]       v1 = 2↑^n 5
-      -E->     FarE(k) + [r+3, 1^W | 4]                          W = n + 2v - 6 (the last unpack, E = P2 with m+6 = 1)
-      -CLR->   FarE(k) + [0, 1^W | f]                            r+3 ≡ 0 (mod 3) clears to D0, not D2;
-                                                                 f = 3·2↑^(W+1)(2↑^n 5) - 8
-      -HALT->  J0
-
-E differs from P2 in two ways. Because the counter is empty, the far region it writes is the fixed FarE tail, not a
-re-mergeable FarP. And its transit token is r+3 instead of r+2, so the jump ends on a D0, which leads to the halt and
-not to P3. The halting walk reads only the 44-cell tail, never the D2 run (the step count is independent of k).
-Literally the halt takes between 51 and 75,931 steps over my test grid. It halted for every tested (k, w, f), with
-exactly 2w + f + 3k + 22 ones each time.
-
-E0, I0, I1 and J1 are read only inside S0, P1, P2, P4, E and the halt walk. J0 is read only at the halt.
+No literal simulation can show a whole period, because even the first DEP9 of the real run clears at depth 33.
 
 ---
 
-## 4. The full run from the blank tape
+## 4. The run and the score
 
-| # | configuration | via | notes |
+### 4.1 Start and the BB(8) phase
+
+    blank tape, state A   --6447 steps-->  [7, 1^35 | 4]           (Coq: init_reach)
+    [7, 1^35 | 4]         --CLR-->         [1^36 | 3T − 8]         (v: 4 → 2↑^35 4 → 2↑^37 3 = T)
+
+On the way the run passes `[4^36 | 16]` at step 48159. In Ligocki's notation this is B(5; [1]*36). The record
+reaches the same two configurations at steps 6413 and 47897.
+
+### 4.2 Building the countdown
+
+This is Coq's `reach_per`:
+
+    [1^36 | 3T−8]
+      H     →  [2, 1^(6T−12), 0, 1^35 | 6]                       the counter is written
+      S0    →  [2, 5, 1^(6T−17), 0, 0, 0, 9, 1^33 | 4]
+      CLR   →  [2, 5, 1^(6T−17), 0, 0, 0, 0, 1^33 | A]           A = 3·2↑^34 5 − 8 (three units at depth 33)
+      P4    →  [2, 5, 1^(6T−19), 0, 0, A+1, 1^34 | 4]            q = 0: nothing parked yet
+      CLR   →  Per(1, 6T−19, 34, A0)                             v0 = 2↑^35(2↑^34 5 − 1) > T
+
+### 4.3 The whole run
+
+| | configuration | how | proved in Coq |
 |---|---|---|---|
 | 0 | blank tape, state A | | |
-| 1 | `[7, 1^35 \| 4]` | start-up | step 6447 (Coq) |
-| – | `[4^36 \| 16]` | R1/R2 | step 48159 (literal); Ligocki's B(5; [1]^36) |
-| 2 | `[1^36 \| 3T−8]` | CLR | the record's end: v = T = 2↑^37 3 |
-| 3 | `[2, 1^(6T−12), 0, 1^35 \| 6]` | H | the counter is born |
-| 4 | `[2, 5, 1^(6T−17), 0,0,0, 9, 1^33 \| 4]` | S0 | first E0 read |
-| 5 | `Per(1, 6T−19, 34, a0)` | CLR, P4 (q = 0), CLR | v0 = 2↑^35(2↑^34 5 − 1) |
-| 6 | `Per(1+4j, 6T−19−14j, n_j, a_j)` | j periods | n_(j+1) ≥ F(F(n_j)) |
-| 7 | `Per(4JJ+1, 7, n, a)` | JJ = (3T−13)/7 periods | needs 6T − 19 ≡ 7 (mod 14), i.e. T ≡ 2 (mod 7) |
-| 8 | `FarE(4JJ−3) + [0, 1^W \| f]` | P1, DEP9, E, CLR | W ≥ F^(2JJ+1)(34) |
-| 9 | halt (J reads 0) | HALT | |
+| 1 | `[7, 1^35 \| 4]` | 6447 steps | `init_reach` |
+| 2 | `[1^36 \| 3T−8]` | CLR | inside `reach_per` |
+| 3 | `Per(1, 6T−19, 34, A0)` | H, S0, CLR, P4, CLR | `reach_per` |
+| 4 | `Per(1+4j, 6T−19−14j, n_j, A_j)` | j periods, with n_(j+1) ≥ F(F(n_j)) | `PERIOD`, `PERIODS` |
+| 5 | `Per(4·JJ+1, 7, n, A)` | JJ = (3T−13)/7 periods; uses T ≡ 2 (mod 7) | `JJ_eq`, `T_mod7` |
+| 6 | `FarE(4·JJ−3) + [0, 1^W \| f]` | P1, DEP9, E, CLR | `ENDGAME` |
+| 7 | J reads 0 | the halting walk | `HALT_B`, `HALT_exact` |
 
-**Counts.** There are JJ = (3T − 13)/7 = (6B − 1)/7 ≈ 0.43T periods. The number of growth events (P2, P4 and E) is
-N = 2JJ + 1 = (6T − 19)/7 = (12B + 5)/7 ≈ 0.86T. The counter goes 12B + 7 (stage 0) → 12B + 5 (after the first P4)
-→ −14 per period → 7 → 1 (last P1). The D2 run ends at k = 4JJ − 3 inside FarE. The total step count has not been
-computed. It is far larger than σ.
+The endgame, from row 5 (k = 4·JJ − 3):
 
-**Exact score (machine-checked, `BB10_n1_exact.v`, `score_closed`).** At the halt the tape holds exactly
+    Per(k+4, 7, n, A)
+      P1    →  [2^(k+6), 5, 1, 0,0,0, 1, A+3, 1^n | 6]              one counter zero left
+      DEP9  →  [2^(k+6), 5, 1, 0,0,0, 1, A, 0, 1^(n−1) | A1]        v1 = 2↑^n 5
+      E     →  FarE(k) + [A1+2, 1^W | 4]                            W = n + 2v − 6
+      CLR   →  FarE(k) + [0, 1^W | f]                               f = 3·2↑^(W+1)(2↑^n 5) − 8
+      HALT  →  J reads 0
 
-    ones = 2W + f + 3k + 22                                    (Coq `score_exact`)
-         = 2W + 3·2↑^(W+1)(2↑^n 5) + 12JJ + 5                  (Coq `score_closed`)
+The halting walk reads only the 44-cell pattern, never the D2 debris. In simulation its length does not depend on k.
+The total number of steps has not been computed. It is far larger than the score.
 
-    where  JJ     = (3T − 13)/7,  T = 2↑^37 3
-           (n, v) = step^JJ (34, 2↑^35(2↑^34 5 − 1))
+### 4.4 The exact score
+
+At the halt the tape holds exactly
+
+    ones = 2W + f + 3k + 22                                         (Coq: score_exact)
+         = 2W + 3·2↑^(W+1)(2↑^n 5) + 12·JJ + 5                      (Coq: score_closed_unfolded)
+
+    where  T      = 2↑^37 3
+           JJ     = (3T − 13)/7
+           (n, v) = step applied JJ times to (34, 2↑^35(2↑^34 5 − 1))
            W      = n + 2v − 6
-           step(n, v) = (n4, 2↑^(n4+1)(2↑^n2 5 − 1))
-                  with n2 = n + 2v − 6  and  n4 = n2 + 2·2↑^(n2+1)(2↑^n 5 − 1) − 4
 
-In words: each period applies `step` once, and that one call covers the period's two growths.
-1. The first growth (P2) unpacks the parked value v into the zero list, so the depth goes from n to n2 = n + 2v − 6.
-2. The value made by clearing at depth n2 is unpacked by P4, which takes the depth to n4.
-3. The jump at depth n4 makes the next value, v' = 2↑^(n4+1)(2↑^n2 5 − 1).
-
-The endgame is half a period. Its last unpack takes the depth to W = n + 2v − 6, and the final value is cleared to D0,
-leaving f = 3·2↑^(W+1)(2↑^n 5) − 8. The run reaches the halt with k = 4JJ − 3 D2 tokens in the far region, so
-3k + 22 + (−8) gives the constant 12JJ + 5.
-
-Everything collapses to plain arrows because every clearing starts from the reset accumulator 4, and
-(U_j)^d(4) = 3·2↑^(j+1)(d+2) − 8. This exact formula and the lower bound σ > G^N(33) (section 5) are both Coq theorems.
-The bound is just the exact value with each growth step rounded down to n ↦ F(n). The standard score σ (the halting
-transition writes a 1) is ones + 1. The ones are counted as follows. Each D2 gives 3.
-The FarE tail gives 19. The block D0 D1^W D0 D(f) gives 2W + f + 3. Altogether this is 2W + f + 3k + 22, and the halt
-walk does not change the count. The dominant term is the final accumulator, 3·2↑^(W+1)(2↑^n 5).
-
-**A toy illustration** (verifier, hybrid run with B = 6 and fake clearing outputs in the real residue class). The zero
-counts crossed by successive jumps were `33 34 33 380 379 888 887 1554 1553 2382 …`. Each pair-to-pair step is one
-unpack of 2P/3 or 2Q/3. In the real run each of these steps is at least n ↦ F(n). No literal run can show even one
-real period: the first DEP9 already clears at depth 33.
+The count is easy to read off the final tape. A token D(t) has t + 1 ones, so the k = 4·JJ − 3 debris tokens D2 give
+3k. The fixed pattern gives 19. The tokens D0 D1^W D0 D(f) give 2W + f + 3. The halting walk does not change the
+count. The standard score is σ = ones + 1.
 
 ---
 
-## 5. Size analysis
+## 5. Size
 
-**Growth recurrence.**
-- Each unpack adds 2p + 1 zeros, where the parked value is 1 + 3p ≥ U_n(4). With U_n(4) + 8 = 3F(n) this gives
-  2p + 3 ≥ F(n) (Coq `growth`), so every growth event takes the depth from n to at least F(n) = 2↑^n 4.
-- One period is two such events: n' ≥ F(F(n)) (Coq `PERIOD`).
-- The endgame adds one more: W ≥ F(n).
-- Starting from depth 34, the final depth is W ≥ F^(2JJ+1)(34) = F^N(34).
+### 5.1 Machine-checked bounds
 
-**Machine-checked bounds** (`verify/multifile/BB10_n1_bound.v`; every theorem prints "Closed under the global context"):
+From [`BB10_n1_bound.v`](verify/multifile/BB10_n1_bound.v):
 
-    sigma_lower_bound : ones > iter ((6T-19)/7) (x |-> 2↑^(x+1) 3) 33
-    dominates         : ones > (2↑^K)^x (x)   for all K, x <= F(F(F(34)))
-    beats_M3_bound    : ones > 2↑^(4T+41) 2↑^(4T+39) 2↑^(4T+35) 5        (M3's proved lower bound; M3 has no upper bound)
-    beats_lead        : ones > the exact score of the 10-state 0LJ0LC candidate
-    beats_champion    : ones > the exact score of the BB(10) champion
+- **Growth.** Each unpack takes the depth from n to at least F(n) = 2↑^n 4. There are N = 2·JJ + 1 = (6T − 19)/7
+  unpacks, so W ≥ F^(2JJ+1)(34), that is, F applied 2·JJ + 1 times to 34 (`score_exact`).
+- `sigma_lower_bound`: ones > F^N(33). Coq states it with G(x) = 2↑^(x+1) 3, which equals F(x).
+- `dominates`: ones > (2↑^K)^x (x), the map 2↑^K applied x times to x, for all K, x ≤ F(F(F(34))).
 
-**Hierarchy level (machine-checked, `verify/multifile/BB10_n1_fgh.v`).** With the standard fast-growing hierarchy, f_0(n) = n+1, f_(k+1)(n) = f_k^n(n), f_ω(n) = f_n(n), f_(ω+1)(n) = f_ω^n(n); Graham's number G = g_64 with g_0 = 4, g_(k+1) = 3↑^(g_k) 3, Coq proves
+From [`BB10_n1_fgh.v`](verify/multifile/BB10_n1_fgh.v), with the standard fast-growing hierarchy
+(f_0(x) = x + 1, f_(k+1)(x) = f_k applied x times to x, f_ω(x) = f_x(x), f_(ω+1)(x) = f_ω applied x times to x)
+and Graham's number g_64 (g_0 = 4, g_(k+1) = 3↑^(g_k) 3):
 
-    fgh_level             : f_(ω+1)((3T−13)/7 − 2)  <  ones  <  f_(ω+1)(6T)     (ones = the exact count of score_closed)
-    graham_lt_f_omega1_64 : G < f_(ω+1)(64)
-    beats_graham          : ones > G
+- `fgh_level`: f_(ω+1)((3T−13)/7 − 2) < ones < f_(ω+1)(6T). So the level is ω+1, not ω and not ω+2.
+- `fgh_lower_64`: ones > f_(ω+1)(64).
+- `graham_lt_f_omega1_64`: g_64 < f_(ω+1)(64). Together with the previous line, `beats_graham`: ones > g_64.
 
-so n1 sits exactly at level ω+1 (not ω+2), and beats Graham's number.
+### 5.2 Comparison with the published champions
 
-**Intuition.** F(x) = 2↑^x 4 grows at the rate of f_ω under the usual correspondence 2↑^k x ≈ f_(k+1)(x).
-So σ is about f_ω applied N ≈ 0.86·2↑^37 3 times, starting near 34. After two steps the start value is far above N,
-which puts σ near f_(ω+1)(0.86·2↑^37 3), give or take a small shift in the argument. An f_ω-class machine applies f_ω a
-fixed number of times; n1 applies it a number of times equal to the BB(8) record's value.
+The bounds are from the bbchallenge wiki "Champions" page, as of 2026-10-08.
 
-**Comparison with related 10-state machines** (other machines from the same project, 2026-10-08; machine strings
-below the table). All except n1 are single f_ω-scale applications:
+| n | champion | published lower bound | compared with n1 | status |
+|---|---|---|---|---|
+| 8 | Ketchersid 2026 (the BB(8) record) | 2↑^37 3 > f_ω(36) | n1's first phase computes the same value T | Coq, for both machines |
+| 9 | Ketchersid 2026 | f_ω(2↑^13 3) > f_ω(f_ω(12)) | far below n1 | on paper |
+| **10** | **Racheline 2024** | **f_ω(f_ω(25))** | **n1 is larger** | **Coq** (`beats_champion`, against the champion's Coq-proved exact score) |
+| 11 | Jacobzheng 2026 | f_ω(f_ω(10↑^4 4)) | n1's lower bound is larger | on paper |
+| 12 | Racheline 2024 | f_ω(f_ω(f_ω(f_ω(2↑↑↑4 − 3)))) > f_ω(f_ω(f_ω(f_ω(f_4(2))))) | n1's lower bound is larger | on paper |
+| 13 | 50_ft_lock 2026 | f_(ω+1)(2046) > g_64 | n1's lower bound is larger (argument ≈ 0.43·T instead of 2046) | on paper |
+| 14 | Jacobzheng 2026 | f_(ω+1)(f_ω(f_ω(f_ω(f_ω(f_7(3)))))) | above n1's upper bound f_(ω+1)(6T) | on paper |
 
-| machine | σ (form) | status |
-|---|---|---|
-| **n1** | f_ω-rate step applied ≈ 0.86·2↑^37 3 times | Coq: halts, bound |
-| c1 | 2↑^N' 5 < σ, N' = (76B + 141)/3 | strong evidence |
-| M3 (`..._---0LJ_0LD0RA`) | σ > 2↑^(8B+56) 4 | strong evidence; f_(ω+1) claim withdrawn |
-| M3J | 2↑^(z+4) 5 < σ < 2↑^(z+4) 6, z ≈ 2.4T | strong evidence |
-| 0LJ0LC | σ = 2·(2↑^L 5) + 2L − 2, L = 4·(2↑^27 3) + 17 | Coq |
-| BB(10) champion | > f_ω(f_ω(25)) | Coq (score and upper bound) |
+The paper comparisons combine `fgh_level` with monotonicity and assume that the wiki uses the same standard
+definitions. For example, for x ≥ 4, f_(ω+1)(x) ≥ f_ω(f_ω(f_ω(f_ω(x)))), and JJ − 2 is far above 2↑↑↑4.
 
-- c1: `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_0RG1LD_1RH1LG_1LC0RG_1RZ1LJ_0RJ0RF`
-- M3: `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_1RG1LD_1LC0RH_1RG1LF_1RZ0LJ_0LD0RA`
-- M3J: `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_1RG1LD_1LC0RH_1RG1LF_1RZ0LJ_1LD1LC`
-- 0LJ0LC: `1RB0RA_1LC1LF_1RD0LB_1RA1LE_0LJ0LC_1RG1LD_0RI0RH_1RG1LF_1RE1RI_1RZ1LC` (its proofs are the `BB10_lead_*` files in `verify/multifile/`)
-- BB(10) champion (Racheline 2024): `1RB1RA_0LC0LF_0RD1LC_1RA1RG_1RZ0RA_1LB1LF_1LH1RE_0LI1LH_0LF0LJ_1LH0LJ` (`BB10_champion_*` files)
+The BB(11)–BB(13) champions have published lower bounds only. So the paper comparisons show only that n1's proved
+lower bound exceeds their published lower bounds, not that n1 outscores those machines. Because BB is increasing,
+n1 would still raise the known lower bounds for BB(11), BB(12) and BB(13), if accepted. The comparison with the
+BB(10) champion is the only one checked in Coq.
+
+The Coq development also proves (`beats_lead`) that n1 beats an unpublished 10-state machine of the same family,
+whose proofs are the `BB10_lead_*` files in `verify/multifile/`.
 
 ---
 
-## 6. Verification status, files and credit
+## 6. Verification
 
-### 6.1 What is machine-checked (Coq 8.20.1, busycoq)
+### 6.1 What Coq proves
 
-| statement | file | status |
+The development is in [`verify/multifile/`](verify/multifile/). It uses Coq 8.20.1 on top of
+[busycoq](https://github.com/meithecatte/busycoq) (commit `bd2e36f`). See [`verify/README.md`](verify/README.md).
+
+| statement | Coq name | file |
 |---|---|---|
-| `halt : halts tm c0` | `verify/multifile/BB10_n1.v` (353 KB) | no axioms; transition table checked entry by entry (`probe.v`); clean rebuild from scratch (`compile_clean.log`) |
-| `score_exact`, `sigma_lower_bound`, `dominates`, `beats_M3_bound`, `beats_lead`, `beats_champion` | `verify/multifile/BB10_n1_bound.v` | all Closed under the global context (`probe.log`) |
-| `score_closed`, `score_closed_unfolded`, `score_value_gt` (the exact formula of §4) | `verify/multifile/BB10_n1_exact.v` | all Closed under the global context (`probe.log`); formula also re-derived by hand (§3.4) |
-| every event lemma (H, S0, P1–P4, E, HALT, R1, R2, CLR, DEP9) and the chain (PERIOD, ENDGAME, reach_per) | inside `BB10_n1.v` | Coq |
-| T ≡ 2 (mod 7), JJ = (3T−13)/7, Af = 3T − 8 | `BB10_n1.v` (arith part) | Coq |
-| `fgh_level`, `fgh_lower_64`, `graham_lt_f_omega1_64`, `beats_graham` | `verify/multifile/BB10_n1_fgh.v` | all Closed under the global context (`probe.log`) |
+| n1 halts from the blank tape | `halt` | `BB10_n1.v` |
+| every rule of sections 2–4, for all parameters; T ≡ 2 (mod 7); JJ = (3T−13)/7 | `R1`, `R2`, `CLR`, `DEP9`, `H_B`, `S0_B`, `P1_B`–`P4_B`, `E_B`, `HALT_B`, `PERIOD`, `ENDGAME`, `reach_per`, `T_mod7` | `BB10_n1.v` |
+| exact ones count 2w + f + 3k + 22, with w ≥ F^(2JJ+1)(34) | `score_exact` | `BB10_n1_bound.v` |
+| the closed formula of section 4.4 | `score_closed_unfolded`, `score_value_gt` | `BB10_n1_exact.v` |
+| lower bounds | `sigma_lower_bound`, `dominates` | `BB10_n1_bound.v` |
+| n1 beats the BB(10) champion | `beats_champion` | `BB10_n1_bound.v` (with `BB10_champion_*.v`) |
+| n1 beats an unpublished 10-state machine | `beats_lead` | `BB10_n1_bound.v` (with `BB10_lead_*.v`) |
+| level ω+1 | `fgh_level`, `fgh_lower_64` | `BB10_n1_fgh.v` |
+| more than Graham's number | `graham_lt_f_omega1_64`, `beats_graham` | `BB10_n1_fgh.v` |
 
-Everything else is on paper: the comparisons with the BB(11)–BB(14) champions, and the claim that other residue
-classes do not halt.
+`compile_clean.sh` rebuilds everything from scratch, in about 20 minutes, and then runs `probe.v`. The probe does
+three things:
 
-### 6.2 Independent checks (before Coq)
+- it checks all 20 entries of the transition table against the machine string, by conversion;
+- it prints the definitions the statements use (`arrow`, `F`, `iter`, `JJ`, `ones`, `step`, `fgh`, `Graham`, …);
+- it runs `Print Assumptions` on the twelve main theorems. All twelve report "Closed under the global context".
 
-- An independent simulator and rule set: every rule checked on 72 random instances in both size orders (older parked
-  values much larger or much smaller than the current value); whole hybrid chains for B = 6 and B = 20 halt; literal
-  stage 0 and endgame at B = 2526 (B's real residue class mod 2520); exactness of the transit jump.
-- A second, independent analysis (the search that found n1): mini-follower chains (B ≡ 6 mod 14 halts, other classes
-  do not), literal halt replays with the far region, and the structure of the far region.
-- The Coq development follows the first verification's chain event by event; no correction was needed.
+The logs are `compile_clean.log` and `probe.log`.
 
-### 6.3 My own re-checks for this write-up
+**Single file.** [`verify/BB10_n1_selfcontained.v`](verify/BB10_n1_selfcontained.v) is the same proof in one file
+that needs only the Coq standard library. `coqc` checks it in about 13 minutes and ends with 28 `Print Assumptions`,
+all closed. Its probe makes 61 conversion checks of the transition tables and runs 18 more `Print Assumptions`, all
+closed.
 
-[`tools/bb10_n1_writeup_chk.py`](tools/bb10_n1_writeup_chk.py) is an independent literal simulator and B-form parser
-(Python 3, standard library only, about 10 s). Results, 0 mismatches throughout:
+### 6.2 Not machine-checked
+
+- The comparisons with the BB(11)–BB(14) champions (section 5.2). They are on paper.
+- The intuitive statements of section 1, for example "f_ω-sized step". The precise versions are the Coq theorems
+  above.
+- The step counts of individual events, which transitions each event reads (section 1.8), and the fact that the
+  halting walk's length does not depend on k. These come from simulation.
+
+### 6.3 Literal simulation
+
+[`tools/bb10_n1_writeup_chk.py`](tools/bb10_n1_writeup_chk.py) is a separate cell-by-cell simulator (Python 3,
+standard library only, about 10 s). It shares no code with the Coq proof. It checks each rule on concrete
+instances, run to the next configuration of the form of section 1.1. 0 mismatches:
 
 | check | instances |
 |---|---|
-| start-up at step 6447 | `[7, 1^35 \| 4]` |
+| step 6447 | `[7, 1^35 \| 4]` |
 | step 48159 | `[4^36 \| 16]` |
 | R1, R2 | 12 each |
 | H | 30 |
 | S0 | 45 |
 | P1 | 15 |
-| P2 | 24, both size orders (p up to 1000 with small r; r up to 999 with small p), far region exact |
+| P2 | 24, in both size orders (p up to 1000 with small A; A up to 1000 with small p); far pattern exact |
 | P3 | 12 |
-| P4 | 18, both size orders |
-| E | 12, far tail exact |
-| HALT | 100: k ∈ {0,1,5,17}, w ∈ {0,1,2,7,30}, f ∈ {0,1,4,40,301}; all halt in J0 with exactly 2w + f + 3k + 22 ones |
+| P4 | 18, in both size orders |
+| E | 12; far pattern exact |
+| HALT | 100: k ∈ {0, 1, 5, 17}, w ∈ {0, 1, 2, 7, 30}, f ∈ {0, 1, 4, 40, 301}; every case halts in J0 with exactly 2w + f + 3k + 22 ones, after 51 to 75,931 steps |
 
+Before the Coq proof, two other independent simulators checked the same rules. They also made "hybrid" runs, in
+which every special event is simulated literally but each long clearing is replaced by a small stand-in value of the
+right residue. With the counter in the real residue class, these runs reach the halt in J0.
 
-### 6.4 Credit
+---
 
-- **Found** 2026-10-08 by a computer search over 10-state machines that keep a sibling of the BB(8) record (the
-  G/H-swap machine `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_0RG1LD_1RH1LG_1LC0RG`, one of the four 35-digit machines of the
-  record family) and redirect its halting transition E0 into two new states I, J. Run histories were filtered on the
-  length of the list that each clearing actually crosses; filters on total tape size missed n1.
-- **Verified** independently twice by literal simulation (section 6.2) before the Coq proof, then **proved** in Coq on
-  top of [busycoq](https://github.com/meithecatte/busycoq) and rebuilt from scratch.
-- The underlying engine is the BB(7) champion's (Kropitz; analysis by Ligocki) and the BB(8) record's 35-digit start
-  (Ketchersid 2026, [`BB8/`](../BB8/)).
+## 7. Discovery and credit
+
+- **Found** on 2026-10-08 by a computer search over 10-state machines that keep the base machine (states A–H) and
+  send its halting transition E0 into two new states. Run histories were filtered by the length of the list that
+  each clearing actually crosses. A filter on total tape size missed n1.
+- **Checked** first by independent literal simulations (section 6.3), then **proved** in Coq on top of busycoq.
+- **Built on** the BB(7) champion (Kropitz 2025, analysis by Ligocki) and the BB(8) record (Ketchersid 2026,
+  [`../BB8/`](../BB8/)).
