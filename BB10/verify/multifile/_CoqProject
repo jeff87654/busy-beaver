@@ -1,0 +1,13 @@
+-Q . BB8
+-Q ../../../busycoq/verify BusyCoq
+BB102.v
+Individual102.v
+BB10_n1.v
+BB10_lead_1RB0RA.v
+BB10_lead_bound.v
+BB10_champion_1RB1RA.v
+BB10_champion_bound.v
+BB10_lead_vs_champion.v
+BB10_n1_bound.v
+BB10_n1_exact.v
+BB10_n1_fgh.v

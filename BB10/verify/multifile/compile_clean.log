@@ -1,0 +1,119 @@
+== BB102.v ==
+   ok, 11 s
+== Individual102.v ==
+   ok, 12 s
+== BB10_n1.v ==
+File ".\BB10_n1.v", line 3193, characters 36-51:
+Warning: Notation Nat.div_le_mono is deprecated since 8.17.
+Use Div0.div_le_mono instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3193, characters 36-51:
+Warning: Notation Nat.div_le_mono is deprecated since 8.17.
+Use Div0.div_le_mono instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3266, characters 20-31:
+Warning: Notation Nat.mul_mod is deprecated since 8.17.
+Use Div0.mul_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3266, characters 20-31:
+Warning: Notation Nat.mul_mod is deprecated since 8.17.
+Use Div0.mul_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3266, characters 20-31:
+Warning: Notation Nat.mul_mod is deprecated since 8.17.
+Use Div0.mul_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3267, characters 13-24:
+Warning: Notation Nat.mul_mod is deprecated since 8.17.
+Use Div0.mul_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3267, characters 13-24:
+Warning: Notation Nat.mul_mod is deprecated since 8.17.
+Use Div0.mul_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3267, characters 13-24:
+Warning: Notation Nat.mul_mod is deprecated since 8.17.
+Use Div0.mul_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3267, characters 74-85:
+Warning: Notation Nat.mod_mod is deprecated since 8.17.
+Use Div0.mod_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3267, characters 74-85:
+Warning: Notation Nat.mod_mod is deprecated since 8.17.
+Use Div0.mod_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3267, characters 74-85:
+Warning: Notation Nat.mod_mod is deprecated since 8.17.
+Use Div0.mod_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3283, characters 10-21:
+Warning: Notation Nat.mul_mod is deprecated since 8.17.
+Use Div0.mul_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3283, characters 10-21:
+Warning: Notation Nat.mul_mod is deprecated since 8.17.
+Use Div0.mul_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1.v", line 3283, characters 10-21:
+Warning: Notation Nat.mul_mod is deprecated since 8.17.
+Use Div0.mul_mod instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+   ok, 473 s
+== BB10_lead_1RB0RA.v ==
+   ok, 152 s
+== BB10_lead_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 13 s
+== BB10_champion_1RB1RA.v ==
+   ok, 18 s
+== BB10_champion_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 13 s
+== BB10_lead_vs_champion.v ==
+File ".\BB10_lead_vs_champion.v", line 240, characters 46-68:
+Warning: Notation Nat.div_le_upper_bound is deprecated since 8.17.
+Use Div0.div_le_upper_bound instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_lead_vs_champion.v", line 240, characters 46-68:
+Warning: Notation Nat.div_le_upper_bound is deprecated since 8.17.
+Use Div0.div_le_upper_bound instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+Closed under the global context
+Closed under the global context
+   ok, 14 s
+== BB10_n1_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 35 s
+== BB10_n1_exact.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 22 s
+== BB10_n1_fgh.v ==
+File ".\BB10_n1_fgh.v", line 169, characters 24-46:
+Warning: Notation Nat.div_le_upper_bound is deprecated since 8.17.
+Use Div0.div_le_upper_bound instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB10_n1_fgh.v", line 169, characters 24-46:
+Warning: Notation Nat.div_le_upper_bound is deprecated since 8.17.
+Use Div0.div_le_upper_bound instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 30 s
+COMPILE DONE
+probe: 12 of 12 theorems closed under the global context
+EXIT 0
