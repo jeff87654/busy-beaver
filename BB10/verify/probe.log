@@ -1,0 +1,376 @@
+eq_refl : N1.tm (A, 0) = Some (1, R, B)
+     : N1.tm (A, 0) = Some (1, R, B)
+eq_refl : N1.tm (A, 1) = Some (0, R, A)
+     : N1.tm (A, 1) = Some (0, R, A)
+eq_refl : N1.tm (B, 0) = Some (1, L, C)
+     : N1.tm (B, 0) = Some (1, L, C)
+eq_refl : N1.tm (B, 1) = Some (1, L, F)
+     : N1.tm (B, 1) = Some (1, L, F)
+eq_refl : N1.tm (C, 0) = Some (1, R, D)
+     : N1.tm (C, 0) = Some (1, R, D)
+eq_refl : N1.tm (C, 1) = Some (0, L, B)
+     : N1.tm (C, 1) = Some (0, L, B)
+eq_refl : N1.tm (D, 0) = Some (1, R, A)
+     : N1.tm (D, 0) = Some (1, R, A)
+eq_refl : N1.tm (D, 1) = Some (1, L, E)
+     : N1.tm (D, 1) = Some (1, L, E)
+eq_refl : N1.tm (E, 0) = Some (1, L, I)
+     : N1.tm (E, 0) = Some (1, L, I)
+eq_refl : N1.tm (E, 1) = Some (0, L, C)
+     : N1.tm (E, 1) = Some (0, L, C)
+eq_refl : N1.tm (F, 0) = Some (0, R, G)
+     : N1.tm (F, 0) = Some (0, R, G)
+eq_refl : N1.tm (F, 1) = Some (1, L, D)
+     : N1.tm (F, 1) = Some (1, L, D)
+eq_refl : N1.tm (G, 0) = Some (1, R, H)
+     : N1.tm (G, 0) = Some (1, R, H)
+eq_refl : N1.tm (G, 1) = Some (1, L, G)
+     : N1.tm (G, 1) = Some (1, L, G)
+eq_refl : N1.tm (H, 0) = Some (1, L, C)
+     : N1.tm (H, 0) = Some (1, L, C)
+eq_refl : N1.tm (H, 1) = Some (0, R, G)
+     : N1.tm (H, 1) = Some (0, R, G)
+eq_refl : N1.tm (I, 0) = Some (0, L, J)
+     : N1.tm (I, 0) = Some (0, L, J)
+eq_refl : N1.tm (I, 1) = Some (0, L, I)
+     : N1.tm (I, 1) = Some (0, L, I)
+eq_refl : N1.tm (J, 0) = None
+     : N1.tm (J, 0) = None
+eq_refl : N1.tm (J, 1) = Some (0, L, C)
+     : N1.tm (J, 1) = Some (0, L, C)
+eq_refl : Champion10.tm (A, 0) = Some (1, R, B)
+     : Champion10.tm (A, 0) = Some (1, R, B)
+eq_refl : Champion10.tm (A, 1) = Some (1, R, A)
+     : Champion10.tm (A, 1) = Some (1, R, A)
+eq_refl : Champion10.tm (B, 0) = Some (0, L, C)
+     : Champion10.tm (B, 0) = Some (0, L, C)
+eq_refl : Champion10.tm (B, 1) = Some (0, L, F)
+     : Champion10.tm (B, 1) = Some (0, L, F)
+eq_refl : Champion10.tm (C, 0) = Some (0, R, D)
+     : Champion10.tm (C, 0) = Some (0, R, D)
+eq_refl : Champion10.tm (C, 1) = Some (1, L, C)
+     : Champion10.tm (C, 1) = Some (1, L, C)
+eq_refl : Champion10.tm (D, 0) = Some (1, R, A)
+     : Champion10.tm (D, 0) = Some (1, R, A)
+eq_refl : Champion10.tm (D, 1) = Some (1, R, G)
+     : Champion10.tm (D, 1) = Some (1, R, G)
+eq_refl : Champion10.tm (E, 0) = None
+     : Champion10.tm (E, 0) = None
+eq_refl : Champion10.tm (E, 1) = Some (0, R, A)
+     : Champion10.tm (E, 1) = Some (0, R, A)
+eq_refl : Champion10.tm (F, 0) = Some (1, L, B)
+     : Champion10.tm (F, 0) = Some (1, L, B)
+eq_refl : Champion10.tm (F, 1) = Some (1, L, F)
+     : Champion10.tm (F, 1) = Some (1, L, F)
+eq_refl : Champion10.tm (G, 0) = Some (1, L, H)
+     : Champion10.tm (G, 0) = Some (1, L, H)
+eq_refl : Champion10.tm (G, 1) = Some (1, R, E)
+     : Champion10.tm (G, 1) = Some (1, R, E)
+eq_refl : Champion10.tm (H, 0) = Some (0, L, I)
+     : Champion10.tm (H, 0) = Some (0, L, I)
+eq_refl : Champion10.tm (H, 1) = Some (1, L, H)
+     : Champion10.tm (H, 1) = Some (1, L, H)
+eq_refl : Champion10.tm (I, 0) = Some (0, L, F)
+     : Champion10.tm (I, 0) = Some (0, L, F)
+eq_refl : Champion10.tm (I, 1) = Some (0, L, J)
+     : Champion10.tm (I, 1) = Some (0, L, J)
+eq_refl : Champion10.tm (J, 0) = Some (1, L, H)
+     : Champion10.tm (J, 0) = Some (1, L, H)
+eq_refl : Champion10.tm (J, 1) = Some (0, L, J)
+     : Champion10.tm (J, 1) = Some (0, L, J)
+eq_refl : Lead10.tm (A, 0) = Some (1, R, B)
+     : Lead10.tm (A, 0) = Some (1, R, B)
+eq_refl : Lead10.tm (A, 1) = Some (0, R, A)
+     : Lead10.tm (A, 1) = Some (0, R, A)
+eq_refl : Lead10.tm (B, 0) = Some (1, L, C)
+     : Lead10.tm (B, 0) = Some (1, L, C)
+eq_refl : Lead10.tm (B, 1) = Some (1, L, F)
+     : Lead10.tm (B, 1) = Some (1, L, F)
+eq_refl : Lead10.tm (C, 0) = Some (1, R, D)
+     : Lead10.tm (C, 0) = Some (1, R, D)
+eq_refl : Lead10.tm (C, 1) = Some (0, L, B)
+     : Lead10.tm (C, 1) = Some (0, L, B)
+eq_refl : Lead10.tm (D, 0) = Some (1, R, A)
+     : Lead10.tm (D, 0) = Some (1, R, A)
+eq_refl : Lead10.tm (D, 1) = Some (1, L, E)
+     : Lead10.tm (D, 1) = Some (1, L, E)
+eq_refl : Lead10.tm (E, 0) = Some (0, L, J)
+     : Lead10.tm (E, 0) = Some (0, L, J)
+eq_refl : Lead10.tm (E, 1) = Some (0, L, C)
+     : Lead10.tm (E, 1) = Some (0, L, C)
+eq_refl : Lead10.tm (F, 0) = Some (1, R, G)
+     : Lead10.tm (F, 0) = Some (1, R, G)
+eq_refl : Lead10.tm (F, 1) = Some (1, L, D)
+     : Lead10.tm (F, 1) = Some (1, L, D)
+eq_refl : Lead10.tm (G, 0) = Some (0, R, I)
+     : Lead10.tm (G, 0) = Some (0, R, I)
+eq_refl : Lead10.tm (G, 1) = Some (0, R, H)
+     : Lead10.tm (G, 1) = Some (0, R, H)
+eq_refl : Lead10.tm (H, 0) = Some (1, R, G)
+     : Lead10.tm (H, 0) = Some (1, R, G)
+eq_refl : Lead10.tm (H, 1) = Some (1, L, F)
+     : Lead10.tm (H, 1) = Some (1, L, F)
+eq_refl : Lead10.tm (I, 0) = Some (1, R, E)
+     : Lead10.tm (I, 0) = Some (1, R, E)
+eq_refl : Lead10.tm (I, 1) = Some (1, R, I)
+     : Lead10.tm (I, 1) = Some (1, R, I)
+eq_refl : Lead10.tm (J, 0) = None
+     : Lead10.tm (J, 0) = None
+eq_refl : Lead10.tm (J, 1) = Some (1, L, C)
+     : Lead10.tm (J, 1) = Some (1, L, C)
+eq_refl : c0 = (A, (const 0, 0, const 0))
+     : c0 = (A, (const 0, 0, const 0))
+n1_halts : halts N1.tm c0
+     : halts N1.tm c0
+n1_score_exact
+:
+exists (c : Q * tape) (f k w : nat),
+  c0 -[ N1.tm ]->* c /\
+  halted N1.tm c /\
+  ones c (2 * w + f + 3 * k + 22) /\
+  iter (2 * ((3 * arrow 37 2 3 - 13) / 7) + 1) (fun n : nat => arrow n 2 4)
+    34 <= w
+     : exists (c : Q * tape) (f k w : nat),
+         c0 -[ N1.tm ]->* c /\
+         halted N1.tm c /\
+         ones c (2 * w + f + 3 * k + 22) /\
+         iter (2 * ((3 * arrow 37 2 3 - 13) / 7) + 1)
+           (fun n : nat => arrow n 2 4) 34 <= w
+n1_sigma_lower_bound
+:
+exists (c : Q * tape) (N : nat),
+  c0 -[ N1.tm ]->* c /\
+  halted N1.tm c /\
+  ones c N /\
+  iter ((6 * arrow 37 2 3 - 19) / 7) (fun x : nat => arrow (x + 1) 2 3) 33 <
+  N
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ N1.tm ]->* c /\
+         halted N1.tm c /\
+         ones c N /\
+         iter ((6 * arrow 37 2 3 - 19) / 7)
+           (fun x : nat => arrow (x + 1) 2 3) 33 < N
+n1_beats_M3_bound
+:
+exists (c : Q * tape) (N : nat),
+  c0 -[ N1.tm ]->* c /\
+  halted N1.tm c /\
+  ones c N /\
+  arrow (4 * arrow 37 2 3 + 41) 2
+    (arrow (4 * arrow 37 2 3 + 39) 2 (arrow (4 * arrow 37 2 3 + 35) 2 5)) < N
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ N1.tm ]->* c /\
+         halted N1.tm c /\
+         ones c N /\
+         arrow (4 * arrow 37 2 3 + 41) 2
+           (arrow (4 * arrow 37 2 3 + 39) 2
+              (arrow (4 * arrow 37 2 3 + 35) 2 5)) < N
+n1_beats_champion
+:
+exists (cc : Q * tape) (Nc : nat) (co : Q * tape) 
+(No : nat),
+  c0 -[ Champion10.tm ]->* cc /\
+  halted Champion10.tm cc /\
+  ones cc Nc /\
+  c0 -[ N1.tm ]->* co /\ halted N1.tm co /\ ones co No /\ Nc + 1 < No + 1
+     : exists (cc : Q * tape) (Nc : nat) (co : Q * tape) 
+       (No : nat),
+         c0 -[ Champion10.tm ]->* cc /\
+         halted Champion10.tm cc /\
+         ones cc Nc /\
+         c0 -[ N1.tm ]->* co /\
+         halted N1.tm co /\ ones co No /\ Nc + 1 < No + 1
+n1_beats_lead
+:
+exists (cl : Q * tape) (Nl : nat) (co : Q * tape) 
+(No : nat),
+  c0 -[ Lead10.tm ]->* cl /\
+  halted Lead10.tm cl /\
+  ones cl Nl /\
+  c0 -[ N1.tm ]->* co /\ halted N1.tm co /\ ones co No /\ Nl + 1 < No + 1
+     : exists (cl : Q * tape) (Nl : nat) (co : Q * tape) 
+       (No : nat),
+         c0 -[ Lead10.tm ]->* cl /\
+         halted Lead10.tm cl /\
+         ones cl Nl /\
+         c0 -[ N1.tm ]->* co /\
+         halted N1.tm co /\ ones co No /\ Nl + 1 < No + 1
+n1_fgh_level
+:
+exists (c : Q * tape) (N : nat),
+  c0 -[ N1.tm ]->* c /\
+  halted N1.tm c /\
+  ones c N /\
+  f_omega1 ((3 * arrow 37 2 3 - 13) / 7 - 2) < N <
+  f_omega1 (6 * arrow 37 2 3)
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ N1.tm ]->* c /\
+         halted N1.tm c /\
+         ones c N /\
+         f_omega1 ((3 * arrow 37 2 3 - 13) / 7 - 2) < N <
+         f_omega1 (6 * arrow 37 2 3)
+n1_fgh_lower_64
+:
+exists (c : Q * tape) (N : nat),
+  c0 -[ N1.tm ]->* c /\ halted N1.tm c /\ ones c N /\ f_omega1 64 < N
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ N1.tm ]->* c /\ halted N1.tm c /\ ones c N /\ f_omega1 64 < N
+graham_lt_f_omega1_64 : Graham < f_omega1 64
+     : Graham < f_omega1 64
+n1_beats_graham
+:
+exists (c : Q * tape) (N : nat),
+  c0 -[ N1.tm ]->* c /\ halted N1.tm c /\ ones c N /\ Graham < N
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ N1.tm ]->* c /\ halted N1.tm c /\ ones c N /\ Graham < N
+Champion10.halt : halts Champion10.tm c0
+     : halts Champion10.tm c0
+Champion10.score_exact
+:
+exists c : Q * tape,
+  c0 -[ Champion10.tm ]->* c /\
+  halted Champion10.tm c /\ Champion10.ones c (Lead10.b2c + 3)
+     : exists c : Q * tape,
+         c0 -[ Champion10.tm ]->* c /\
+         halted Champion10.tm c /\ Champion10.ones c (Lead10.b2c + 3)
+Lead10.halt : halts Lead10.tm c0
+     : halts Lead10.tm c0
+Lead10.score_exact
+:
+exists c : Q * tape,
+  c0 -[ Lead10.tm ]->* c /\
+  halted Lead10.tm c /\
+  Lead10.ones c (2 * Lead10.b2 + 2 * (4 * Lead10.bf + 33) + 5)
+     : exists c : Q * tape,
+         c0 -[ Lead10.tm ]->* c /\
+         halted Lead10.tm c /\
+         Lead10.ones c (2 * Lead10.b2 + 2 * (4 * Lead10.bf + 33) + 5)
+halts =
+fun (tm : TM) (c0 : Q * tape) => exists n : nat, halts_in tm c0 n
+     : TM -> Q * tape -> Prop
+
+Arguments halts tm c0
+halts_in =
+fun (tm : TM) (c : Q * tape) (n : nat) =>
+exists ch : Q * tape, c -[ tm ]->> n / ch /\ halted tm ch
+     : TM -> Q * tape -> nat -> Prop
+
+Arguments halts_in tm c n%nat_scope
+halted =
+fun (tm : TM) (c : Q * tape) =>
+let (q, p) := c in let (p0, _) := p in let (_, s) := p0 in tm (q, s) = None
+     : TM -> Q * tape -> Prop
+
+Arguments halted tm c
+Inductive step (tm : TM) : Q * tape -> Q * tape -> Prop :=
+    step_left : forall (q q' : Q) (s s' : Sym) (l r : side),
+                tm (q, s) = Some (s', L, q') ->
+                (q, (l, s, r)) -[ tm ]-> (q', move_left (l, s', r))
+  | step_right : forall (q q' : Q) (s s' : Sym) (l r : side),
+                 tm (q, s) = Some (s', R, q') ->
+                 (q, (l, s, r)) -[ tm ]-> (q', move_right (l, s', r)).
+
+Arguments step tm _ _
+Arguments step_left {tm q q'} {s s'}%sym_scope {l r} _
+Arguments step_right {tm q q'} {s s'}%sym_scope {l r} _
+c0 = (q0, tape0)
+     : Q * tape
+tape0 = (const s0, s0, const s0)
+     : tape
+ones =
+fun (c : state * tape) (N : nat) =>
+exists (q : state) (Ls Rs : list Sym) (s : Sym),
+  c = (q, (Ls *> const 0, s, Rs *> const 0)) /\
+  N = count1 Ls + sym_val s + count1 Rs
+     : state * tape -> nat -> Prop
+
+Arguments ones c N%nat_scope
+count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments count1 xs%list_scope
+sym_val = fun s : Sym => match s with
+                         | 0 => 0
+                         | 1 => 1
+                         end
+     : Sym -> nat
+
+Arguments sym_val s%sym_scope
+N1.arrow =
+fix arrow (k a b : nat) {struct k} : nat :=
+  match k with
+  | 0 => a * b
+  | S k' => Nat.iter b (arrow k' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments N1.arrow (k a b)%nat_scope
+N1.iter =
+fix iter (n : nat) (g : nat -> nat) (x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => g (iter n' g x)
+  end
+     : nat -> (nat -> nat) -> nat -> nat
+
+Arguments N1.iter n%nat_scope g%function_scope x%nat_scope
+N1.fgh =
+fix fgh (k n : nat) {struct k} : nat :=
+  match k with
+  | 0 => S n
+  | S k' => Nat.iter n (fgh k') n
+  end
+     : nat -> nat -> nat
+
+Arguments N1.fgh (k n)%nat_scope
+N1.f_omega = fun n : nat => N1.fgh n n
+     : nat -> nat
+
+Arguments N1.f_omega n%nat_scope
+N1.f_omega1 = fun n : nat => Nat.iter n N1.f_omega n
+     : nat -> nat
+
+Arguments N1.f_omega1 n%nat_scope
+N1.up3 =
+fix up3 (k n : nat) {struct k} : nat :=
+  match k with
+  | 0 => 3 * n
+  | S k' => Nat.iter n (up3 k') 1
+  end
+     : nat -> nat -> nat
+
+Arguments N1.up3 (k n)%nat_scope
+N1.graham_g =
+fix graham_g (k : nat) : nat :=
+  match k with
+  | 0 => 4
+  | S k' => N1.up3 (graham_g k') 3
+  end
+     : nat -> nat
+
+Arguments N1.graham_g k%nat_scope
+N1.Graham = N1.graham_g 64
+     : nat
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
