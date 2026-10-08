@@ -1,0 +1,155 @@
+eq_refl : BB10_n1.tm (A, 0) = Some (1, R, B)
+     : BB10_n1.tm (A, 0) = Some (1, R, B)
+eq_refl : BB10_n1.tm (A, 1) = Some (0, R, A)
+     : BB10_n1.tm (A, 1) = Some (0, R, A)
+eq_refl : BB10_n1.tm (B, 0) = Some (1, L, C)
+     : BB10_n1.tm (B, 0) = Some (1, L, C)
+eq_refl : BB10_n1.tm (B, 1) = Some (1, L, F)
+     : BB10_n1.tm (B, 1) = Some (1, L, F)
+eq_refl : BB10_n1.tm (C, 0) = Some (1, R, D)
+     : BB10_n1.tm (C, 0) = Some (1, R, D)
+eq_refl : BB10_n1.tm (C, 1) = Some (0, L, B)
+     : BB10_n1.tm (C, 1) = Some (0, L, B)
+eq_refl : BB10_n1.tm (D, 0) = Some (1, R, A)
+     : BB10_n1.tm (D, 0) = Some (1, R, A)
+eq_refl : BB10_n1.tm (D, 1) = Some (1, L, E)
+     : BB10_n1.tm (D, 1) = Some (1, L, E)
+eq_refl : BB10_n1.tm (E, 0) = Some (1, L, I)
+     : BB10_n1.tm (E, 0) = Some (1, L, I)
+eq_refl : BB10_n1.tm (E, 1) = Some (0, L, C)
+     : BB10_n1.tm (E, 1) = Some (0, L, C)
+eq_refl : BB10_n1.tm (F, 0) = Some (0, R, G)
+     : BB10_n1.tm (F, 0) = Some (0, R, G)
+eq_refl : BB10_n1.tm (F, 1) = Some (1, L, D)
+     : BB10_n1.tm (F, 1) = Some (1, L, D)
+eq_refl : BB10_n1.tm (G, 0) = Some (1, R, H)
+     : BB10_n1.tm (G, 0) = Some (1, R, H)
+eq_refl : BB10_n1.tm (G, 1) = Some (1, L, G)
+     : BB10_n1.tm (G, 1) = Some (1, L, G)
+eq_refl : BB10_n1.tm (H, 0) = Some (1, L, C)
+     : BB10_n1.tm (H, 0) = Some (1, L, C)
+eq_refl : BB10_n1.tm (H, 1) = Some (0, R, G)
+     : BB10_n1.tm (H, 1) = Some (0, R, G)
+eq_refl : BB10_n1.tm (I, 0) = Some (0, L, J)
+     : BB10_n1.tm (I, 0) = Some (0, L, J)
+eq_refl : BB10_n1.tm (I, 1) = Some (0, L, I)
+     : BB10_n1.tm (I, 1) = Some (0, L, I)
+eq_refl : BB10_n1.tm (J, 0) = None
+     : BB10_n1.tm (J, 0) = None
+eq_refl : BB10_n1.tm (J, 1) = Some (0, L, C)
+     : BB10_n1.tm (J, 1) = Some (0, L, C)
+BB10_n1.arrow =
+fix arrow (k a b : nat) {struct k} : nat :=
+  match k with
+  | 0 => a * b
+  | S k' => Nat.iter b (arrow k' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB10_n1.arrow (k a b)%nat_scope
+BB10_n1.F = fun n : nat => BB10_n1.arrow n 2 4
+     : nat -> nat
+
+Arguments BB10_n1.F n%nat_scope
+BB10_n1.iter =
+fix iter (n : nat) (g : nat -> nat) (x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => g (iter n' g x)
+  end
+     : nat -> (nat -> nat) -> nat -> nat
+
+Arguments BB10_n1.iter n%nat_scope g%function_scope x%nat_scope
+BB10_n1.JJ = (3 * BB10_n1.T - 13) / 7
+     : nat
+BB10_n1_bound.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB10_n1_bound.count1 L + BB10_n1_bound.sym_val s + BB10_n1_bound.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB10_n1_bound.ones c N%nat_scope
+BB10_n1_exact.step =
+fun s : nat * nat =>
+let n := fst s in
+let g := snd s in
+let n2 := n + 2 * g - 6 in
+let n4 := n2 + 2 * BB10_n1.arrow (S n2) 2 (BB10_n1.arrow n 2 5 - 1) - 4 in
+(n4, BB10_n1.arrow (S n4) 2 (BB10_n1.arrow n2 2 5 - 1))
+     : nat * nat -> nat * nat
+
+Arguments BB10_n1_exact.step s
+BB10_n1_exact.stepn =
+fix stepn (j : nat) (s : nat * nat) {struct j} : nat * nat :=
+  match j with
+  | 0 => s
+  | S j' => stepn j' (BB10_n1_exact.step s)
+  end
+     : nat -> nat * nat -> nat * nat
+
+Arguments BB10_n1_exact.stepn j%nat_scope s
+BB10_n1.halt
+     : halts BB10_n1.tm c0
+BB10_n1_bound.score_exact
+     : exists (c : Q * tape) (f k w : nat),
+         c0 -[ BB10_n1.tm ]->* c /\
+         halted BB10_n1.tm c /\
+         BB10_n1_bound.ones c (2 * w + f + 3 * k + 22) /\
+         BB10_n1.iter (2 * BB10_n1.JJ + 1) BB10_n1.F 34 <= w
+BB10_n1_bound.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB10_n1.tm ]->* c /\
+         halted BB10_n1.tm c /\
+         BB10_n1_bound.ones c N /\
+         BB10_n1.iter ((6 * BB10_n1.arrow 37 2 3 - 19) / 7)
+           (fun x : nat => BB10_n1.arrow (x + 1) 2 3) 33 < N
+BB10_n1_bound.beats_champion
+     : exists (cc : Q * tape) (nc : nat) (co : Q * tape) 
+       (no : nat),
+         c0 -[ BB10_champion_1RB1RA.tm ]->* cc /\
+         halted BB10_champion_1RB1RA.tm cc /\
+         BB10_champion_bound.ones cc nc /\
+         c0 -[ BB10_n1.tm ]->* co /\
+         halted BB10_n1.tm co /\ BB10_n1_bound.ones co no /\ nc + 1 < no + 1
+BB10_n1_bound.beats_lead
+     : exists (cl : Q * tape) (nl : nat) (co : Q * tape) 
+       (no : nat),
+         c0 -[ BB10_lead_1RB0RA.tm ]->* cl /\
+         halted BB10_lead_1RB0RA.tm cl /\
+         BB10_lead_bound.ones cl nl /\
+         c0 -[ BB10_n1.tm ]->* co /\
+         halted BB10_n1.tm co /\ BB10_n1_bound.ones co no /\ nl + 1 < no + 1
+BB10_n1_bound.dominates
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB10_n1.tm ]->* c /\
+         halted BB10_n1.tm c /\
+         BB10_n1_bound.ones c N /\
+         (forall K x : nat,
+          K <= BB10_n1.F (BB10_n1.F (BB10_n1.F 34)) ->
+          x <= BB10_n1.F (BB10_n1.F (BB10_n1.F 34)) ->
+          BB10_n1.iter x (BB10_n1.arrow K 2) x < N)
+BB10_n1_exact.score_closed_unfolded
+     : exists c : Q * tape,
+         c0 -[ BB10_n1.tm ]->* c /\
+         halted BB10_n1.tm c /\
+         BB10_n1_bound.ones c
+           (let J := (3 * BB10_n1.arrow 37 2 3 - 13) / 7 in
+            let s :=
+              BB10_n1_exact.stepn J
+                (34, BB10_n1.arrow 35 2 (BB10_n1.arrow 34 2 5 - 1)) in
+            let W := fst s + 2 * snd s - 6 in
+            2 * W + 3 * BB10_n1.arrow (S W) 2 (BB10_n1.arrow (fst s) 2 5) +
+            12 * J + 5)
+BB10_n1_exact.score_value_gt
+     : BB10_n1.iter (2 * BB10_n1.JJ + 1) BB10_n1.F 34 <
+       BB10_n1_exact.score_value
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

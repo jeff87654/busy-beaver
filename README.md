@@ -46,3 +46,28 @@ computed in the same proof. A twin with H0 = 0RH has the same score.
   Check with plain `coqc` in about an hour. `verify/multifile/` has the original development on busycoq,
   including the twin's proof.
 
+
+## BB10/
+
+`1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_0RG1LD_1RH1LG_1LC0RG_0LJ0LI_1RZ0LC` (n1), a 10-state, 2-symbol machine
+that halts from the blank tape with more than
+
+    G^N(33) ones,      G(x) = 2 ↑^(x+1) 3,      N = (6T − 19)/7,      T = 2 ↑^37 3
+
+(machine-checked); on paper that is about f_(ω+1)(0.86 · 2 ↑^37 3) in the fast-growing hierarchy, far more
+than Graham's number. It runs a sibling of the BB(8) record to the point where that machine halts with the value
+T, turns T into a countdown of about 0.43 T periods, and in every period re-encodes its latest (astronomical)
+value as the length of the list it clears next, so that each period applies one f_ω-sized step; it halts when
+the countdown runs out (which happens because T ≡ 2 mod 7). It beats the BB(10) champion of Racheline (2024),
+against that champion's Coq-proved exact score. The exact score is also proved, as an explicit recursion of
+Knuth arrows.
+
+- [`BB10/1RB0RA_..._0LJ0LI_1RZ0LC.md`](BB10/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_0RG1LD_1RH1LG_1LC0RG_0LJ0LI_1RZ0LC.md):
+  the analysis (overview, notation, rules, the full run, the exact score, size analysis, comparisons,
+  verification status).
+- [`BB10/verify/`](BB10/verify/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1): `halt`, the exact score
+  (`score_exact`, closed form `score_closed_unfolded`), the lower bound, and `beats_champion` against the
+  champion's own exact score. No axioms. `verify/multifile/compile_clean.sh` rebuilds everything and runs a
+  probe that re-checks the transition table entry by entry. A self-contained single-file version will follow.
+- [`BB10/tools/bb10_n1_writeup_chk.py`](BB10/tools/bb10_n1_writeup_chk.py): an independent literal simulator
+  that re-checks every rule of the analysis on concrete instances.
