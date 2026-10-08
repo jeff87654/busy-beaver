@@ -69,6 +69,7 @@ Knuth arrows.
 - [`BB10/verify/`](BB10/verify/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1): `halt`, the exact score
   (`score_exact`, closed form `score_closed_unfolded`), the lower bound, `beats_champion` against the
   champion's own exact score, the hierarchy level `fgh_level` and `beats_graham`. No axioms. `verify/multifile/compile_clean.sh` rebuilds everything and runs a
-  probe that re-checks the transition table entry by entry. A self-contained single-file version will follow.
+  probe that re-checks the transition table entry by entry. `BB10/verify/BB10_n1_selfcontained.v` is the same proof as one
+  file that needs only the Coq standard library (`coqc BB10_n1_selfcontained.v`, about 13 minutes).
 - [`BB10/tools/bb10_n1_writeup_chk.py`](BB10/tools/bb10_n1_writeup_chk.py): an independent literal simulator
   that re-checks every rule of the analysis on concrete instances.
