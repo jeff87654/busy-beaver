@@ -6,7 +6,7 @@
     entry by entry (these 20 lines were generated from the machine string, not from the Coq file); (2) the main
     theorems have the stated types; (3) they use no axioms.  It also prints the definitions the statements use. *)
 
-From BB8 Require BB10_n1 BB10_n1_bound BB10_n1_exact.
+From BB8 Require BB10_n1 BB10_n1_bound BB10_n1_exact BB10_n1_fgh.
 From BB8 Require Import Individual102.
 From Coq Require Import PeanoNat.
 Local Open Scope sym_scope.
@@ -29,6 +29,12 @@ Print BB10_n1.JJ.
 Print BB10_n1_bound.ones.
 Print BB10_n1_exact.step.
 Print BB10_n1_exact.stepn.
+Print BB10_n1_fgh.fgh.
+Print BB10_n1_fgh.f_omega.
+Print BB10_n1_fgh.f_omega1.
+Print BB10_n1_fgh.up3.
+Print BB10_n1_fgh.graham_g.
+Print BB10_n1_fgh.Graham.
 
 Check BB10_n1.halt.
 Check BB10_n1_bound.score_exact.
@@ -38,6 +44,10 @@ Check BB10_n1_bound.beats_lead.
 Check BB10_n1_bound.dominates.
 Check BB10_n1_exact.score_closed_unfolded.
 Check BB10_n1_exact.score_value_gt.
+Check BB10_n1_fgh.fgh_level.
+Check BB10_n1_fgh.fgh_lower_64.
+Check BB10_n1_fgh.graham_lt_f_omega1_64.
+Check BB10_n1_fgh.beats_graham.
 
 Print Assumptions BB10_n1.halt.
 Print Assumptions BB10_n1_bound.score_exact.
@@ -47,3 +57,7 @@ Print Assumptions BB10_n1_bound.beats_lead.
 Print Assumptions BB10_n1_bound.dominates.
 Print Assumptions BB10_n1_exact.score_closed_unfolded.
 Print Assumptions BB10_n1_exact.score_value_gt.
+Print Assumptions BB10_n1_fgh.fgh_level.
+Print Assumptions BB10_n1_fgh.fgh_lower_64.
+Print Assumptions BB10_n1_fgh.graham_lt_f_omega1_64.
+Print Assumptions BB10_n1_fgh.beats_graham.

@@ -15,7 +15,7 @@ or was re-checked with the independent literal simulator [`tools/bb10_n1_writeup
 | Halts? | **Yes, machine-checked** (`verify/multifile/BB10_n1.v`, `Theorem halt : halts tm c0`, no axioms, clean rebuild OK). |
 | Score | Exactly 2W + f + 3k + 22 ones on the tape when J reads 0, with W ≥ F^(2J+1)(34). Coq-checked (`score_exact`). In closed form, 2W + 3·2↑^(W+1)(2↑^n 5) + 12J + 5, with (n, W) from the period map of section 4. Also Coq-checked (`score_closed`). Add 1 for the standard convention (the halting transition writes a 1). |
 | Lower bound | σ > G^N(33), where G(x) = 2↑^(x+1) 3, N = (6T − 19)/7 and T = 2↑^37 3. Coq-checked (`sigma_lower_bound`). |
-| Class | f_(ω+1). Roughly f_(ω+1)(0.86·2↑^37 3). This reading is on paper. |
+| Class | f_(ω+1), **machine-checked**: f_(ω+1)((3T−13)/7 − 2) < σ < f_(ω+1)(6T) (`fgh_level`, standard definitions, section 5). Also **σ > Graham's number**, machine-checked (`beats_graham`). |
 | Beats the BB(10) champion? | **Yes, machine-checked** (`beats_champion`). |
 | Found by | A computer search, 2026-10-08, over 10-state extensions of a sibling of the BB(8) record (section 6.4). |
 
@@ -89,7 +89,8 @@ bound is
 
     σ  >  G^N(33),   G(x) = 2↑^(x+1) 3,   N = (6·(2↑^37 3) − 19)/7,
 
-i.e. G applied about 0.86·2↑^37 3 times. On paper this is roughly f_(ω+1)(0.86·2↑^37 3). For comparison, the published
+i.e. G applied about 0.86·2↑^37 3 times. In the fast-growing hierarchy Coq pins it between f_(ω+1)((3T−13)/7 − 2)
+and f_(ω+1)(6T), and proves it exceeds Graham's number (section 5). For comparison, the published
 champions (bbchallenge wiki "Champions", fetched 2026-10-08) are:
 
 | n | published bound | relation to n1 | status of the comparison |
@@ -349,7 +350,15 @@ real period: the first DEP9 already clears at depth 33.
     beats_lead        : ones > the exact score of the 10-state 0LJ0LC candidate
     beats_champion    : ones > the exact score of the BB(10) champion
 
-**FGH reading (paper).** F(x) = 2↑^x 4 grows at the rate of f_ω under the usual correspondence 2↑^k x ≈ f_(k+1)(x).
+**Hierarchy level (machine-checked, `verify/multifile/BB10_n1_fgh.v`).** With the standard fast-growing hierarchy, f_0(n) = n+1, f_(k+1)(n) = f_k^n(n), f_ω(n) = f_n(n), f_(ω+1)(n) = f_ω^n(n); Graham's number G = g_64 with g_0 = 4, g_(k+1) = 3↑^(g_k) 3, Coq proves
+
+    fgh_level             : f_(ω+1)((3T−13)/7 − 2)  <  ones  <  f_(ω+1)(6T)     (ones = the exact count of score_closed)
+    graham_lt_f_omega1_64 : G < f_(ω+1)(64)
+    beats_graham          : ones > G
+
+so n1 sits exactly at level ω+1 (not ω+2), and beats Graham's number.
+
+**Intuition.** F(x) = 2↑^x 4 grows at the rate of f_ω under the usual correspondence 2↑^k x ≈ f_(k+1)(x).
 So σ is about f_ω applied N ≈ 0.86·2↑^37 3 times, starting near 34. After two steps the start value is far above N,
 which puts σ near f_(ω+1)(0.86·2↑^37 3), give or take a small shift in the argument. An f_ω-class machine applies f_ω a
 fixed number of times; n1 applies it a number of times equal to the BB(8) record's value.
@@ -385,9 +394,10 @@ below the table). All except n1 are single f_ω-scale applications:
 | `score_closed`, `score_closed_unfolded`, `score_value_gt` (the exact formula of §4) | `verify/multifile/BB10_n1_exact.v` | all Closed under the global context (`probe.log`); formula also re-derived by hand (§3.4) |
 | every event lemma (H, S0, P1–P4, E, HALT, R1, R2, CLR, DEP9) and the chain (PERIOD, ENDGAME, reach_per) | inside `BB10_n1.v` | Coq |
 | T ≡ 2 (mod 7), JJ = (3T−13)/7, Af = 3T − 8 | `BB10_n1.v` (arith part) | Coq |
+| `fgh_level`, `fgh_lower_64`, `graham_lt_f_omega1_64`, `beats_graham` | `verify/multifile/BB10_n1_fgh.v` | all Closed under the global context (`probe.log`) |
 
-Everything else is on paper: the FGH readings, the comparisons with the BB(11)–BB(14) champions, and the claim that
-other residue classes do not halt.
+Everything else is on paper: the comparisons with the BB(11)–BB(14) champions, and the claim that other residue
+classes do not halt.
 
 ### 6.2 Independent checks (before Coq)
 

@@ -15,18 +15,24 @@ Coq 8.20.1). For this machine (J0 undefined = the halt) it proves:
   exact score (`BB10_champion_bound.score_exact`);
 - `BB10_n1_bound.beats_lead` -- the same against the 10-state machine
   `1RB0RA_1LC1LF_1RD0LB_1RA1LE_0LJ0LC_1RG1LD_0RI0RH_1RG1LF_1RE1RI_1RZ1LC` (`BB10_lead_*`);
-- `BB10_n1_bound.dominates` -- more ones than `(2↑^K)^x (x)` for all `K, x <= F(F(F(34)))`.
+- `BB10_n1_bound.dominates` -- more ones than `(2↑^K)^x (x)` for all `K, x <= F(F(F(34)))`;
+- `BB10_n1_fgh.fgh_level` -- `f_omega1 ((3T-13)/7 - 2) < N < f_omega1 (6T)` for the exact ones count N, with the
+  standard fast-growing hierarchy (`fgh 0 n = n+1`, `fgh (k+1) n = (fgh k)^n n`, `f_omega n = fgh n n`,
+  `f_omega1 n = f_omega^n n`): the level is exactly omega+1;
+- `BB10_n1_fgh.beats_graham` -- more ones than Graham's number (`graham_g 0 = 4`,
+  `graham_g (k+1) = up3 (graham_g k) 3` with `up3 k n = 3↑^k n`, `Graham = graham_g 64`), via
+  `graham_lt_f_omega1_64 : Graham < f_omega1 64`.
 
 ## Check it
 
     cd multifile
     BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh
 
-This compiles the ten files in dependency order (about 20 minutes, most of it `BB10_n1.v`) and then `probe.v`.
+This compiles the eleven files in dependency order (about 20 minutes, most of it `BB10_n1.v`) and then `probe.v`.
 `probe.v` re-checks by conversion all 20 entries of n1's transition table against the machine string (generated
 from the string, not from the Coq file), prints the definitions the statements use (`arrow`, `F`, `iter`, `JJ`,
-`ones`, `step`, `stepn`), the types of the main theorems, and `Print Assumptions` for each of the eight; all eight
-must say `Closed under the global context`. `compile_clean.log` and `probe.log` are the logs of a from-scratch
+`ones`, `step`, `stepn`, `fgh`, `f_omega`, `f_omega1`, `up3`, `graham_g`, `Graham`), the types of the main
+theorems, and `Print Assumptions` for each of the twelve; all twelve must say `Closed under the global context`. `compile_clean.log` and `probe.log` are the logs of a from-scratch
 build; `sha256.txt` has the hashes of the source files.
 
 A self-contained single-file version (standard library only, like `BB9/verify/`) is being prepared.

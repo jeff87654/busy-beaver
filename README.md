@@ -54,8 +54,9 @@ that halts from the blank tape with more than
 
     G^N(33) ones,      G(x) = 2 ↑^(x+1) 3,      N = (6T − 19)/7,      T = 2 ↑^37 3
 
-(machine-checked); on paper that is about f_(ω+1)(0.86 · 2 ↑^37 3) in the fast-growing hierarchy, far more
-than Graham's number. It runs a sibling of the BB(8) record to the point where that machine halts with the value
+(machine-checked). Also machine-checked, with the standard definitions of the fast-growing hierarchy and
+of Graham's number: f_(ω+1)((3T−13)/7 − 2) < sigma < f_(ω+1)(6T), so its level is exactly ω+1, and
+sigma > Graham's number. It runs a sibling of the BB(8) record to the point where that machine halts with the value
 T, turns T into a countdown of about 0.43 T periods, and in every period re-encodes its latest (astronomical)
 value as the length of the list it clears next, so that each period applies one f_ω-sized step; it halts when
 the countdown runs out (which happens because T ≡ 2 mod 7). It beats the BB(10) champion of Racheline (2024),
@@ -66,8 +67,8 @@ Knuth arrows.
   the analysis (overview, notation, rules, the full run, the exact score, size analysis, comparisons,
   verification status).
 - [`BB10/verify/`](BB10/verify/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1): `halt`, the exact score
-  (`score_exact`, closed form `score_closed_unfolded`), the lower bound, and `beats_champion` against the
-  champion's own exact score. No axioms. `verify/multifile/compile_clean.sh` rebuilds everything and runs a
+  (`score_exact`, closed form `score_closed_unfolded`), the lower bound, `beats_champion` against the
+  champion's own exact score, the hierarchy level `fgh_level` and `beats_graham`. No axioms. `verify/multifile/compile_clean.sh` rebuilds everything and runs a
   probe that re-checks the transition table entry by entry. A self-contained single-file version will follow.
 - [`BB10/tools/bb10_n1_writeup_chk.py`](BB10/tools/bb10_n1_writeup_chk.py): an independent literal simulator
   that re-checks every rule of the analysis on concrete instances.

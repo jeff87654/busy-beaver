@@ -90,6 +90,44 @@ fix stepn (j : nat) (s : nat * nat) {struct j} : nat * nat :=
      : nat -> nat * nat -> nat * nat
 
 Arguments BB10_n1_exact.stepn j%nat_scope s
+BB10_n1_fgh.fgh =
+fix fgh (k n : nat) {struct k} : nat :=
+  match k with
+  | 0 => S n
+  | S k' => Nat.iter n (fgh k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB10_n1_fgh.fgh (k n)%nat_scope
+BB10_n1_fgh.f_omega = fun n : nat => BB10_n1_fgh.fgh n n
+     : nat -> nat
+
+Arguments BB10_n1_fgh.f_omega n%nat_scope
+BB10_n1_fgh.f_omega1 =
+fun n : nat => Nat.iter n BB10_n1_fgh.f_omega n
+     : nat -> nat
+
+Arguments BB10_n1_fgh.f_omega1 n%nat_scope
+BB10_n1_fgh.up3 =
+fix up3 (k n : nat) {struct k} : nat :=
+  match k with
+  | 0 => 3 * n
+  | S k' => Nat.iter n (up3 k') 1
+  end
+     : nat -> nat -> nat
+
+Arguments BB10_n1_fgh.up3 (k n)%nat_scope
+BB10_n1_fgh.graham_g =
+fix graham_g (k : nat) : nat :=
+  match k with
+  | 0 => 4
+  | S k' => BB10_n1_fgh.up3 (graham_g k') 3
+  end
+     : nat -> nat
+
+Arguments BB10_n1_fgh.graham_g k%nat_scope
+BB10_n1_fgh.Graham = BB10_n1_fgh.graham_g 64
+     : nat
 BB10_n1.halt
      : halts BB10_n1.tm c0
 BB10_n1_bound.score_exact
@@ -145,6 +183,29 @@ BB10_n1_exact.score_closed_unfolded
 BB10_n1_exact.score_value_gt
      : BB10_n1.iter (2 * BB10_n1.JJ + 1) BB10_n1.F 34 <
        BB10_n1_exact.score_value
+BB10_n1_fgh.fgh_level
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB10_n1.tm ]->* c /\
+         halted BB10_n1.tm c /\
+         BB10_n1_bound.ones c N /\
+         BB10_n1_fgh.f_omega1 ((3 * BB10_n1.arrow 37 2 3 - 13) / 7 - 2) < N <
+         BB10_n1_fgh.f_omega1 (6 * BB10_n1.arrow 37 2 3)
+BB10_n1_fgh.fgh_lower_64
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB10_n1.tm ]->* c /\
+         halted BB10_n1.tm c /\
+         BB10_n1_bound.ones c N /\ BB10_n1_fgh.f_omega1 64 < N
+BB10_n1_fgh.graham_lt_f_omega1_64
+     : BB10_n1_fgh.Graham < BB10_n1_fgh.f_omega1 64
+BB10_n1_fgh.beats_graham
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB10_n1.tm ]->* c /\
+         halted BB10_n1.tm c /\
+         BB10_n1_bound.ones c N /\ BB10_n1_fgh.Graham < N
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
