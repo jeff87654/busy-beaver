@@ -96,12 +96,12 @@ champions (bbchallenge wiki "Champions", fetched 2026-10-08) are:
 | n | published bound | relation to n1 | status of the comparison |
 |---|---|---|---|
 | 8 | > 2↑^37 3 > f_ω(36) (the record) | n1's phase 1 alone reaches this value | Coq (both) |
-| 9 | > f_ω(2↑^13 3) > f_ω²(12) | far smaller | on paper |
-| **10** | **> f_ω²(25)** (Racheline 2024) | **n1 is larger** | **machine-checked**: `beats_champion` compares against the champion's own Coq-proved exact score |
-| 11 | > f_ω²(10↑^4 4) | n1's bound is larger | on paper |
-| 12 | > f_ω⁴(f_4(2)) | n1's bound is larger | on paper |
+| 9 | > f_ω(2↑^13 3) > f_ω(f_ω(12)) | far smaller | on paper |
+| **10** | **> f_ω(f_ω(25))** (Racheline 2024) | **n1 is larger** | **machine-checked**: `beats_champion` compares against the champion's own Coq-proved exact score |
+| 11 | > f_ω(f_ω(10↑^4 4)) | n1's bound is larger | on paper |
+| 12 | > f_ω(f_ω(f_ω(f_ω(f_4(2))))) | n1's bound is larger | on paper |
 | 13 | > f_(ω+1)(2046) > g_64 | n1's bound is larger: f_ω-rate steps about 0.86·2↑^37 3 times versus 2046 times | on paper |
-| 14 | > f_(ω+1)(f_ω⁴(f_7(3))) | larger than n1: its f_(ω+1) argument is far above 2↑^37 3 | on paper |
+| 14 | > f_(ω+1)(f_ω(f_ω(f_ω(f_ω(f_7(3)))))) | larger than n1: its f_(ω+1) argument is far above 2↑^37 3 | on paper |
 
 The BB(11)–BB(13) champions have published lower bounds only, with no proved upper bounds. So the paper comparisons
 say only that n1's proved lower bound exceeds their published lower bounds. They do not say that n1 outscores those
@@ -373,7 +373,7 @@ below the table). All except n1 are single f_ω-scale applications:
 | M3 (`..._---0LJ_0LD0RA`) | σ > 2↑^(8B+56) 4 | strong evidence; f_(ω+1) claim withdrawn |
 | M3J | 2↑^(z+4) 5 < σ < 2↑^(z+4) 6, z ≈ 2.4T | strong evidence |
 | 0LJ0LC | σ = 2·(2↑^L 5) + 2L − 2, L = 4·(2↑^27 3) + 17 | Coq |
-| BB(10) champion | > f_ω²(25) | Coq (score and upper bound) |
+| BB(10) champion | > f_ω(f_ω(25)) | Coq (score and upper bound) |
 
 - c1: `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_0RG1LD_1RH1LG_1LC0RG_1RZ1LJ_0RJ0RF`
 - M3: `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_1RG1LD_1LC0RH_1RG1LF_1RZ0LJ_0LD0RA`
