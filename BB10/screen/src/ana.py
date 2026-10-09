@@ -1,7 +1,7 @@
 """ana.py: analyse mini-follower histories (mf_GH.tsv / mg80_GH.tsv format): growth of k, non-zero token count (k - zeros),
 events; print candidates.  usage: python ana.py FILE [--min-growth G] [--kind K]
 
-Kept unchanged as the counter-example of README section 5: it selects on the growth of k (all tokens), which ranks
+Kept unchanged as the counter-example of README section 3: it selects on the growth of k (all tokens), which ranks
 parked pair lists as growth and drops n1, whose k stays flat while its cleared list (zeros=) grows.  Use
 zeros_filter.py instead.  (Its event pattern matches word characters only, so it also skips the J lines with ev=a-block.)"""
 import sys, re, argparse
