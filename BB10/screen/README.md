@@ -14,6 +14,13 @@ the real run. The claims about n1 are the Coq theorems in [`../verify/`](../veri
 [analysis page](../1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_0RG1LD_1RH1LG_1LC0RG_0LJ0LI_1RZ0LC.md). This folder documents how
 the machine was found, including one filter that missed it.
 
+**Scope.** n1 was found by re-reading the histories of this screen (`data/mf_GH.tsv.gz`, `data/mg80_GH.tsv.gz`) by
+cleared-list length, as part of a wider search for grow-and-count machines. That search also enumerated the
+gadget (the transitions of I and J) directly around single growth stages, which found n1's cousins (a counter that
+halts at ω-level 1, and an f_(ω+1)-shaped grower that never halts) and mapped which gadgets can work. Those gadget-
+enumeration tools are not in this folder; it covers the completion screen, the mini-follower, the size-ordering check
+and the cleared-list filter.
+
 Notation as on the analysis page: D(t) = (10)^t 1 is a token, the token 1 (D1) is a zero digit, a configuration is a
 list of tokens ending in an a-token and an accumulator r. The *clearing rules* R1–R3 of the BB(7) champion lower the
 token next to the accumulator, or borrow from the nearest non-zero token across a run of zeros, and grow the
