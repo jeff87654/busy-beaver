@@ -133,6 +133,9 @@ The first filters looked at the total token count k instead. That is the wrong q
 and takes peaks (a period spans several jumps, and the counts oscillate within a period). A machine is selected when
 the peak of `zeros=` rises from window to window and ends at least G times higher (`--grow`, default 2), and the peak
 of k − zeros falls from window to window. LOOP rows are skipped, and machines with identical histories are grouped.
+This filter was written after n1 was found, and its windows-and-peaks criterion was chosen by looking at this data
+(a plain first-to-last ratio of `zeros=` ranks n1 15th, because the counts oscillate within a period), so the ranks
+below show that the cleared-list measure separates n1 from the k measure, not how a blind filter would have done.
 On the screen data:
 
 | file | selected groups | n1 |
