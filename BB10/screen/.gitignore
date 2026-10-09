@@ -1,0 +1,8 @@
+src/*.exe
+src/renum
+src/stage35
+src/stage35g
+src/hyb10
+src/logs/
+src/__pycache__/
+.check_tmp/

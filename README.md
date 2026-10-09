@@ -73,3 +73,5 @@ Knuth arrows.
   file that needs only the Coq standard library (`coqc BB10_n1_selfcontained.v`, about 13 minutes).
 - [`BB10/tools/bb10_n1_writeup_chk.py`](BB10/tools/bb10_n1_writeup_chk.py): an independent literal simulator
   that re-checks every rule of the analysis on concrete instances.
+- [`BB10/screen/`](BB10/screen/): the heuristic candidate screen that found n1 (completion enumerator, mini-follower,
+  the cleared-list filter), with its data and a `check.sh` that reproduces part of it. Its verdicts are not claims.
