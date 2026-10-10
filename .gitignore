@@ -8,3 +8,5 @@
 .lia.cache
 .nia.cache
 __pycache__/
+ZF/verify/*/Probe.v
+ZF/verify/check_*.log

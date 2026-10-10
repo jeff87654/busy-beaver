@@ -75,3 +75,19 @@ Knuth arrows.
   that re-checks every rule of the analysis on concrete instances.
 - [`BB10/screen/`](BB10/screen/): the heuristic candidate screen that found n1 (completion enumerator, mini-follower,
   the cleared-list filter), with its data and a `check.sh` that reproduces part of it. Its verdicts are not claims.
+
+## ZF/
+
+Turing machines with 393, 361 and **354** states (2 symbols) that halt from the blank tape **iff** ZF
+(without regularity and choice) proves `v_0 e. v_0`, that is, iff ZF is inconsistent. Each one comes
+with a Coq proof of `halts tm c0 <-> prov (Wel v0 v0)` on busycoq's TM semantics, with no axioms.
+- The 393-state machine is Andrew Wade's current machine (codeberg.org/ajwade/turing_machine_explorer,
+  a port of O'Rear's `zf2.nql`).
+- The 361- and 354-state machines are built with Wade's compiler from a reworked program and search the
+  same formal system. The trusted `Logic.v` is identical in all three proofs.
+
+- [`ZF/README.md`](ZF/README.md): history, what has to be trusted, proof structure, credits.
+- [`ZF/machines/`](ZF/machines/): the three machines (Wade's `.tm` format).
+- [`ZF/verify/`](ZF/verify/): the Coq proofs and `check.py`, which ties the literal table to the `.tm`
+  file, builds the proof and checks the statement and its assumptions.
+- [`ZF/generator/`](ZF/generator/): rebuilds the 361- and 354-state machines byte for byte.
