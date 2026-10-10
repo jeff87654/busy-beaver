@@ -1,0 +1,1029 @@
+(** * ProgLib: lemmas for Prog.v (the concrete DAG [zf2] refines the abstract enumerator step).
+
+    Prog.v proves: one structured big-step run of the root node from a register file encoding an enumerator
+    state is exactly one [enum_step]: it halts iff the new topwff is 1, and otherwise ends in the
+    encoding of the next state (scratch registers back to 0; axiomcode/param registers arbitrary).
+
+    Method.  Register files are related pointwise to an 11-field record [St] ([approx]); [sem e m x m']
+    says every register file matching [m] runs edge [e] to exit [x] and a file matching [m'].  Nodes that
+    are plain sequences are flattened ([expand]) into lists of "atoms" (nodes with their own lemma) by
+    computation; atoms with control flow (while_decnz loops, pair, unpair, if_eq, cparam, ...) are proved
+    by induction.  The main() body flattens to prefix ++ (clauses in axiomorder) ++ [halt check]; each
+    clause is executed symbolically on wff codes (never computing concrete values). *)
+
+From Coq Require Import Lists.List Arith.Arith Lia Bool.Bool.
+From ZF Require Import RM ZF2Dag Logic Enum.
+Import ListNotations.
+
+(** ** Determinism of the big-step semantics (generic in the program). *)
+Lemma run_det p e R x1 R1 :
+  run p e R x1 R1 -> forall x2 R2, run p e R x2 R2 -> x1 = x2 /\ R1 = R2.
+Proof.
+  induction 1; intros x2 Rz H2; inversion H2; subst;
+    repeat match goal with
+    | IH : forall x R0, run ?p ?e ?R x R0 -> _, H : run ?p ?e ?R _ _ |- _ =>
+        let E := fresh "E" in let F := fresh "F" in
+        destruct (IH _ _ H) as [E F]; clear H; subst;
+        try discriminate E; try (injection E; intros; subst)
+    end;
+    try congruence; auto.
+  rewrite H in H1; injection H1 as ->; auto.
+Qed.
+
+(** ** Abstract register files: 11 registers (all others are 0 and never touched). *)
+Record St : Type := mkSt {
+  r_pl : nat; r_np : nat; r_tw : nat; r_ws : nat; r_ac : nat;
+  r_p1 : nat; r_p2 : nat; r_p3 : nat; r_s1 : nat; r_s2 : nat; r_s3 : nat }.
+
+Definition get (m : St) (i : nat) : nat :=
+  let 'mkSt a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 := m in
+  match i with
+  | 0 => a0 | 1 => a1 | 2 => a2 | 3 => a3 | 4 => a4 | 5 => a5
+  | 6 => a6 | 7 => a7 | 8 => a8 | 9 => a9 | 10 => a10 | _ => 0
+  end.
+
+Definition set (m : St) (i v : nat) : St :=
+  let 'mkSt a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 := m in
+  match i with
+  | 0 => mkSt v a1 a2 a3 a4 a5 a6 a7 a8 a9 a10
+  | 1 => mkSt a0 v a2 a3 a4 a5 a6 a7 a8 a9 a10
+  | 2 => mkSt a0 a1 v a3 a4 a5 a6 a7 a8 a9 a10
+  | 3 => mkSt a0 a1 a2 v a4 a5 a6 a7 a8 a9 a10
+  | 4 => mkSt a0 a1 a2 a3 v a5 a6 a7 a8 a9 a10
+  | 5 => mkSt a0 a1 a2 a3 a4 v a6 a7 a8 a9 a10
+  | 6 => mkSt a0 a1 a2 a3 a4 a5 v a7 a8 a9 a10
+  | 7 => mkSt a0 a1 a2 a3 a4 a5 a6 v a8 a9 a10
+  | 8 => mkSt a0 a1 a2 a3 a4 a5 a6 a7 v a9 a10
+  | 9 => mkSt a0 a1 a2 a3 a4 a5 a6 a7 a8 v a10
+  | 10 => mkSt a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 v
+  | _ => m
+  end.
+
+Definition inc (r : nat) (m : St) : St := set m r (S (get m r)).
+
+Definition clr23 (m : St) : St := set (set m 9 0) 10 0.
+
+(* one step of Wade's unpair walk on registers (o1, o2) *)
+Definition ustep (o1 o2 : nat) (m : St) : St :=
+  set (set m o1 (fst (unpair_step (get m o1, get m o2)))) o2 (snd (unpair_step (get m o1, get m o2))).
+
+(* result of unpair(o1, o2, i) *)
+Definition unpair_post (i o1 o2 : nat) (m : St) : St :=
+  set (set (set m i 0) o1 (fst (Nat.iter (get m i) unpair_step (get m o1, get m o2))))
+      o2 (snd (Nat.iter (get m i) unpair_step (get m o1, get m o2))).
+
+Lemma get_set m r i v : r <= 10 -> get (set m r v) i = if Nat.eqb i r then v else get m i.
+Proof.
+  intros Hr; destruct m.
+  do 11 (destruct r as [|r]; [do 11 (destruct i as [|i]; [reflexivity|]); reflexivity|]); lia.
+Qed.
+
+Definition approx (R : regs) (m : St) : Prop := forall i, R i = get m i.
+
+Lemma approx_upd R m r v : r <= 10 -> approx R m -> approx (upd R r v) (set m r v).
+Proof.
+  intros Hr H i. unfold upd. rewrite get_set by exact Hr.
+  destruct (Nat.eqb i r); auto.
+Qed.
+
+(** [sem e m x m']: from any register file matching [m], edge [e] runs to exit [x] and a file
+    matching [m']. *)
+Definition sem (e : edge) (m : St) (x : exit) (m' : St) : Prop :=
+  forall R, approx R m -> exists R', run zf2 e R x R' /\ approx R' m'.
+
+Lemma sem_conseq e m x m1 m2 : sem e m x m1 -> m1 = m2 -> sem e m x m2.
+Proof. intros H <-; exact H. Qed.
+
+Lemma sem_inc r m : r <= 10 -> sem (EInc r) m XNormal (inc r m).
+Proof.
+  intros Hr R HR. exists (upd R r (S (R r))). split; [constructor|].
+  unfold inc. rewrite (HR r). apply approx_upd; auto.
+Qed.
+
+Lemma sem_decnz_pos r m v : r <= 10 -> get m r = S v -> sem (EDecnz r) m XNormal (set m r v).
+Proof.
+  intros Hr Hv R HR. exists (upd R r v). split.
+  - constructor. rewrite HR; exact Hv.
+  - apply approx_upd; auto.
+Qed.
+
+Lemma sem_decnz_zero r m : get m r = 0 -> sem (EDecnz r) m (XBreak 1) m.
+Proof. intros H0 R HR. exists R. split; auto. constructor. rewrite HR; exact H0. Qed.
+
+Lemma sem_breakS k m : sem (EBreak (S k)) m (XBreak (S k)) m.
+Proof. intros R HR. exists R. split; auto. constructor. Qed.
+
+Lemma sem_cont k m : sem (EContinue (S k)) m (XContinue (S k)) m.
+Proof. intros R HR. exists R. split; auto. constructor. Qed.
+
+Lemma sem_halt m : sem EHalt m XHalt m.
+Proof. intros R HR. exists R. split; auto. constructor. Qed.
+
+Section NodeRules.
+Variables (n : nat) (a b : edge).
+Hypothesis Hn : zf2_nodes n = (a, b).
+
+Lemma sem_car_break1 m m' : sem a m (XBreak 1) m' -> sem (ENode n) m XNormal m'.
+Proof.
+  intros H R HR. destruct (H R HR) as (R' & Hr & HR'). exists R'. split; auto.
+  apply run_node_car_break1. cbn. rewrite Hn. exact Hr.
+Qed.
+
+Lemma sem_car_breakS k m m' : sem a m (XBreak (S (S k))) m' -> sem (ENode n) m (XBreak (S k)) m'.
+Proof.
+  intros H R HR. destruct (H R HR) as (R' & Hr & HR'). exists R'. split; auto.
+  apply run_node_car_breakS. cbn. rewrite Hn. exact Hr.
+Qed.
+
+Lemma sem_car_continue k m m' : sem a m (XContinue (S k)) m' -> sem (ENode n) m (XContinue (S k)) m'.
+Proof.
+  intros H R HR. destruct (H R HR) as (R' & Hr & HR'). exists R'. split; auto.
+  apply run_node_car_continue. cbn. rewrite Hn. exact Hr.
+Qed.
+
+Lemma sem_car_halt m m' : sem a m XHalt m' -> sem (ENode n) m XHalt m'.
+Proof.
+  intros H R HR. destruct (H R HR) as (R' & Hr & HR'). exists R'. split; auto.
+  apply run_node_car_halt. cbn. rewrite Hn. exact Hr.
+Qed.
+
+Lemma sem_cdr_normal m m1 m' : sem a m XNormal m1 -> sem b m1 XNormal m' -> sem (ENode n) m XNormal m'.
+Proof.
+  intros H1 H2 R HR. destruct (H1 R HR) as (R1 & Hr1 & HR1).
+  destruct (H2 R1 HR1) as (R' & Hr & HR'). exists R'. split; auto.
+  eapply run_node_cdr_normal; cbn; rewrite Hn; eauto.
+Qed.
+
+Lemma sem_cdr_break k m m1 m' : sem a m XNormal m1 -> sem b m1 (XBreak (S k)) m' ->
+  sem (ENode n) m (XBreak (S k)) m'.
+Proof.
+  intros H1 H2 R HR. destruct (H1 R HR) as (R1 & Hr1 & HR1).
+  destruct (H2 R1 HR1) as (R' & Hr & HR'). exists R'. split; auto.
+  eapply run_node_cdr_break; cbn; rewrite Hn; eauto.
+Qed.
+
+Lemma sem_cdr_continue1 m m1 m2 x m' : sem a m XNormal m1 -> sem b m1 (XContinue 1) m2 ->
+  sem (ENode n) m2 x m' -> sem (ENode n) m x m'.
+Proof.
+  intros H1 H2 H3 R HR. destruct (H1 R HR) as (R1 & Hr1 & HR1).
+  destruct (H2 R1 HR1) as (R2 & Hr2 & HR2). destruct (H3 R2 HR2) as (R' & Hr & HR').
+  exists R'. split; auto.
+  eapply run_node_cdr_continue1; [cbn; rewrite Hn; eauto | cbn; rewrite Hn; eauto | exact Hr].
+Qed.
+
+Lemma sem_cdr_continueS k m m1 m' : sem a m XNormal m1 -> sem b m1 (XContinue (S (S k))) m' ->
+  sem (ENode n) m (XContinue (S k)) m'.
+Proof.
+  intros H1 H2 R HR. destruct (H1 R HR) as (R1 & Hr1 & HR1).
+  destruct (H2 R1 HR1) as (R' & Hr & HR'). exists R'. split; auto.
+  eapply run_node_cdr_continueS; cbn; rewrite Hn; eauto.
+Qed.
+
+Lemma sem_cdr_halt m m1 m' : sem a m XNormal m1 -> sem b m1 XHalt m' -> sem (ENode n) m XHalt m'.
+Proof.
+  intros H1 H2 R HR. destruct (H1 R HR) as (R1 & Hr1 & HR1).
+  destruct (H2 R1 HR1) as (R' & Hr & HR'). exists R'. split; auto.
+  eapply run_node_cdr_halt; cbn; rewrite Hn; eauto.
+Qed.
+
+End NodeRules.
+
+(** ** while_decnz(r, body): node [n] = (decnz r, b), [b] exits with continue 1. *)
+Lemma sem_while n r b (g P : St -> St) :
+  zf2_nodes n = (EDecnz r, b) -> r <= 10 ->
+  (forall m, sem b m (XContinue 1) (g m)) ->
+  (forall m, get (g m) r = get m r) ->
+  (forall m, get m r = 0 -> P m = m) ->
+  (forall m v, get m r = S v -> P m = P (g (set m r v))) ->
+  forall m, sem (ENode n) m XNormal (P m).
+Proof.
+  intros Hn Hr Hb Hg HP0 HPS.
+  assert (H : forall k m, get m r = k -> sem (ENode n) m XNormal (P m)).
+  { induction k as [|k IH]; intros m Hk.
+    - rewrite (HP0 m Hk). eapply sem_car_break1; [exact Hn|]. apply sem_decnz_zero; exact Hk.
+    - rewrite (HPS m k Hk). eapply sem_cdr_continue1; [exact Hn| | apply Hb |].
+      + apply sem_decnz_pos; [exact Hr | exact Hk].
+      + apply IH. rewrite Hg, get_set by exact Hr. rewrite Nat.eqb_refl. reflexivity. }
+  intros m. apply (H _ m eq_refl).
+Qed.
+
+Lemma body_cont1 m : sem (EContinue 1) m (XContinue 1) m.
+Proof. apply sem_cont. Qed.
+
+Lemma body_inc n t m : zf2_nodes n = (EInc t, EContinue 2) -> t <= 10 ->
+  sem (ENode n) m (XContinue 1) (inc t m).
+Proof.
+  intros Hn Ht. eapply sem_cdr_continueS with (k := 0); [exact Hn | apply sem_inc, Ht | apply sem_cont].
+Qed.
+
+Lemma body_inc2 n n' t1 t2 m : zf2_nodes n = (ENode n', EContinue 2) ->
+  zf2_nodes n' = (EInc t1, EInc t2) -> t1 <= 10 -> t2 <= 10 ->
+  sem (ENode n) m (XContinue 1) (inc t2 (inc t1 m)).
+Proof.
+  intros Hn Hn' H1 H2. eapply sem_cdr_continueS with (k := 0); [exact Hn | | apply sem_cont].
+  eapply sem_cdr_normal; [exact Hn' | apply sem_inc, H1 | apply sem_inc, H2].
+Qed.
+
+(** Closed forms of the loops are checked field by field. *)
+Ltac nrm := cbn [get set inc ustep unpair_post clr23] in *.
+Ltac fields := intros; repeat match goal with m : St |- _ => destruct m end; nrm; subst;
+  try (f_equal; first [reflexivity | lia]).
+
+(* while_decnz(r, ()) : r := 0 *)
+Lemma while0 n r : zf2_nodes n = (EDecnz r, EContinue 1) -> r <= 10 ->
+  forall m, sem (ENode n) m XNormal (set m r 0).
+Proof.
+  intros Hn Hr. apply (sem_while n r (EContinue 1) (fun m => m) (fun m => set m r 0)); auto using body_cont1.
+  - intros m H0. rewrite <- H0. destruct m. do 11 (destruct r as [|r]; [cbn in *; reflexivity|]); lia.
+  - intros m v Hv. destruct m. do 11 (destruct r as [|r]; [cbn in *; reflexivity|]); lia.
+Qed.
+
+Ltac body_tac :=
+  first [ apply body_cont1
+        | apply body_inc; [reflexivity | lia]
+        | eapply body_inc2; [reflexivity | reflexivity | lia | lia] ].
+
+Ltac while_tac g P :=
+  intros m; eapply (sem_while _ _ _ g P);
+  [ reflexivity | lia | intros; body_tac | clear m; intros m; destruct m; reflexivity | fields | fields ].
+
+(** The while_decnz loops of the program (generated by tools/gen_prog.py from ZF2Dag.v):
+    while_decnz(r, body) with body = list of increments: r := 0, each target += r. *)
+(* BEGIN GENERATED loops *)
+(* while_decnz(axiomcode,()).0 *)
+Lemma w273 m : sem (ENode 273) m XNormal (set m 4 0).
+Proof. revert m; while_tac (fun m : St => m) (fun m : St => set m 4 0). Qed.
+(* while_decnz(nextproof,105).0 *)
+Lemma w274 m : sem (ENode 274) m XNormal (set (set (set m 8 (get m 8 + get m 1)) 0 (get m 0 + get m 1)) 1 0).
+Proof. revert m; while_tac (fun m : St => inc 0 (inc 8 m)) (fun m : St => set (set (set m 8 (get m 8 + get m 1)) 0 (get m 0 + get m 1)) 1 0). Qed.
+(* while_decnz(param1,()).0 *)
+Lemma w277 m : sem (ENode 277) m XNormal (set m 5 0).
+Proof. revert m; while_tac (fun m : St => m) (fun m : St => set m 5 0). Qed.
+(* while_decnz(param1,43).0 *)
+Lemma w278 m : sem (ENode 278) m XNormal (set (set (set m 2 (get m 2 + get m 5)) 8 (get m 8 + get m 5)) 5 0).
+Proof. revert m; while_tac (fun m : St => inc 8 (inc 2 m)) (fun m : St => set (set (set m 2 (get m 2 + get m 5)) 8 (get m 8 + get m 5)) 5 0). Qed.
+(* while_decnz(param1,85).0 *)
+Lemma w279 m : sem (ENode 279) m XNormal (set (set (set m 8 (get m 8 + get m 5)) 2 (get m 2 + get m 5)) 5 0).
+Proof. revert m; while_tac (fun m : St => inc 2 (inc 8 m)) (fun m : St => set (set (set m 8 (get m 8 + get m 5)) 2 (get m 2 + get m 5)) 5 0). Qed.
+(* while_decnz(param1,99).0 *)
+Lemma w282 m : sem (ENode 282) m XNormal (set (set (set m 8 (get m 8 + get m 5)) 9 (get m 9 + get m 5)) 5 0).
+Proof. revert m; while_tac (fun m : St => inc 9 (inc 8 m)) (fun m : St => set (set (set m 8 (get m 8 + get m 5)) 9 (get m 9 + get m 5)) 5 0). Qed.
+(* while_decnz(param2,()).0 *)
+Lemma w283 m : sem (ENode 283) m XNormal (set m 6 0).
+Proof. revert m; while_tac (fun m : St => m) (fun m : St => set m 6 0). Qed.
+(* while_decnz(param2,43).0 *)
+Lemma w284 m : sem (ENode 284) m XNormal (set (set (set m 2 (get m 2 + get m 6)) 8 (get m 8 + get m 6)) 6 0).
+Proof. revert m; while_tac (fun m : St => inc 8 (inc 2 m)) (fun m : St => set (set (set m 2 (get m 2 + get m 6)) 8 (get m 8 + get m 6)) 6 0). Qed.
+(* while_decnz(param2,82).0 *)
+Lemma w285 m : sem (ENode 285) m XNormal (set (set (set m 8 (get m 8 + get m 6)) 10 (get m 10 + get m 6)) 6 0).
+Proof. revert m; while_tac (fun m : St => inc 10 (inc 8 m)) (fun m : St => set (set (set m 8 (get m 8 + get m 6)) 10 (get m 10 + get m 6)) 6 0). Qed.
+(* while_decnz(param2,99).0 *)
+Lemma w286 m : sem (ENode 286) m XNormal (set (set (set m 8 (get m 8 + get m 6)) 9 (get m 9 + get m 6)) 6 0).
+Proof. revert m; while_tac (fun m : St => inc 9 (inc 8 m)) (fun m : St => set (set (set m 8 (get m 8 + get m 6)) 9 (get m 9 + get m 6)) 6 0). Qed.
+(* while_decnz(param3,()).0 *)
+Lemma w287 m : sem (ENode 287) m XNormal (set m 7 0).
+Proof. revert m; while_tac (fun m : St => m) (fun m : St => set m 7 0). Qed.
+(* while_decnz(param3,43).0 *)
+Lemma w288 m : sem (ENode 288) m XNormal (set (set (set m 2 (get m 2 + get m 7)) 8 (get m 8 + get m 7)) 7 0).
+Proof. revert m; while_tac (fun m : St => inc 8 (inc 2 m)) (fun m : St => set (set (set m 2 (get m 2 + get m 7)) 8 (get m 8 + get m 7)) 7 0). Qed.
+(* while_decnz(param3,82).0 *)
+Lemma w289 m : sem (ENode 289) m XNormal (set (set (set m 8 (get m 8 + get m 7)) 10 (get m 10 + get m 7)) 7 0).
+Proof. revert m; while_tac (fun m : St => inc 10 (inc 8 m)) (fun m : St => set (set (set m 8 (get m 8 + get m 7)) 10 (get m 10 + get m 7)) 7 0). Qed.
+(* while_decnz(scratch1,()).0 *)
+Lemma w290 m : sem (ENode 290) m XNormal (set m 8 0).
+Proof. revert m; while_tac (fun m : St => m) (fun m : St => set m 8 0). Qed.
+(* while_decnz(scratch1,3.axiomcode.inc).0 *)
+Lemma w291 m : sem (ENode 291) m XNormal (set (set m 4 (get m 4 + get m 8)) 8 0).
+Proof. revert m; while_tac (inc 4) (fun m : St => set (set m 4 (get m 4 + get m 8)) 8 0). Qed.
+(* while_decnz(scratch1,3.nextproof.inc).0 *)
+Lemma w293 m : sem (ENode 293) m XNormal (set (set m 1 (get m 1 + get m 8)) 8 0).
+Proof. revert m; while_tac (inc 1) (fun m : St => set (set m 1 (get m 1 + get m 8)) 8 0). Qed.
+(* while_decnz(scratch1,3.param1.inc).0 *)
+Lemma w295 m : sem (ENode 295) m XNormal (set (set m 5 (get m 5 + get m 8)) 8 0).
+Proof. revert m; while_tac (inc 5) (fun m : St => set (set m 5 (get m 5 + get m 8)) 8 0). Qed.
+(* while_decnz(scratch1,3.param2.inc).0 *)
+Lemma w297 m : sem (ENode 297) m XNormal (set (set m 6 (get m 6 + get m 8)) 8 0).
+Proof. revert m; while_tac (inc 6) (fun m : St => set (set m 6 (get m 6 + get m 8)) 8 0). Qed.
+(* while_decnz(scratch1,3.param3.inc).0 *)
+Lemma w299 m : sem (ENode 299) m XNormal (set (set m 7 (get m 7 + get m 8)) 8 0).
+Proof. revert m; while_tac (inc 7) (fun m : St => set (set m 7 (get m 7 + get m 8)) 8 0). Qed.
+(* while_decnz(scratch1,3.scratch2.inc).0 *)
+Lemma w301 m : sem (ENode 301) m XNormal (set (set m 9 (get m 9 + get m 8)) 8 0).
+Proof. revert m; while_tac (inc 9) (fun m : St => set (set m 9 (get m 9 + get m 8)) 8 0). Qed.
+(* while_decnz(scratch1,3.topwff.inc).0 *)
+Lemma w302 m : sem (ENode 302) m XNormal (set (set m 2 (get m 2 + get m 8)) 8 0).
+Proof. revert m; while_tac (inc 2) (fun m : St => set (set m 2 (get m 2 + get m 8)) 8 0). Qed.
+(* while_decnz(scratch1,3.wffstack.inc).0 *)
+Lemma w303 m : sem (ENode 303) m XNormal (set (set m 3 (get m 3 + get m 8)) 8 0).
+Proof. revert m; while_tac (inc 3) (fun m : St => set (set m 3 (get m 3 + get m 8)) 8 0). Qed.
+(* while_decnz(scratch1,9).0 *)
+Lemma w304 m : sem (ENode 304) m XNormal (set (set (set m 2 (get m 2 + get m 8)) 9 (get m 9 + get m 8)) 8 0).
+Proof. revert m; while_tac (fun m : St => inc 9 (inc 2 m)) (fun m : St => set (set (set m 2 (get m 2 + get m 8)) 9 (get m 9 + get m 8)) 8 0). Qed.
+(* while_decnz(scratch2,()).0 *)
+Lemma w307 m : sem (ENode 307) m XNormal (set m 9 0).
+Proof. revert m; while_tac (fun m : St => m) (fun m : St => set m 9 0). Qed.
+(* while_decnz(scratch2,3.prooflist.inc).0 *)
+Lemma w308 m : sem (ENode 308) m XNormal (set (set m 0 (get m 0 + get m 9)) 9 0).
+Proof. revert m; while_tac (inc 0) (fun m : St => set (set m 0 (get m 0 + get m 9)) 9 0). Qed.
+(* while_decnz(scratch2,3.topwff.inc).0 *)
+Lemma w310 m : sem (ENode 310) m XNormal (set (set m 2 (get m 2 + get m 9)) 9 0).
+Proof. revert m; while_tac (inc 2) (fun m : St => set (set m 2 (get m 2 + get m 9)) 9 0). Qed.
+(* while_decnz(scratch2,3.wffstack.inc).0 *)
+Lemma w311 m : sem (ENode 311) m XNormal (set (set m 3 (get m 3 + get m 9)) 9 0).
+Proof. revert m; while_tac (inc 3) (fun m : St => set (set m 3 (get m 3 + get m 9)) 9 0). Qed.
+(* while_decnz(scratch3,()).0 *)
+Lemma w312 m : sem (ENode 312) m XNormal (set m 10 0).
+Proof. revert m; while_tac (fun m : St => m) (fun m : St => set m 10 0). Qed.
+(* while_decnz(topwff,()).0 *)
+Lemma w313 m : sem (ENode 313) m XNormal (set m 2 0).
+Proof. revert m; while_tac (fun m : St => m) (fun m : St => set m 2 0). Qed.
+(* while_decnz(topwff,21).0 *)
+Lemma w314 m : sem (ENode 314) m XNormal (set (set (set m 3 (get m 3 + get m 2)) 8 (get m 8 + get m 2)) 2 0).
+Proof. revert m; while_tac (fun m : St => inc 8 (inc 3 m)) (fun m : St => set (set (set m 3 (get m 3 + get m 2)) 8 (get m 8 + get m 2)) 2 0). Qed.
+(* while_decnz(topwff,3.scratch1.inc).0 *)
+Lemma w317 m : sem (ENode 317) m XNormal (set (set m 8 (get m 8 + get m 2)) 2 0).
+Proof. revert m; while_tac (inc 8) (fun m : St => set (set m 8 (get m 8 + get m 2)) 2 0). Qed.
+(* while_decnz(topwff,3.scratch2.inc).0 *)
+Lemma w319 m : sem (ENode 319) m XNormal (set (set m 9 (get m 9 + get m 2)) 2 0).
+Proof. revert m; while_tac (inc 9) (fun m : St => set (set m 9 (get m 9 + get m 2)) 2 0). Qed.
+(* while_decnz(wffstack,3.topwff.inc).0 *)
+Lemma w320 m : sem (ENode 320) m XNormal (set (set m 2 (get m 2 + get m 3)) 3 0).
+Proof. revert m; while_tac (inc 2) (fun m : St => set (set m 2 (get m 2 + get m 3)) 3 0). Qed.
+(* END GENERATED loops *)
+
+(** ** Cantor pairing facts. *)
+Lemma tri_S n : tri (S n) = tri n + S n.
+Proof.
+  unfold tri. replace (S n * (S n + 1)) with (n * (n + 1) + S n * 2) by lia.
+  rewrite Nat.div_add by lia. reflexivity.
+Qed.
+
+Lemma pair_00 : pair 0 0 = 0.
+Proof. reflexivity. Qed.
+
+Lemma pair_step a b k : a + b = S k -> pair a b = a + S (pair k 0).
+Proof. intros H. unfold pair. rewrite H, tri_S, Nat.add_0_r. lia. Qed.
+
+Lemma unpair_iter_diag a b c : Nat.iter a unpair_step (c, a + b) = (c + a, b).
+Proof.
+  revert b c. induction a as [|a IH]; intros b c.
+  - cbn. f_equal; lia.
+  - rewrite Nat.iter_succ. replace (S a + b) with (a + S b) by lia. rewrite IH. cbn. f_equal; lia.
+Qed.
+
+Lemma unpair_iter_tri d : Nat.iter (tri d) unpair_step (0, 0) = (0, d).
+Proof.
+  induction d as [|d IH]; [reflexivity|].
+  rewrite tri_S, Nat.add_comm, Nat.iter_add, IH.
+  rewrite Nat.iter_succ. replace (0, d) with (0, d + 0) by (f_equal; lia).
+  rewrite unpair_iter_diag. cbn. f_equal; lia.
+Qed.
+
+Lemma unpair_pair a b : unpair (pair a b) = (a, b).
+Proof.
+  unfold unpair, pair. rewrite Nat.iter_add, unpair_iter_tri, unpair_iter_diag. reflexivity.
+Qed.
+
+(** ** pair(out, in1, in2): out += pair in1 in2; in1, in2 := 0.
+    Loop: {while in1 {in1--; in2++; out++}; if in2 {in2--; out++; while in2 {in2--; in1++}; continue}}. *)
+Ltac pair_tac W1 W2 :=
+  let k := fresh "k" in let IH := fresh "IH" in let m := fresh "m" in let Hk := fresh "Hk" in
+  induction k as [|k IH]; intros m Hk;
+  [ eapply sem_cdr_normal; [reflexivity | apply W1 |];
+    eapply sem_car_break1; [reflexivity|]; eapply sem_conseq; [apply sem_decnz_zero|];
+    destruct m; nrm; [lia|];
+    repeat match goal with H : ?a + ?b = 0 |- _ =>
+      assert (a = 0) by lia; assert (b = 0) by lia; clear H; subst end; reflexivity
+  | eapply sem_cdr_continue1; [reflexivity | apply W1 | |];
+    [ eapply sem_cdr_continueS with (k := 0); [reflexivity | apply sem_decnz_pos with (v := k); [lia|] | ];
+      [ destruct m; nrm; lia
+      | eapply sem_cdr_continueS with (k := 1); [reflexivity | | apply sem_cont];
+        eapply sem_cdr_normal; [reflexivity | apply sem_inc; lia | apply W2] ]
+    | eapply sem_conseq; [apply IH; destruct m; nrm; lia |];
+      destruct m; nrm; f_equal; try lia;
+      rewrite ?Nat.add_0_l; match goal with |- _ = _ + pair ?a ?b => rewrite (pair_step a b k) by lia end; lia ] ].
+
+(* pair(scratch1, topwff, wffstack) *)
+Lemma pair221 m :
+  sem (ENode 221) m XNormal (set (set (set m 8 (get m 8 + pair (get m 2) (get m 3))) 2 0) 3 0).
+Proof.
+  revert m. cut (forall k m, get m 2 + get m 3 = k ->
+    sem (ENode 221) m XNormal (set (set (set m 8 (get m 8 + pair (get m 2) (get m 3))) 2 0) 3 0)).
+  { intros H m; apply (H _ m eq_refl). }
+  pair_tac w314 w320.
+Qed.
+
+(* pair(scratch2, scratch1, topwff) *)
+Lemma pair225 m :
+  sem (ENode 225) m XNormal (set (set (set m 9 (get m 9 + pair (get m 8) (get m 2))) 8 0) 2 0).
+Proof.
+  revert m. cut (forall k m, get m 8 + get m 2 = k ->
+    sem (ENode 225) m XNormal (set (set (set m 9 (get m 9 + pair (get m 8) (get m 2))) 8 0) 2 0)).
+  { intros H m; apply (H _ m eq_refl). }
+  pair_tac w304 w317.
+Qed.
+
+(* wff codes are astronomically large: never let tactic-level conversion compute a [pair] *)
+Opaque pair.
+
+(** ** unpair(out1, out2, in): walk [in] steps of [unpair_step] from (out1, out2); in := 0.
+    Loop: {if in {in--; out1++; if out2 {out2--; continue} else {while out1 {out1--; out2++}; continue}}}. *)
+Ltac ubody_tac W :=
+  intros m; eapply sem_cdr_continueS with (k := 0); [reflexivity | apply sem_inc; lia |];
+  destruct (get m 9) as [|v] eqn:Hv;
+  [ eapply sem_conseq;
+    [ eapply sem_cdr_continueS with (k := 1);
+      [ reflexivity
+      | eapply sem_car_break1; [reflexivity | apply sem_decnz_zero; destruct m; nrm; exact Hv]
+      | eapply sem_cdr_continueS with (k := 2); [reflexivity | apply W | apply sem_cont] ]
+    | destruct m; nrm; subst; cbn [unpair_step fst snd]; f_equal; lia ]
+  | eapply sem_conseq;
+    [ eapply sem_car_continue with (k := 1);
+      [ reflexivity
+      | eapply sem_cdr_continueS with (k := 1);
+        [ reflexivity | apply sem_decnz_pos with (v := v); [lia | destruct m; nrm; exact Hv]
+        | apply sem_cont ] ]
+    | destruct m; nrm; subst; reflexivity ] ].
+
+Lemma ubody241 m : sem (ENode 241) m (XContinue 1) (ustep 8 9 m).
+Proof. revert m; ubody_tac w301. Qed.
+
+Lemma ubody247 m : sem (ENode 247) m (XContinue 1) (ustep 2 9 m).
+Proof. revert m; ubody_tac w319. Qed.
+
+Ltac unpair_tac B :=
+  intros m; eapply (sem_while _ _ _ _ (unpair_post _ _ _));
+  [ reflexivity | lia | apply B | clear m; intros m; destruct m; reflexivity
+  | clear m; intros m H0; destruct m; unfold unpair_post; nrm; subst; reflexivity
+  | clear m; intros m v Hv; destruct m; unfold unpair_post; nrm; subst;
+    rewrite Nat.iter_succ_r, <- surjective_pairing; reflexivity ].
+
+(* unpair(scratch1, scratch2, prooflist) *)
+Lemma unpair244 m : sem (ENode 244) m XNormal (unpair_post 0 8 9 m).
+Proof. revert m; unpair_tac ubody241. Qed.
+(* unpair(scratch1, scratch2, wffstack) *)
+Lemma unpair245 m : sem (ENode 245) m XNormal (unpair_post 3 8 9 m).
+Proof. revert m; unpair_tac ubody241. Qed.
+(* unpair(topwff, scratch2, wffstack) *)
+Lemma unpair246 m : sem (ENode 246) m XNormal (unpair_post 3 2 9 m).
+Proof. revert m; unpair_tac ubody247. Qed.
+
+(** ** Straight-line sequences: a node all of whose cons cells below it (down to "atoms") are run
+    car-then-cdr is the sequential composition of its flattening. *)
+Inductive seqx : list edge -> St -> exit -> St -> Prop :=
+  | sx_nil m : seqx [] m XNormal m
+  | sx_normal e l m m1 x m2 : sem e m XNormal m1 -> seqx l m1 x m2 -> seqx (e :: l) m x m2
+  | sx_halt e l m m1 : sem e m XHalt m1 -> seqx (e :: l) m XHalt m1.
+
+Lemma sx_nil_eq m m' : m = m' -> seqx [] m XNormal m'.
+Proof. intros <-; constructor. Qed.
+
+Lemma seqx_exit l m x m' : seqx l m x m' -> x = XNormal \/ x = XHalt.
+Proof. induction 1; auto. Qed.
+
+Lemma seqx_app_inv l1 l2 m x m' : seqx (l1 ++ l2) m x m' ->
+  (exists m1, seqx l1 m XNormal m1 /\ seqx l2 m1 x m') \/ (x = XHalt /\ seqx l1 m XHalt m').
+Proof.
+  revert m. induction l1 as [|e l1 IH]; intros m H; cbn in H.
+  - left. exists m. split; [constructor | exact H].
+  - inversion H as [|e' l' m0 m1 x' m2 Hs Hl|e' l' m0 m1 Hs]; subst.
+    + destruct (IH _ Hl) as [(m3 & Ha & Hb) | (-> & Ha)].
+      * left. exists m3. split; [econstructor; eauto | exact Hb].
+      * right. split; [reflexivity | econstructor; eauto].
+    + right. split; [reflexivity | apply sx_halt; assumption].
+Qed.
+
+Lemma seqx_app l1 l2 m m1 x m' : seqx l1 m XNormal m1 -> seqx l2 m1 x m' -> seqx (l1 ++ l2) m x m'.
+Proof.
+  revert m. induction l1 as [|e l1 IH]; intros m H1 H2; inversion H1; subst; cbn; auto.
+  econstructor; eauto.
+Qed.
+
+Lemma seqx_single e m x m' : seqx [e] m x m' -> sem e m x m'.
+Proof.
+  intros H. inversion H as [|e' l' m0 m1 x' m2 Hs Hl|e' l' m0 m1 Hs]; subst; auto.
+  inversion Hl; subst; auto.
+Qed.
+
+(* nodes with their own lemma: never flattened *)
+Definition atoms : list nat :=
+  [ (* while_decnz *) 273; 274; 277; 278; 279; 282; 283; 284; 285; 286; 287; 288; 289; 290; 291; 293;
+    295; 297; 299; 301; 302; 303; 304; 307; 308; 310; 311; 312; 313; 314; 317; 319; 320;
+    (* pair, unpair *) 221; 225; 244; 245; 246;
+    (* control flow *) 11; 13; 15; 24; 25; 27; 58;
+    (* stack subroutines *) 1; 235; 250; 251; 252; 253; 229; 231; 233;
+    254; 256; 258; 260; 262; 321; 323; 236 ].
+
+Definition is_atom (n : nat) : bool := existsb (Nat.eqb n) atoms.
+
+Fixpoint expand (fuel : nat) (e : edge) : list edge :=
+  match fuel with
+  | 0 => [e]
+  | S f =>
+    match e with
+    | ENode n => if is_atom n then [e] else expand f (fst (zf2_nodes n)) ++ expand f (snd (zf2_nodes n))
+    | _ => [e]
+    end
+  end.
+
+Lemma sem_node_seq n m x m' : seqx (expand 200 (fst (zf2_nodes n)) ++ expand 200 (snd (zf2_nodes n))) m x m' ->
+  (forall m x m', seqx (expand 200 (fst (zf2_nodes n))) m x m' -> sem (fst (zf2_nodes n)) m x m') ->
+  (forall m x m', seqx (expand 200 (snd (zf2_nodes n))) m x m' -> sem (snd (zf2_nodes n)) m x m') ->
+  sem (ENode n) m x m'.
+Proof.
+  intros H Ha Hb. pose proof (surjective_pairing (zf2_nodes n)) as Hn.
+  destruct (seqx_app_inv _ _ _ _ _ H) as [(m1 & H1 & H2) | (-> & H1)].
+  - destruct (seqx_exit _ _ _ _ H2) as [-> | ->].
+    + eapply sem_cdr_normal; [exact Hn | apply Ha, H1 | apply Hb, H2].
+    + eapply sem_cdr_halt; [exact Hn | apply Ha, H1 | apply Hb, H2].
+  - eapply sem_car_halt; [exact Hn | apply Ha, H1].
+Qed.
+
+Lemma expand_sound fuel e m x m' : seqx (expand fuel e) m x m' -> sem e m x m'.
+Proof.
+  revert e m x m'. induction fuel as [|f IH]; intros e m x m' H; cbn [expand] in H.
+  - apply seqx_single, H.
+  - destruct e; try (apply seqx_single, H).
+    destruct (is_atom n); [apply seqx_single, H|].
+    destruct (seqx_app_inv _ _ _ _ _ H) as [(m1 & H1 & H2) | (-> & H1)];
+      pose proof (surjective_pairing (zf2_nodes n)) as Hn.
+    + destruct (seqx_exit _ _ _ _ H2) as [-> | ->].
+      * eapply sem_cdr_normal; [exact Hn | apply IH, H1 | apply IH, H2].
+      * eapply sem_cdr_halt; [exact Hn | apply IH, H1 | apply IH, H2].
+    + eapply sem_car_halt; [exact Hn | apply IH, H1].
+Qed.
+
+Lemma seq_node n m x m' :
+  seqx (expand 200 (fst (zf2_nodes n)) ++ expand 200 (snd (zf2_nodes n))) m x m' -> sem (ENode n) m x m'.
+Proof.
+  intros H. apply (sem_node_seq n m x m' H);
+    intros m0 x0 m0' H0; exact (expand_sound 200 _ m0 x0 m0' H0).
+Qed.
+
+(** Tactics for symbolic execution of sequences. *)
+(* [elem] proves [sem e m XNormal ?m'] for an atom [e] by its lemma; it is extended (::=) as lemmas
+   are added. *)
+(* BEGIN GENERATED elem_w *)
+Ltac elem_w := match goal with
+  | |- sem (ENode 273) _ _ _ => apply w273
+  | |- sem (ENode 274) _ _ _ => apply w274
+  | |- sem (ENode 277) _ _ _ => apply w277
+  | |- sem (ENode 278) _ _ _ => apply w278
+  | |- sem (ENode 279) _ _ _ => apply w279
+  | |- sem (ENode 282) _ _ _ => apply w282
+  | |- sem (ENode 283) _ _ _ => apply w283
+  | |- sem (ENode 284) _ _ _ => apply w284
+  | |- sem (ENode 285) _ _ _ => apply w285
+  | |- sem (ENode 286) _ _ _ => apply w286
+  | |- sem (ENode 287) _ _ _ => apply w287
+  | |- sem (ENode 288) _ _ _ => apply w288
+  | |- sem (ENode 289) _ _ _ => apply w289
+  | |- sem (ENode 290) _ _ _ => apply w290
+  | |- sem (ENode 291) _ _ _ => apply w291
+  | |- sem (ENode 293) _ _ _ => apply w293
+  | |- sem (ENode 295) _ _ _ => apply w295
+  | |- sem (ENode 297) _ _ _ => apply w297
+  | |- sem (ENode 299) _ _ _ => apply w299
+  | |- sem (ENode 301) _ _ _ => apply w301
+  | |- sem (ENode 302) _ _ _ => apply w302
+  | |- sem (ENode 303) _ _ _ => apply w303
+  | |- sem (ENode 304) _ _ _ => apply w304
+  | |- sem (ENode 307) _ _ _ => apply w307
+  | |- sem (ENode 308) _ _ _ => apply w308
+  | |- sem (ENode 310) _ _ _ => apply w310
+  | |- sem (ENode 311) _ _ _ => apply w311
+  | |- sem (ENode 312) _ _ _ => apply w312
+  | |- sem (ENode 313) _ _ _ => apply w313
+  | |- sem (ENode 314) _ _ _ => apply w314
+  | |- sem (ENode 317) _ _ _ => apply w317
+  | |- sem (ENode 319) _ _ _ => apply w319
+  | |- sem (ENode 320) _ _ _ => apply w320
+  end.
+(* END GENERATED elem_w *)
+Ltac side := first [cbn [get]; reflexivity | lia].
+Ltac elem0 :=
+  match goal with
+  | |- sem (EInc _) _ _ _ => apply sem_inc; lia
+  | |- sem (ENode 221) _ _ _ => apply pair221
+  | |- sem (ENode 225) _ _ _ => apply pair225
+  | |- sem (ENode 244) _ _ _ => apply unpair244
+  | |- sem (ENode 245) _ _ _ => apply unpair245
+  | |- sem (ENode 246) _ _ _ => apply unpair246
+  | |- _ => elem_w
+  end.
+Ltac elem := elem0.
+
+Ltac expand_goal :=
+  match goal with |- seqx ?l0 _ _ _ =>
+    let l := eval vm_compute in l0 in
+    let E := fresh "E" in assert (E : l0 = l) by (vm_compute; reflexivity);
+    rewrite E; clear E
+  end.
+
+Ltac step := eapply sx_normal; [ elem | nrm ].
+Ltac run_seq := apply seq_node; expand_goal; repeat step.
+
+Lemma unpair_iter_pair a b : Nat.iter (pair a b) unpair_step (0, 0) = (a, b).
+Proof. exact (unpair_pair a b). Qed.
+
+(* close a sequence: compare the final state field by field *)
+Ltac fin := apply sx_nil_eq; rewrite ?unpair_iter_pair; cbn [fst snd];
+  try reflexivity; f_equal; first [reflexivity | lia].
+
+Ltac start := intros m; destruct m; intros; nrm; subst.
+
+(** ** The stack subroutines (clean registers: scratch1 = scratch2 = scratch3 = 0). *)
+(* pushwff(): wffstack := pair topwff wffstack; topwff := 0 *)
+Lemma pushwff235 m : get m 8 = 0 ->
+  sem (ENode 235) m XNormal (set (set m 3 (pair (get m 2) (get m 3))) 2 0).
+Proof. revert m; start; run_seq; fin. Qed.
+
+Ltac elem1 := match goal with |- sem (ENode 235) _ _ _ => eapply pushwff235; side end.
+Ltac elem ::= first [elem1 | elem0].
+
+(* v_i(): push; topwff := i *)
+Lemma v250 m : get m 8 = 0 -> sem (ENode 250) m XNormal (set (set m 3 (pair (get m 2) (get m 3))) 2 1).
+Proof. revert m; start; run_seq; fin. Qed.
+Lemma v251 m : get m 8 = 0 -> sem (ENode 251) m XNormal (set (set m 3 (pair (get m 2) (get m 3))) 2 2).
+Proof. revert m; start; run_seq; fin. Qed.
+Ltac elem2 := match goal with
+  | |- sem (ENode 250) _ _ _ => eapply v250; side
+  | |- sem (ENode 251) _ _ _ => eapply v251; side
+  end.
+Ltac elem ::= first [elem2 | elem1 | elem0].
+Lemma v252 m : get m 8 = 0 -> sem (ENode 252) m XNormal (set (set m 3 (pair (get m 2) (get m 3))) 2 3).
+Proof. revert m; start; run_seq; fin. Qed.
+Lemma v253 m : get m 8 = 0 -> sem (ENode 253) m XNormal (set (set m 3 (pair (get m 2) (get m 3))) 2 4).
+Proof. revert m; start; run_seq; fin. Qed.
+
+Ltac elem2b := match goal with
+  | |- sem (ENode 252) _ _ _ => eapply v252; side
+  | |- sem (ENode 253) _ _ _ => eapply v253; side
+  end.
+Ltac elem ::= first [elem2b | elem2 | elem1 | elem0].
+
+(* par_i(): push; topwff := param_i *)
+Lemma par229 m : get m 8 = 0 -> sem (ENode 229) m XNormal (set (set m 3 (pair (get m 2) (get m 3))) 2 (get m 5)).
+Proof. revert m; start; run_seq; fin. Qed.
+Lemma par231 m : get m 8 = 0 -> sem (ENode 231) m XNormal (set (set m 3 (pair (get m 2) (get m 3))) 2 (get m 6)).
+Proof. revert m; start; run_seq; fin. Qed.
+Lemma par233 m : get m 8 = 0 -> sem (ENode 233) m XNormal (set (set m 3 (pair (get m 2) (get m 3))) 2 (get m 7)).
+Proof. revert m; start; run_seq; fin. Qed.
+
+Ltac elem3 := match goal with
+  | |- sem (ENode 229) _ _ _ => eapply par229; side
+  | |- sem (ENode 231) _ _ _ => eapply par231; side
+  | |- sem (ENode 233) _ _ _ => eapply par233; side
+  end.
+Ltac elem ::= first [elem3 | elem2b | elem2 | elem1 | elem0].
+
+(* cons(): (s1, s2) := unpair wffstack; wffstack := s2; topwff := pair s1 topwff *)
+Lemma cons1 m : get m 8 = 0 -> get m 9 = 0 ->
+  sem (ENode 1) m XNormal (set (set m 2 (pair (fst (unpair (get m 3))) (get m 2))) 3 (snd (unpair (get m 3)))).
+Proof. revert m; start; run_seq; fin. Qed.
+
+Lemma cons1_pair m a r : get m 3 = pair a r -> get m 8 = 0 -> get m 9 = 0 ->
+  sem (ENode 1) m XNormal (set (set m 2 (pair a (get m 2))) 3 r).
+Proof. intros H H8 H9. eapply sem_conseq; [apply cons1; auto|]. rewrite H, unpair_pair. reflexivity. Qed.
+
+Ltac elem4 := match goal with |- sem (ENode 1) _ _ _ => eapply cons1_pair; side end.
+Ltac elem ::= first [elem4 | elem3 | elem2b | elem2 | elem1 | elem0].
+
+(* binary wff constructors: stack (x, topwff) -> op x topwff *)
+Lemma weq260 m x r : get m 3 = pair x r -> get m 8 = 0 -> get m 9 = 0 ->
+  sem (ENode 260) m XNormal (set (set m 2 (weq x (get m 2))) 3 r).
+Proof. revert m; start; run_seq; fin. Qed.
+Lemma wel258 m x r : get m 3 = pair x r -> get m 8 = 0 -> get m 9 = 0 ->
+  sem (ENode 258) m XNormal (set (set m 2 (wel x (get m 2))) 3 r).
+Proof. revert m; start; run_seq; fin. Qed.
+Lemma wim321 m x r : get m 3 = pair x r -> get m 8 = 0 -> get m 9 = 0 ->
+  sem (ENode 321) m XNormal (set (set m 2 (wim x (get m 2))) 3 r).
+Proof. revert m; start; run_seq; fin. Qed.
+Lemma wal256 m x r : get m 3 = pair x r -> get m 8 = 0 -> get m 9 = 0 ->
+  sem (ENode 256) m XNormal (set (set m 2 (wal x (get m 2))) 3 r).
+Proof. revert m; start; run_seq; fin. Qed.
+Lemma wn323 m : get m 8 = 0 -> get m 9 = 0 ->
+  sem (ENode 323) m XNormal (set m 2 (wn (get m 2))).
+Proof. revert m; start; run_seq; fin. Qed.
+Ltac elem5 := match goal with
+  | |- sem (ENode 260) _ _ _ => eapply weq260; side
+  | |- sem (ENode 258) _ _ _ => eapply wel258; side
+  | |- sem (ENode 321) _ _ _ => eapply wim321; side
+  | |- sem (ENode 256) _ _ _ => eapply wal256; side
+  | |- sem (ENode 323) _ _ _ => eapply wn323; side
+  end.
+Ltac elem ::= first [elem5 | elem4 | elem3 | elem2b | elem2 | elem1 | elem0].
+Lemma wex262 m x r : get m 3 = pair x r -> get m 8 = 0 -> get m 9 = 0 ->
+  sem (ENode 262) m XNormal (set (set m 2 (wex x (get m 2))) 3 r).
+Proof. revert m; start; run_seq; fin. Qed.
+Lemma wa254 m x r : get m 3 = pair x r -> get m 8 = 0 -> get m 9 = 0 ->
+  sem (ENode 254) m XNormal (set (set m 2 (wa x (get m 2))) 3 r).
+Proof. revert m; start; run_seq; fin. Qed.
+Ltac elem6 := match goal with
+  | |- sem (ENode 262) _ _ _ => eapply wex262; side
+  | |- sem (ENode 254) _ _ _ => eapply wa254; side
+  end.
+Ltac elem ::= first [elem6 | elem5 | elem4 | elem3 | elem2b | elem2 | elem1 | elem0].
+
+(** ** select(): W := topwff; (topwff, wffstack) := pop; if axiomcode {axiomcode--; topwff := W}. *)
+(* if_decnz(axiomcode, {topwff := 0; topwff := scratch1; scratch1 := 0}) *)
+Lemma if15 m : sem (ENode 15) m XNormal
+  (match get m 4 with 0 => m | S a => set (set (set m 4 a) 2 (get m 8)) 8 0 end).
+Proof.
+  destruct (get m 4) as [|a] eqn:Ha.
+  - eapply sem_car_break1; [reflexivity|]. apply sem_decnz_zero; exact Ha.
+  - eapply sem_cdr_normal; [reflexivity | apply sem_decnz_pos; [lia | exact Ha] |].
+    eapply sem_conseq; [eapply sem_cdr_normal; [reflexivity | apply w313 | apply w302]|].
+    destruct m; nrm; f_equal; lia.
+Qed.
+
+Ltac elem7 := match goal with |- sem (ENode 15) _ _ _ => apply if15 end.
+Ltac elem ::= first [elem7 | elem6 | elem5 | elem4 | elem3 | elem2b | elem2 | elem1 | elem0].
+
+Lemma select236 m t r : get m 3 = pair t r -> get m 8 = 0 -> get m 9 = 0 ->
+  sem (ENode 236) m XNormal
+    (set (set (set m 2 (match get m 4 with 0 => t | S _ => get m 2 end)) 3 r) 4 (pred (get m 4))).
+Proof. revert m; start; destruct r_ac0; run_seq; fin. Qed.
+
+Ltac elem8 := match goal with |- sem (ENode 236) _ _ _ => eapply select236; side end.
+Ltac elem ::= first [elem8 | elem7 | elem6 | elem5 | elem4 | elem3 | elem2b | elem2 | elem1 | elem0].
+
+(** ** cparam(p): if axiomcode = 1 then p := pop wffstack (axiomcode restored). *)
+(* node_166 = [unpair(scratch1, scratch2, wffstack); wffstack := scratch2] *)
+Lemma n220 m : get m 8 = 0 -> get m 9 = 0 ->
+  sem (ENode 220) m XNormal (set (set m 8 (fst (unpair (get m 3)))) 3 (snd (unpair (get m 3)))).
+Proof. revert m; start; run_seq; fin. Qed.
+
+Ltac dec_pos := eapply sem_decnz_pos; [lia | reflexivity].
+
+Ltac cparam_tac W1 W2 :=
+  intros m; destruct m; intros; nrm; subst;
+  match goal with |- context [ match ?ac with 0 => _ | _ => _ end ] => destruct ac as [|[|?]] end;
+  [ (* axiomcode = 0 *)
+    eapply sem_car_break1; [reflexivity|];
+    eapply sem_cdr_break with (k := 0); [reflexivity | | apply sem_breakS];
+    eapply sem_car_break1; [reflexivity | apply sem_decnz_zero; reflexivity]
+  | (* axiomcode = 1 *)
+    eapply sem_conseq;
+    [ eapply sem_cdr_normal; [reflexivity | | eapply sem_cdr_normal; [reflexivity | apply W1 | apply W2]];
+      eapply sem_car_break1; [reflexivity|];
+      eapply sem_cdr_break with (k := 0); [reflexivity | dec_pos |];
+      eapply sem_cdr_break with (k := 0); [reflexivity | |];
+      [ eapply sem_car_break1; [reflexivity | apply sem_decnz_zero; reflexivity]
+      | eapply sem_cdr_break with (k := 0); [reflexivity | | apply sem_breakS];
+        eapply sem_cdr_normal; [reflexivity | apply sem_inc; lia | apply n220; reflexivity] ]
+    | nrm; f_equal; lia ]
+  | (* axiomcode >= 2 *)
+    eapply sem_conseq;
+    [ eapply sem_car_break1; [reflexivity|];
+      eapply sem_cdr_break with (k := 0); [reflexivity | | apply sem_breakS];
+      eapply sem_cdr_normal; [reflexivity | dec_pos |];
+      eapply sem_car_break1; [reflexivity|];
+      eapply sem_cdr_break with (k := 0); [reflexivity | dec_pos |];
+      eapply sem_cdr_break with (k := 0); [reflexivity | | apply sem_breakS];
+      eapply sem_cdr_normal; [reflexivity | apply sem_inc; lia | apply sem_inc; lia]
+    | reflexivity ] ].
+
+Lemma cparam11 m : get m 8 = 0 -> get m 9 = 0 -> sem (ENode 11) m XNormal
+  (match get m 4 with 1 => set (set m 6 (fst (unpair (get m 3)))) 3 (snd (unpair (get m 3))) | _ => m end).
+Proof. revert m; cparam_tac w283 w297. Qed.
+
+Lemma cparam13 m : get m 8 = 0 -> get m 9 = 0 -> sem (ENode 13) m XNormal
+  (match get m 4 with 1 => set (set m 7 (fst (unpair (get m 3)))) 3 (snd (unpair (get m 3))) | _ => m end).
+Proof. revert m; cparam_tac w287 w299. Qed.
+
+Ltac elem9 := match goal with
+  | |- sem (ENode 11) _ _ _ => eapply cparam11; side
+  | |- sem (ENode 13) _ _ _ => eapply cparam13; side
+  end.
+Ltac elem ::= first [elem9 | elem8 | elem7 | elem6 | elem5 | elem4 | elem3 | elem2b | elem2 | elem1 | elem0].
+
+(** ** if_eq(scratch2, scratch3, body): runs body iff scratch2 = scratch3; both zeroed. *)
+(* the comparison loop: {if s2 {s2--; if s3 {s3--; continue} else {s2 := 0; break 2}}} *)
+Lemma loop18 x : forall m, get m 9 = x ->
+  (x <= get m 10 -> sem (ENode 18) m XNormal (set (set m 9 0) 10 (get m 10 - x))) /\
+  (get m 10 < x -> sem (ENode 18) m (XBreak 2) (set (set m 9 0) 10 0)).
+Proof.
+  induction x as [|x IH]; intros m Hx; split; intros Hle.
+  - eapply sem_conseq; [eapply sem_car_break1; [reflexivity | apply sem_decnz_zero; exact Hx]|].
+    destruct m; nrm; subst; f_equal; lia.
+  - lia.
+  - destruct (get m 10) as [|y] eqn:Hy; [lia|].
+    eapply sem_cdr_continue1; [reflexivity | apply sem_decnz_pos; [lia | exact Hx] | |].
+    + eapply sem_car_continue with (k := 0); [reflexivity|].
+      eapply sem_cdr_continueS with (k := 0); [reflexivity | | apply sem_cont].
+      apply sem_decnz_pos with (v := y); [lia | destruct m; nrm; exact Hy].
+    + eapply sem_conseq; [apply (IH _); [destruct m; reflexivity | destruct m; nrm; lia]|].
+      destruct m; nrm; subst; f_equal; lia.
+  - destruct (get m 10) as [|y] eqn:Hy.
+    + eapply sem_cdr_break with (k := 1); [reflexivity | apply sem_decnz_pos; [lia | exact Hx] |].
+      eapply sem_conseq.
+      * eapply sem_cdr_break with (k := 1); [reflexivity | |].
+        -- eapply sem_car_break1; [reflexivity|]. apply sem_decnz_zero. destruct m; nrm; exact Hy.
+        -- eapply sem_cdr_break with (k := 1); [reflexivity | apply w307 | apply sem_breakS].
+      * destruct m; nrm; subst; reflexivity.
+    + eapply sem_cdr_continue1; [reflexivity | apply sem_decnz_pos; [lia | exact Hx] | |].
+      * eapply sem_car_continue with (k := 0); [reflexivity|].
+        eapply sem_cdr_continueS with (k := 0); [reflexivity | | apply sem_cont].
+        apply sem_decnz_pos with (v := y); [lia | destruct m; nrm; exact Hy].
+      * eapply sem_conseq; [apply (IH _); [destruct m; reflexivity | destruct m; nrm; lia]|].
+        destruct m; nrm; subst; reflexivity.
+Qed.
+
+
+Lemma if17_eq m : get m 9 = get m 10 -> sem (ENode 17) m XNormal (clr23 m).
+Proof.
+  intros H. destruct (loop18 (get m 9) m eq_refl) as [H1 _].
+  eapply sem_cdr_normal; [reflexivity | apply H1; lia |].
+  eapply sem_conseq; [eapply sem_car_break1; [reflexivity | apply sem_decnz_zero]|].
+  - destruct m; nrm; lia.
+  - unfold clr23; destruct m; nrm; f_equal; lia.
+Qed.
+
+Lemma if17_neq m : get m 9 <> get m 10 -> sem (ENode 17) m (XBreak 1) (clr23 m).
+Proof.
+  intros H. destruct (loop18 (get m 9) m eq_refl) as [H1 H2].
+  destruct (Nat.lt_ge_cases (get m 10) (get m 9)) as [Hlt | Hge].
+  - eapply sem_car_breakS with (k := 0); [reflexivity | apply H2, Hlt].
+  - eapply sem_cdr_break with (k := 0); [reflexivity | apply H1, Hge |].
+    eapply sem_cdr_break with (k := 0); [reflexivity | apply sem_decnz_pos with (v := get m 10 - get m 9 - 1);
+      [lia | destruct m; nrm; lia] |].
+    eapply sem_conseq; [eapply sem_cdr_break with (k := 0); [reflexivity | apply w312 | apply sem_breakS]|].
+    unfold clr23; destruct m; nrm; reflexivity.
+Qed.
+
+(* if_eq(scratch2, scratch3, topwff := 0) *)
+Lemma ifeq24 m : sem (ENode 24) m XNormal
+  (set (clr23 m) 2 (if Nat.eqb (get m 9) (get m 10) then 0 else get m 2)).
+Proof.
+  destruct (Nat.eqb_spec (get m 9) (get m 10)) as [H | H].
+  - eapply sem_cdr_normal; [reflexivity | apply if17_eq, H |].
+    eapply sem_conseq; [apply w313|]. unfold clr23; destruct m; reflexivity.
+  - eapply sem_conseq; [eapply sem_car_break1; [reflexivity | apply if17_neq, H]|].
+    unfold clr23; destruct m; reflexivity.
+Qed.
+
+(* if_eq(scratch2, scratch3, topwff += param1) *)
+Lemma ifeq25 m : get m 8 = 0 -> sem (ENode 25) m XNormal
+  (set (clr23 m) 2 (if Nat.eqb (get m 9) (get m 10) then get m 2 + get m 5 else get m 2)).
+Proof.
+  intros H8. destruct (Nat.eqb_spec (get m 9) (get m 10)) as [H | H].
+  - eapply sem_cdr_normal; [reflexivity | apply if17_eq, H |].
+    eapply sem_conseq; [eapply sem_cdr_normal; [reflexivity | apply w279 | apply w295]|].
+    unfold clr23; destruct m; nrm; subst; f_equal; lia.
+  - eapply sem_conseq; [eapply sem_car_break1; [reflexivity | apply if17_neq, H]|].
+    unfold clr23; destruct m; reflexivity.
+Qed.
+
+(** ** if_not_decnz(prooflist, {prooflist := nextproof; nextproof++}) *)
+Lemma ifnot27 m : get m 8 = 0 -> sem (ENode 27) m XNormal
+  (set (set m 0 (match get m 0 with 0 => get m 1 | S v => v end))
+       1 (match get m 0 with 0 => S (get m 1) | S _ => get m 1 end)).
+Proof.
+  intros H8. destruct (get m 0) as [|v] eqn:H0.
+  - eapply sem_cdr_normal; [reflexivity | eapply sem_car_break1; [reflexivity | apply sem_decnz_zero, H0] |].
+    eapply sem_conseq; [eapply sem_cdr_normal; [reflexivity | apply w274 |
+      eapply sem_cdr_normal; [reflexivity | apply w293 | apply sem_inc; lia]]|].
+    destruct m; nrm; subst; f_equal; lia.
+  - eapply sem_conseq; [eapply sem_car_break1; [reflexivity|] |].
+    + eapply sem_cdr_break with (k := 0); [reflexivity | apply sem_decnz_pos; [lia | exact H0] | apply sem_breakS].
+    + destruct m; nrm; subst; reflexivity.
+Qed.
+
+Ltac elem10 := match goal with
+  | |- sem (ENode 27) _ _ _ => eapply ifnot27; side
+  | |- sem (ENode 24) _ _ _ => apply ifeq24
+  | |- sem (ENode 25) _ _ _ => eapply ifeq25; side
+  end.
+Ltac elem ::= first [elem10 | elem9 | elem8 | elem7 | elem6 | elem5 | elem4 | elem3 | elem2b | elem2 | elem1 | elem0].
+
+(** ** the final check: halt iff topwff = 1 (topwff is restored otherwise) *)
+Lemma check58_halt m : get m 2 = 1 -> exists m', sem (ENode 58) m XHalt m'.
+Proof.
+  intros H. eexists.
+  eapply sem_cdr_halt; [reflexivity | apply sem_decnz_pos; [lia | exact H] |].
+  eapply sem_cdr_halt; [reflexivity | | apply sem_halt].
+  eapply sem_car_break1; [reflexivity | apply sem_decnz_zero]. destruct m; nrm; reflexivity.
+Qed.
+
+Lemma check58_normal m : get m 2 <> 1 -> sem (ENode 58) m XNormal m.
+Proof.
+  intros H. destruct (get m 2) as [|[|v]] eqn:H2; [| congruence |].
+  - eapply sem_car_break1; [reflexivity | apply sem_decnz_zero, H2].
+  - eapply sem_cdr_normal; [reflexivity | apply sem_decnz_pos; [lia | exact H2] |].
+    eapply sem_car_break1; [reflexivity|].
+    eapply sem_cdr_break with (k := 0); [reflexivity | apply sem_decnz_pos with (v := v); [lia | destruct m; nrm; reflexivity] |].
+    eapply sem_conseq; [eapply sem_cdr_break with (k := 0); [reflexivity | | apply sem_breakS]|].
+    + eapply sem_cdr_normal; [reflexivity | apply sem_inc; lia | apply sem_inc; lia].
+    + destruct m; nrm; subst; reflexivity.
+Qed.
+
+(** ** The main() body: prefix, the 20 clauses in [axiomorder], the halt check. *)
+Local Notation E_v0 := (ENode 235) (only parsing).
+Local Notation E_v1 := (ENode 250) (only parsing).
+Local Notation E_v2 := (ENode 251) (only parsing).
+Local Notation E_v3 := (ENode 252) (only parsing).
+Local Notation E_v4 := (ENode 253) (only parsing).
+Local Notation E_par1 := (ENode 229) (only parsing).
+Local Notation E_par2 := (ENode 231) (only parsing).
+Local Notation E_par3 := (ENode 233) (only parsing).
+Local Notation E_weq := (ENode 260) (only parsing).
+Local Notation E_wel := (ENode 258) (only parsing).
+Local Notation E_wim := (ENode 321) (only parsing).
+Local Notation E_wn := (ENode 323) (only parsing).
+Local Notation E_wal := (ENode 256) (only parsing).
+Local Notation E_wex := (ENode 262) (only parsing).
+Local Notation E_wa := (ENode 254) (only parsing).
+Local Notation E_select := (ENode 236) (only parsing).
+Local Notation E_cparam2 := (ENode 11) (only parsing).
+Local Notation E_cparam3 := (ENode 13) (only parsing).
+
+(* clause programs by zf2.py clause index (generated by tools/gen_prog.py; the flattening equation
+   [main_flat] below checks them against the DAG) *)
+(* BEGIN GENERATED clauses *)
+Definition CL (c : nat) : list edge :=
+  match c with
+  | 0 => (* DET *) [E_cparam3; E_cparam2; E_par3; E_par1; E_wim; ENode 319; ENode 285; ENode 297; ENode 25; E_select]
+  | 1 => (* GEN *) [E_cparam3; E_par1; E_par3; E_wal; E_select]
+  | 2 => (* B1 *) [E_par1; E_par2; E_wim; E_par2; E_par3; E_wim; E_par1; E_par3; E_wim; E_wim; E_wim; E_select]
+  | 3 => (* B2 *) [E_par1; E_wn; E_par1; E_wim; E_par1; E_wim; E_select]
+  | 4 => (* B3 *) [E_par1; E_par1; E_wn; E_par2; E_wim; E_wim; E_select]
+  | 5 => (* B4 *) [E_par1; E_par2; E_par3; E_wim; E_wal; E_par1; E_par2; E_wal; E_par1; E_par3; E_wal; E_wim; E_wim; E_select]
+  | 6 => (* B6b *) [E_par1; E_par2; E_par3; E_wal; E_wal; E_par2; E_par1; E_par3; E_wal; E_wal; E_wim; E_select]
+  | 7 => (* B8b *) [E_par1; E_par2; E_weq; E_par1; E_par3; E_wel; E_par2; E_par3; E_wel; E_wim; E_wim; E_select]
+  | 8 => (* B6a *) [E_par1; E_par2; E_weq; E_par3; E_par1; E_par2; E_weq; E_wal; E_wim; E_par1; E_par2; E_wel; E_par3; E_par1; E_par2; E_wel; E_wal; E_wim; E_wa; ENode 282; ENode 295; ENode 289; ENode 299; ENode 24; ENode 286; ENode 297; ENode 289; ENode 299; ENode 24; E_select]
+  | 9 => (* B6b *) [E_par1; E_par2; E_par3; E_wal; E_wal; E_par2; E_par1; E_par3; E_wal; E_wal; E_wim; E_select]
+  | 10 => (* B6c *) [E_par1; E_par1; E_par2; E_wal; E_wex; E_par2; E_wim; E_select]
+  | 11 => (* B7 *) [E_par1; E_par1; E_par2; E_weq; E_wex; E_select]
+  | 12 => (* B8a *) [E_par1; E_par2; E_weq; E_par1; E_par3; E_weq; E_par2; E_par3; E_weq; E_wim; E_wim; E_select]
+  | 13 => (* B8b *) [E_par1; E_par2; E_weq; E_par1; E_par3; E_wel; E_par2; E_par3; E_wel; E_wim; E_wim; E_select]
+  | 14 => (* B8c *) [E_par1; E_par2; E_weq; E_par3; E_par1; E_wel; E_par3; E_par2; E_wel; E_wim; E_wim; E_select]
+  | 15 => (* EXT *) [E_v2; E_v2; E_v0; E_wel; E_v2; E_v1; E_wel; E_wim; E_v2; E_v1; E_wel; E_v2; E_v0; E_wel; E_wim; E_wa; E_wal; E_v0; E_v1; E_weq; E_wim; E_select]
+  | 16 => (* REP *) [E_v3; E_v1; E_v2; E_v1; E_par1; E_wal; E_v2; E_v1; E_weq; E_wim; E_wal; E_wex; E_wal; E_v1; E_v2; E_v2; E_v1; E_wel; E_v3; E_v3; E_v0; E_wel; E_v1; E_par1; E_wal; E_wa; E_wex; E_wim; E_v3; E_v3; E_v0; E_wel; E_v1; E_par1; E_wal; E_wa; E_wex; E_v2; E_v1; E_wel; E_wim; E_wa; E_wal; E_wex; E_wim; E_select]
+  | 17 => (* POW *) [E_v1; E_v2; E_v3; E_v3; E_v2; E_wel; E_v3; E_v0; E_wel; E_wim; E_wal; E_v2; E_v1; E_wel; E_wim; E_wal; E_wex; E_select]
+  | 18 => (* UNI *) [E_v1; E_v2; E_v3; E_v2; E_v3; E_wel; E_v3; E_v0; E_wel; E_wa; E_wex; E_v2; E_v1; E_wel; E_wim; E_wal; E_wex; E_select]
+  | _ => (* INF *) [E_v1; E_v0; E_v1; E_wel; E_v0; E_v0; E_v1; E_wel; E_v2; E_v2; E_v1; E_wel; E_v1; E_v1; E_v2; E_wel; E_v1; E_v0; E_weq; E_wim; E_v1; E_v0; E_weq; E_v1; E_v2; E_wel; E_wim; E_wa; E_wal; E_wa; E_wex; E_wim; E_wal; E_wa; E_wex; E_select]
+  end.
+Definition prefix : list edge := [ENode 27; ENode 273; ENode 277; ENode 283; ENode 287; ENode 244; ENode 308; ENode 291; ENode 244; ENode 308; ENode 295; ENode 244; ENode 308; ENode 297; ENode 244; ENode 308; ENode 299].
+(* END GENERATED clauses *)
+
+Definition main_list : list edge := prefix ++ [E_v0] ++ flat_map CL axiomorder ++ [ENode 58].
+
+Lemma main_flat : expand 200 (fst (zf2_nodes 0)) ++ expand 200 (snd (zf2_nodes 0)) = main_list.
+Proof. vm_compute. reflexivity. Qed.
+
+(** Effect of one clause program (ending in select) on a clean register file.  axiomcode = 0: no
+    effect (the clause works on a pushed copy and select pops it back).  axiomcode = 1: the active
+    clause (DET and GEN pop their premises from the wff stack into param3/param2).  axiomcode >= 2:
+    topwff := the clause's wff, axiomcode--. *)
+Definition clause_post (c : nat) (m : St) : St :=
+  let p1 := get m 5 in let p2 := get m 6 in let p3 := get m 7 in let w := get m 3 in
+  match get m 4 with
+  | 0 => m
+  | S a =>
+    match c, a with
+    | 0, 0 =>
+      let ph := fst (unpair w) in let w1 := snd (unpair w) in
+      let maj := fst (unpair w1) in let w2 := snd (unpair w1) in
+      set (set (set (set (set m 2 (if Nat.eqb (wim ph p1) maj then p1 else 0)) 3 w2) 4 0) 6 maj) 7 ph
+    | 0, _ => set (set m 2 (if Nat.eqb (wim p3 p1) p2 then p1 else 0)) 4 a
+    | 1, 0 => set (set (set (set m 2 (wal p1 (fst (unpair w)))) 3 (snd (unpair w))) 4 0) 7 (fst (unpair w))
+    | 8, _ => set (set m 2 (if Nat.eqb p1 p3 || Nat.eqb p2 p3 then 0 else clause_8 p1 p2 p3)) 4 a
+    | _, _ => set (set m 2 (clause c p1 p2 p3)) 4 a
+    end
+  end.
+
+Ltac clause_fin :=
+  apply sx_nil_eq; cbn [clause clause_post get set Nat.pred];
+  unfold clause_0, clause_1, clause_2, clause_3, clause_4, clause_5, clause_6, clause_7, clause_8,
+    clause_9, clause_10, clause_11, clause_12, clause_13, clause_14, clause_15, clause_16, clause_17,
+    clause_18, clause_19, c0, c1, c2, c3, c4;
+  rewrite ?Nat.add_0_l;
+  repeat match goal with |- context [Nat.eqb ?x ?y] =>
+    lazymatch x with context [Nat.eqb _ _] => fail | _ =>
+    destruct (Nat.eqb x y) eqn:? end end;
+  try reflexivity.
+
+Lemma clause_ok c m : c < 20 -> get m 8 = 0 -> get m 9 = 0 -> get m 10 = 0 ->
+  seqx (CL c) m XNormal (clause_post c m).
+Proof.
+  intros Hc. destruct m as [a0 a1 a2 a3 [|[|ac]] a5 a6 a7 a8 a9 a10]; intros; nrm; subst;
+  do 20 (destruct c as [|c]; [cbn [CL]; repeat step; clause_fin|]); lia.
+Qed.
+
+Lemma clause_post_clean c m i : 8 <= i -> get (clause_post c m) i = get m i.
+Proof.
+  intros Hi. destruct m as [a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10]. unfold clause_post. cbn [get].
+  destruct a4 as [|[|a]]; [reflexivity| |];
+  (do 9 (destruct c as [|c]; [cbn [set]; do 11 (destruct i as [|i]; [lia || reflexivity|]); reflexivity|]));
+  cbn [set]; do 11 (destruct i as [|i]; [lia || reflexivity|]); reflexivity.
+Qed.
+
+Lemma clauses_ok l m : Forall (fun c => c < 20) l -> get m 8 = 0 -> get m 9 = 0 -> get m 10 = 0 ->
+  seqx (flat_map CL l) m XNormal (fold_left (fun m c => clause_post c m) l m).
+Proof.
+  intros Hl. revert m. induction Hl as [|c l Hc Hl IH]; intros m H8 H9 H10; cbn [flat_map fold_left].
+  - constructor.
+  - eapply seqx_app; [apply clause_ok; auto|].
+    apply IH; rewrite clause_post_clean; auto.
+Qed.
