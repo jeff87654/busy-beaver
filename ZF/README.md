@@ -1,6 +1,28 @@
-# ZF/ — verified Turing machines that halt iff ZF proves a contradiction
+# ZF/ — verified Turing machines that halt iff ZF(C) proves a contradiction
 
-Coq proofs that three 2-symbol Turing machines, started on a blank tape, halt **if and only if** a
+**Headline:** the 335-state, 2-symbol machine [`machines/R3Y1_335.tm`](machines/R3Y1_335.tm), started on a
+blank tape, halts **if and only if ZFC is inconsistent**. This is proved end to end in Coq with no
+axioms ([`stdzf_r3/`](stdzf_r3/), CI job `zf-stdzf-r3`):
+
+```coq
+Theorem zf335_halts_iff_ZF      : halts tm c0 <-> ZFc ⊢TC ⊥                (* ZF            *)
+Theorem zf335_halts_iff_ZF_reg  : halts tm c0 <-> (ZFc + Reg) ⊢TC ⊥        (* ZF + Reg      *)
+Theorem zf335_halts_iff_ZFC     : halts tm c0 <-> (ZFc + AC) ⊢TC ⊥         (* ZFC without Reg *)
+Theorem zf335_halts_iff_ZFC_reg : halts tm c0 <-> (ZFc + Reg + AC) ⊢TC ⊥   (* ZFC           *)
+```
+
+- `halts`, `c0`: busycoq's TM semantics.
+- `tm`: proved equal to the literal table of the `.tm` file.
+- `⊢TC`: classical natural deduction of the Coq Library of Undecidability Proofs (Kirst & Hermes).
+- `ZFc`: that library's ZF, with its separation and replacement instances universally closed.
+- `Reg`: the regularity axiom.
+- `AC`: Zermelo's choice-set axiom.
+
+The relative consistency of regularity (well-founded sets) and of choice (Gödel's L) is formalized at
+the level of derivations, in `stdzf_r3/regcon/` and `stdzf_r3/zfc/`. As far as we know, this is the first
+such formalization.
+
+Coq proofs that five 2-symbol Turing machines, started on a blank tape, halt **if and only if** a
 Hilbert-style formalization of ZF set theory (O'Rear's system `prov`) proves `v_0 e. v_0`:
 
 ```coq
@@ -9,8 +31,8 @@ Theorem zf_machine : halts tm c0 <-> prov (Wel v0 v0).
 ```
 
 [`stdzf/`](stdzf/) then connects `prov` to the standard formalization of ZF in the Coq Library of
-Undecidability Proofs (Kirst & Hermes). For the 354-state machine it proves end to end, in a single
-build:
+Undecidability Proofs (Kirst & Hermes). For the 354-, 336- and 335-state machines it proves end to end, in a
+single build each (`stdzf/endtoend/354`, `stdzf_r3/endtoend/336`, `stdzf_r3/endtoend/335`):
 
 ```coq
 Theorem zf354_halts_iff_ZF     : halts tm c0 <-> ZFc ⊢TC ⊥          (* ZF, schemas universally closed *)
@@ -18,16 +40,20 @@ Theorem zf354_halts_iff_ZF_reg : halts tm c0 <-> (ZFc + Reg) ⊢TC ⊥  (* ZF wi
 (* plus the same for the library's function-symbol signature; all closed, no axioms *)
 ```
 
-So the 354-state machine halts iff ZF is inconsistent, with or without regularity. No paper argument
+So the 335-, 336- and 354-state machines halt iff ZF is inconsistent, with or without regularity. No paper argument
 remains; see [`stdzf/README.md`](stdzf/README.md).
 
 | machine | states | origin | proof |
 |---|---|---|---|
 | [`machines/zf2.tm`](machines/zf2.tm) | 393 | Andrew Wade's machine, unchanged | [`verify/393/`](verify/393/) |
 | [`machines/A361.tm`](machines/A361.tm) | 361 | Wade's framework; reworked program, same formal system | [`verify/361/`](verify/361/) |
-| [`machines/B354.tm`](machines/B354.tm) | **354** | as A361, plus equivalent rewrites of EXT, REP and INF | [`verify/354/`](verify/354/) |
+| [`machines/B354.tm`](machines/B354.tm) | 354 | as A361, plus equivalent rewrites of EXT, REP and INF | [`verify/354/`](verify/354/) |
+| [`machines/R3s336.tm`](machines/R3s336.tm) | 336 | bounded-fiber REP; POW and UNI dropped (derivable) | [`verify/336/`](verify/336/) |
+| [`machines/R3Y1_335.tm`](machines/R3Y1_335.tm) | **335** | as R3s336, with B2 and B3 replaced by one scheme BY | [`verify/335/`](verify/335/) |
 
-All three machines search the same formal system. `Logic.v` is byte-identical in the three proofs.
+The 393/361/354 machines search the same formal system (`Logic.v` byte-identical in their proofs). The
+336- and 335-state machines search a different but equiconsistent one (their own, shared `Logic.v`);
+`stdzf_r3/` proves it equivalent to standard ZF.
 
 ## Background
 
@@ -65,7 +91,17 @@ As far as we know, none of these machines had been formally verified before.
   first-order logic that each rewritten axiom and its original are interderivable. So the machine
   searches a system with exactly the same theorems, and the trusted `Logic.v` is unchanged.
 
-[`generator/`](generator/) rebuilds `A361.tm` and `B354.tm` byte for byte with `python mkcand.py A361.json A361`.
+- **336 (R3s336):** REP's functionality hypothesis `A. v1 ph -> v2 = v1` is replaced by a fiber BOUND,
+  `A. v1 ph -> ( -. A. v0 ( v0 e. v2 -> v0 e. v1 ) -> v2 e. v1 )` (every image is a member or a subset
+  of some set y). The scheme stays ZF-valid (each fiber lies in y u P(y)), and POW and UNI become its
+  instances, so both clauses are dropped. EXT and INF are only flipped/renamed. `prov` changes, so this
+  machine's link to ZF is the Coq development in `stdzf_r3/` (not a paper argument).
+- **335 (R3Y1_335):** R3s336 with the propositional schemes B2 and B3 replaced by the single scheme
+  BY = `p -> ( ( -. q -> ( ( q -> r ) -> -. p ) ) -> q )`. `verify/335/PropBasis.v` derives B2 and B3 from
+  B1 + BY (and BY from B1-B3), so the machine targets the same `Logic.v` as 336. All eleven logical
+  schemes of the original system were shown independent (countermodels), so none can simply be dropped.
+
+[`generator/`](generator/) rebuilds `A361.tm`, `B354.tm`, `R3s336.tm` and `R3Y1_335.tm` byte for byte with `python mkcand.py A361.json A361`.
 The generator is Wade's `TMBuilder.py`/`zf2.py` (unmodified) plus our program `zfp.py`.
 
 ## Checking
@@ -75,7 +111,7 @@ Build busycoq (<https://github.com/meithecatte/busycoq>, commit `bd2e36f`, Coq 8
 
 ```
 cd ZF/verify
-BUSYCOQ=/path/to/busycoq/verify python3 check.py 354      # or 361, 393
+BUSYCOQ=/path/to/busycoq/verify python3 check.py 335      # or 336, 354, 361, 393
 ```
 
 `check.py` does three things:
@@ -84,7 +120,7 @@ BUSYCOQ=/path/to/busycoq/verify python3 check.py 354      # or 361, 393
 2. It compiles the proof.
 3. It checks the statement of `zf_machine` and that `Print Assumptions` reports no axioms.
 
-A full check takes about 5–12 minutes per machine. CI runs all three; see `.github/workflows/coq.yml`.
+A full check takes about 5–12 minutes per machine. CI runs all five; see `.github/workflows/coq.yml`.
 
 ### What has to be trusted
 

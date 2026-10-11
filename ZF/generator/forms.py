@@ -37,6 +37,23 @@ TREES = {
 TREES['INF2'] = EX(1, A(EL(0, 1), AL(0, IM(EL(0, 1), EX(2, A(EL(2, 1), A(AL(1, IM(EL(1, 2), EQ(1, 0))), EL(0, 2))))))))
 TREES['PU'] = EX(1, AL(2, IM(IM(N(AL(3, IM(EL(3, 2), EL(3, 0)))), EX(3, A(EL(2, 3), EL(3, 0)))), EL(2, 1))))
 
+# ---- zf-axtext candidates ----
+def SUB(z, y, v): return AL(v, IM(EL(v, z), EL(v, y)))      # z C_ y  (bound variable v)
+def OR(a, b): return IM(N(a), b)
+_RCONC = EX(1, AL(2, BI(EL(2, 1), EX(3, A(EL(3, 0), AL(1, PH))))))
+def _rep(c): return IM(AL(3, EX(1, AL(2, IM(AL(1, PH), c)))), _RCONC)
+# REPb: fibers bounded by a set (z e. y) instead of "at most one z (z = y)"; UNI becomes derivable
+TREES['REPb'] = _rep(EL(2, 1))
+# REPs: fibers bounded by a power set (z C_ y); POW becomes derivable
+for _v in (0, 3, 4):
+    TREES['REPs%d' % _v] = _rep(SUB(2, 1, _v))
+    # REPbs: z e. y \/ z C_ y; POW and UNI both derivable
+    TREES['REPbs%d' % _v] = _rep(OR(EL(2, 1), SUB(2, 1, _v)))
+    TREES['REPsb%d' % _v] = _rep(OR(SUB(2, 1, _v), EL(2, 1)))
+# EXTs: EXT with the biconditional split (one more token; lets SUB subsequences be shared)
+TREES['EXTs'] = IM(SUB(0, 1, 2), IM(SUB(1, 0, 2), EQ(0, 1)))
+REPLIKE = {'REP'} | {k for k in TREES if k.startswith('REP')}
+
 def nflip(t):
     """number of flippable nodes"""
     k = t[0]
@@ -47,6 +64,7 @@ def nflip(t):
 
 def variant(t, vmap=(0, 1, 2, 3), flips=0):
     """apply renaming and flips; returns a tree without 'bi' (expanded) and with flips resolved"""
+    vmap = tuple(vmap) + tuple(range(len(vmap), 5))
     ctr = [0]
     def bit():
         b = (flips >> ctr[0]) & 1; ctr[0] += 1; return b
