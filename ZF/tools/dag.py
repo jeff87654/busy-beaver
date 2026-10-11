@@ -2,7 +2,7 @@
 
 Node: name -> (car, cdr); edge = ('node', name) | ('op', regname, 'inc'|'decnz') | ('break', k) | ('continue', k) | ('halt',)
 Path semantics (IP = list of bits, MSB first, implicit trailing zeros):
-  advance:    P := P + 1 (binary increment; overflow prepends a 1, i.e. new marker)
+  advance:    P := P + 1 (binary increment; overflow gives an all-zero IP: the TM moves its marker left)
   break k:    strip bits from the right until k zeros removed, then increment
   continue k: strip bits from the right until k ones removed
   decnz on zero register: break 1
