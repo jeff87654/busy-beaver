@@ -76,6 +76,25 @@ Knuth arrows.
 - [`BB10/screen/`](BB10/screen/): the heuristic candidate screen that found n1 (completion enumerator, mini-follower,
   the cleared-list filter), with its data and a `check.sh` that reproduces part of it. Its verdicts are not claims.
 
+## BB12/
+
+`1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_0RG1LD_1RH1LG_1LC0RG_0LJ0LI_1RK0LC_0RL---_0RF1RZ` (T12a), a 12-state, 2-symbol
+machine that halts from the blank tape with N ones, where (machine-checked, standard fast-growing hierarchy)
+
+    f_(ω+1)(f_(ω+1)(JJ − 2)) ≤ 6N + 11,      JJ = (3T − 13)/7,      T = 2 ↑^37 3.
+
+It is n1 (BB10/) with two more states. It runs n1's whole computation. Where n1 halts, it rebuilds a countdown in
+place from n1's final values, runs n1's period loop a second time (about f_ω(w) more f_ω-sized steps, where w is
+n1's final depth), and halts at the end of that second round. It beats n1, against n1's Coq-proved exact score. One
+transition (K1) is never read.
+
+- [`BB12/1RB0RA_..._0RL---_0RF1RZ.md`](BB12/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_0RG1LD_1RH1LG_1LC0RG_0LJ0LI_1RK0LC_0RL---_0RF1RZ.md):
+  the analysis (how it works, the run, the score, comparisons, verification status).
+- [`BB12/verify/`](BB12/verify/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1): `halt`, the lower bounds
+  `sigma_lower_bound` and `score_ge_exact`, `beats_n1`, and the hierarchy bound `fgh_lower2`. No axioms.
+  `verify/multifile/compile_clean.sh` rebuilds everything (one 2.6 MB file takes most of the time) and runs a probe
+  that re-checks the transition table entry by entry.
+
 ## ZF/
 
 Turing machines with 393, 361 and **354** states (2 symbols) that halt from the blank tape **iff** ZF
