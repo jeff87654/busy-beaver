@@ -64,7 +64,8 @@ def inc(P):
     P = list(P); i = len(P) - 1
     while i >= 0 and P[i] == 1: P[i] = 0; i -= 1
     if i >= 0: P[i] = 1
-    else: P = [1] + P
+    # else: overflow (P was all ones). The TM moves its marker left and restarts with an all-zero IP,
+    # which reads the same as the zeros now in P (RM.v: inc_rev [] = []).
     return P
 
 def strip(P, bit, k):
