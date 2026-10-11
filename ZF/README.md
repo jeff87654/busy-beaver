@@ -1,15 +1,25 @@
 # ZF/ — verified Turing machines that halt iff ZF proves a contradiction
 
 Coq proofs that three 2-symbol Turing machines, started on a blank tape, halt **if and only if** a
-Hilbert-style formalization of ZF set theory proves `v_0 e. v_0`. The formalization is ZF without the
-axioms of regularity and choice, which is equiconsistent with ZF. Proving `v_0 e. v_0` makes the system
-inconsistent, so each machine halts iff ZF is inconsistent. That last step is a standard paper
-argument and is not formalized here.
+Hilbert-style formalization of ZF set theory (O'Rear's system `prov`) proves `v_0 e. v_0`:
 
 ```coq
 Theorem zf_machine : halts tm c0 <-> prov (Wel v0 v0).
 (* Print Assumptions zf_machine:  Closed under the global context *)
 ```
+
+[`stdzf/`](stdzf/) then connects `prov` to the standard formalization of ZF in the Coq Library of
+Undecidability Proofs (Kirst & Hermes). For the 354-state machine it proves end to end, in a single
+build:
+
+```coq
+Theorem zf354_halts_iff_ZF     : halts tm c0 <-> ZFc ⊢TC ⊥          (* ZF, schemas universally closed *)
+Theorem zf354_halts_iff_ZF_reg : halts tm c0 <-> (ZFc + Reg) ⊢TC ⊥  (* ZF with regularity *)
+(* plus the same for the library's function-symbol signature; all closed, no axioms *)
+```
+
+So the 354-state machine halts iff ZF is inconsistent, with or without regularity. No paper argument
+remains; see [`stdzf/README.md`](stdzf/README.md).
 
 | machine | states | origin | proof |
 |---|---|---|---|
@@ -90,28 +100,28 @@ A full check takes about 5–12 minutes per machine. CI runs all three; see `.gi
 - **Coq itself:** the Coq 8.20.1 kernel, including the `vm_compute` reduction machine. The table check,
   the boot run, the IP-space prefix and the DAG well-formedness checks are proofs by computation.
 
-### Not formalized: the system versus ZF
+### The system versus standard ZF (formalized in `stdzf/`)
 
-The theorem is about `prov` exactly as defined in `Logic.v`. Reading it as "halts iff ZF is
-inconsistent" takes two more steps, argued on paper only:
+On its own, `zf_machine` is about `prov` exactly as defined in `Logic.v`. Earlier machines in this
+lineage relied on two paper arguments to read it as "halts iff ZF is inconsistent": that `prov` is no
+stronger than ZF, and that it is complete enough to reach ZF − Reg − AC (completeness of O'Rear's
+Tarski-S2 variant, fixed-variable axioms, sharp REP). [`stdzf/`](stdzf/) replaces both with Coq
+theorems:
 
-1. **The system is no stronger than ZF.** Every axiom of `prov` is a logically valid formula or a
-   theorem of ZF. This can be checked by reading `Logic.v`. It gives: if ZF is consistent, the system
-   is consistent and the machine runs forever. Also, `v_0 e. v_0` really is a contradiction: by GEN it
-   gives `A. v_0 v_0 e. v_0`, which fails for the empty set, and the empty set exists by REP.
-   Regularity is not needed for this.
-2. **The system is at least as strong as ZF − Reg − AC, which is equiconsistent with ZF.** This rests
-   on the following:
-   - the completeness of O'Rear's variant of Tarski's system S2: Kalish–Montague 1965 for dropping
-     B5, and O'Rear's notes in `zf2.nql` for B6a–B6c, B7 and B8a–B8c;
-   - the claim that the fixed-variable forms of EXT, POW, UNI and INF, and the sharp form of REP (which
-     yields separation), give full ZF − Reg − AC.
-   This direction gives: if ZF is inconsistent, the machine halts. It is also what makes the machine's
-   behaviour unprovable in ZF, assuming ZF is consistent.
+- `prov (Wel v0 v0) <-> ZFc ⊢TC ⊥`, where `ZFc` is the minimal-signature ZF of the Coq Library of
+  Undecidability Proofs with its separation/replacement instances universally closed. This is the
+  library's own semantic axiom set. Its deductive theory leaves the instances open, and treats their
+  parameters as constants.
+- The same with regularity added (`ZFc + Reg`): the relative consistency of regularity, proved by
+  relativizing derivations to the class of well-founded sets.
+- The same for the library's function-symbol signature.
+- One direction for the library's theories exactly as written: `minZFeq ⊢TC ⊥ -> prov (Wel v0 v0)`.
 
-Direction 2 is the classical argument behind every machine in this lineage, unchanged since O'Rear.
-B354's axiom variants add nothing to trust here, because `L1_B354.v` proves them interderivable with
-the originals.
+For the 354-state machine, `stdzf/endtoend/354/` compiles the machine proof and these theorems in one
+namespace, so `halts tm c0 <-> ZFc ⊢TC ⊥` holds directly and `Logic.v` is only an internal
+intermediate. The trust surface for that statement is described in `stdzf/README.md`. Only the
+translation of "ZF is inconsistent" into this particular classical natural-deduction calculus remains
+informal; all standard complete calculi agree on it.
 
 ### Proof structure (each `verify/N/`)
 

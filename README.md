@@ -91,3 +91,6 @@ with a Coq proof of `halts tm c0 <-> prov (Wel v0 v0)` on busycoq's TM semantics
 - [`ZF/verify/`](ZF/verify/): the Coq proofs and `check.py`, which ties the literal table to the `.tm`
   file, builds the proof and checks the statement and its assumptions.
 - [`ZF/generator/`](ZF/generator/): rebuilds the 361- and 354-state machines byte for byte.
+- [`ZF/stdzf/`](ZF/stdzf/): connects O'Rear's system to the standard ZF of the Coq Library of Undecidability
+  Proofs (Kirst & Hermes), with and without regularity. For the 354-state machine it proves end to end
+  `halts tm c0 <-> ZFc ⊢TC ⊥` (ZF inconsistent), in one build, with no axioms.
