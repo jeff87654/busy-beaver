@@ -1,0 +1,78 @@
+# From-scratch build of BB12/verify/multifile, 2026-10-11 08:25-11:30, Coq 8.20.1 (Coq Platform 2025.01),
+# Windows 11, shared 16-core laptop, every process at Idle priority. A fresh directory holding only the 16 .v files,
+# probe.v and compile_clean.sh, next to busycoq verify/ taken from commit bd2e36f (git show) and compiled first
+# (7 files, 4 s each). Command: BUSYCOQ=../busycoq/verify ./compile_clean.sh   (exit 0, 11071 s).
+# stderr held only deprecation warnings (Nat.* notations deprecated since 8.17), no errors.
+# Three of the n1 files had CRLF line endings in that directory; they are otherwise byte-identical to the
+# LF files here (and to ../../../BB10/verify/multifile/).
+
+== BB102.v ==
+   ok, 4 s
+== Individual102.v ==
+   ok, 4 s
+== BB10_n1.v ==
+   ok, 250 s
+== BB10_lead_1RB0RA.v ==
+   ok, 85 s
+== BB10_lead_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 6 s
+== BB10_champion_1RB1RA.v ==
+   ok, 9 s
+== BB10_champion_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 6 s
+== BB10_lead_vs_champion.v ==
+Closed under the global context
+Closed under the global context
+   ok, 6 s
+== BB10_n1_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 20 s
+== BB10_n1_exact.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 11 s
+== BB10_n1_fgh.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 18 s
+== BB122.v ==
+   ok, 4 s
+== Individual122.v ==
+   ok, 5 s
+== BB12_T12a.v ==
+   ok, 9989 s
+== BB12_T12a_bound.v ==
+BB10_n1_exact.score_closed
+     : exists
+         c : BB102.BB102.Q *
+             (Stream BB102.BB102.Sym * BB102.BB102.Sym *
+              Stream BB102.BB102.Sym),
+         Individual102.Individual102.Permute.Flip.Compute.TM.evstep
+           BB10_n1.tm Individual102.Individual102.Permute.Flip.Compute.TM.c0
+           c /\
+         Individual102.Individual102.Permute.Flip.Compute.TM.halted
+           BB10_n1.tm c /\ BB10_n1_bound.ones c BB10_n1_exact.score_value
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 221 s
+== BB12_T12a_fgh.v ==
+Closed under the global context
+   ok, 74 s
+COMPILE DONE
+probe: 5 of 5 theorems closed under the global context

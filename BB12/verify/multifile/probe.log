@@ -1,0 +1,203 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB12_T12a.tm (A, 0) = Some (1, R, B)
+     : BB12_T12a.tm (A, 0) = Some (1, R, B)
+eq_refl : BB12_T12a.tm (A, 1) = Some (0, R, A)
+     : BB12_T12a.tm (A, 1) = Some (0, R, A)
+eq_refl : BB12_T12a.tm (B, 0) = Some (1, TM.L, C)
+     : BB12_T12a.tm (B, 0) = Some (1, TM.L, C)
+eq_refl : BB12_T12a.tm (B, 1) = Some (1, TM.L, F)
+     : BB12_T12a.tm (B, 1) = Some (1, TM.L, F)
+eq_refl : BB12_T12a.tm (C, 0) = Some (1, R, D)
+     : BB12_T12a.tm (C, 0) = Some (1, R, D)
+eq_refl : BB12_T12a.tm (C, 1) = Some (0, TM.L, B)
+     : BB12_T12a.tm (C, 1) = Some (0, TM.L, B)
+eq_refl : BB12_T12a.tm (D, 0) = Some (1, R, A)
+     : BB12_T12a.tm (D, 0) = Some (1, R, A)
+eq_refl : BB12_T12a.tm (D, 1) = Some (1, TM.L, E)
+     : BB12_T12a.tm (D, 1) = Some (1, TM.L, E)
+eq_refl : BB12_T12a.tm (E, 0) = Some (1, TM.L, I)
+     : BB12_T12a.tm (E, 0) = Some (1, TM.L, I)
+eq_refl : BB12_T12a.tm (E, 1) = Some (0, TM.L, C)
+     : BB12_T12a.tm (E, 1) = Some (0, TM.L, C)
+eq_refl : BB12_T12a.tm (F, 0) = Some (0, R, G)
+     : BB12_T12a.tm (F, 0) = Some (0, R, G)
+eq_refl : BB12_T12a.tm (F, 1) = Some (1, TM.L, D)
+     : BB12_T12a.tm (F, 1) = Some (1, TM.L, D)
+eq_refl : BB12_T12a.tm (G, 0) = Some (1, R, H)
+     : BB12_T12a.tm (G, 0) = Some (1, R, H)
+eq_refl : BB12_T12a.tm (G, 1) = Some (1, TM.L, G)
+     : BB12_T12a.tm (G, 1) = Some (1, TM.L, G)
+eq_refl : BB12_T12a.tm (H, 0) = Some (1, TM.L, C)
+     : BB12_T12a.tm (H, 0) = Some (1, TM.L, C)
+eq_refl : BB12_T12a.tm (H, 1) = Some (0, R, G)
+     : BB12_T12a.tm (H, 1) = Some (0, R, G)
+eq_refl : BB12_T12a.tm (I, 0) = Some (0, TM.L, J)
+     : BB12_T12a.tm (I, 0) = Some (0, TM.L, J)
+eq_refl : BB12_T12a.tm (I, 1) = Some (0, TM.L, I)
+     : BB12_T12a.tm (I, 1) = Some (0, TM.L, I)
+eq_refl : BB12_T12a.tm (J, 0) = Some (1, R, K)
+     : BB12_T12a.tm (J, 0) = Some (1, R, K)
+eq_refl : BB12_T12a.tm (J, 1) = Some (0, TM.L, C)
+     : BB12_T12a.tm (J, 1) = Some (0, TM.L, C)
+eq_refl : BB12_T12a.tm (K, 0) = Some (0, R, L)
+     : BB12_T12a.tm (K, 0) = Some (0, R, L)
+eq_refl : BB12_T12a.tm (K, 1) = None
+     : BB12_T12a.tm (K, 1) = None
+eq_refl : BB12_T12a.tm (L, 0) = Some (0, R, F)
+     : BB12_T12a.tm (L, 0) = Some (0, R, F)
+eq_refl : BB12_T12a.tm (L, 1) = None
+     : BB12_T12a.tm (L, 1) = None
+BB12_T12a.arrow =
+fix arrow (k a b : nat) {struct k} : nat :=
+  match k with
+  | 0 => a * b
+  | S k' => Nat.iter b (arrow k' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB12_T12a.arrow (k a b)%nat_scope
+BB12_T12a.F = fun n : nat => BB12_T12a.arrow n 2 4
+     : nat -> nat
+
+Arguments BB12_T12a.F n%nat_scope
+BB12_T12a.iter =
+fix iter (n : nat) (g : nat -> nat) (x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => g (iter n' g x)
+  end
+     : nat -> (nat -> nat) -> nat -> nat
+
+Arguments BB12_T12a.iter n%nat_scope g%function_scope x%nat_scope
+BB12_T12a.T_def
+     : BB12_T12a.T = BB12_T12a.arrow 37 2 3
+BB12_T12a.JJ = (3 * BB12_T12a.T - 13) / 7
+     : nat
+BB12_T12a_bound.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB12_T12a_bound.count1 L + BB12_T12a_bound.sym_val s +
+  BB12_T12a_bound.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB12_T12a_bound.ones c N%nat_scope
+BB12_T12a_bound.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB12_T12a_bound.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB12_T12a_bound.count1 xs%list_scope
+BB12_T12a_bound.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB12_T12a_bound.sym_val s%sym_scope
+BB12_T12a_bound.step =
+fun s : nat * nat =>
+let n := fst s in
+let g := snd s in
+let n2 := n + 2 * g - 6 in
+let n4 := n2 + 2 * BB12_T12a.arrow (S n2) 2 (BB12_T12a.arrow n 2 5 - 1) - 4
+  in
+(n4, BB12_T12a.arrow (S n4) 2 (BB12_T12a.arrow n2 2 5 - 1))
+     : nat * nat -> nat * nat
+
+Arguments BB12_T12a_bound.step s
+BB12_T12a_bound.stepn =
+fix stepn (j : nat) (s : nat * nat) {struct j} : nat * nat :=
+  match j with
+  | 0 => s
+  | S j' => stepn j' (BB12_T12a_bound.step s)
+  end
+     : nat -> nat * nat -> nat * nat
+
+Arguments BB12_T12a_bound.stepn j%nat_scope s
+BB12_T12a_bound.g0 =
+BB12_T12a.arrow 35 2 (BB12_T12a.arrow 34 2 5 - 1)
+     : nat
+BB12_T12a_bound.fin =
+BB12_T12a_bound.stepn BB12_T12a.JJ (34, BB12_T12a_bound.g0)
+     : nat * nat
+BB12_T12a_bound.Wf =
+fst BB12_T12a_bound.fin + 2 * snd BB12_T12a_bound.fin - 6
+     : nat
+BB10_n1_exact.score_value =
+2 * BB10_n1_exact.Wf +
+3 *
+BB10_n1.arrow (S BB10_n1_exact.Wf) 2
+  (BB10_n1.arrow (fst BB10_n1_exact.fin) 2 5) + 12 * BB10_n1.JJ + 5
+     : nat
+BB10_n1_fgh.fgh =
+fix fgh (k n : nat) {struct k} : nat :=
+  match k with
+  | 0 => S n
+  | S k' => Nat.iter n (fgh k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB10_n1_fgh.fgh (k n)%nat_scope
+BB10_n1_fgh.f_omega = fun n : nat => BB10_n1_fgh.fgh n n
+     : nat -> nat
+
+Arguments BB10_n1_fgh.f_omega n%nat_scope
+BB10_n1_fgh.f_omega1 =
+fun n : nat => Nat.iter n BB10_n1_fgh.f_omega n
+     : nat -> nat
+
+Arguments BB10_n1_fgh.f_omega1 n%nat_scope
+BB12_T12a.halt
+     : halts BB12_T12a.tm c0
+BB12_T12a_bound.sigma_lower_bound
+     : exists (c : Q * tape) (N J w : nat),
+         c0 -[ BB12_T12a.tm ]->* c /\
+         halted BB12_T12a.tm c /\
+         BB12_T12a_bound.ones c N /\
+         BB12_T12a.iter (2 * BB12_T12a.JJ + 1) BB12_T12a.F 34 <= w /\
+         BB12_T12a.F w <= 7 * J + 9 /\
+         BB12_T12a.iter (2 * J) BB12_T12a.F w <= 6 * N + 11
+BB12_T12a_bound.score_ge_exact
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB12_T12a.tm ]->* c /\
+         halted BB12_T12a.tm c /\
+         BB12_T12a_bound.ones c N /\
+         BB12_T12a.F (BB12_T12a.F BB12_T12a_bound.Wf) <= 6 * N + 11
+BB12_T12a_bound.beats_n1
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB12_T12a.tm ]->* c /\
+         halted BB12_T12a.tm c /\
+         BB12_T12a_bound.ones c N /\ BB10_n1_exact.score_value + 1 < N
+BB10_n1_exact.score_closed
+     : exists
+         c : BB102.BB102.Q *
+             (Stream BB102.BB102.Sym * BB102.BB102.Sym *
+              Stream BB102.BB102.Sym),
+         Individual102.Individual102.Permute.Flip.Compute.TM.evstep
+           BB10_n1.tm Individual102.Individual102.Permute.Flip.Compute.TM.c0
+           c /\
+         Individual102.Individual102.Permute.Flip.Compute.TM.halted
+           BB10_n1.tm c /\ BB10_n1_bound.ones c BB10_n1_exact.score_value
+BB12_T12a_fgh.fgh_lower2
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB12_T12a.tm ]->* c /\
+         halted BB12_T12a.tm c /\
+         BB12_T12a_bound.ones c N /\
+         BB10_n1_fgh.f_omega1 (BB10_n1_fgh.f_omega1 (BB12_T12a.JJ - 2)) <=
+         6 * N + 11
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
