@@ -1,6 +1,6 @@
 """Check one of the ZF-machine proofs.
 
-    python check.py 393|361|354        (run from ZF/verify/)
+    python check.py 393|361|354|336|335    (run from ZF/verify/)
 
 Environment:
     BUSYCOQ  path to busycoq's verify/ directory with TM.vo compiled (busycoq bd2e36f, Coq 8.20.1)
@@ -20,7 +20,7 @@ import os, re, subprocess, sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-MACHINES = {'393': 'zf2.tm', '361': 'A361.tm', '354': 'B354.tm'}
+MACHINES = {'393': 'zf2.tm', '361': 'A361.tm', '354': 'B354.tm', '336': 'R3s336.tm', '335': 'R3Y1_335.tm'}
 EXPECTED = 'halts tm c0 <-> prov (Wel v0 v0)'
 
 
@@ -54,7 +54,7 @@ def parse_coq_table(path: Path):
 
 def main():
     if len(sys.argv) != 2 or sys.argv[1] not in MACHINES:
-        sys.exit('usage: python check.py 393|361|354')
+        sys.exit('usage: python check.py 393|361|354|336|335')
     n = sys.argv[1]
     d = HERE / n
     tm = HERE.parent / 'machines' / MACHINES[n]

@@ -73,7 +73,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        machine: ['393', '361', '354']
+        machine: ['393', '361', '354', '336', '335']
     container:
       image: coqorg/coq:8.20.1
       options: --user root
@@ -130,4 +130,30 @@ jobs:
 
       - name: Build and check ZF/stdzf
         working-directory: ZF/stdzf
+        run: python3 check.py 2>&1 | tee check_ci.log
+
+  zf-stdzf-r3:
+    # ZF/stdzf_r3: the 335- and 336-state machines end to end against the Coq Library of Undecidability
+    # Proofs' ZF (with/without regularity), plus the relative consistency of AC (zfc/): the 335-state
+    # machine halts iff ZFC is inconsistent. Self-contained (vendored).
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH; install python3
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v python3 >/dev/null || (apt-get update && apt-get install -y python3)
+
+      - uses: actions/checkout@v4
+
+      - name: Build and check ZF/stdzf_r3
+        working-directory: ZF/stdzf_r3
         run: python3 check.py 2>&1 | tee check_ci.log

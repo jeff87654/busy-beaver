@@ -78,19 +78,30 @@ Knuth arrows.
 
 ## ZF/
 
-Turing machines with 393, 361 and **354** states (2 symbols) that halt from the blank tape **iff** ZF
-(without regularity and choice) proves `v_0 e. v_0`, that is, iff ZF is inconsistent. Each one comes
-with a Coq proof of `halts tm c0 <-> prov (Wel v0 v0)` on busycoq's TM semantics, with no axioms.
+A **335-state**, 2-symbol Turing machine that halts from the blank tape **iff ZFC is inconsistent**. This
+is proved end to end in Coq with no axioms, against the ZF of the Coq Library of Undecidability Proofs
+(Kirst & Hermes), with and without regularity and choice:
+
+    halts tm c0 <-> (ZFc + Reg + AC) ⊢TC ⊥      (ZF/stdzf_r3/endtoend/335, zf335_halts_iff_ZFC_reg)
+
+The relative consistency of regularity and of choice (Gödel's L) is formalized at the level of
+derivations. The folder also has the predecessors, with 393, 361, 354 and 336 states, each with a Coq proof of
+`halts tm c0 <-> prov (Wel v0 v0)` on busycoq's TM semantics, with no axioms.
 - The 393-state machine is Andrew Wade's current machine (codeberg.org/ajwade/turing_machine_explorer,
   a port of O'Rear's `zf2.nql`).
-- The 361- and 354-state machines are built with Wade's compiler from a reworked program and search the
-  same formal system. The trusted `Logic.v` is identical in all three proofs.
+- The 361-, 354-, 336- and 335-state machines are built with Wade's compiler from a reworked program; 361/354 search the
+  same formal system as Wade's (trusted `Logic.v` identical); the 336/335-state machines use a bounded-fiber REP that
+  makes POW and UNI redundant (335 also merges two propositional axioms), proved equivalent to standard ZF in
+  Coq (`ZF/stdzf_r3/`).
 
 - [`ZF/README.md`](ZF/README.md): history, what has to be trusted, proof structure, credits.
-- [`ZF/machines/`](ZF/machines/): the three machines (Wade's `.tm` format).
+- [`ZF/machines/`](ZF/machines/): the five machines (Wade's `.tm` format).
 - [`ZF/verify/`](ZF/verify/): the Coq proofs and `check.py`, which ties the literal table to the `.tm`
   file, builds the proof and checks the statement and its assumptions.
-- [`ZF/generator/`](ZF/generator/): rebuilds the 361- and 354-state machines byte for byte.
+- [`ZF/generator/`](ZF/generator/): rebuilds the 361-, 354-, 336- and 335-state machines byte for byte.
 - [`ZF/stdzf/`](ZF/stdzf/): connects O'Rear's system to the standard ZF of the Coq Library of Undecidability
-  Proofs (Kirst & Hermes), with and without regularity. For the 354-state machine it proves end to end
+  Proofs (Kirst & Hermes), with and without regularity. For the 354-state machine (and, in [`ZF/stdzf_r3/`](ZF/stdzf_r3/), the 336- and 335-state machines) it proves end to end
   `halts tm c0 <-> ZFc ⊢TC ⊥` (ZF inconsistent), in one build, with no axioms.
+- [`ZF/stdzf_r3/`](ZF/stdzf_r3/): the 335/336-state machines end to end, plus `zfc/` (relative consistency
+  of AC via Gödel's L) and `regcon/` (relative consistency of regularity). `python3 check.py` rebuilds
+  everything from vendored sources.

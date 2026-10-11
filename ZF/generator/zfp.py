@@ -12,6 +12,8 @@ SPEC = {
     'B1':  'a b wim b c wim a c wim wim wim',
     'B2':  'a wn a wim a wim',
     'B3':  'a a wn b wim wim',
+    # BY = CpCCNqCCqrNpq: a -> ((-.b -> ((b -> c) -> -.a)) -> b); with B1 it replaces B2 and B3 (zf/prune)
+    'Y_CpCCNqCCqrNpq': 'a b wn b c wim a wn wim wim b wim wim',
     'B4':  'a b c wim wal a b wal a c wal wim wim',
     'B6b': 'a b c wal wal b a c wal wal wim',
     'B8b': 'a b weq a c wel b c wel wim wim',
@@ -82,7 +84,7 @@ class ZFP(zf2.ZF2):
             if 'genS3' in self.OPT:   # premise popped into scratch3 and pushed from there
                 return [self.cparam(s3), self.parx(perm[0]), self.pushwff(), W(s3, tw.inc), self.wal(), select]
             return [self.cparam(pc), self.parx(perm[0]), self.parx(perm[2]), self.wal(), select]
-        if name in self.VMAP or name in self.FLIPS or name in ('PU', 'INF2'):
+        if name in self.VMAP or name in self.FLIPS or name not in SPEC:
             import forms
             toks = forms.postfix(forms.variant(forms.TREES[name], tuple(self.VMAP.get(name, (0, 1, 2, 3))),
                                                self.FLIPS.get(name, 0)))
@@ -386,7 +388,9 @@ def cost(cls, order):
     try: return count(build(cls, order))
     except (AssertionError, RecursionError): return 10**6
 
-CLOSED = {'EXT', 'POW', 'UNI', 'INF', 'PU', 'INF2'}
+CLOSED = {'EXT', 'POW', 'UNI', 'INF', 'PU', 'INF2', 'EXTs'}
+import forms as _forms
+REPLIKE = _forms.REPLIKE
 
 def valid(clauses, order, opt):
     if clauses[order[-1]] in PREMISE: return False
