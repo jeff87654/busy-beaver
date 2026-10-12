@@ -19,8 +19,10 @@ Theorem zf335_halts_iff_ZFC_reg : halts tm c0 <-> (ZFc + Reg + AC) ⊢TC ⊥   (
 - `AC`: Zermelo's choice-set axiom.
 
 The relative consistency of regularity (well-founded sets) and of choice (Gödel's L) is formalized at
-the level of derivations, in `stdzf_r3/regcon/` and `stdzf_r3/zfc/`. As far as we know, this is the first
-such formalization.
+the level of derivations, in `stdzf_r3/regcon/` and `stdzf_r3/zfc/`, so that the ZF + Reg and ZFC statements
+follow from the ZF one with no paper argument. (For an earlier mechanization of the relative consistency of
+AC, inside Isabelle/ZF, see L. C. Paulson, "The Relative Consistency of the Axiom of Choice — Mechanized
+Using Isabelle/ZF", LMS J. Comput. Math. 6 (2003).)
 
 Coq proofs that five 2-symbol Turing machines, started on a blank tape, halt **if and only if** a
 Hilbert-style formalization of ZF set theory (O'Rear's system `prov`) proves `v_0 e. v_0`:
