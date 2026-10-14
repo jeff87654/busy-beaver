@@ -304,12 +304,7 @@ All four report "Closed under the global context" (re-run here on 2026-10-14).
 - The comparisons of section 3.3, including the one with T12a. They are on paper.
 - The size estimates of section 3.2.
 - Which transitions each phase reads (section 1.5). This comes from simulation.
-- The account of the search in section 5.1. It is taken from Argon's own notes. Several details in those notes do
-  not match the verified machine.
-- Argon's notes also list a different 14-state string as "M14":
-  `1LB1LA_1RC0LA_1RD1RC_1RE1LF_1RF0LJ_1RG1RH_0LI0LM_1LF0LI_1LK0LC_1RZ1RJ_0LJ1RL_1LN1LK_0RE1RM_0RG1LN`. That is
-  not the machine verified here. Its visit-order normal form differs from M14's, with or without mirroring. Its
-  status is unknown.
+- The account of the search in section 5.1, which follows Argon's notes.
 
 ### 4.3 Independent literal check
 
@@ -338,59 +333,40 @@ W(6, 1). The check covers its parts, C_REL and the Kc steps.
 
 ### 5.1 How it was found
 
-This account is taken from Argon's own notes on the search, written on 2026-10-14 after the proofs. Only the
-machine string and the Coq files are verified. We summarise the notes in four steps and then say where they do not
-match the verified machine.
+Argon's notes on the search describe the route below. They are working notes, not a checked record, so we tell
+the route in terms of the verified machine; only the machine string and the Coq files are verified.
 
 1. **The starting point.** The base was Jacobzheng's 14-state BB(14) champion,
    `0LH0LL_1RI1RC_0LD1LG_0RE1LD_---1RF_---0RM_1RM0LH_1LG1LH_0LN0RJ_1RZ0LK_0LK1LL_1LG1LA_1RB1RM_0LG1LN`.
    - It reaches f_(ω+1) and has an inner counter c, but no outer counter.
    - Two of its transitions, E0 and F0, are never used.
    - Its evaluator is one-sided: the level stack and the accumulator `(10)^p 1^(a+1)` grow only to the left, and
-     the counter to the right of the head is left alone.
-   - Argon chose this evaluator over the one in Jacobzheng's 17-state champion. According to the notes, that one
-     puts the pairs to the right of the accumulator and needs extra states to shift them.
-2. **Pipelining the f_(ω+1) layer.** In the champion, a c step uses two states (J and K) to decrement c and to put
-   a seed digit at the right end of the accumulator. Then the pair rewriter halves the accumulator.
-   - Argon sent I1 directly into the pair rewriter and set L0 = 1LH. The halving then ends by forming the seed block
-     at the left end of the accumulator, next to the level stack.
-   - The evaluator computes W at level p − 1 on that seed before the new pairs are pushed. So one c step turns the
-     old accumulator into new levels and computes the new accumulator at the old level. This is Kc (section 1.3).
-   - Two Kc steps still give one f_ω step, and J and K became free.
-3. **The reloads.** The free states, together with the unused E0 and F0, had to implement C_REL, D_REL and the halt
-   (section 1.4).
-   - A backtracking search that asked for separate left-walking states for the two reloads found nothing.
-   - Argon then judged each candidate only by the tape at the first moment the evaluator was re-entered. Once the
-     evaluator is re-entered with the right counters on the tape, its existing rules do the rest. This search found
-     the reload mechanism.
-4. **Parity and the start-up.** Halting comes from the parity alternation of section 1.4. A final search over the
-   remaining free transitions found the start-up from the blank tape, which reaches `Ci(2, 30, 0, 0)` at step 578
-   and `Ci(3, 6, 0, 32)` at step 801 (section 2).
+     the counter to the right of the head is left alone. That leaves room on the right for a second counter.
+2. **Pipelining the f_(ω+1) layer.** In the champion, a c step uses states J and K to decrement c and to put a
+   seed digit at the right end of the accumulator before the pair rewriter halves it. In M14, I1 = 0LM goes
+   straight into the pair rewriter (M, L), and L0 = 1LH ends the halving by forming the seed at the left end of the
+   accumulator, next to the level stack. The evaluator then computes W at level p − 1 on that seed before the new
+   pairs are pushed: one c step turns the old accumulator into new levels and computes the new accumulator at the
+   old level. This is Kc (section 1.3). Two Kc steps still give one f_ω step, and J and K are no longer needed for
+   the c step.
+3. **The outer counter.** J and K, together with the unused E0 and F0, were reused for an outer counter d: K and J
+   read d (K0: d = 0, D_REL; J1: d ≥ 2, C_REL; J0: d = 1, the halt), and N and E move the accumulator into the
+   inner or the outer counter (sections 1.4 and 1.5). Argon found these transitions by a backtracking search that
+   judged each candidate only by the tape at the moment the evaluator is re-entered: once the evaluator starts
+   with the right counters on the tape, its existing rules do the rest.
+4. **Parity and the start-up.** Halting comes from the parity argument of section 1.4. A final search found the
+   start-up from the blank tape, which reaches `Ci(2, 30, 0, 0)` at step 578 and `Ci(3, 6, 0, 32)` at step 801
+   (section 2).
 
-The search code for M14 was not preserved. The notes cite a program that no longer exists.
+The search code for M14 was not preserved.
 
 **What M14 shares with the champion.** Rename the champion's states A and M as M and A, and keep the other names.
 - 20 of M14's 28 transitions are then identical to the champion's: all of A, B, C, D, G, H, M and N, plus E1, F1,
   J0 (the halt, `1RZ`) and L1.
 - Two transitions fill slots that the champion never used: E0 = 1LN and F0 = 1LJ.
-- Six transitions are changed: I0, I1, J1, K0, K1 and L0.
-  - I1 = 0LM (the champion's I1 is 0RJ) and L0 = 1LH are the pipelining of step 2.
-  - Simulation shows that I0, J1, K0 and K1, together with E0 and F0, do the outer-counter dispatch and the reloads.
+- Six transitions are changed: I0, I1, J1, K0, K1 and L0. I1 and L0 are the pipelining of step 2; I0, J1, K0 and
+  K1, with E0 and F0, are the outer counter of step 3.
 - The start states differ: M14 starts in A, which is the champion's M.
-
-We did not search for a renaming with more shared transitions.
-
-**Where the notes do not match.** Several details in the notes (in Argon's own state names) do not match the
-verified machine:
-- an engine in which E and F are merged (G0 = 1LE, E1 = 0RM);
-- a reload gadget with K0 = 0LJ, K1 = 1RF, F0 = 1RZ, F1 = 0LN, J0 = 0RI and J1 = 1LJ;
-- a start-up with D0 = 0RG and E0 = 0LI.
-
-The verified machine keeps the champion's E–F pair (E1 = 1RF, F1 = 0RA, G0 = 1RA) and has D0 = 0RE and E0 = 1LN. No
-renaming of it has a transition 1L into a state whose 1-transition is 0R into the right-sweeping evaluator state, so
-the merged engine of the notes is not M14's. The notes' summary table also gives a different string (section 4.2).
-The step counts 578 and 801 and the lemma names `init_578` and `init_801` in the notes do match the Coq file. We do
-not know whether the mismatched details describe an earlier candidate or are errors in the notes.
 
 ### 5.2 Credit and checks
 

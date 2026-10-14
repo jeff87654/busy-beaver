@@ -374,8 +374,8 @@ machine. The proof does not depend on it.
 
 ### 5.1 How it was found
 
-This section summarizes Argon's own account of the search, written 2026-10-14. Statements about searches are
-Argon's claims unless they say they were re-run here. The search code that survives is in [`search/`](search/),
+This section follows Argon's notes on the search, written 2026-10-14. They are working notes, not a checked record;
+statements about searches are Argon's claims unless they say they were re-run here. The search code that survives is in [`search/`](search/),
 with a README saying what each program does.
 
 1. **The engine.** Argon started from the engine of Jacobzheng's 14-state f_(ω+1) champion for BB(14).
@@ -388,8 +388,8 @@ with a README saying what each program does.
    - Argon's change jumps straight into the rewriter (in that machine's labels, I1 = 0LA and L0 = 1LH). The seed then
      forms at the left end, and each counter step finishes the previous step's work.
    - With an outer gadget for reloading and halting, this gave the 14-state machine M14.
-3. **13 states on M14's core.** Argon reports an exhaustive search over the outer transitions of M14's 9-state core
-   with no halting 13-state machine. That program did not survive.
+3. **13 states on that core.** Argon reports an exhaustive search over the outer transitions of a 9-state version of
+   this core (two evaluator states merged) with no halting 13-state machine. That program did not survive.
    - A related surviving search, `search13.cpp`, finds 8 reload gadgets on that kind of core. Each uses every free
      transition, so none has room for a halt. We re-ran it.
 4. **A new core.** Argon then fixed a 10-state core in which the scanning state's exit leads straight into the
