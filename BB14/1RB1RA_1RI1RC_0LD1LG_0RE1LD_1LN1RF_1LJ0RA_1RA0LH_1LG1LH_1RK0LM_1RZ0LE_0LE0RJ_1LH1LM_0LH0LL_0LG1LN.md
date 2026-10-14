@@ -7,7 +7,7 @@ Below we call this machine **M14**. It halts from the blank tape, and Coq proves
     σ > f_(ω+2)(f_(ω+2)(f_(ω+2)(15)))
 
 with the standard fast-growing hierarchy. The tape holds an Ackermann-type evaluator with a level stack, an
-accumulator and two counters. A map Kc on (level, accumulator) is an f_ω-sized step. The inner counter iterates Kc,
+accumulator and two counters. A map Kc on (level, accumulator) evaluates W at the current level; two Kc steps make an f_ω-sized step. The inner counter iterates Kc,
 which gives an f_(ω+1)-sized step. The outer counter iterates that, which gives an f_(ω+2)-sized round. When a round
 ends, the accumulator is reloaded into the outer counter. A parity argument shows that the machine halts at the end
 of the third round. M14 and both Coq proofs were found and written by Argon, a Google Gemini model. Argon started
