@@ -97,7 +97,13 @@ transition (K1) is never read.
 
 ## ZF/
 
-A **335-state**, 2-symbol Turing machine that halts from the blank tape **iff ZFC is inconsistent**. This
+**254 states (by Mira-Cult, verified here).** Mira-Cult's ([github.com/Mira-Cult/turing-machines](https://github.com/Mira-Cult/turing-machines))
+254-state machine `zfc_254.tm` halts from the blank tape iff ZFC is inconsistent. This is proved end to end in Coq
+with no axioms, against the same library ZF ([`ZF/m254/`](ZF/m254/)):
+
+    halts tm c0 <-> (ZFc + AC) ⊢TC ⊥      (ZF/m254/coq/e2e/E2E254.v, zf254_halts_iff_ZFC)
+
+**Our own line.** A **335-state**, 2-symbol Turing machine that halts from the blank tape **iff ZFC is inconsistent**. This
 is proved end to end in Coq with no axioms, against the ZF of the Coq Library of Undecidability Proofs
 (Kirst & Hermes), with and without regularity and choice:
 

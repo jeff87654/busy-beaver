@@ -5,3 +5,4 @@
 *.log text eol=lf
 *.md text eol=lf
 _CoqProject text eol=lf
+*.tm text eol=lf

@@ -1,6 +1,17 @@
 # ZF/ — verified Turing machines that halt iff ZF(C) proves a contradiction
 
-**Headline:** the 335-state, 2-symbol machine [`machines/R3Y1_335.tm`](machines/R3Y1_335.tm), started on a
+**Smallest verified: 254 states, by Mira-Cult.** The 254-state machine
+[`m254/machine/zfc_254.tm`](m254/machine/zfc_254.tm) is by Mira-Cult
+([github.com/Mira-Cult/turing-machines](https://github.com/Mira-Cult/turing-machines)). [`m254/`](m254/) proves in Coq, with
+no axioms, that it halts on a blank tape **if and only if ZFC is inconsistent**. The target ZF is the same
+library formalization as below (CI job `zf-m254`):
+
+```coq
+Theorem zf254_halts_iff_ZF  : halts tm c0 <-> ZFc ⊢TC ⊥
+Theorem zf254_halts_iff_ZFC : halts tm c0 <-> (ZFc + AC) ⊢TC ⊥
+```
+
+**Our own machines.** The 335-state, 2-symbol machine [`machines/R3Y1_335.tm`](machines/R3Y1_335.tm), started on a
 blank tape, halts **if and only if ZFC is inconsistent**. This is proved end to end in Coq with no
 axioms ([`stdzf_r3/`](stdzf_r3/), CI job `zf-stdzf-r3`):
 
