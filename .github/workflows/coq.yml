@@ -157,3 +157,28 @@ jobs:
       - name: Build and check ZF/stdzf_r3
         working-directory: ZF/stdzf_r3
         run: python3 check.py 2>&1 | tee check_ci.log
+
+  zf-m254:
+    # ZF/m254: Mira-Cult's 254-state machine zfc_254.tm halts iff ZF (resp. ZFC) is inconsistent, end to
+    # end against the Coq Library of Undecidability Proofs' ZF. Uses ../stdzf and ../stdzf_r3 sources.
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH; install python3
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v python3 >/dev/null || (apt-get update && apt-get install -y python3)
+
+      - uses: actions/checkout@v4
+
+      - name: Build and check ZF/m254
+        working-directory: ZF/m254
+        run: python3 check.py 2>&1 | tee check_ci.log
