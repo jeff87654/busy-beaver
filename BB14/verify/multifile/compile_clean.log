@@ -1,0 +1,18 @@
+# From-scratch build of BB14/verify/multifile, 2026-10-14, Coq 8.20.1 (Coq Platform 2025.01), Windows 11, shared 16-core
+# laptop. A fresh directory holding only the 4 .v files, probe.v and compile_clean.sh, next to busycoq verify/ exported from
+# commit bd2e36f (git archive) with its 7 needed files compiled first. Command: BUSYCOQ=../busycoq/verify ./compile_clean.sh
+# (exit 0). stderr was empty.
+== BB142.v ==
+   ok, 7 s
+== Individual142.v ==
+   ok, 5 s
+== BB14_M14.v ==
+   ok, 8 s
+== BB14_M14_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 8 s
+COMPILE DONE
+probe: 4 of 4 theorems closed under the global context
+exit 0

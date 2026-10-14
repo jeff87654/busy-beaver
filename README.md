@@ -95,6 +95,51 @@ transition (K1) is never read.
   `verify/multifile/compile_clean.sh` rebuilds everything (one 2.6 MB file takes most of the time) and runs a probe
   that re-checks the transition table entry by entry.
 
+## BB13/
+
+`1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_0LG1RI_1RE0RH_1LF0RC_1RM0LE_1LA1LE_0LL1LB_0RM1LL_1RZ1RH` (M13), a 13-state, 2-symbol machine
+that halts from the blank tape with score σ (the ones on the halted tape, plus 1 for the final write), where
+(machine-checked, standard fast-growing hierarchy)
+
+    f_(ω+2)(f_ω(20)) < σ.
+
+Coq also proves the exact score as an explicit recursion. The machine keeps a level p, an accumulator a and two
+counters on the tape. An Ackermann-type evaluator computes an f_p-like function of a; two inner-counter steps give an
+f_ω step, a full inner countdown an f_(ω+1) step, and one round of the outer counter an f_(ω+2) step. Parity makes the
+outer counter odd after its only reload, so it halts after that round. On paper it exceeds T12a (BB12/) and the
+published BB(14)–BB(16) lower bounds; it has not been compared with the f_(ω+2)-class BB(17)/BB(18) champions.
+Found and proved by Argon, a Google Gemini model, run by the repository owner in Google's Antigravity (2026-10-14);
+re-checked here.
+
+- [`BB13/1LB1LA_..._1RZ1RH.md`](BB13/1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_0LG1RI_1RE0RH_1LF0RC_1RM0LE_1LA1LE_0LL1LB_0RM1LL_1RZ1RH.md):
+  the analysis (how it works, the run, the score, comparisons, verification status, how it was found).
+- [`BB13/verify/`](BB13/verify/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_lower_bound`, `sigma_lower_bound_strong`. No axioms. About 30 s to compile; built and probed in CI.
+- [`BB13/tools/m13_writeup_chk.py`](BB13/tools/m13_writeup_chk.py): an independent literal simulator that re-checks
+  every rule of the analysis on concrete instances.
+- [`BB13/search/`](BB13/search/): Argon's search programs (unchanged), with what each does and what was re-run.
+
+## BB14/
+
+`1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LN1RF_1LJ0RA_1RA0LH_1LG1LH_1RK0LM_1RZ0LE_0LE0RJ_1LH1LM_0LH0LL_0LG1LN` (M14), a 14-state, 2-symbol
+machine that halts from the blank tape with score σ, where (machine-checked, standard fast-growing hierarchy)
+
+    f_(ω+2)(f_(ω+2)(f_(ω+2)(15))) < σ.
+
+Coq also proves the exact score as a recursion. Same architecture as M13 (level stack, accumulator, inner and outer
+counter), but the outer counter is reloaded twice, so it halts after the third f_(ω+2) round. It is a compressed
+descendant of Jacobzheng's 14-state f_(ω+1) champion (same evaluator, 20 of 28 transitions shared) and is unrelated to
+n1/T12a. On paper its lower bound exceeds T12a and the published BB(14)–BB(16) lower bounds; it has not been compared
+with the f_(ω+2)-class BB(17)/BB(18) champions. Found and proved by Argon, a Google Gemini model, run by the repository
+owner in Google's Antigravity (2026-10-13); re-checked here.
+
+- [`BB14/1RB1RA_..._0LH0LL_0LG1LN.md`](BB14/1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LN1RF_1LJ0RA_1RA0LH_1LG1LH_1RK0LM_1RZ0LE_0LE0RJ_1LH1LM_0LH0LL_0LG1LN.md):
+  the analysis (how it works, the run, the score, comparisons, verification status, how it was found).
+- [`BB14/verify/`](BB14/verify/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_lower_bound`, `sigma_lower_bound_strong`. No axioms. About 30 s to compile; built and probed in CI.
+- [`BB14/tools/m14_writeup_chk.py`](BB14/tools/m14_writeup_chk.py): an independent literal simulator that re-checks
+  every rule of the analysis on concrete instances.
+
 ## ZF/
 
 **254 states (by Mira-Cult, verified here).** Mira-Cult's ([github.com/Mira-Cult/turing-machines](https://github.com/Mira-Cult/turing-machines))
