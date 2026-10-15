@@ -159,6 +159,12 @@ with no axioms, against the same library ZF ([`ZF/m254/`](ZF/m254/)):
 
     halts tm c0 <-> (ZFc + AC) ⊢TC ⊥      (ZF/m254/coq/e2e/E2E254.v, zf254_halts_iff_ZFC)
 
+**ZFC + Grothendieck universes, 296 states.** Mira-Cult's program with one new axiom schema, compiled with Wade's
+TMBuilder: a 296-state machine that halts from the blank tape iff ZFC + "every set lies in a Grothendieck universe"
+is inconsistent (Tarski–Grothendieck strength). Proved end to end in Coq with no axioms ([`ZF/tg296/`](ZF/tg296/)):
+
+    halts tm c0 <-> (ZFc + AC + GU) ⊢TC ⊥      (ZF/tg296/coq/e2e/E2E_TG.v, tg296_halts_iff_ZFCGU)
+
 **Our own line.** A **335-state**, 2-symbol Turing machine that halts from the blank tape **iff ZFC is inconsistent**. This
 is proved end to end in Coq with no axioms, against the ZF of the Coq Library of Undecidability Proofs
 (Kirst & Hermes), with and without regularity and choice:
