@@ -153,6 +153,11 @@ execution transports in both directions, with closed assumptions.
 
 ## ZF/
 
+**253 states.** A one-state reduction of Mira-Cult's 254-state machine, with an exact blank-tape
+halting equivalence to finite classical ZF and ZFC refutations, is proved in [`ZF/m253/`](ZF/m253/).
+Its Coq 8.20.1 checker rebuilds 160 modules, audits 194 closed assumption reports, and runs recursive
+`coqchk` (workflow `zf253.yml`). The saving shares an initializer with a symbol-guarded runtime helper.
+
 **254 states (by Mira-Cult, verified here).** Mira-Cult's ([github.com/Mira-Cult/turing-machines](https://github.com/Mira-Cult/turing-machines))
 254-state machine `zfc_254.tm` halts from the blank tape iff ZFC is inconsistent. This is proved end to end in Coq
 with no axioms, against the same library ZF ([`ZF/m254/`](ZF/m254/)):

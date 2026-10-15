@@ -1,6 +1,11 @@
 # ZF/ — verified Turing machines that halt iff ZF(C) proves a contradiction
 
-**Smallest verified: 254 states, by Mira-Cult.** The 254-state machine
+**253 working states.** [`m253/`](m253/README.md) gives a one-state reduction of Mira-Cult's
+254-state machine, with exact blank-tape halting iff finite classical ZF or ZFC refutation.
+The Coq 8.20.1 build checks the literal table, all instruction sites, 194 closed assumption
+reports, and recursive `coqchk`; CI workflow: `zf253.yml`.
+
+**254-state baseline, by Mira-Cult.** The 254-state machine
 [`m254/machine/zfc_254.tm`](m254/machine/zfc_254.tm) is by Mira-Cult
 ([github.com/Mira-Cult/turing-machines](https://github.com/Mira-Cult/turing-machines)). [`m254/`](m254/) proves in Coq, with
 no axioms, that it halts on a blank tape **if and only if ZFC is inconsistent**. The target ZF is the same
