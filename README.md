@@ -140,6 +140,17 @@ owner in Google's Antigravity (2026-10-13); re-checked here.
 - [`BB14/tools/m14_writeup_chk.py`](BB14/tools/m14_writeup_chk.py): an independent literal simulator that re-checks
   every rule of the analysis on concrete instances.
 
+## PA/m238/
+
+The literal 238-state, 2-symbol machine `pa_238.tm` halts from blank tape iff ordinary
+classical PA has a finite refutation. The Coq theorem
+`P238.e2e.Targets238.pa238_iff_ordinary_proved` composes actual finite proof and
+execution transports in both directions, with closed assumptions.
+
+- [`PA/m238/`](PA/m238/): the exact table, proof sources, vendored dependencies,
+  provenance and Coq 8.20.1 reproduction instructions. The `pa238` CI job rebuilds
+  the dependency closure and checks all declared assumption probes.
+
 ## ZF/
 
 **254 states (by Mira-Cult, verified here).** Mira-Cult's ([github.com/Mira-Cult/turing-machines](https://github.com/Mira-Cult/turing-machines))

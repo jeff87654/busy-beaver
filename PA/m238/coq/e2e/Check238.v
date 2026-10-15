@@ -1,0 +1,454 @@
+(** Assumption audit of the current partial proof milestones.
+    There is no end-to-end theorem to audit yet. *)
+From P238.tm Require Import Table238Facts TM238 BootstrapMachine238.
+From P238.arith Require Import PAeq238 Compact238.
+From P238.logic Require Import Codes238 Compiler238.
+
+Print Assumptions table238_row_bounds.
+Print Assumptions tmn238_total.
+Print Assumptions machine238_transition_iff.
+Print Assumptions machine238_halted_iff.
+Print Assumptions blank_machine_reaches_checkpoint238.
+Print Assumptions PA238.paeq_induction_rule.
+Print Assumptions PA238.paeq_falsity_iff_old_contradiction.
+Print Assumptions Compact238.compact_generalize.
+Print Assumptions Compact238.collided_body_equiv.
+Print Assumptions Compact238.compact_successor_not_zero.
+Print Assumptions Compiler238.compile.
+Print Assumptions Compiler238.compile_falsity.
+
+(* Recovery milestone: genuine numeric command/candidate/enumerator proofs. *)
+From P238.logic Require Import SoundCommands238 Candidate238 Enum238.
+Print Assumptions command_sound.
+Print Assumptions execute_sound.
+Print Assumptions sound_program_halt.
+Print Assumptions sound_blank_program_halt.
+Print Assumptions candidate_compiler_complete.
+Print Assumptions run_candidate_sound.
+Print Assumptions candidate_halt_sound.
+Print Assumptions candidateN_lower_bound.
+Print Assumptions enum_boot_aliases.
+Print Assumptions enum_compiler_complete_from.
+Print Assumptions enum_boot_compiler_complete.
+Print Assumptions enum238_boot_sound.
+Print Assumptions enum238_boot_code_endpoint.
+Print Assumptions blank_halts_iff_checkpoint238.
+Print Assumptions checkpoint238_not_halted.
+Print Assumptions machine_step_literal.
+Print Assumptions machine_steps_literal.
+Print Assumptions exact_steps_machine_iff.
+
+(* Checked finite arithmetic and numeric transports; ordinary PA/TM goal remains open. *)
+From P238.arith Require Import PAOrder238 PAinCompact238 OrdinalSuccessor238 OrdinalTrace238 PairGraph238 GraphTransport238 TraceGraph238 IsoGraph238 InverseGraph238 IsoEquality238 IsoZero238 IsoSuccessor238 AddGraph238 MulGraph238 MulCoherence238 PointedSchemas238 S0InCompact238.
+Print Assumptions P238.arith.PAOrder238.PAOrder238.gap_base.
+Print Assumptions P238.arith.PAOrder238.PAOrder238.gap_step.
+Print Assumptions P238.arith.PAOrder238.PAOrder238.all_successor_gap.
+Print Assumptions P238.arith.PAOrder238.PAOrder238.order_irreflexive_raw.
+Print Assumptions P238.arith.PAOrder238.PAOrder238.order_irreflexive.
+Print Assumptions P238.arith.PAOrder238.PAOrder238.zero_minimal.
+Print Assumptions P238.arith.PAinCompact238.PAinCompact238.minimum_counterexample_contradiction.
+Print Assumptions P238.arith.PAinCompact238.PAinCompact238.strict_minimum_counterexample_contradiction.
+Print Assumptions P238.arith.PAinCompact238.PAinCompact238.S0_bad_trace_exists.
+Print Assumptions P238.arith.PAinCompact238.PAinCompact238.compact_empty.
+Print Assumptions P238.arith.PAinCompact238.PAinCompact238.empty_ordinal_representative.
+Print Assumptions P238.arith.PAinCompact238.PAinCompact238.greatest_raw_predecessor.
+Print Assumptions P238.arith.PAinCompact238.PAinCompact238.ordinal_member_closed.
+Print Assumptions P238.arith.PAinCompact238.PAinCompact238.ordinal_least_bad_contradiction.
+Print Assumptions P238.arith.PAinCompact238.PAinCompact238.S0_ordinal_domain_inhabited.
+Print Assumptions P238.arith.PAinCompact238.PAinCompact238.S0_raw_successor_exists.
+Print Assumptions P238.arith.PAinCompact238.PAinCompact238.raw_successor_member_ir.
+Print Assumptions P238.arith.OrdinalSuccessor238.OrdinalSuccessor238.raw_successor_ordinal_representative.
+Print Assumptions P238.arith.OrdinalSuccessor238.OrdinalSuccessor238.S0_ordinal_successor_exists.
+Print Assumptions P238.arith.OrdinalSuccessor238.OrdinalSuccessor238.S0_intersection.
+Print Assumptions P238.arith.OrdinalSuccessor238.OrdinalSuccessor238.successor_trace_least.
+Print Assumptions P238.arith.OrdinalSuccessor238.OrdinalSuccessor238.successor_trace_greatest.
+Print Assumptions P238.arith.OrdinalSuccessor238.OrdinalSuccessor238.empty_successor_trace_point.
+Print Assumptions P238.arith.OrdinalSuccessor238.OrdinalSuccessor238.raw_successor_transitive.
+Print Assumptions P238.arith.OrdinalSuccessor238.OrdinalSuccessor238.raw_successor_member_transitive.
+Print Assumptions P238.arith.OrdinalSuccessor238.OrdinalSuccessor238.raw_successor_member_linear.
+Print Assumptions P238.arith.OrdinalTrace238.OrdinalTrace238.ordinal_induction_at.
+Print Assumptions P238.arith.OrdinalTrace238.OrdinalTrace238.S0_ordinal_induction.
+Print Assumptions P238.arith.OrdinalTrace238.OrdinalTrace238.S0_ordinal_induction_closed.
+Print Assumptions P238.arith.PairGraph238.PairGraph238.S0_graph_extension_exists.
+Print Assumptions P238.arith.PairGraph238.PairGraph238.raw_kuratowski_unique.
+Print Assumptions P238.arith.PairGraph238.PairGraph238.raw_kuratowski_first_unique.
+Print Assumptions P238.arith.PairGraph238.PairGraph238.raw_kuratowski_exists.
+Print Assumptions P238.arith.PairGraph238.PairGraph238.S0_raw_kuratowski_exists.
+Print Assumptions P238.arith.GraphTransport238.GraphTransport238.raw_kuratowski_coordinate_transport.
+Print Assumptions P238.arith.GraphTransport238.GraphTransport238.raw_kuratowski_container_transport.
+Print Assumptions P238.arith.GraphTransport238.GraphTransport238.graph_edge_coordinate_transport.
+Print Assumptions P238.arith.GraphTransport238.GraphTransport238.raw_adjunction_graph_edge_cases.
+Print Assumptions P238.arith.TraceGraph238.TraceGraph238.graph_extension_domain.
+Print Assumptions P238.arith.TraceGraph238.TraceGraph238.successor_old_domain_disjoint.
+Print Assumptions P238.arith.TraceGraph238.TraceGraph238.graph_extension_functional.
+Print Assumptions P238.arith.TraceGraph238.TraceGraph238.graph_extension_range.
+Print Assumptions P238.arith.TraceGraph238.TraceGraph238.singleton_graph_exists.
+Print Assumptions P238.arith.TraceGraph238.TraceGraph238.singleton_graph_domain.
+Print Assumptions P238.arith.TraceGraph238.TraceGraph238.singleton_graph_functional.
+Print Assumptions P238.arith.TraceGraph238.TraceGraph238.singleton_graph_range.
+Print Assumptions P238.arith.TraceGraph238.TraceGraph238.equality_ordinal_representative_transport.
+Print Assumptions P238.arith.TraceGraph238.TraceGraph238.raw_adjunction_exact_graph_extension.
+Print Assumptions P238.arith.TraceGraph238.TraceGraph238.exact_graph_extension_exists.
+Print Assumptions P238.arith.IsoGraph238.IsoGraph238.identity_graph_order_bijection.
+Print Assumptions P238.arith.IsoGraph238.IsoGraph238.S0_order_iso_reflexive.
+Print Assumptions P238.arith.IsoGraph238.IsoGraph238.S0_identity_graph_exists.
+Print Assumptions P238.arith.IsoGraph238.IsoGraph238.successor_identity_graph.
+Print Assumptions P238.arith.IsoGraph238.IsoGraph238.identity_successor_extension.
+Print Assumptions P238.arith.IsoGraph238.IsoGraph238.empty_identity_graph.
+Print Assumptions P238.arith.IsoGraph238.IsoGraph238.identity_key_fresh.
+Print Assumptions P238.arith.InverseGraph238.InverseGraph238.inverse_order_bijection.
+Print Assumptions P238.arith.InverseGraph238.InverseGraph238.S0_order_iso_symmetric.
+Print Assumptions P238.arith.InverseGraph238.InverseGraph238.S0_inverse_graph_exists.
+Print Assumptions P238.arith.InverseGraph238.InverseGraph238.inverse_prefix_extension.
+Print Assumptions P238.arith.InverseGraph238.InverseGraph238.empty_inverse_prefix.
+Print Assumptions P238.arith.InverseGraph238.InverseGraph238.inverse_range_fresh.
+Print Assumptions P238.arith.IsoEquality238.IsoEquality238.order_bijection_coordinate_transport.
+Print Assumptions P238.arith.IsoEquality238.IsoEquality238.order_iso_coordinate_transport.
+Print Assumptions P238.arith.IsoZero238.IsoZero238.empty_order_bijection.
+Print Assumptions P238.arith.IsoZero238.IsoZero238.zero_order_iso.
+Print Assumptions P238.arith.IsoZero238.IsoZero238.order_iso_zero_source.
+Print Assumptions P238.arith.IsoZero238.IsoZero238.order_iso_zero_target.
+Print Assumptions P238.arith.IsoSuccessor238.IsoSuccessor238.successor_bijection_entries.
+Print Assumptions P238.arith.IsoSuccessor238.IsoSuccessor238.successor_bijection_typed.
+Print Assumptions P238.arith.IsoSuccessor238.IsoSuccessor238.successor_bijection_left_total.
+Print Assumptions P238.arith.IsoSuccessor238.IsoSuccessor238.successor_bijection_right_total.
+Print Assumptions P238.arith.AddGraph238.AddGraph238.ordinal_inclusive_zero_unique.
+Print Assumptions P238.arith.AddGraph238.AddGraph238.add_result_zero_value.
+Print Assumptions P238.arith.AddGraph238.AddGraph238.add_result_coordinate_transport.
+Print Assumptions P238.arith.AddGraph238.AddGraph238.S0_add_total.
+Print Assumptions P238.arith.AddGraph238.AddGraph238.S0_add_prefix_total.
+Print Assumptions P238.arith.AddGraph238.AddGraph238.add_prefix_successor_extension.
+Print Assumptions P238.arith.AddGraph238.AddGraph238.add_prefix_base_exists.
+Print Assumptions P238.arith.AddGraph238.AddGraph238.add_prefix_exists_result.
+Print Assumptions P238.arith.AddGraph238.AddGraph238.raw_successor_coordinate_transport.
+Print Assumptions P238.arith.AddGraph238.AddGraph238.ordinal_successor_predecessor_unique.
+Print Assumptions P238.arith.AddGraph238.AddGraph238.add_recurrence_successor_extension.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.mul_result_coordinate_transport.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.mul_prefix_zero_value.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.mul_result_zero_value.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.S0_mul_total.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.S0_mul_prefix_total.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.mul_result_ordinal.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.mul_recurrence_successor_extension.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.mul_prefix_given_extension.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.S0_closed_add_totality.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.mul_prefix_successor_extension.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.singleton_mul_recurrence.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.singleton_mul_prefix.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.mul_prefix_base.
+Print Assumptions P238.arith.MulGraph238.MulGraph238.mul_result_from_witnesses.
+Print Assumptions P238.arith.MulCoherence238.MulCoherence238.mul_prefix_zero_compare.
+Print Assumptions P238.arith.MulCoherence238.MulCoherence238.mul_result_zero_coherent.
+Print Assumptions P238.arith.MulCoherence238.MulCoherence238.S0_mul_zero_law.
+Print Assumptions P238.arith.PointedSchemas238.PointedSchemas238.forward_pointed_open.
+Print Assumptions P238.arith.PointedSchemas238.PointedSchemas238.forward_adjunction.
+Print Assumptions P238.arith.PointedSchemas238.PointedSchemas238.forward_separation.
+Print Assumptions P238.arith.S0InCompact238.S0InCompact238.S0_to_pointed_equality.
+Print Assumptions P238.arith.S0InCompact238.S0InCompact238.S0_to_compact.
+Print Assumptions P238.arith.S0InCompact238.S0InCompact238.S0_refutation_to_compact.
+From P238.logic Require Import NumericSyntax238 NumericSound238 NumericBundle238.
+Print Assumptions P238.logic.NumericSyntax238.NumericSyntax238.interpret_substitution.
+Print Assumptions P238.logic.NumericSyntax238.NumericSyntax238.decode_self_fresh.
+Print Assumptions P238.logic.NumericSyntax238.NumericSyntax238.numeric_mp_transport.
+Print Assumptions P238.logic.NumericSyntax238.NumericSyntax238.numeric_generalize_transport.
+Print Assumptions P238.logic.NumericSyntax238.NumericSyntax238.numeric_r1_transport.
+Print Assumptions P238.logic.NumericSound238.NumericSound238.numeric_implication_intro.
+Print Assumptions P238.logic.NumericSound238.NumericSound238.numeric_r2_transport.
+Print Assumptions P238.logic.NumericSound238.NumericSound238.numeric_r4_transport.
+Print Assumptions P238.logic.NumericSound238.NumericSound238.numeric_r6_transport.
+Print Assumptions P238.logic.NumericSound238.NumericSound238.numeric_r8_transport.
+Print Assumptions P238.logic.NumericSound238.NumericSound238.numeric_r3_transport.
+Print Assumptions P238.logic.NumericSound238.NumericSound238.numeric_r5_transport.
+Print Assumptions P238.logic.NumericSound238.NumericSound238.numeric_r7_transport.
+Print Assumptions P238.logic.NumericSound238.NumericSound238.numeric_equality_vacuity.
+Print Assumptions P238.logic.NumericSound238.NumericSound238.numeric_membership_vacuity.
+Print Assumptions P238.logic.NumericBundle238.NumericBundle238.pointed_member_readout.
+Print Assumptions P238.logic.NumericBundle238.NumericBundle238.collided_member_readout.
+Print Assumptions P238.logic.NumericBundle238.NumericBundle238.numeric_bundle_transport.
+Print Assumptions P238.logic.NumericBundle238.NumericBundle238.numeric_derivation_transport.
+Print Assumptions P238.logic.NumericBundle238.NumericBundle238.numeric_refutation_to_compact.
+From P238.tm Require Import Symbolic238 Box238 LiteralHalting238 Increment238 Decrement238.
+Print Assumptions P238.tm.Symbolic238.symbolic_advance_literal.
+Print Assumptions P238.tm.Symbolic238.symbolic_execute_literal.
+Print Assumptions P238.tm.Box238.selector238_crosses.
+Print Assumptions P238.tm.Box238.selector238_marks_register.
+Print Assumptions P238.tm.LiteralHalting238.literal_step_deterministic238.
+Print Assumptions P238.tm.LiteralHalting238.exact_steps_halts_iff238.
+Print Assumptions P238.tm.LiteralHalting238.symbolic_execute_halts_iff238.
+Print Assumptions P238.tm.Increment238.box_increment238.
+Print Assumptions P238.tm.Decrement238.box_decrement_zero238.
+
+(* Accepted physical register updates and literal positive decrement. *)
+From P238.tm Require Import RegisterTape238 PositiveDecrement238.
+Print Assumptions P238.tm.RegisterTape238.update_register238_values.
+Print Assumptions P238.tm.RegisterTape238.marked_file238_split.
+Print Assumptions P238.tm.RegisterTape238.register238_split.
+Print Assumptions P238.tm.PositiveDecrement238.box_decrement_positive238.
+
+(* Accepted finite PA realization, arithmetic producers, and site certificates. *)
+From P238.arith Require Import
+  PAForwardTerms238
+  PAForwardValueCases238
+  PAForwardBasis238
+  PAForwardCoherenceBasis238
+  PAForwardTotal238
+  PAForwardCovariance238
+  PAForwardDeterminacy238
+  PAForwardDomains238
+  PAForwardFormula238
+  PAForwardRename238
+  PAForwardSubstitution238
+  PAForwardFormulaBasis238
+  PAOrderGrowth238
+  PAPowerTrace238
+  PAPowerBound238
+  PABitPosition238
+  PAEmptyCode238
+  PAFiniteSupport238
+  PAPowerUnique238
+  PALiteralPASFromCode238
+  PALiteralSupportBounds238.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.pa_term_value_witness_specialize.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.source_two_witness_subst.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.successor_value_intro.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.binary_value_intro.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.addition_value_intro.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.multiplication_value_intro.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.ordinal_value_subst.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.source_add_result_subst.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.source_mul_result_subst.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.pa_term_value_source_subst.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.pa_term_value_environment_ext.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.pa_term_value_ordinal.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.variable_value_intro.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.variable_value_witness_specialize.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.S0_pa_variable_total.
+Print Assumptions P238.arith.PAForwardTerms238.PAForwardTerms238.S0_pa_zero_total.
+Print Assumptions P238.arith.PAForwardValueCases238.PAForwardValueCases238.successor_value_body_specialize.
+Print Assumptions P238.arith.PAForwardValueCases238.PAForwardValueCases238.binary_value_body_specialize.
+Print Assumptions P238.arith.PAForwardValueCases238.PAForwardValueCases238.successor_value_inputs.
+Print Assumptions P238.arith.PAForwardValueCases238.PAForwardValueCases238.binary_value_inputs.
+Print Assumptions P238.arith.PAForwardBasis238.PAForwardBasis238.finite_derivable_conjunction.
+Print Assumptions P238.arith.PAForwardBasis238.PAForwardBasis238.S0_represented_zero_totality.
+Print Assumptions P238.arith.PAForwardBasis238.PAForwardBasis238.S0_represented_successor_totality.
+Print Assumptions P238.arith.PAForwardBasis238.PAForwardBasis238.S0_represented_mul_totality.
+Print Assumptions P238.arith.PAForwardBasis238.PAForwardBasis238.S0_term_totality_basis.
+Print Assumptions P238.arith.PAForwardBasis238.PAForwardBasis238.term_basis_successor.
+Print Assumptions P238.arith.PAForwardBasis238.PAForwardBasis238.term_basis_addition.
+Print Assumptions P238.arith.PAForwardBasis238.PAForwardBasis238.term_basis_multiplication.
+Print Assumptions P238.arith.PAForwardCoherenceBasis238.PAForwardCoherenceBasis238.S0_zero_order_iso.
+Print Assumptions P238.arith.PAForwardCoherenceBasis238.PAForwardCoherenceBasis238.S0_zero_iso_ax.
+Print Assumptions P238.arith.PAForwardCoherenceBasis238.PAForwardCoherenceBasis238.S0_term_coherence_basis.
+Print Assumptions P238.arith.PAForwardCoherenceBasis238.PAForwardCoherenceBasis238.term_basis_zero_compare.
+Print Assumptions P238.arith.PAForwardCoherenceBasis238.PAForwardCoherenceBasis238.term_basis_successor_compare.
+Print Assumptions P238.arith.PAForwardCoherenceBasis238.PAForwardCoherenceBasis238.term_basis_addition_compare.
+Print Assumptions P238.arith.PAForwardCoherenceBasis238.PAForwardCoherenceBasis238.term_basis_multiplication_compare.
+Print Assumptions P238.arith.PAForwardTotal238.PAForwardTotal238.pa_term_value_total.
+Print Assumptions P238.arith.PAForwardTotal238.PAForwardTotal238.S0_pa_term_total.
+Print Assumptions P238.arith.PAForwardCovariance238.PAForwardCovariance238.successor_values_comparison.
+Print Assumptions P238.arith.PAForwardCovariance238.PAForwardCovariance238.binary_values_comparison.
+Print Assumptions P238.arith.PAForwardCovariance238.PAForwardCovariance238.pa_term_value_comparison.
+Print Assumptions P238.arith.PAForwardCovariance238.PAForwardCovariance238.S0_pa_term_covariance.
+Print Assumptions P238.arith.PAForwardDeterminacy238.PAForwardDeterminacy238.S0_iso_reflexivity_ax.
+Print Assumptions P238.arith.PAForwardDeterminacy238.PAForwardDeterminacy238.iso_reflexivity_instance.
+Print Assumptions P238.arith.PAForwardDeterminacy238.PAForwardDeterminacy238.pa_term_comparisons_reflexive.
+Print Assumptions P238.arith.PAForwardDeterminacy238.PAForwardDeterminacy238.S0_pa_term_determinacy.
+Print Assumptions P238.arith.PAForwardDomains238.PAForwardDomains238.binary_value_domains.
+Print Assumptions P238.arith.PAForwardDomains238.PAForwardDomains238.pa_term_value_domains.
+Print Assumptions P238.arith.PAForwardDomains238.PAForwardDomains238.S0_pa_term_domains_from_value.
+Print Assumptions P238.arith.PAForwardFormula238.PAForwardFormula238.interpreted_equality_environment_ext.
+Print Assumptions P238.arith.PAForwardFormula238.PAForwardFormula238.pa_formula_value_environment_ext.
+Print Assumptions P238.arith.PAForwardFormula238.PAForwardFormula238.source_iso_subst.
+Print Assumptions P238.arith.PAForwardFormula238.PAForwardFormula238.interpreted_equality_source_subst.
+Print Assumptions P238.arith.PAForwardFormula238.PAForwardFormula238.source_binder_environment_subst.
+Print Assumptions P238.arith.PAForwardFormula238.PAForwardFormula238.pa_formula_value_source_subst.
+Print Assumptions P238.arith.PAForwardRename238.PAForwardRename238.pa_renaming_up.
+Print Assumptions P238.arith.PAForwardRename238.PAForwardRename238.pa_term_value_pa_rename.
+Print Assumptions P238.arith.PAForwardRename238.PAForwardRename238.interpreted_equality_pa_rename.
+Print Assumptions P238.arith.PAForwardRename238.PAForwardRename238.binder_index_rename.
+Print Assumptions P238.arith.PAForwardRename238.PAForwardRename238.pa_formula_value_pa_rename.
+Print Assumptions P238.arith.PAForwardRename238.PAForwardRename238.pa_formula_value_shift.
+Print Assumptions P238.arith.PAForwardSubstitution238.PAForwardSubstitution238.binary_substitution_comparison.
+Print Assumptions P238.arith.PAForwardSubstitution238.PAForwardSubstitution238.pa_term_value_pa_substitution.
+Print Assumptions P238.arith.PAForwardSubstitution238.PAForwardSubstitution238.S0_pa_term_substitution_comparison.
+Print Assumptions P238.arith.PAForwardFormulaBasis238.PAForwardFormulaBasis238.S0_iso_symmetry_ax.
+Print Assumptions P238.arith.PAForwardFormulaBasis238.PAForwardFormulaBasis238.S0_formula_transport_basis.
+Print Assumptions P238.arith.PAForwardFormulaBasis238.PAForwardFormulaBasis238.formula_basis_iso_symmetric.
+Print Assumptions P238.arith.PAForwardFormulaBasis238.PAForwardFormulaBasis238.formula_basis_iso_transitive.
+Print Assumptions P238.arith.PAOrderGrowth238.PAOrderGrowth238.successor_self.
+Print Assumptions P238.arith.PAOrderGrowth238.PAOrderGrowth238.strict_successor_upper.
+Print Assumptions P238.arith.PAOrderGrowth238.PAOrderGrowth238.successor_double_bound.
+Print Assumptions P238.arith.PAPowerTrace238.PAPowerTrace238.trace_proof.
+Print Assumptions P238.arith.PAPowerTrace238.PAPowerTrace238.pow2_zero_endpoint.
+Print Assumptions P238.arith.PAPowerTrace238.PAPowerTrace238.pow2_predecessor_endpoint.
+Print Assumptions P238.arith.PAPowerBound238.PAPowerBound238.index_base.
+Print Assumptions P238.arith.PAPowerBound238.PAPowerBound238.index_step.
+Print Assumptions P238.arith.PAPowerBound238.PAPowerBound238.pow2_strict_bound.
+Print Assumptions P238.arith.PABitPosition238.PABitPosition238.bit_proof.
+Print Assumptions P238.arith.PABitPosition238.PABitPosition238.actual_bit_position.
+Print Assumptions P238.arith.PABitPosition238.PABitPosition238.actual_ir_producer.
+Print Assumptions P238.arith.PAEmptyCode238.PAEmptyCode238.actual_empty_producer.
+Print Assumptions P238.arith.PAFiniteSupport238.PAFiniteSupport238.bounded_code_at.
+Print Assumptions P238.arith.PAFiniteSupport238.PAFiniteSupport238.remove_finite_bound.
+Print Assumptions P238.arith.PAFiniteSupport238.PAFiniteSupport238.finite_support_from_actual_bounded_certificate.
+Print Assumptions P238.arith.PAPowerUnique238.PAPowerUnique238.uniqueness_base.
+Print Assumptions P238.arith.PAPowerUnique238.PAPowerUnique238.uniqueness_step.
+Print Assumptions P238.arith.PAPowerUnique238.PAPowerUnique238.actual_pow2_unique.
+Print Assumptions P238.arith.PALiteralPASFromCode238.PALiteralPASFromCode238.filtered_code_to_literal_pas.
+Print Assumptions P238.arith.PALiteralPASFromCode238.PALiteralPASFromCode238.ordinary_filtered_code_to_literal_pas.
+Print Assumptions P238.arith.PALiteralPASFromCode238.PALiteralPASFromCode238.source_guard_pas_from_actual_bounded_certificate.
+Print Assumptions P238.arith.PALiteralSupportBounds238.PALiteralSupportBounds238.point_cutoff.
+Print Assumptions P238.arith.PALiteralSupportBounds238.PALiteralSupportBounds238.actual_literal_guard_support.
+Print Assumptions P238.arith.PALiteralSupportBounds238.PALiteralSupportBounds238.literal_pas_from_actual_comprehension.
+From P238.prog Require Import L2Root238 BisimPA238.
+Print Assumptions P238.prog.L2Root238.root_sem.
+Print Assumptions P238.prog.L2Root238.iter_halts_enum.
+Print Assumptions P238.prog.BisimPA238.cert238_forward.
+Print Assumptions P238.prog.BisimPA238.cert238_backward.
+Print Assumptions P238.prog.BisimPA238.p238_source_dag238.
+From P238.tm Require Import SiteCheck238 Site238 Coverage238 PhysicalRegisters238.
+Print Assumptions P238.tm.SiteCheck238.all_sites_checked238.
+Print Assumptions P238.tm.Site238.checked_variant238_round.
+Print Assumptions P238.tm.Site238.checked_site238_halt.
+Print Assumptions P238.tm.Coverage238.p238_wf.
+Print Assumptions P238.tm.Coverage238.walk_complete238.
+Print Assumptions P238.tm.PhysicalRegisters238.physical238_update.
+
+(* Actual literal execution and finite halt reflection endpoints. *)
+From P238.tm Require Import Simulation238 Reflection238 MachineProgram238.
+From P238.prog Require Import SourceMachine238.
+From P238.e2e Require Import Targets238.
+Print Assumptions P238.tm.Simulation238.inv238_step.
+Print Assumptions P238.tm.Simulation238.inv238_reachable.
+Print Assumptions P238.tm.Reflection238.exact_steps_halt_suffix238.
+Print Assumptions P238.tm.Reflection238.inv238_reflects_halt.
+Print Assumptions P238.tm.Reflection238.checkpoint238_literal_iff_program.
+Print Assumptions P238.prog.SourceMachine238.checkpoint238_enum_iff.
+Print Assumptions P238.prog.SourceMachine238.actual_pa238_machine_enum.
+Print Assumptions P238.prog.SourceMachine238.enum_to_complete_file_execution238.
+Print Assumptions P238.prog.SourceMachine238.complete_file_execution_to_enum238.
+Print Assumptions P238.prog.SourceMachine238.actual_pa238_machine_numeric.
+Print Assumptions P238.e2e.Targets238.pa238_enum_execution_proved.
+Print Assumptions P238.e2e.Targets238.pa238_execution_enum_proved.
+
+(* Full finite ordinary PA transport, including parameter induction. *)
+From P238.arith Require Import PAForwardInductionFamily238 PAForwardInduction238 PAForwardEQFamilies238 PAForwardND238 PAForwardFinite238 PAForward238.
+Print Assumptions P238.arith.PAForwardInductionFamily238.PAForwardInductionFamily238.predecessor_slots_parameters.
+Print Assumptions P238.arith.PAForwardInductionFamily238.PAForwardInductionFamily238.successor_slots_parameters.
+Print Assumptions P238.arith.PAForwardInductionFamily238.PAForwardInductionFamily238.ordinal_induction_source_subst.
+Print Assumptions P238.arith.PAForwardInductionFamily238.PAForwardInductionFamily238.finite_S0_context_subst.
+Print Assumptions P238.arith.PAForwardInductionFamily238.PAForwardInductionFamily238.S0_pa_induction_family.
+Print Assumptions P238.arith.PAForwardInduction238.PAForwardInduction238.interpreted_pa_induction_axiom.
+Print Assumptions P238.arith.PAForwardInduction238.PAForwardInduction238.S0_pa_induction_proof_family.
+Print Assumptions P238.arith.PAForwardEQFamilies238.PAForwardEQFamilies238.pa_family_from_formula_basis.
+Print Assumptions P238.arith.PAForwardEQFamilies238.PAForwardEQFamilies238.pa_family_from_formula_basis_and_law.
+Print Assumptions P238.arith.PAForwardEQFamilies238.PAForwardEQFamilies238.interpreted_pa_reflexivity_axiom.
+Print Assumptions P238.arith.PAForwardEQFamilies238.PAForwardEQFamilies238.pa_EQ_proof_family.
+Print Assumptions P238.arith.PAForwardEQFamilies238.PAForwardEQFamilies238.pa_successor_injectivity_proof_family.
+Print Assumptions P238.arith.PAForwardEQFamilies238.PAForwardEQFamilies238.pa_zero_discrimination_proof_family.
+Print Assumptions P238.arith.PAForwardEQFamilies238.PAForwardEQFamilies238.pa_induction_proof_family.
+Print Assumptions P238.arith.PAForwardND238.PAForwardND238.pa_shifted_context_values.
+Print Assumptions P238.arith.PAForwardND238.PAForwardND238.pa_nd_source_transport.
+Print Assumptions P238.arith.PAForwardFinite238.PAForwardFinite238.pa_axiom_proof_family_all.
+Print Assumptions P238.arith.PAForwardFinite238.PAForwardFinite238.pa_axiom_proof_family_capture.
+Print Assumptions P238.arith.PAForwardFinite238.PAForwardFinite238.pa_axiom_proof_family_close.
+Print Assumptions P238.arith.PAForwardFinite238.PAForwardFinite238.pa_finite_axiom_proof_family.
+Print Assumptions P238.arith.PAForwardFinite238.PAForwardFinite238.finite_pa_refutation_from_proof_families.
+Print Assumptions P238.arith.PAForward238.PAForward238.pa_FA_proof_family.
+Print Assumptions P238.arith.PAForward238.PAForward238.pa_PAeq_proof_family.
+Print Assumptions P238.arith.PAForward238.PAForward238.ordinary_PAeq_proof_family.
+Print Assumptions P238.arith.PAForward238.PAForward238.ordinary_PAeq_refutation_to_S0.
+Print Assumptions P238.arith.PAForward238.PAForward238.ordinary_PAeq_refutation_to_compact.
+Print PA238.ordinary_PAeq.
+Print PA238.PAeq_inconsistent.
+Check PA238.paeq_induction_closed.
+Check PA238.paeq_induction_instance.
+Check P238.arith.PAForwardInductionFamily238.PAForwardInductionFamily238.S0_pa_induction_family.
+Check P238.arith.PAForwardInduction238.PAForwardInduction238.S0_pa_induction_proof_family.
+Check P238.arith.PAForward238.PAForward238.ordinary_PAeq_refutation_to_S0.
+
+(* Actual finite pointed proof compilation and ordinary PA forward endpoint. *)
+From P238.logic Require Import NativeAxioms238 RawInterpret238 NativeProperty238 NativePointed238.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.raw_closed_formula_bound.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.raw_closed_native_supplier.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.native_equality_base.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.raw_pointed_named_proof.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.raw_pointed_freshened_proof.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.native_property_gate.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.native_raw_pointed_supplier.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.padded_property_gate.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.padded_raw_pointed_supplier.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.padded_property_equivalent.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.padded_property_native.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.raw_named_native_supplier.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.padded_raw_native_supplier.
+Print Assumptions P238.logic.NativeAxioms238.NativeAxioms238.native_ir_numeric.
+Print Assumptions P238.logic.RawInterpret238.RawInterpret238.dual_conjunction_left.
+Print Assumptions P238.logic.RawInterpret238.RawInterpret238.dual_disjunction_native.
+Print Assumptions P238.logic.RawInterpret238.RawInterpret238.dual_existential_native.
+Print Assumptions P238.logic.RawInterpret238.RawInterpret238.native_existential_dual.
+Print Assumptions P238.logic.RawInterpret238.RawInterpret238.native_falsity_alias.
+Print Assumptions P238.logic.NativeProperty238.NativeProperty238.term_label_reading.
+Print Assumptions P238.logic.NativeProperty238.NativeProperty238.opened_native_up.
+Print Assumptions P238.logic.NativeProperty238.NativeProperty238.opened_label_coherence.
+Print Assumptions P238.logic.NativeProperty238.NativeProperty238.bound_label_coherence.
+Print Assumptions P238.logic.NativeProperty238.NativeProperty238.native_property_equivalence.
+Print Assumptions P238.logic.NativeProperty238.NativeProperty238.native_property_biconditional.
+Print Assumptions P238.logic.NativeProperty238.NativeProperty238.native_property_derivability.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.S0_numeric_refutation.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.pointed_schema_instance.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.finite_pointed_readback.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.pointed_readback_context_numeric.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.native_pointed_numeric.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.native_pointed_equality_numeric.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.compact_numeric_reverse.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.raw_pointed_witness_readback.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.raw_pointed_readback.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.pointed_labels_range.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.padded_output_fresh.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.padded_property_readback.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.pointed_body_opened.
+Print Assumptions P238.logic.NativePointed238.NativePointed238.pointed_member_opened.
+Print Assumptions P238.e2e.Targets238.pa238_ordinary_numeric_proved.
+Check P238.e2e.Targets238.pa238_ordinary_numeric_proved.
+Print Assumptions P238.e2e.Targets238.pa238_ordinary_halt_proved.
+Check P238.e2e.Targets238.pa238_ordinary_halt_proved.
+
+(* Actual finite PA arithmetic and the unconditional literal endpoint. *)
+From P238.arith Require Import PABetaTraceAppend238 PABoundedComprehension238 PACompactReverse238.
+Print Assumptions P238.arith.PABetaTraceAppend238.PABetaTraceAppend238.trace_append_proof.
+Print Assumptions P238.arith.PABetaTraceAppend238.PABetaTraceAppend238.trace_conditioned_beta_append.
+Print Assumptions P238.arith.PABetaTraceAppend238.PABetaTraceAppend238.trace_append.
+Print Assumptions P238.arith.PABetaTraceAppend238.PABetaTraceAppend238.pow2_total.
+Print Assumptions P238.arith.PABetaTraceAppend238.PABetaTraceAppend238.pow2_successor.
+Print Assumptions P238.arith.PABoundedComprehension238.PABoundedComprehension238.finite_context_discharge.
+Print Assumptions P238.arith.PABoundedComprehension238.PABoundedComprehension238.actual_low_member_period.
+Print Assumptions P238.arith.PABoundedComprehension238.PABoundedComprehension238.low_member_period_without_totality.
+Print Assumptions P238.arith.PABoundedComprehension238.PABoundedComprehension238.larger_power_weak_bound.
+Print Assumptions P238.arith.PABoundedComprehension238.PABoundedComprehension238.actual_code_endpoint_support.
+Print Assumptions P238.arith.PABoundedComprehension238.PABoundedComprehension238.strict_add_right.
+Print Assumptions P238.arith.PABoundedComprehension238.PABoundedComprehension238.code_zero.
+Print Assumptions P238.arith.PABoundedComprehension238.PABoundedComprehension238.code_step_positive.
+Print Assumptions P238.arith.PABoundedComprehension238.PABoundedComprehension238.code_step_negative.
+Print Assumptions P238.arith.PABoundedComprehension238.PABoundedComprehension238.code_successor.
+Print Assumptions P238.arith.PABoundedComprehension238.PABoundedComprehension238.actual_bounded_comprehension.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.finite_ordinary_context_cut.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.translated_singleton_implies_collided.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.collided_from_actual_certificate.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.collided_from_actual_bounded_comprehension.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.compact_axiom_reverse.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.compact_finite_proof_reverse.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.compact_refutation_to_ordinary_PA.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.numeric_refutation_to_ordinary_PA.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.singleton_support.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.singleton_filtered_to_code.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.singleton_code_from_actual_certificate.
+Print Assumptions P238.arith.PACompactReverse238.PACompactReverse238.singleton_from_actual_certificate.
+Print Assumptions P238.e2e.Targets238.pa238_numeric_ordinary_proved.
+Check P238.e2e.Targets238.pa238_numeric_ordinary_proved.
+Print Assumptions P238.e2e.Targets238.pa238_halt_ordinary_proved.
+Check P238.e2e.Targets238.pa238_halt_ordinary_proved.
+Print Assumptions P238.e2e.Targets238.pa238_iff_ordinary_proved.
+Check P238.e2e.Targets238.pa238_iff_ordinary_proved.
+Check P238.arith.PABoundedComprehension238.PABoundedComprehension238.actual_bounded_comprehension.
+Print P238.e2e.Targets238.pa238_halts_iff_ordinary_PA.

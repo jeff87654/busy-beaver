@@ -1,0 +1,208 @@
+{
+  "repository": "https://github.com/uds-psl/coq-library-undecidability",
+  "commit": "70dfc56f33a6e4835281044e68aa68279989047e",
+  "coq_version": "8.20",
+  "license": "MPL-2.0",
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04",
+      "git_blob_sha1": "d0a1fa1482eea82e19510e7920cbe3a03e41f691"
+    },
+    {
+      "path": "theories/FOL/Arithmetics/FA.v",
+      "sha256": "c0b00faf78d182d0489bb9a458b4f655cfe694b16f98bceb3f66a068c70f7902",
+      "git_blob_sha1": "7ed70ab63f2830805ade6facbf534c674247e948"
+    },
+    {
+      "path": "theories/FOL/Arithmetics/PA.v",
+      "sha256": "e0d7ab44005488278bdc3b008a611cb25d1e880055014250457e00decf7fac69",
+      "git_blob_sha1": "fff1f0ac5a1878a817f320640c0bf8a5cd91e3ee"
+    },
+    {
+      "path": "theories/FOL/Arithmetics/Robinson.v",
+      "sha256": "8c849df28893c659f46835ff22d34981d11a2633399c4427271da402369a558b",
+      "git_blob_sha1": "b20ce3dae589bca6096f5d59e24e01685c657f29"
+    },
+    {
+      "path": "theories/FOL/Arithmetics/Signature.v",
+      "sha256": "34fe3594be583c6df8856137c875f239ee81e17171241ae58ead33eb5eaa8fbb",
+      "git_blob_sha1": "b496da27ebdd887da0a762b13e6d072063022eea"
+    },
+    {
+      "path": "theories/FOL/Deduction/FullND.v",
+      "sha256": "d9cdb7ae425802fb2b8a9f4eaa19a73af321ce08d337bee9b118518178c66b31",
+      "git_blob_sha1": "8243793b1e81b9b12f042c2768568c0fe5db7c3e"
+    },
+    {
+      "path": "theories/FOL/Deduction/FullNDConsistency.v",
+      "sha256": "b73cf30bac172e62c311a858579a7fa0190319e7a927aeecc8be6f07c285c8c5",
+      "git_blob_sha1": "8dc6b26bc757a97d9481aea0d95fe21cf15ed529"
+    },
+    {
+      "path": "theories/FOL/Deduction/FullNDFacts.v",
+      "sha256": "485b8addd21003956afadf388d37588882f794ca06c147f68458974433b51472",
+      "git_blob_sha1": "b582d6c1f50b851015e7f37125392174ce8ec426"
+    },
+    {
+      "path": "theories/FOL/Semantics/FiniteTarski/Full.v",
+      "sha256": "879ad78d63498f187c2b78122e4cd3bda32d112c5c2aaff4f4480842421953d5",
+      "git_blob_sha1": "aff1b3c75c65a7baf2d52e2b42980e58ccb51f89"
+    },
+    {
+      "path": "theories/FOL/Semantics/FiniteTarski/Listability.v",
+      "sha256": "d704bc644717ef558de1f1c3567cd977e35094ee79459825778ba9efccb868fe",
+      "git_blob_sha1": "d09f468d08b389af0b8cbd619da94a5dcc7e2115"
+    },
+    {
+      "path": "theories/FOL/Semantics/Tarski/FragmentCore.v",
+      "sha256": "f1e0d6818267031c4df8e6fa188962f649ed59064ba433e733daf9db02033cc0",
+      "git_blob_sha1": "ae6d55d1f90480a71900b8d6b0f3fdbcd053c481"
+    },
+    {
+      "path": "theories/FOL/Semantics/Tarski/FragmentFacts.v",
+      "sha256": "7b75c2b0bd84439a5d552d2e133e3357fe921d36409691b9e9ce9e95904f2189",
+      "git_blob_sha1": "405d57fce988beafa928055cc285f656a3263950"
+    },
+    {
+      "path": "theories/FOL/Semantics/Tarski/FullCore.v",
+      "sha256": "2e467a3837a514c412bbb32b0cbc98fa06ff36e2a2f54217dab7c603f0d584e7",
+      "git_blob_sha1": "ab12e6fffabc9654bafd81e64e129a4794162edf"
+    },
+    {
+      "path": "theories/FOL/Semantics/Tarski/FullFacts.v",
+      "sha256": "5b1c6053881cbc2f9139ab0a7950fc890d4c5e901ab612f16816d7a6ed3f21f6",
+      "git_blob_sha1": "d34843dae38a8a3e3fff65730bd091d4b9e41c15"
+    },
+    {
+      "path": "theories/FOL/Semantics/Tarski/FullSoundness.v",
+      "sha256": "6b18a08b8b17e1e2c3d2f47e036d7e7a5dd115fc3ca220a798364cdfec99f03e",
+      "git_blob_sha1": "fb0e09175ec8d58d573c5f7d8a247234f3c398f5"
+    },
+    {
+      "path": "theories/FOL/Sets/Signatures.v",
+      "git_blob_sha1": "e35def06f179dd91771ff13917bda1ba1033b672",
+      "sha256": "30e9057616e3c70aac73aa6853ef355101f5b422763aa5c40a61090776b25e10"
+    },
+    {
+      "path": "theories/FOL/Syntax/Asimpl.v",
+      "sha256": "283893487f92f18f11c6fc832e59e0d0200363ad44434276cbd9a5ec893262e0",
+      "git_blob_sha1": "6883821579ad6020eb5972479a175ff71f1582ad"
+    },
+    {
+      "path": "theories/FOL/Syntax/BinSig.v",
+      "git_blob_sha1": "3d30790d10f0238d27fc1f137720f4497af688ab",
+      "sha256": "e36b74b8aef6349fde91e33c548fb8c53502c43cc7eedbfa50209e90b841d6f9"
+    },
+    {
+      "path": "theories/FOL/Syntax/Bounded.v",
+      "sha256": "74c8d95c070a3a5ffa9e05d7694cd7b75761c83aa4cb89cf30aa251e140ff036",
+      "git_blob_sha1": "3fb810866d2027cc366b7d0a77fc2e9a8fac3c87"
+    },
+    {
+      "path": "theories/FOL/Syntax/Core.v",
+      "sha256": "a48579edab26905009f557047c1b95134d5dcd0c6fd7a93bb4e720325fccacb2",
+      "git_blob_sha1": "e09c2187a63b168ba89ebda3258196fe6d86cf91"
+    },
+    {
+      "path": "theories/FOL/Syntax/DiscreteEnumerable.v",
+      "sha256": "337a46aaacd9af0c29810bdc36ca41e834a5f4a909516d69e3129117d07c2427",
+      "git_blob_sha1": "2fdf66e4db762a72dcbd35b7bfad384a20bec183"
+    },
+    {
+      "path": "theories/FOL/Syntax/Facts.v",
+      "sha256": "253794e7bfc07c4c4ec841c15f4f15cc961dbb7004ed23426f82e7e1063ab68c",
+      "git_blob_sha1": "30a1d48e387d30cb4e125afed03f3acef30a6196"
+    },
+    {
+      "path": "theories/FOL/Syntax/Subst.v",
+      "sha256": "0f66109cc1896a88b121d010ce7d763346d9857721e668f99d22a365d1603b82",
+      "git_blob_sha1": "431e79774f6e0cedc9817bffcaa7a5f0e2af3e1a"
+    },
+    {
+      "path": "theories/FOL/Syntax/SyntacticOps.v",
+      "sha256": "1c13f94ee8ba1523a6165a645b2b4737184d52940930f70e043a8b3cab83061a",
+      "git_blob_sha1": "7528b517d3292fa3091362b8b4a65bcd4908972d"
+    },
+    {
+      "path": "theories/FOL/Syntax/Theories.v",
+      "sha256": "b26f595fd609ee9747b355d004d2751407160d076ed8d542aa5ffdfe69610bd5",
+      "git_blob_sha1": "a6af2c78e69ce79c261c137195d81b4830473a65"
+    },
+    {
+      "path": "theories/FOL/Utils/FullSyntax.v",
+      "sha256": "fb26873b6f6a4e2e50de3dd32de89ae3b426d6bc5a0d47e25d0da8db7882c65b",
+      "git_blob_sha1": "5bc707808196c60e5ee8f431d166fe9c5c674a1c"
+    },
+    {
+      "path": "theories/Shared/Dec.v",
+      "sha256": "30ffc2a90a45aa16497c460d8c0c8c7fe17a16a780f5d7f440b3cd59a2230cd5",
+      "git_blob_sha1": "a09403f88a4c4ec55e99eff05874d9b63661352a"
+    },
+    {
+      "path": "theories/Shared/Libs/PSL/EqDec.v",
+      "sha256": "d1d1f646a5c5ddf9357d7c26dad921e628b6e6f6302071f1e9cd5824a0fb3443",
+      "git_blob_sha1": "9512f0c48e1f75ec9d8c2a25205c837746bc4d82"
+    },
+    {
+      "path": "theories/Shared/Libs/PSL/EqDecDef.v",
+      "sha256": "9ce9a2abfad0419d628bf2c465f755f567ca50b6d1ecafa1e4fb4e0122caba58",
+      "git_blob_sha1": "8bc16a25646530bd63f26346fc070fa65d629f7f"
+    },
+    {
+      "path": "theories/Shared/Libs/PSL/FiniteTypes/FinTypesDef.v",
+      "sha256": "d921fc3ec6b1512ee1e84a95244f8094a6b0a70d987afa8953fcd25411ac9fe3",
+      "git_blob_sha1": "ba811aac5a2acb2cc7824ccb4070850cce862191"
+    },
+    {
+      "path": "theories/Shared/Libs/PSL/Prelim.v",
+      "sha256": "32934d416c2f9aa2f9012e5f8142f820d933b67db56cf4a0ccad07eb35ffa859",
+      "git_blob_sha1": "c1ebb4d210d1c7794b03ff15d735047ba3c580c7"
+    },
+    {
+      "path": "theories/Shared/Libs/PSL/Tactics/Tactics.v",
+      "sha256": "3ee8a3a060e238fd6357bbbcb68d91c25648abb9bad2847c718a2c718f7ea06f",
+      "git_blob_sha1": "5522cea42881f90e3e1ec041f21e55d4aebe1132"
+    },
+    {
+      "path": "theories/Shared/Libs/PSL/Vectors/Vectors.v",
+      "sha256": "449691a846aa84caa03afb9e2abd89fb1e7433a755a3ae5594531e5e0e8e7b86",
+      "git_blob_sha1": "a727982243b44eb4b61d68b723312284fa92cdee"
+    },
+    {
+      "path": "theories/Shared/ListAutomation.v",
+      "sha256": "26690733552ee9a1ecf8b9ec15a8f35c702ac8ad8f3183abab724addceda441b",
+      "git_blob_sha1": "c005ec68a993ba9ba2735ed43a1a7f405fba6662"
+    },
+    {
+      "path": "theories/Synthetic/DecidabilityFacts.v",
+      "sha256": "bcb210bce0b9843d398c33c91f26537957b5669b70da9a999bb9dc067f3f918c",
+      "git_blob_sha1": "49b57419f60d6bf060c6964bc4e7f95371f600b8"
+    },
+    {
+      "path": "theories/Synthetic/Definitions.v",
+      "sha256": "0bd1469a4cc4f17ff7124a3ac0b5487c13ee707a5395d650b5e600200a6cc8a7",
+      "git_blob_sha1": "58f2775c8a41844983195ffdfae3c9e9147b3af4"
+    },
+    {
+      "path": "theories/Synthetic/EnumerabilityFacts.v",
+      "sha256": "71b8ff210da33895b5e052f2f1780398dabbeb2860c184fec146b93e2a7a2da7",
+      "git_blob_sha1": "983bd54cae1304cde68a4a37db726b601e3ea7b4"
+    },
+    {
+      "path": "theories/Synthetic/ListEnumerabilityFacts.v",
+      "sha256": "1926542cc948486bf1769e56995c389f02611955f4f7e200ebccf65771fd77c3",
+      "git_blob_sha1": "b5df2076f225c644fb4bc678dc35fdbaa04d8d67"
+    },
+    {
+      "path": "theories/Synthetic/ReducibilityFacts.v",
+      "sha256": "b9e1de4941b0b25985c976599b2d5cebd8c19de7c70b24863dba72580c4d0382",
+      "git_blob_sha1": "f6c82cef0b881d0f42dd12048438d2fb3400ac07"
+    },
+    {
+      "path": "theories/Synthetic/SemiDecidabilityFacts.v",
+      "sha256": "ce8c0141053cc80cf694d1cdefc036443371823f8051e759c4ed6f6550758d8b",
+      "git_blob_sha1": "273ede071a2b998614acbd0a48cbe8e027b1dc4f"
+    }
+  ]
+}
