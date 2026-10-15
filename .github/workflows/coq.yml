@@ -10,6 +10,43 @@ on:
   workflow_dispatch:
 
 jobs:
+  pa238:
+    # Exact blank-tape PA238 halting iff a finite ordinary classical PA refutation.
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH; ensure Python and ps
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          if ! command -v python3 >/dev/null || [ ! -x /bin/ps ]; then
+            apt-get update && apt-get install -y python3 procps
+          fi
+
+      - uses: actions/checkout@v4
+
+      - name: Provision absent compilation locks without replacing existing files
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          for name in ('/tmp/mm0-native-mac.lock', '/tmp/mm0_compile.lock'):
+              try:
+                  with Path(name).open('xb'):
+                      pass
+              except FileExistsError:
+                  pass
+          PY
+
+      - name: Build PA238 and check closed assumptions
+        run: python3 -I PA/m238/check.py --coqc coqc --wall-seconds 120 --memory-mib 2048
+
   bb8:
     runs-on: ubuntu-latest
     timeout-minutes: 120

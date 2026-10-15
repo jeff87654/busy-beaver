@@ -1,0 +1,3 @@
+-Q coq P238
+-Q vendor/undecidability/theories Undecidability
+-Q ../../ZF/stdzf_r3/vendor/busycoq BusyCoq
