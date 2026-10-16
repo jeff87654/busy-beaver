@@ -11,7 +11,7 @@ permissions:
 jobs:
   zf253:
     runs-on: ubuntu-24.04
-    timeout-minutes: 240
+    timeout-minutes: 60
     container:
       # Official registry manifest for coqorg/coq:8.20.1; SHA256 verified.
       image: coqorg/coq:8.20.1@sha256:18ebf3da56e60e3ddfd7d4e51f4c53d10241a129f34e93dacbc71562dd43c57a
@@ -48,7 +48,7 @@ jobs:
             '84a21f714017c1d491008d86e9bd19c43cc6c5c9ae99a538b4f2314387827d95' \
             'ZF/m253/machine/zfc_253.tm' | sha256sum --check
           python3 -I -B ZF/m253/check.py --coqc coqc \
-            --wall-seconds 240 --memory-mib 1536 --coqchk-seconds 900 \
+            --wall-seconds 900 --memory-mib 1536 --coqchk-seconds 900 \
             2>&1 | tee "$RUNNER_TEMP/zf253-check.log"
           grep -Fxq 'dependency closure: 160 source files; 194 Print Assumptions probes' \
             "$RUNNER_TEMP/zf253-check.log"

@@ -84,6 +84,8 @@ The `zf253.yml` CI workflow uses the existing Coq 8.20.1 container convention,
 pins the image by digest and the checkout action by commit, grants only
 `contents: read`, and disables persisted checkout credentials. Its build
 requires the complete 160-module, 194-report and recursive-check result.
+The CI command allows 900 seconds per compiler call and 1536 MiB within a
+60-minute job; the local defaults above are unchanged.
 
 For read-only source and generator validation:
 
