@@ -11,6 +11,18 @@ Theorem zf254_halts_iff_ZF  : halts tm c0 <-> ZFc ⊢TC ⊥
 Theorem zf254_halts_iff_ZFC : halts tm c0 <-> (ZFc + AC) ⊢TC ⊥
 ```
 
+**ZFC + Grothendieck universes: 296 states.** [`tg296/machine/m254tg_wade.tm`](tg296/machine/m254tg_wade.tm) runs
+Mira-Cult's 254-state program with one new axiom schema, compiled with Wade's TMBuilder. [`tg296/`](tg296/) proves in
+Coq, with no axioms, that it halts on a blank tape **if and only if ZFC + GU is inconsistent**, where GU says that every
+set lies in a Grothendieck universe (`Gru` transliterated from Metamath set.mm's `df-gru`). This is the consistency
+strength of Tarski–Grothendieck set theory (CI job `zf-tg296`):
+
+```coq
+Theorem tg296_halts_iff_ZFGU  : halts tm c0 <-> (ZFc + GU) ⊢TC ⊥
+Theorem tg296_halts_iff_ZFCGU : halts tm c0 <-> (ZFc + AC + GU) ⊢TC ⊥
+(* also with Reg: tg296_halts_iff_ZFRGU, tg296_halts_iff_ZFCRGU *)
+```
+
 **Our own machines.** The 335-state, 2-symbol machine [`machines/R3Y1_335.tm`](machines/R3Y1_335.tm), started on a
 blank tape, halts **if and only if ZFC is inconsistent**. This is proved end to end in Coq with no
 axioms ([`stdzf_r3/`](stdzf_r3/), CI job `zf-stdzf-r3`):
