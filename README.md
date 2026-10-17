@@ -155,16 +155,17 @@ analysed by hand by Polygon, October 2025). Coq proves, with no axioms, that it 
 final tape is a single block of σ = 4·e₄ + 18 ones, where e₄ is an explicit recursion (three nested cascades of
 G(c) = f1^(2c+11)(1), f1(b) = 3·2^(b+4) − 5), and that
 
-    2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < σ
+    2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < e₄ ≤ 2↑↑↑2↑↑↑2↑↑↑(2^96 + 6)
 
-(Knuth arrows; 2^96 ≈ 7.92·10²⁸, the wiki's lower bound). As far as we know this is the first machine-checked proof
+(Knuth arrows; 2^96 ≈ 7.92·10²⁸). This implies the wiki's bracket 2↑↑↑2↑↑↑2↑↑↑(7.92·10²⁸) < e₄ < 2↑↑↑2↑↑↑2↑↑↑(7.93·10²⁸),
+which Coq also states and proves (`wiki_bracket`). As far as we know this is the first machine-checked proof
 of this machine's halting and score.
 
 - [`BB43/1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD.md`](BB43/1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD.md):
   the analysis (notation, the D/D1 families, the rules, the run, the exact score, the bound and the wiki's,
   verification status, credit).
 - [`BB43/verify/`](BB43/verify/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1): `bb43_halts`, `reaches_final`,
-  `final_halted`, `e4_eq`, `sigma_lower`, and a probe that re-checks the table against the machine string. No axioms.
+  `final_halted`, `e4_eq`, `sigma_lower`, `e4_bounds`, `wiki_bracket`, `bb43_main`, and a probe that re-checks the table against the machine string. No axioms.
   About two minutes to compile; built and probed in CI.
 - [`BB43/tools/bb43_chk.py`](BB43/tools/bb43_chk.py): an independent literal simulator that re-checks the run from
   blank to step 11828, every rule on concrete instances, and the halting tape.

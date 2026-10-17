@@ -8,7 +8,7 @@ if [ -z "$BUSYCOQ" ]; then
   exit 2
 fi
 set -e
-for f in BB43 Individual43 BB43_rules BB43_run BB43_bound; do
+for f in BB43 Individual43 BB43_rules BB43_run BB43_score; do
   echo "== $f.v =="
   start=$(date +%s)
   "$COQC" -Q "$BUSYCOQ" BusyCoq -Q . TM43 "$f.v"
@@ -16,4 +16,4 @@ for f in BB43 Individual43 BB43_rules BB43_run BB43_bound; do
 done
 echo "COMPILE DONE"
 "$COQC" -Q "$BUSYCOQ" BusyCoq -Q . TM43 probe.v > probe.log
-echo "probe: $(grep -c 'Closed under the global context' probe.log) of 9 theorems closed under the global context"
+echo "probe: $(grep -c 'Closed under the global context' probe.log) of 13 theorems closed under the global context"
