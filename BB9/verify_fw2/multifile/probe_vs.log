@@ -1,0 +1,329 @@
+eq_refl : BB9_redir_0LA_fh.tm (A, 0) = Some (1, R, B)
+     : BB9_redir_0LA_fh.tm (A, 0) = Some (1, R, B)
+eq_refl : BB9_redir_0LA_fh.tm (A, 1) = Some (0, R, A)
+     : BB9_redir_0LA_fh.tm (A, 1) = Some (0, R, A)
+eq_refl : BB9_redir_0LA_fh.tm (B, 0) = Some (1, L, C)
+     : BB9_redir_0LA_fh.tm (B, 0) = Some (1, L, C)
+eq_refl : BB9_redir_0LA_fh.tm (B, 1) = Some (1, L, F)
+     : BB9_redir_0LA_fh.tm (B, 1) = Some (1, L, F)
+eq_refl : BB9_redir_0LA_fh.tm (C, 0) = Some (1, R, D)
+     : BB9_redir_0LA_fh.tm (C, 0) = Some (1, R, D)
+eq_refl : BB9_redir_0LA_fh.tm (C, 1) = Some (0, L, B)
+     : BB9_redir_0LA_fh.tm (C, 1) = Some (0, L, B)
+eq_refl : BB9_redir_0LA_fh.tm (D, 0) = Some (1, R, A)
+     : BB9_redir_0LA_fh.tm (D, 0) = Some (1, R, A)
+eq_refl : BB9_redir_0LA_fh.tm (D, 1) = Some (1, L, E)
+     : BB9_redir_0LA_fh.tm (D, 1) = Some (1, L, E)
+eq_refl : BB9_redir_0LA_fh.tm (E, 0) = Some (0, L, I)
+     : BB9_redir_0LA_fh.tm (E, 0) = Some (0, L, I)
+eq_refl : BB9_redir_0LA_fh.tm (E, 1) = Some (0, L, C)
+     : BB9_redir_0LA_fh.tm (E, 1) = Some (0, L, C)
+eq_refl : BB9_redir_0LA_fh.tm (F, 0) = Some (1, R, G)
+     : BB9_redir_0LA_fh.tm (F, 0) = Some (1, R, G)
+eq_refl : BB9_redir_0LA_fh.tm (F, 1) = Some (1, L, D)
+     : BB9_redir_0LA_fh.tm (F, 1) = Some (1, L, D)
+eq_refl : BB9_redir_0LA_fh.tm (G, 0) = Some (1, L, C)
+     : BB9_redir_0LA_fh.tm (G, 0) = Some (1, L, C)
+eq_refl : BB9_redir_0LA_fh.tm (G, 1) = Some (1, R, H)
+     : BB9_redir_0LA_fh.tm (G, 1) = Some (1, R, H)
+eq_refl : BB9_redir_0LA_fh.tm (H, 0) = Some (0, L, H)
+     : BB9_redir_0LA_fh.tm (H, 0) = Some (0, L, H)
+eq_refl : BB9_redir_0LA_fh.tm (H, 1) = Some (0, R, F)
+     : BB9_redir_0LA_fh.tm (H, 1) = Some (0, R, F)
+eq_refl : BB9_redir_0LA_fh.tm (I, 0) = None
+     : BB9_redir_0LA_fh.tm (I, 0) = None
+eq_refl : BB9_redir_0LA_fh.tm (I, 1) = Some (0, L, A)
+     : BB9_redir_0LA_fh.tm (I, 1) = Some (0, L, A)
+eq_refl : BB9_redir_0LA.tm (A, 0) = Some (1, R, B)
+     : BB9_redir_0LA.tm (A, 0) = Some (1, R, B)
+eq_refl : BB9_redir_0LA.tm (A, 1) = Some (0, R, A)
+     : BB9_redir_0LA.tm (A, 1) = Some (0, R, A)
+eq_refl : BB9_redir_0LA.tm (B, 0) = Some (1, L, C)
+     : BB9_redir_0LA.tm (B, 0) = Some (1, L, C)
+eq_refl : BB9_redir_0LA.tm (B, 1) = Some (1, L, F)
+     : BB9_redir_0LA.tm (B, 1) = Some (1, L, F)
+eq_refl : BB9_redir_0LA.tm (C, 0) = Some (1, R, D)
+     : BB9_redir_0LA.tm (C, 0) = Some (1, R, D)
+eq_refl : BB9_redir_0LA.tm (C, 1) = Some (0, L, B)
+     : BB9_redir_0LA.tm (C, 1) = Some (0, L, B)
+eq_refl : BB9_redir_0LA.tm (D, 0) = Some (1, R, A)
+     : BB9_redir_0LA.tm (D, 0) = Some (1, R, A)
+eq_refl : BB9_redir_0LA.tm (D, 1) = Some (1, L, E)
+     : BB9_redir_0LA.tm (D, 1) = Some (1, L, E)
+eq_refl : BB9_redir_0LA.tm (E, 0) = Some (0, L, I)
+     : BB9_redir_0LA.tm (E, 0) = Some (0, L, I)
+eq_refl : BB9_redir_0LA.tm (E, 1) = Some (0, L, C)
+     : BB9_redir_0LA.tm (E, 1) = Some (0, L, C)
+eq_refl : BB9_redir_0LA.tm (F, 0) = Some (1, R, G)
+     : BB9_redir_0LA.tm (F, 0) = Some (1, R, G)
+eq_refl : BB9_redir_0LA.tm (F, 1) = Some (1, L, D)
+     : BB9_redir_0LA.tm (F, 1) = Some (1, L, D)
+eq_refl : BB9_redir_0LA.tm (G, 0) = Some (1, L, C)
+     : BB9_redir_0LA.tm (G, 0) = Some (1, L, C)
+eq_refl : BB9_redir_0LA.tm (G, 1) = Some (0, R, H)
+     : BB9_redir_0LA.tm (G, 1) = Some (0, R, H)
+eq_refl : BB9_redir_0LA.tm (H, 0) = Some (1, R, G)
+     : BB9_redir_0LA.tm (H, 0) = Some (1, R, G)
+eq_refl : BB9_redir_0LA.tm (H, 1) = Some (1, L, F)
+     : BB9_redir_0LA.tm (H, 1) = Some (1, L, F)
+eq_refl : BB9_redir_0LA.tm (I, 0) = None
+     : BB9_redir_0LA.tm (I, 0) = None
+eq_refl : BB9_redir_0LA.tm (I, 1) = Some (0, L, A)
+     : BB9_redir_0LA.tm (I, 1) = Some (0, L, A)
+eq_refl : BB9_record_1RB0RA.tm (A, 0) = Some (1, R, B)
+     : BB9_record_1RB0RA.tm (A, 0) = Some (1, R, B)
+eq_refl : BB9_record_1RB0RA.tm (A, 1) = Some (0, R, A)
+     : BB9_record_1RB0RA.tm (A, 1) = Some (0, R, A)
+eq_refl : BB9_record_1RB0RA.tm (B, 0) = Some (1, L, C)
+     : BB9_record_1RB0RA.tm (B, 0) = Some (1, L, C)
+eq_refl : BB9_record_1RB0RA.tm (B, 1) = Some (1, L, F)
+     : BB9_record_1RB0RA.tm (B, 1) = Some (1, L, F)
+eq_refl : BB9_record_1RB0RA.tm (C, 0) = Some (1, R, D)
+     : BB9_record_1RB0RA.tm (C, 0) = Some (1, R, D)
+eq_refl : BB9_record_1RB0RA.tm (C, 1) = Some (0, L, B)
+     : BB9_record_1RB0RA.tm (C, 1) = Some (0, L, B)
+eq_refl : BB9_record_1RB0RA.tm (D, 0) = Some (1, R, A)
+     : BB9_record_1RB0RA.tm (D, 0) = Some (1, R, A)
+eq_refl : BB9_record_1RB0RA.tm (D, 1) = Some (1, L, E)
+     : BB9_record_1RB0RA.tm (D, 1) = Some (1, L, E)
+eq_refl : BB9_record_1RB0RA.tm (E, 0) = Some (1, L, I)
+     : BB9_record_1RB0RA.tm (E, 0) = Some (1, L, I)
+eq_refl : BB9_record_1RB0RA.tm (E, 1) = Some (0, L, C)
+     : BB9_record_1RB0RA.tm (E, 1) = Some (0, L, C)
+eq_refl : BB9_record_1RB0RA.tm (F, 0) = Some (1, R, G)
+     : BB9_record_1RB0RA.tm (F, 0) = Some (1, R, G)
+eq_refl : BB9_record_1RB0RA.tm (F, 1) = Some (1, L, D)
+     : BB9_record_1RB0RA.tm (F, 1) = Some (1, L, D)
+eq_refl : BB9_record_1RB0RA.tm (G, 0) = Some (0, R, H)
+     : BB9_record_1RB0RA.tm (G, 0) = Some (0, R, H)
+eq_refl : BB9_record_1RB0RA.tm (G, 1) = Some (0, R, F)
+     : BB9_record_1RB0RA.tm (G, 1) = Some (0, R, F)
+eq_refl : BB9_record_1RB0RA.tm (H, 0) = Some (0, R, G)
+     : BB9_record_1RB0RA.tm (H, 0) = Some (0, R, G)
+eq_refl : BB9_record_1RB0RA.tm (H, 1) = Some (0, R, E)
+     : BB9_record_1RB0RA.tm (H, 1) = Some (0, R, E)
+eq_refl : BB9_record_1RB0RA.tm (I, 0) = Some (0, L, H)
+     : BB9_record_1RB0RA.tm (I, 0) = Some (0, L, H)
+eq_refl : BB9_record_1RB0RA.tm (I, 1) = None
+     : BB9_record_1RB0RA.tm (I, 1) = None
+eq_refl : BB9_champion_1RB1RA.tm (A, 0) = Some (1, R, B)
+     : BB9_champion_1RB1RA.tm (A, 0) = Some (1, R, B)
+eq_refl : BB9_champion_1RB1RA.tm (A, 1) = Some (1, R, A)
+     : BB9_champion_1RB1RA.tm (A, 1) = Some (1, R, A)
+eq_refl : BB9_champion_1RB1RA.tm (B, 0) = Some (0, L, C)
+     : BB9_champion_1RB1RA.tm (B, 0) = Some (0, L, C)
+eq_refl : BB9_champion_1RB1RA.tm (B, 1) = Some (0, L, F)
+     : BB9_champion_1RB1RA.tm (B, 1) = Some (0, L, F)
+eq_refl : BB9_champion_1RB1RA.tm (C, 0) = Some (0, R, D)
+     : BB9_champion_1RB1RA.tm (C, 0) = Some (0, R, D)
+eq_refl : BB9_champion_1RB1RA.tm (C, 1) = Some (1, L, C)
+     : BB9_champion_1RB1RA.tm (C, 1) = Some (1, L, C)
+eq_refl : BB9_champion_1RB1RA.tm (D, 0) = Some (1, R, A)
+     : BB9_champion_1RB1RA.tm (D, 0) = Some (1, R, A)
+eq_refl : BB9_champion_1RB1RA.tm (D, 1) = Some (1, R, G)
+     : BB9_champion_1RB1RA.tm (D, 1) = Some (1, R, G)
+eq_refl : BB9_champion_1RB1RA.tm (E, 0) = None
+     : BB9_champion_1RB1RA.tm (E, 0) = None
+eq_refl : BB9_champion_1RB1RA.tm (E, 1) = Some (0, R, A)
+     : BB9_champion_1RB1RA.tm (E, 1) = Some (0, R, A)
+eq_refl : BB9_champion_1RB1RA.tm (F, 0) = Some (1, L, B)
+     : BB9_champion_1RB1RA.tm (F, 0) = Some (1, L, B)
+eq_refl : BB9_champion_1RB1RA.tm (F, 1) = Some (1, L, F)
+     : BB9_champion_1RB1RA.tm (F, 1) = Some (1, L, F)
+eq_refl : BB9_champion_1RB1RA.tm (G, 0) = Some (1, L, H)
+     : BB9_champion_1RB1RA.tm (G, 0) = Some (1, L, H)
+eq_refl : BB9_champion_1RB1RA.tm (G, 1) = Some (1, R, E)
+     : BB9_champion_1RB1RA.tm (G, 1) = Some (1, R, E)
+eq_refl : BB9_champion_1RB1RA.tm (H, 0) = Some (0, L, I)
+     : BB9_champion_1RB1RA.tm (H, 0) = Some (0, L, I)
+eq_refl : BB9_champion_1RB1RA.tm (H, 1) = Some (1, L, H)
+     : BB9_champion_1RB1RA.tm (H, 1) = Some (1, L, H)
+eq_refl : BB9_champion_1RB1RA.tm (I, 0) = Some (1, L, B)
+     : BB9_champion_1RB1RA.tm (I, 0) = Some (1, L, B)
+eq_refl : BB9_champion_1RB1RA.tm (I, 1) = Some (0, L, H)
+     : BB9_champion_1RB1RA.tm (I, 1) = Some (0, L, H)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.A, BB102.S0) = Some (BB102.S1, R, BB102.B)
+     : BB10_champion_1RB1RA.tm (BB102.A, BB102.S0) =
+       Some (BB102.S1, R, BB102.B)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.A, BB102.S1) = Some (BB102.S1, R, BB102.A)
+     : BB10_champion_1RB1RA.tm (BB102.A, BB102.S1) =
+       Some (BB102.S1, R, BB102.A)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.B, BB102.S0) = Some (BB102.S0, L, BB102.C)
+     : BB10_champion_1RB1RA.tm (BB102.B, BB102.S0) =
+       Some (BB102.S0, L, BB102.C)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.B, BB102.S1) = Some (BB102.S0, L, BB102.F)
+     : BB10_champion_1RB1RA.tm (BB102.B, BB102.S1) =
+       Some (BB102.S0, L, BB102.F)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.C, BB102.S0) = Some (BB102.S0, R, BB102.D)
+     : BB10_champion_1RB1RA.tm (BB102.C, BB102.S0) =
+       Some (BB102.S0, R, BB102.D)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.C, BB102.S1) = Some (BB102.S1, L, BB102.C)
+     : BB10_champion_1RB1RA.tm (BB102.C, BB102.S1) =
+       Some (BB102.S1, L, BB102.C)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.D, BB102.S0) = Some (BB102.S1, R, BB102.A)
+     : BB10_champion_1RB1RA.tm (BB102.D, BB102.S0) =
+       Some (BB102.S1, R, BB102.A)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.D, BB102.S1) = Some (BB102.S1, R, BB102.G)
+     : BB10_champion_1RB1RA.tm (BB102.D, BB102.S1) =
+       Some (BB102.S1, R, BB102.G)
+eq_refl : BB10_champion_1RB1RA.tm (BB102.E, BB102.S0) = None
+     : BB10_champion_1RB1RA.tm (BB102.E, BB102.S0) = None
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.E, BB102.S1) = Some (BB102.S0, R, BB102.A)
+     : BB10_champion_1RB1RA.tm (BB102.E, BB102.S1) =
+       Some (BB102.S0, R, BB102.A)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.F, BB102.S0) = Some (BB102.S1, L, BB102.B)
+     : BB10_champion_1RB1RA.tm (BB102.F, BB102.S0) =
+       Some (BB102.S1, L, BB102.B)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.F, BB102.S1) = Some (BB102.S1, L, BB102.F)
+     : BB10_champion_1RB1RA.tm (BB102.F, BB102.S1) =
+       Some (BB102.S1, L, BB102.F)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.G, BB102.S0) = Some (BB102.S1, L, BB102.H)
+     : BB10_champion_1RB1RA.tm (BB102.G, BB102.S0) =
+       Some (BB102.S1, L, BB102.H)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.G, BB102.S1) = Some (BB102.S1, R, BB102.E)
+     : BB10_champion_1RB1RA.tm (BB102.G, BB102.S1) =
+       Some (BB102.S1, R, BB102.E)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.H, BB102.S0) = Some (BB102.S0, L, BB102.I)
+     : BB10_champion_1RB1RA.tm (BB102.H, BB102.S0) =
+       Some (BB102.S0, L, BB102.I)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.H, BB102.S1) = Some (BB102.S1, L, BB102.H)
+     : BB10_champion_1RB1RA.tm (BB102.H, BB102.S1) =
+       Some (BB102.S1, L, BB102.H)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.I, BB102.S0) = Some (BB102.S0, L, BB102.F)
+     : BB10_champion_1RB1RA.tm (BB102.I, BB102.S0) =
+       Some (BB102.S0, L, BB102.F)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.I, BB102.S1) = Some (BB102.S0, L, BB102.J)
+     : BB10_champion_1RB1RA.tm (BB102.I, BB102.S1) =
+       Some (BB102.S0, L, BB102.J)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.J, BB102.S0) = Some (BB102.S1, L, BB102.H)
+     : BB10_champion_1RB1RA.tm (BB102.J, BB102.S0) =
+       Some (BB102.S1, L, BB102.H)
+eq_refl
+:
+BB10_champion_1RB1RA.tm (BB102.J, BB102.S1) = Some (BB102.S0, L, BB102.J)
+     : BB10_champion_1RB1RA.tm (BB102.J, BB102.S1) =
+       Some (BB102.S0, L, BB102.J)
+eq_refl : TM10.c0 = (BB102.A, TM10.tape0)
+     : TM10.c0 = (BB102.A, TM10.tape0)
+eq_refl : TM10.tape0 = (const BB102.S0, BB102.S0, const BB102.S0)
+     : TM10.tape0 = (const BB102.S0, BB102.S0, const BB102.S0)
+eq_refl : BB9_redir_0LA_fh_bound.ones = BB9_fw2_bound.ones
+     : BB9_redir_0LA_fh_bound.ones = BB9_fw2_bound.ones
+eq_refl : BB9_redir_0LA_bound.ones = BB9_fw2_bound.ones
+     : BB9_redir_0LA_bound.ones = BB9_fw2_bound.ones
+eq_refl : BB9_record_bound.ones = BB9_fw2_bound.ones
+     : BB9_record_bound.ones = BB9_fw2_bound.ones
+eq_refl : BB9_champion_bound.ones = BB9_fw2_bound.ones
+     : BB9_champion_bound.ones = BB9_fw2_bound.ones
+BB9_fw2_bound.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB9_fw2_bound.count1 L + BB9_fw2_bound.sym_val s + BB9_fw2_bound.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB9_fw2_bound.ones c N%nat_scope
+BB10_champion_bound.ones =
+fun
+  (c : BB102.state *
+       (Stream BB102.BB102.Sym * BB102.BB102.Sym * Stream BB102.BB102.Sym))
+  (N : nat) =>
+exists (q : BB102.state) (L R : list BB102.BB102.Sym) 
+(s : BB102.BB102.Sym),
+  c = (q, (L *> const BB102.S0, s, R *> const BB102.S0)) /\
+  N =
+  BB10_champion_bound.count1 L + BB10_champion_bound.sym_val s +
+  BB10_champion_bound.count1 R
+     : BB102.state *
+       (Stream BB102.BB102.Sym * BB102.BB102.Sym * Stream BB102.BB102.Sym) ->
+       nat -> Prop
+
+Arguments BB10_champion_bound.ones c N%nat_scope
+BB9_fw2_vs_records.fw2_beats_redir_0LA_fh
+     : exists (cfh : Q * tape) (Nfh : nat) (c : Q * tape) 
+       (N : nat),
+         c0 -[ BB9_redir_0LA_fh.tm ]->* cfh /\
+         halted BB9_redir_0LA_fh.tm cfh /\
+         BB9_redir_0LA_fh_bound.ones cfh Nfh /\
+         c0 -[ BB9_fw2_1RB0RD.tm ]->* c /\
+         halted BB9_fw2_1RB0RD.tm c /\ BB9_fw2_bound.ones c N /\ Nfh + 1 < N
+BB9_fw2_vs_records.fw2_beats_redir_0LA
+     : exists (co : Q * tape) (No : nat) (c : Q * tape) 
+       (N : nat),
+         c0 -[ BB9_redir_0LA.tm ]->* co /\
+         halted BB9_redir_0LA.tm co /\
+         BB9_redir_0LA_bound.ones co No /\
+         c0 -[ BB9_fw2_1RB0RD.tm ]->* c /\
+         halted BB9_fw2_1RB0RD.tm c /\ BB9_fw2_bound.ones c N /\ No + 1 < N
+BB9_fw2_vs_records.fw2_beats_record
+     : exists (cr : Q * tape) (Nr : nat) (c : Q * tape) 
+       (N : nat),
+         c0 -[ BB9_record_1RB0RA.tm ]->* cr /\
+         halted BB9_record_1RB0RA.tm cr /\
+         BB9_record_bound.ones cr Nr /\
+         c0 -[ BB9_fw2_1RB0RD.tm ]->* c /\
+         halted BB9_fw2_1RB0RD.tm c /\ BB9_fw2_bound.ones c N /\ Nr + 1 < N
+BB9_fw2_vs_records.fw2_beats_bb9_champion
+     : exists (cc : Q * tape) (Nc : nat) (c : Q * tape) 
+       (N : nat),
+         c0 -[ BB9_champion_1RB1RA.tm ]->* cc /\
+         halted BB9_champion_1RB1RA.tm cc /\
+         BB9_champion_bound.ones cc Nc /\
+         c0 -[ BB9_fw2_1RB0RD.tm ]->* c /\
+         halted BB9_fw2_1RB0RD.tm c /\
+         BB9_fw2_bound.ones c N /\ Nc + 1 < N + 1
+BB9_fw2_vs_records.fw2_beats_bb10_champion
+     : exists
+         (c10 : BB102.BB102.Q *
+                (Stream BB102.BB102.Sym * BB102.BB102.Sym *
+                 Stream BB102.BB102.Sym)) (N10 : nat) 
+       (c9 : Q * tape) (N9 : nat),
+         BB9_fw2_vs_records.TM10.evstep BB10_champion_1RB1RA.tm
+           BB9_fw2_vs_records.TM10.c0 c10 /\
+         BB9_fw2_vs_records.TM10.halted BB10_champion_1RB1RA.tm c10 /\
+         BB10_champion_bound.ones c10 N10 /\
+         c0 -[ BB9_fw2_1RB0RD.tm ]->* c9 /\
+         halted BB9_fw2_1RB0RD.tm c9 /\
+         BB9_fw2_bound.ones c9 N9 /\ N10 + 1 < N9 + 1
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

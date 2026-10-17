@@ -1,0 +1,163 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB9_fw2_1RB0RD.tm (A, 0) = Some (1, R, B)
+     : BB9_fw2_1RB0RD.tm (A, 0) = Some (1, R, B)
+eq_refl : BB9_fw2_1RB0RD.tm (A, 1) = Some (0, R, D)
+     : BB9_fw2_1RB0RD.tm (A, 1) = Some (0, R, D)
+eq_refl : BB9_fw2_1RB0RD.tm (B, 0) = Some (1, L, C)
+     : BB9_fw2_1RB0RD.tm (B, 0) = Some (1, L, C)
+eq_refl : BB9_fw2_1RB0RD.tm (B, 1) = Some (1, L, C)
+     : BB9_fw2_1RB0RD.tm (B, 1) = Some (1, L, C)
+eq_refl : BB9_fw2_1RB0RD.tm (C, 0) = Some (0, R, A)
+     : BB9_fw2_1RB0RD.tm (C, 0) = Some (0, R, A)
+eq_refl : BB9_fw2_1RB0RD.tm (C, 1) = Some (0, L, B)
+     : BB9_fw2_1RB0RD.tm (C, 1) = Some (0, L, B)
+eq_refl : BB9_fw2_1RB0RD.tm (D, 0) = Some (1, R, E)
+     : BB9_fw2_1RB0RD.tm (D, 0) = Some (1, R, E)
+eq_refl : BB9_fw2_1RB0RD.tm (D, 1) = Some (1, R, D)
+     : BB9_fw2_1RB0RD.tm (D, 1) = Some (1, R, D)
+eq_refl : BB9_fw2_1RB0RD.tm (E, 0) = Some (0, L, G)
+     : BB9_fw2_1RB0RD.tm (E, 0) = Some (0, L, G)
+eq_refl : BB9_fw2_1RB0RD.tm (E, 1) = Some (0, L, F)
+     : BB9_fw2_1RB0RD.tm (E, 1) = Some (0, L, F)
+eq_refl : BB9_fw2_1RB0RD.tm (F, 0) = Some (1, L, E)
+     : BB9_fw2_1RB0RD.tm (F, 0) = Some (1, L, E)
+eq_refl : BB9_fw2_1RB0RD.tm (F, 1) = Some (1, L, F)
+     : BB9_fw2_1RB0RD.tm (F, 1) = Some (1, L, F)
+eq_refl : BB9_fw2_1RB0RD.tm (G, 0) = Some (0, R, H)
+     : BB9_fw2_1RB0RD.tm (G, 0) = Some (0, R, H)
+eq_refl : BB9_fw2_1RB0RD.tm (G, 1) = Some (1, L, G)
+     : BB9_fw2_1RB0RD.tm (G, 1) = Some (1, L, G)
+eq_refl : BB9_fw2_1RB0RD.tm (H, 0) = Some (1, R, D)
+     : BB9_fw2_1RB0RD.tm (H, 0) = Some (1, R, D)
+eq_refl : BB9_fw2_1RB0RD.tm (H, 1) = Some (1, R, I)
+     : BB9_fw2_1RB0RD.tm (H, 1) = Some (1, R, I)
+eq_refl : BB9_fw2_1RB0RD.tm (I, 0) = None
+     : BB9_fw2_1RB0RD.tm (I, 0) = None
+eq_refl : BB9_fw2_1RB0RD.tm (I, 1) = Some (1, R, A)
+     : BB9_fw2_1RB0RD.tm (I, 1) = Some (1, R, A)
+BB9_fw2_1RB0RD.iter =
+fix iter (n : nat) (g : nat -> nat) (x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => g (iter n' g x)
+  end
+     : nat -> (nat -> nat) -> nat -> nat
+
+Arguments BB9_fw2_1RB0RD.iter n%nat_scope g%function_scope x%nat_scope
+BB9_fw2_bound.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB9_fw2_1RB0RD.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB9_fw2_bound.f (k _)%nat_scope
+BB9_fw2_bound.f_omega = fun n : nat => BB9_fw2_bound.f n n
+     : nat -> nat
+
+Arguments BB9_fw2_bound.f_omega n%nat_scope
+BB9_fw2_bound.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB9_fw2_bound.sym_val s%sym_scope
+BB9_fw2_bound.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB9_fw2_bound.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB9_fw2_bound.count1 xs%list_scope
+BB9_fw2_bound.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB9_fw2_bound.count1 L + BB9_fw2_bound.sym_val s + BB9_fw2_bound.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB9_fw2_bound.ones c N%nat_scope
+BB9_fw2_1RB0RD.UX =
+fix UX (j : nat) : (nat -> nat) * nat :=
+  match j with
+  | 0 => (fun x : nat => 3 * x + 7, 7)
+  | S i =>
+      (fun x : nat =>
+       BB9_fw2_1RB0RD.iter (x - 2 * i) (fst (UX i)) (snd (UX i)),
+       fst (UX i) (fst (UX i) (snd (UX i))))
+  end
+     : nat -> (nat -> nat) * nat
+
+Arguments BB9_fw2_1RB0RD.UX j%nat_scope
+BB9_fw2_1RB0RD.U =
+fun j : nat => fst (BB9_fw2_1RB0RD.UX j)
+     : nat -> nat -> nat
+
+Arguments BB9_fw2_1RB0RD.U (j _)%nat_scope
+BB9_fw2_1RB0RD.Tpre =
+fix Tpre (m j B : nat) {struct m} : nat :=
+  match m with
+  | 0 => B
+  | S m' =>
+      Tpre m' (j + 3)
+        (BB9_fw2_1RB0RD.U (j + 2)
+           (BB9_fw2_1RB0RD.U (j + 2) (BB9_fw2_1RB0RD.U (j + 1) B)))
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB9_fw2_1RB0RD.Tpre (m j B)%nat_scope
+BB9_fw2_1RB0RD.Tv =
+fun m j B : nat =>
+BB9_fw2_1RB0RD.U (j + 3 * m + 2)
+  (BB9_fw2_1RB0RD.U (j + 3 * m + 1) (BB9_fw2_1RB0RD.Tpre m j B))
+     : nat -> nat -> nat -> nat
+
+Arguments BB9_fw2_1RB0RD.Tv (m j B)%nat_scope
+BB9_fw2_1RB0RD.second =
+fun b : nat => BB9_fw2_1RB0RD.Tv (b / 4) 1 37
+     : nat -> nat
+
+Arguments BB9_fw2_1RB0RD.second b%nat_scope
+BB9_fw2_1RB0RD.b1 = BB9_fw2_1RB0RD.U 1 10
+     : nat
+BB9_fw2_1RB0RD.b2 = BB9_fw2_1RB0RD.second BB9_fw2_1RB0RD.b1
+     : nat
+BB9_fw2_1RB0RD.b3 = BB9_fw2_1RB0RD.second BB9_fw2_1RB0RD.b2
+     : nat
+BB9_fw2_1RB0RD.halt
+     : halts BB9_fw2_1RB0RD.tm c0
+BB9_fw2_bound.score_exact
+     : exists c : Q * tape,
+         c0 -[ BB9_fw2_1RB0RD.tm ]->* c /\
+         halted BB9_fw2_1RB0RD.tm c /\
+         BB9_fw2_bound.ones c (BB9_fw2_1RB0RD.b3 + 3)
+BB9_fw2_bound.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB9_fw2_1RB0RD.tm ]->* c /\
+         halted BB9_fw2_1RB0RD.tm c /\
+         BB9_fw2_bound.ones c N /\
+         BB9_fw2_bound.f_omega (BB9_fw2_bound.f_omega (465 * 1000 + 9)) <
+         N + 1
+BB9_fw2_bound.sigma_lower_bound_strong
+     : exists (c : Q * tape) (N b : nat),
+         c0 -[ BB9_fw2_1RB0RD.tm ]->* c /\
+         halted BB9_fw2_1RB0RD.tm c /\
+         BB9_fw2_bound.ones c N /\
+         2 ^ (3 * (BB9_fw2_1RB0RD.b1 / 4) + 4) *
+         BB9_fw2_bound.f_omega (465 * 1000 + 9) <= b /\
+         b mod 8 = 7 /\ BB9_fw2_bound.f_omega (3 * (b / 4) + 3) < N + 1
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
