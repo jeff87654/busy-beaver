@@ -2,8 +2,8 @@ name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1, compiles the BB8 proofs in BB8/verify/,
 # and fails unless probe.v reports "Closed under the global context" for all five main theorems.
-# Also builds BB13/, BB14/ and stage 1 of BB9/verify_fw2 (BB10/, BB12/ and stage 2 of BB9/verify_fw2 take hours and
-# are not built here).
+# Also builds BB13/, BB14/, BB43/ and stage 1 of BB9/verify_fw2 (BB10/, BB12/ and stage 2 of BB9/verify_fw2 take hours
+# and are not built here).
 
 on:
   push:
@@ -190,6 +190,48 @@ jobs:
           closed=$(grep -c 'Closed under the global context' probe.log || true)
           if grep -q 'Axioms:' probe.log || [ "$closed" -ne 4 ]; then
             echo "::error::probe.v did not report four axiom-free theorems"
+            exit 1
+          fi
+
+  bb43:
+    # BB43/: the BB(4,3) champion 1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD (4 states, 3 symbols): halting, the exact
+    # final tape and the bound 2^^^2^^^2^^^(2^96-1) < sigma (about two minutes).
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    env:
+      BUSYCOQ_COMMIT: bd2e36f6aa204eb011742d2ca6c8741102b2e59e
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v git >/dev/null || (apt-get update && apt-get install -y git)
+
+      - uses: actions/checkout@v4
+
+      - name: Build busycoq (pinned commit, only the files the proofs depend on)
+        run: |
+          git clone https://github.com/meithecatte/busycoq "$RUNNER_TEMP/busycoq"
+          cd "$RUNNER_TEMP/busycoq"
+          git checkout "$BUSYCOQ_COMMIT"
+          cd verify
+          coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
+          make -f Makefile.coq Individual.vo Flip.vo
+
+      - name: Compile BB43 and run the probe
+        working-directory: BB43/verify
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
+          closed=$(grep -c 'Closed under the global context' probe.log || true)
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 9 ]; then
+            echo "::error::probe.v did not report nine axiom-free theorems"
             exit 1
           fi
 

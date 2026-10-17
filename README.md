@@ -148,6 +148,27 @@ owner in Google's Antigravity (2026-10-13); re-checked here.
 - [`BB14/tools/m14_writeup_chk.py`](BB14/tools/m14_writeup_chk.py): an independent literal simulator that re-checks
   every rule of the analysis on concrete instances.
 
+## BB43/
+
+`1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD`, the BB(4,3) champion (4 states, 3 symbols; Pavel Kropitz, May 2024,
+analysed by hand by Polygon, October 2025). Coq proves, with no axioms, that it halts from the blank tape, that the
+final tape is a single block of σ = 4·e₄ + 18 ones, where e₄ is an explicit recursion (three nested cascades of
+G(c) = f1^(2c+11)(1), f1(b) = 3·2^(b+4) − 5), and that
+
+    2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < σ
+
+(Knuth arrows; 2^96 ≈ 7.92·10²⁸, the wiki's lower bound). As far as we know this is the first machine-checked proof
+of this machine's halting and score.
+
+- [`BB43/1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD.md`](BB43/1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD.md):
+  the analysis (notation, the D/D1 families, the rules, the run, the exact score, the bound and the wiki's,
+  verification status, credit).
+- [`BB43/verify/`](BB43/verify/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1): `bb43_halts`, `reaches_final`,
+  `final_halted`, `e4_eq`, `sigma_lower`, and a probe that re-checks the table against the machine string. No axioms.
+  About two minutes to compile; built and probed in CI.
+- [`BB43/tools/bb43_chk.py`](BB43/tools/bb43_chk.py): an independent literal simulator that re-checks the run from
+  blank to step 11828, every rule on concrete instances, and the halting tape.
+
 ## PA/m238/
 
 The literal 238-state, 2-symbol machine `pa_238.tm` halts from blank tape iff ordinary
