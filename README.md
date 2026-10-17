@@ -26,26 +26,34 @@ ones (Knuth up-arrows), hence after more than 2 ↑^37 3 steps. It runs the BB(7
 
 ## BB9/
 
-`1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_1RG1LD_0RH0RF_0RG0RE_0LH1RZ`, a 9-state, 2-symbol machine that halts
-from the blank tape with exactly
+`1RB0RD_1LC1LC_0RA0LB_1RE1RD_0LG0LF_1LE1LF_0RH1LG_1RD1RI_1RZ1RA` (fw2), a 9-state, 2-symbol machine that halts from
+the blank tape with score σ (the ones on the halted tape, plus 1 for the final write), where (machine-checked,
+standard fast-growing hierarchy)
 
-    sigma = 3 * (2 ↑^(6T-33) 8) + (54 T + 26) / 5,      T = 2 ↑^13 3
+    f_ω(f_ω(465009)) < σ.
 
-ones, hence more than 2 ↑^(2 ↑^13 3) 3 (a tower of 2 ↑^13 3 up-arrows; about f_ω(6 · 2 ↑^13 3) in the
-fast-growing hierarchy). It runs the BB(7) champion's program to the point where that champion halts,
-re-encodes the result as a fresh digit list with 12B−11 digits (2B+4 = 2 ↑^13 3), runs the champion's
-program on that list, and halts. It beats the 2024 BB(9) champion of Jacobzheng, whose exact score is
-computed in the same proof. A twin with H0 = 0RH has the same score.
+Coq also proves the exact score as an explicit recursion. fw2 is a digit-list counter of Ackermann type, with the
+digit family and the three counting rules of Jacobzheng's 2024 BB(9) champion (13 of its 18 transitions are the
+champion's). When the list is used up, fw2 rebuilds a list of about 3b/4 digits from the counter b and clears it,
+which applies an f_ω-sized step; parity makes this happen exactly twice before it halts. Machine-checked, against each
+machine's Coq-proved score: fw2 beats our earlier BB(9) record (below), two later 9-state machines of this project,
+Jacobzheng's BB(9) champion and Racheline's 2024 BB(10) champion. It does not beat n1 (BB10/), which is at level
+f_(ω+1). Found and proved by Argon, a Google Gemini model, run by the repository owner in Google's Antigravity
+(2026-10-15); re-checked here.
 
-- [`BB9/1RB0RA_..._0LH1RZ.txt`](BB9/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_1RG1LD_0RH0RF_0RG0RE_0LH1RZ.txt):
-  the analysis (configurations, rules, the four phases of the run, the exact score, the hierarchy value,
-  the comparison with the champion).
-- [`BB9/verify/`](BB9/verify/): `BB9_record_1RB0RA_selfcontained.v`, ONE Coq file depending only on the
-  standard library (busycoq `bd2e36f` inlined, Coq 8.20.1): `halt`, the exact score, the champion's halting
-  and exact score, and `new_champion` (score(champion) < score(ours), with a factor-3 margin). No axioms used.
-  Check with plain `coqc` in about an hour. `verify/multifile/` has the original development on busycoq,
-  including the twin's proof.
+- [`BB9/1RB0RD_..._1RZ1RA.md`](BB9/1RB0RD_1LC1LC_0RA0LB_1RE1RD_0LG0LF_1LE1LF_0RH1LG_1RD1RI_1RZ1RA.md):
+  the analysis (how it works, the run, the score, the comparisons, verification status, credit).
+- [`BB9/verify_fw2/`](BB9/verify_fw2/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_lower_bound`, `sigma_lower_bound_strong`, and the five comparisons `fw2_beats_*`. No axioms. The halting
+  proof and the bounds compile in about a minute and are built and probed in CI; the comparisons, with the proofs of
+  the compared machines, take about 1 h 45 min and were checked locally.
+- [`BB9/tools/fw2_writeup_chk.py`](BB9/tools/fw2_writeup_chk.py): an independent literal simulator that re-checks
+  the rules of the analysis on concrete instances and follows the first 2·10⁸ steps of the run.
 
+**Earlier record (2026-10-07, superseded by fw2).** `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_1RG1LD_0RH0RF_0RG0RE_0LH1RZ`
+halts with exactly 3·(2↑^(6T−33) 8) + (54T + 26)/5 ones, T = 2↑^13 3 (about f_ω(6·2↑^13 3)); it beat Jacobzheng's
+champion. [Analysis](BB9/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_1RG1LD_0RH0RF_0RG0RE_0LH1RZ.txt),
+[`BB9/verify/`](BB9/verify/) (one self-contained Coq file, and the multi-file development with its twin).
 
 ## BB10/
 
