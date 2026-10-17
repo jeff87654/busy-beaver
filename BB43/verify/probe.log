@@ -1,0 +1,52 @@
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+bb43_halts
+     : halts tm c0
+reaches_final
+     : c0 -->* c_final
+sigma_lower
+     : knuth 3 2 (knuth 3 2 (knuth 3 2 (PeanoNat.Nat.pow 2 96 - 1))) < sigma
+e4_eq
+     : e4 = E4 e1 v
+E4 =
+fun e1 v : nat =>
+PeanoNat.Nat.iter (PeanoNat.Nat.div (2 * E3 e1 v + 4) 3) G v
+     : nat -> nat -> nat
+
+Arguments E4 (e1 v)%nat_scope
+E3 =
+fun e1 v : nat =>
+PeanoNat.Nat.iter (PeanoNat.Nat.div (2 * E2 e1 v + 7) 3) G v
+     : nat -> nat -> nat
+
+Arguments E3 (e1 v)%nat_scope
+E2 =
+fun e1 v : nat => PeanoNat.Nat.iter (PeanoNat.Nat.div (2 * e1 + 7) 3) G v
+     : nat -> nat -> nat
+
+Arguments E2 (e1 v)%nat_scope
+G = fun c : nat => PeanoNat.Nat.iter (2 * c + 11) f1 1
+     : nat -> nat
+
+Arguments G c%nat_scope
+f1 = fun b : nat => PeanoNat.Nat.iter (S (S (S b))) g 1
+     : nat -> nat
+
+Arguments f1 b%nat_scope
+g = fun b : nat => 2 * b + 5
+     : nat -> nat
+
+Arguments g b%nat_scope
+e1 = PeanoNat.Nat.iter 2 f1 1
+     : nat
+v = PeanoNat.Nat.iter 3 f1 1
+     : nat
+sigma = 4 * e4 + 18
+     : nat
