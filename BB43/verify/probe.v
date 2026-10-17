@@ -1,5 +1,5 @@
 (** Independent probe: the Coq table [tm] equals the machine string, and the main theorems are axiom-free. *)
-From TM43 Require Import Individual43 BB43_rules BB43_run BB43_bound.
+From TM43 Require Import Individual43 BB43_rules BB43_run BB43_score.
 From Coq Require Import String Ascii List.
 Import ListNotations.
 Open Scope string_scope.
@@ -62,9 +62,17 @@ Print Assumptions bb43_halts.
 Print Assumptions reaches_final.
 Print Assumptions final_halted.
 Print Assumptions sigma_lower.
+Print Assumptions bb43_main.
+Print Assumptions e4_bounds.
+Print Assumptions wiki_bracket.
+Print Assumptions sigma_bounds.
 Print Assumptions e4_eq.
 Check bb43_halts.
 Check reaches_final.
 Check sigma_lower.
+Check bb43_main.
+Check e4_bounds.
+Check wiki_bracket.
+Check sigma_bounds.
 Check e4_eq.
 Print E4. Print E3. Print E2. Print G. Print f1. Print g. Print e1. Print v. Print sigma.

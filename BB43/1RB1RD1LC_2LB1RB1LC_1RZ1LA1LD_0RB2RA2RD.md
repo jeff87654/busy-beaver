@@ -28,7 +28,7 @@ Written 2026-10-17.
 | Halts | **Yes**, machine-checked (Coq, no axioms). |
 | Final tape | Machine-checked: just before the halt, state C reads a 0 with exactly 4·e₄ + 17 ones to its right and blanks everywhere else. C0 = `1RZ` writes one more 1, so the final tape is 1^(4·e₄ + 18). |
 | Score | σ = 4·e₄ + 18, all ones and consecutive. e₄ is the recursion of section 3. It is not evaluated as a number. |
-| Size | Machine-checked: 2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < σ (Knuth arrows; 2^96 ≈ 7.92·10²⁸). No upper bound is proved. |
+| Size | Machine-checked: 2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < e₄ ≤ 2↑↑↑2↑↑↑2↑↑↑(2^96 + 6) (Knuth arrows; 2^96 ≈ 7.92·10²⁸), which implies the wiki's bracket 2↑↑↑2↑↑↑2↑↑↑(7.92·10²⁸) < e₄ < 2↑↑↑2↑↑↑2↑↑↑(7.93·10²⁸). |
 | Steps | Not computed. The first 80 are in the Coq proof. |
 
 ---
@@ -164,18 +164,32 @@ is not part of the busycoq semantics.
 
 ## 4. The bound
 
-[`verify/BB43_bound.v`](verify/BB43_bound.v) defines Knuth's arrows by `knuth 0 a b = a·b` and
+[`verify/BB43_score.v`](verify/BB43_score.v) defines Knuth's arrows by `knuth 0 a b = a·b` and
 `knuth (n+1) a b = (knuth n a)^b(1)`, so `knuth 1 2 b = 2^b`, `knuth 2` is ↑↑ and `knuth 3` is ↑↑↑. It proves
 
     sigma_lower:  2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < σ
 
-using only symbolic recursion; no large number is evaluated. The steps:
+and the two-sided bracket
+
+    e4_bounds:     2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < e₄ ≤ 2↑↑↑2↑↑↑2↑↑↑(2^96 + 6)
+    sigma_bounds:  the same bracket for σ = 4e₄ + 18
+
+using only symbolic recursion; no large number is evaluated. The steps for the lower bound:
 
 1. f1(x) + 5 = 6·2^(x+3) (`f1_closed`), so 2^x ≤ f1(x), and 2↑↑n ≤ f1ⁿ(1) (`tower_le_iter_f1`).
 2. G(c) = f1^(2c+11)(1) ≥ 2↑↑(c+1) (`G_ge`), and so G^k(x) ≥ 2↑↑↑(k+1) for x ≥ 2 (`iter_G_ge`). With 2↑↑y ≥ 2y
    this gives G^k(x) ≥ 2·(2↑↑↑k) (`cascade`).
 3. With k₁ = (2e₁ + 7)/3 = 2^96 − 1 (`k1_value`) and v ≥ 2: e₂ ≥ 2·X with X = 2↑↑↑k₁, so k₂ = (2e₂ + 7)/3 ≥ X;
    e₃ ≥ 2·2↑↑↑k₂ ≥ 2·2↑↑↑X, so k₃ ≥ 2↑↑↑X; and e₄ ≥ 2·2↑↑↑k₃ > 2↑↑↑2↑↑↑X (`E4_lower`). Then σ = 4e₄ + 18 > e₄.
+
+The upper bound mirrors it with towers T = 2↑↑ and P = 2↑↑↑:
+
+1. f1(x) + 6 ≤ 2^(x+6) (`f1_up`), so f1ⁿ(1) + 6 ≤ T(n+3) (`iter_f1_up`), and G(c) + 6 ≤ T(2c + 14) (`G_up`).
+2. A G-cascade of length k from y with y + 6 ≤ T(6) satisfies G^k(y) + 6 ≤ P(1 + k + m) whenever k + 6 ≤ P(m)
+   (`cascade_up`).
+3. The next cascade's length is about 2/3 of the previous value, which shifts the pentation argument only by a
+   constant (P(n) + n + 7 ≤ P(n+1)). With k₁ = 2^96 − 1 and 2^96 + 5 ≤ P(4) (`P4_big`) this gives
+   e₄ ≤ P(P(P(2^96 + 6))) (`E4_upper`, `e4_bounds`).
 
 **Comparison with the wiki.** The machine page gives, in Polygon's notation,
 f2(a, b) = f1^(2·f2(a−1, b) + 11)(1) with f2(0, b) = b, that is f2(a, b) = G^a(b), and
@@ -186,10 +200,12 @@ The wiki states
 
     2↑↑↑2↑↑↑2↑↑↑(7.92×10²⁸) < e₄ < σ < 2↑↑↑2↑↑↑2↑↑↑(7.93×10²⁸).
 
-2^96 = 79,228,162,514,264,337,593,543,950,336 ≈ 7.92×10²⁸. We prove only the lower bound, in the form
-2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < σ. Since 7.92×10²⁸ < 2^96 − 1 and ↑↑↑ is monotone (`knuth_mono`), this implies the wiki's
-lower bound for σ; that implication is not stated as a separate Coq theorem. The wiki's upper bound
-2↑↑↑2↑↑↑2↑↑↑(7.93×10²⁸) is not checked here.
+2^96 = 79,228,162,514,264,337,593,543,950,336 ≈ 7.92×10²⁸, so 792·10²⁶ ≤ 2^96 − 1 and 2^96 + 6 < 793·10²⁶. Coq
+states the wiki's claim with the decimals written out and proves it from `e4_bounds`:
+
+    wiki_bracket:  2↑↑↑2↑↑↑2↑↑↑(792·10²⁶) < e₄ < 2↑↑↑2↑↑↑2↑↑↑(793·10²⁶)
+
+Polygon's bracket for e₄ is therefore machine-checked (and, since σ = 4e₄ + 18 > e₄, so is its lower bound for σ).
 
 ---
 
@@ -207,21 +223,25 @@ with Coq 8.20.1. The logical root is `TM43`.
 | `c_final` is halted (C0 is `None`) | `final_halted : halted tm c_final` | `BB43_run.v` |
 | the exact value of e₄ | `e4_eq : e4 = E4 e1 v` | `BB43_run.v` |
 | the score | `sigma := 4 * e4 + 18` (definition) | `BB43_run.v` |
-| 2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < σ | `sigma_lower` | `BB43_bound.v` |
+| 2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < σ | `sigma_lower` | `BB43_score.v` |
+| 2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < e₄ ≤ 2↑↑↑2↑↑↑2↑↑↑(2^96 + 6), and the same for σ | `e4_bounds`, `sigma_bounds` | `BB43_score.v` |
+| the wiki's bracket 2↑↑↑2↑↑↑2↑↑↑(792·10²⁶) < e₄ < 2↑↑↑2↑↑↑2↑↑↑(793·10²⁶) | `wiki_bracket` | `BB43_score.v` |
+| halting, the exact final configuration and σ = 4·E4(e₁, v) + 18 in one statement | `bb43_main` | `BB43_score.v` |
 | the rules of section 2 | `R10`–`R23`, `R21a`, `R23z`, `Y`, `P6`, `R30`, `DL_b`, `DL_3`, `DL_3k`, `R25`–`R28` | `BB43_rules.v` |
 | the residues of section 3 | `f1_mod`, `G_mod`, `iter_G_mod` | `BB43_run.v` |
 | the Coq table is the machine string; C0 is `1RZ`; the start is blank in state A; the shape of `c_final`; σ = 4e₄ + 18 | `table_matches_string`, `halt_entry`, `c0_is_blank_A`, `c_final_shape`, `sigma_def` | `probe.v` |
 
 `probe.v` parses the machine string inside Coq and checks all 12 table entries by `vm_compute`. It runs
 `Print Assumptions` on `table_matches_string`, `halt_entry`, `c0_is_blank_A`, `c_final_shape`, `bb43_halts`,
-`reaches_final`, `final_halted`, `sigma_lower` and `e4_eq`. All nine report "Closed under the global context".
+`reaches_final`, `final_halted`, `sigma_lower`, `e4_eq`, `bb43_main`, `e4_bounds`, `wiki_bracket` and `sigma_bounds`.
+All thirteen report "Closed under the global context".
 
 **Build record.** A from-scratch build on 2026-10-17 (Coq 8.20.1, Coq Platform 2025.01, Windows 11, coqc at Idle
 priority), in a fresh directory with only the published `verify/` sources next to busycoq `verify/` exported from
-commit `bd2e36f` (busycoq's 7 needed files: 47 s): `compile_clean.sh` exit 0 in 111 s, of which `BB43_rules.v` took
-73 s. Logs: [`verify/compile_clean.log`](verify/compile_clean.log), [`verify/probe.log`](verify/probe.log); hashes:
+commit `bd2e36f` (busycoq's 7 needed files compiled first): `compile_clean.sh` exit 0 in 75 s, of which `BB43_rules.v` took
+46 s. Logs: [`verify/compile_clean.log`](verify/compile_clean.log), [`verify/probe.log`](verify/probe.log); hashes:
 [`verify/sha256.txt`](verify/sha256.txt). The GitHub workflow (job `bb43`) runs the same build on every push and fails
-unless `probe.log` reports nine closed theorems and no `Axioms:`.
+unless `probe.log` reports thirteen closed theorems and no `Axioms:`.
 
 ### 5.2 Not machine-checked
 
@@ -229,7 +249,6 @@ unless `probe.log` reports nine closed theorems and no `Axioms:`.
   C0 = `1RZ` is the standard convention (section 3).
 - **The step numbers** of section 3, except the 80 of `start`. They come from simulation. The total number of steps
   is not computed.
-- **The wiki's upper bound** and the implication to the wiki's lower bound (section 4).
 
 ### 5.3 Independent checks
 

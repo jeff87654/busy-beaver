@@ -195,7 +195,7 @@ jobs:
 
   bb43:
     # BB43/: the BB(4,3) champion 1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD (4 states, 3 symbols): halting, the exact
-    # final tape and the bound 2^^^2^^^2^^^(2^96-1) < sigma (about two minutes).
+    # final tape and the bracket 2^^^2^^^2^^^(2^96-1) < e4 <= 2^^^2^^^2^^^(2^96+6) (about two minutes).
     runs-on: ubuntu-latest
     timeout-minutes: 60
     container:
@@ -230,8 +230,8 @@ jobs:
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
           closed=$(grep -c 'Closed under the global context' probe.log || true)
-          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 9 ]; then
-            echo "::error::probe.v did not report nine axiom-free theorems"
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 13 ]; then
+            echo "::error::probe.v did not report thirteen axiom-free theorems"
             exit 1
           fi
 

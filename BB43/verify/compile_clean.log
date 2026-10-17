@@ -1,16 +1,16 @@
 # From-scratch build of BB43/verify, 2026-10-17, Coq 8.20.1 (Coq Platform 2025.01), Windows 11, shared 16-core laptop,
-# coqc at Idle priority. A fresh directory holding only the 6 .v files, _CoqProject and compile_clean.sh, next to busycoq
-# verify/ exported from commit bd2e36f (git archive) with its 7 needed files compiled first (47 s). Command:
-# BUSYCOQ=../busycoq/verify ./compile_clean.sh (exit 0, 111 s in total including probe.v). stderr was empty.
+# coqc at Idle priority. A fresh directory holding only the 6 .v files, _CoqProject and compile_clean.sh, with BUSYCOQ
+# pointing to a busycoq verify/ exported from commit bd2e36f (git archive) with its 7 needed files compiled. Command:
+# BUSYCOQ=<that verify/> ./compile_clean.sh (exit 0, 75 s in total including probe.v). stderr was empty.
 == BB43.v ==
-   ok, 6 s
+   ok, 5 s
 == Individual43.v ==
-   ok, 6 s
+   ok, 4 s
 == BB43_rules.v ==
-   ok, 73 s
+   ok, 46 s
 == BB43_run.v ==
-   ok, 10 s
-== BB43_bound.v ==
-   ok, 7 s
+   ok, 6 s
+== BB43_score.v ==
+   ok, 8 s
 COMPILE DONE
-probe: 9 of 9 theorems closed under the global context
+probe: 13 of 13 theorems closed under the global context

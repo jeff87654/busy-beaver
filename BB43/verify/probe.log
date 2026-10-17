@@ -7,12 +7,31 @@ Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
 bb43_halts
      : halts tm c0
 reaches_final
      : c0 -->* c_final
 sigma_lower
      : knuth 3 2 (knuth 3 2 (knuth 3 2 (PeanoNat.Nat.pow 2 96 - 1))) < sigma
+bb43_main
+     : halts tm c0 /\
+       c0 -->* (C, (const 0, 0, [1] ^^ (4 * E4 e1 v + 17) *> const 0)) /\
+       halted tm (C, (const 0, 0, [1] ^^ (4 * E4 e1 v + 17) *> const 0)) /\
+       sigma = 4 * E4 e1 v + 18
+e4_bounds
+     : knuth 3 2 (knuth 3 2 (knuth 3 2 (PeanoNat.Nat.pow 2 96 - 1))) < e4 <=
+       knuth 3 2 (knuth 3 2 (knuth 3 2 (PeanoNat.Nat.pow 2 96 + 6)))
+wiki_bracket
+     : knuth 3 2 (knuth 3 2 (knuth 3 2 (792 * PeanoNat.Nat.pow 10 26))) <
+       e4 < knuth 3 2 (knuth 3 2 (knuth 3 2 (793 * PeanoNat.Nat.pow 10 26)))
+sigma_bounds
+     : 4 * knuth 3 2 (knuth 3 2 (knuth 3 2 (PeanoNat.Nat.pow 2 96 - 1))) + 18 <
+       sigma <=
+       4 * knuth 3 2 (knuth 3 2 (knuth 3 2 (PeanoNat.Nat.pow 2 96 + 6))) + 18
 e4_eq
      : e4 = E4 e1 v
 E4 =
