@@ -1,0 +1,54 @@
+-Q lib BB8
+-Q dev Dev
+-Q k31 K31
+-Q score Score
+-Q ../../../busycoq/verify BusyCoq
+lib/BB92.v
+lib/Individual92.v
+dev/Base.v
+dev/Orbit.v
+k31/K_e1.v
+dev/G_rules.v
+k31/K_e2.v
+dev/G_sub2.v
+dev/G_sub4.v
+dev/G_entry.v
+dev/G_sub3.v
+dev/G_sub5.v
+dev/G_p20_5.v
+dev/G_p20_4.v
+dev/G_p20_3.v
+dev/G_p20_2.v
+dev/G_p20_1.v
+dev/G_p20_0.v
+dev/G_reb1.v
+dev/G_stop.v
+dev/G_p14_5.v
+dev/G_p14_4.v
+dev/G_p14_3.v
+dev/G_p14_2.v
+dev/G_p14_1.v
+dev/G_p14_0.v
+dev/G_top.v
+k31/K_x.v
+k31/K_rf.v
+dev/G_end.v
+lib/BB9_fw2_1RB0RD.v
+lib/BB9_fw2_bound.v
+dev/Abs.v
+dev/Lift.v
+dev/Chain.v
+dev/Cascade.v
+dev/Step.v
+k31/K31_Abs.v
+k31/K31_Mach.v
+k31/K31_End.v
+dev/CBtail.v
+dev/Endgame.v
+dev/Fin.v
+score/Score.v
+score/Fw2Link.v
+score/Fw2Upper.v
+score/ScoreK.v
+dev/Final.v
+dev/ScoreEnd.v

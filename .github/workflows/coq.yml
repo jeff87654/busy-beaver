@@ -2,8 +2,8 @@ name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1, compiles the BB8 proofs in BB8/verify/,
 # and fails unless probe.v reports "Closed under the global context" for all five main theorems.
-# Also builds BB13/, BB14/, BB43/ and stage 1 of BB9/verify_fw2 (BB10/, BB12/ and stage 2 of BB9/verify_fw2 take hours
-# and are not built here).
+# Also builds BB13/, BB14/, BB43/, stage 1 of BB9/verify_fw2, and all of BB9/verify_c04 (about 9 CPU-hours, split over
+# seven jobs). BB10/, BB12/ and stage 2 of BB9/verify_fw2 take hours and are not built here.
 
 on:
   push:
@@ -192,6 +192,184 @@ jobs:
             echo "::error::probe.v did not report four axiom-free theorems"
             exit 1
           fi
+
+  bb9-c04-base:
+    # BB9/verify_c04: the 9-state machine C04 (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF), the BB(9)
+    # entry. Its 49 files take about 9 CPU-hours, most of it in 26 generated files that need only dev/Base.v, so the
+    # build is split over seven jobs: this one builds busycoq and the 8 small files the others need (with G_rules, the
+    # first generated file); the five bb9-c04-layer jobs compile the other 25 generated files in parallel (the
+    # longest, k31/K_e1.v, takes about 2.5 h alone);
+    # bb9-c04-final compiles the remaining 16 files and runs the probe. The compiled .vo files (and busycoq's) are passed
+    # between the jobs as artifacts, so every job loads the very same Base.vo.
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    env:
+      BUSYCOQ_COMMIT: bd2e36f6aa204eb011742d2ca6c8741102b2e59e
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v git >/dev/null || (apt-get update && apt-get install -y git)
+
+      - uses: actions/checkout@v4
+
+      - name: Build busycoq (pinned commit, only the files the proofs depend on)
+        run: |
+          git clone https://github.com/meithecatte/busycoq "$RUNNER_TEMP/busycoq"
+          cd "$RUNNER_TEMP/busycoq"
+          git checkout "$BUSYCOQ_COMMIT"
+          cd verify
+          coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
+          make -f Makefile.coq Individual.vo Flip.vo
+
+      - name: Check that the fw2 files are the published ones
+        run: |
+          for f in BB92 Individual92 BB9_fw2_1RB0RD BB9_fw2_bound; do
+            cmp BB9/verify_c04/lib/$f.v BB9/verify_fw2/multifile/$f.v
+          done
+
+      - name: Compile the files the other jobs need
+        working-directory: BB9/verify_c04
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh only \
+            lib/BB92 lib/Individual92 dev/Base dev/Orbit dev/Cascade lib/BB9_fw2_1RB0RD lib/BB9_fw2_bound dev/G_rules
+
+      - name: Pack busycoq and the .vo files
+        run: |
+          tar czf c04-busycoq.tgz -C "$RUNNER_TEMP" busycoq/verify
+          (cd BB9/verify_c04 && find . -name '*.vo' | tar czf ../../c04-base.tgz -T -)
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: c04-base
+          path: |
+            c04-busycoq.tgz
+            c04-base.tgz
+          retention-days: 7
+
+  bb9-c04-layer:
+    needs: bb9-c04-base
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - shard: e1
+            files: k31/K_e1
+          - shard: e2
+            files: k31/K_e2 dev/G_sub2 k31/K_x k31/K_rf dev/G_end
+          - shard: sub
+            files: dev/G_sub4 dev/G_entry dev/G_sub3 dev/G_sub5 dev/G_reb1 dev/G_stop dev/G_top
+          - shard: p20
+            files: dev/G_p20_0 dev/G_p20_1 dev/G_p20_2 dev/G_p20_3 dev/G_p20_4 dev/G_p20_5
+          - shard: p14
+            files: dev/G_p14_0 dev/G_p14_1 dev/G_p14_2 dev/G_p14_3 dev/G_p14_4 dev/G_p14_5
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: c04-base
+
+      - name: Unpack busycoq and the base .vo files
+        run: |
+          tar xzf c04-busycoq.tgz -C "$RUNNER_TEMP"
+          tar xzf c04-base.tgz -C BB9/verify_c04
+
+      - name: Compile shard ${{ matrix.shard }}
+        working-directory: BB9/verify_c04
+        run: BUSYCOQ="$RUNNER_TEMP/busycoq/verify" J=4 bash ./compile_clean.sh only ${{ matrix.files }}
+
+      - name: Pack the .vo files
+        run: |
+          cd BB9/verify_c04
+          tar czf ../../c04-${{ matrix.shard }}.tgz $(for f in ${{ matrix.files }}; do echo $f.vo; done)
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: c04-layer-${{ matrix.shard }}
+          path: c04-${{ matrix.shard }}.tgz
+          retention-days: 7
+
+  bb9-c04-final:
+    needs: bb9-c04-layer
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: c04-*
+          path: art
+          merge-multiple: true
+
+      - name: Unpack busycoq and all compiled files
+        run: |
+          tar xzf art/c04-busycoq.tgz -C "$RUNNER_TEMP"
+          for t in base e1 e2 sub p20 p14; do tar xzf art/c04-$t.tgz -C BB9/verify_c04; done
+          echo "$(find BB9/verify_c04 -name '*.vo' | wc -l) of 49 .vo files present before the final compile"
+
+      - name: Compile the rest
+        working-directory: BB9/verify_c04
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" J=4 bash ./compile_clean.sh only \
+            dev/Abs dev/Lift dev/Chain dev/Step dev/CBtail dev/Endgame dev/Fin k31/K31_Abs k31/K31_Mach k31/K31_End \
+            score/Score score/Fw2Link score/Fw2Upper score/ScoreK dev/Final dev/ScoreEnd 2>&1 | tee compile_ci.log
+
+      - name: Run the probe (table check, statements, no axioms)
+        working-directory: BB9/verify_c04
+        run: |
+          test "$(find . -name '*.vo' | wc -l)" -eq 49
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh probe
+          closed=$(grep -c 'Closed under the global context' probe.log || true)
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 3 ]; then
+            echo "::error::probe.v did not report three axiom-free theorems"
+            exit 1
+          fi
+          tail -20 probe.log
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coq-logs-c04
+          path: |
+            BB9/verify_c04/compile_ci.log
+            BB9/verify_c04/probe.log
+            BB9/verify_c04/_logs/
 
   bb43:
     # BB43/: the BB(4,3) champion 1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD (4 states, 3 symbols): halting, the exact
