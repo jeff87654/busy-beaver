@@ -2,11 +2,12 @@
 # Clean compile of the C04 proof against a busycoq checkout (commit bd2e36f), in dependency order, then the probe.
 #   BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh            everything (49 files), then probe.v
 #   BUSYCOQ=... ./compile_clean.sh only dev/G_sub2 k31/K_e1 ...   only these files (whatever they need must already be
-#                                                                 compiled; the CI splits the build this way)
+#                                                                 compiled)
 #   BUSYCOQ=... ./compile_clean.sh probe                          probe.v only
 # J (default 4) is the number of coqc run at once: a file starts as soon as the files it needs are compiled, the
-# longest files first.  The whole build is about 9 CPU-hours, most of it in files that only need dev/Base.v (the
-# longest, k31/K_e1.v, takes about 2.5 h on its own), so with J=4 it takes about 3 h.
+# longest files first.  The whole build is about 3.2 CPU-hours on a GitHub runner, nearly all of it in 26 generated
+# files that only need dev/Base.v; the longest, k31/K_e1.v, takes about 35 min there, so with J=4 the build takes
+# under an hour.
 # Per-file coqc output goes to $LOGDIR (default _logs/).  COQC may be set to a specific coqc executable.
 # Logical paths: lib/ = BB8 (historical; the same name the fw2 files use), dev/ = Dev, k31/ = K31, score/ = Score.
 COQC=${COQC:-coqc}
