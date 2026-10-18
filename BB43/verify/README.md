@@ -43,7 +43,7 @@ This compiles the 5 files in dependency order (about 75-110 s; `BB43_rules.v` ta
 writing `probe.log`. `BUSYCOQ` must point to the `verify/` directory of a busycoq checkout at commit `bd2e36f`, with
 `Individual.vo` built. COQC may name a specific `coqc`. `_CoqProject` (for editors) assumes busycoq is checked out
 at the root of this repository; the build script does not use it. The GitHub workflow (`.github/workflows/coq.yml`,
-job `bb43`) runs the same build and probe on every push.
+job `bb43`) runs the same build and probe whenever its files change (and weekly).
 
 `probe.v`:
 

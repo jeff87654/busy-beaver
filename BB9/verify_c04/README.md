@@ -94,7 +94,7 @@ need only `dev/Base.v` take nearly all of it; the longest are `k31/K_e1.v` (35 m
 1 h 40 min. At Idle priority on our shared machine everything took about three to four times
 as long (section "Verification record"). Memory: under 1 GB per coqc.
 
-The GitHub workflow (`.github/workflows/coq.yml`, job `bb9-c04`) runs `compile_clean.sh` with J = 4 on every push,
+The GitHub workflow (`.github/workflows/coq.yml`, job `bb9-c04`) runs `compile_clean.sh` with J = 4 whenever its files change (and weekly),
 and fails unless all 55 `.vo` files are built and `probe.log` reports four results closed under the global context
 and no `Axioms:`. It also checks that the four `lib/` files are byte-identical to `../verify_fw2/multifile/`.
 

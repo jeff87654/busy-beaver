@@ -1,17 +1,75 @@
 name: Coq proofs
 
-# Builds busycoq at the pinned commit with Coq 8.20.1, compiles the BB8 proofs in BB8/verify/,
-# and fails unless probe.v reports "Closed under the global context" for all five main theorems.
-# Also builds BB13/, BB14/, BB43/, stage 1 of BB9/verify_fw2, and all of BB9/verify_c04 (under 2 h). BB10/, BB12/
-# and stage 2 of BB9/verify_fw2 take hours and are not built here.
+# Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/, BB9/verify_fw2 (stage 1),
+# BB9/verify_c04, BB13/, BB14/, BB43/, PA/m238 and ZF/. BB10/, BB12/ and stage 2 of BB9/verify_fw2 take hours and are not
+# built here.
+#
+# When the jobs run: on pull requests and on pushes to main, a job runs only if its entry's files changed (job `changes`,
+# below; a skipped job counts as passed). Changes under .github/ (this file, the busycoq pin) run every job, and so do
+# the weekly scheduled run and manual runs (workflow_dispatch).
 
 on:
-  push:
   pull_request:
+  push:
+    branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '17 5 * * 1'   # Mondays 05:17 UTC: everything
 
 jobs:
+  changes:
+    # Which entries a pull request or push touches. An entry's job also runs when an entry it depends on changes:
+    # BB9/verify_c04 uses copies of BB9/verify_fw2/multifile files (checked byte for byte), so it runs when those change.
+    runs-on: ubuntu-latest
+    outputs:
+      all: ${{ steps.all.outputs.all }}
+      pa238: ${{ steps.f.outputs.pa238 }}
+      bb8: ${{ steps.f.outputs.bb8 }}
+      bb13-bb14: ${{ steps.f.outputs.bb13-bb14 }}
+      bb9-fw2: ${{ steps.f.outputs.bb9-fw2 }}
+      bb9-c04: ${{ steps.f.outputs.bb9-c04 }}
+      bb43: ${{ steps.f.outputs.bb43 }}
+      zf: ${{ steps.f.outputs.zf }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36   # v3.0.2
+        id: f
+        with:
+          filters: |
+            shared:
+              - '.github/**'
+            pa238:
+              - 'PA/**'
+            bb8:
+              - 'BB8/**'
+            bb13-bb14:
+              - 'BB13/**'
+              - 'BB14/**'
+            bb9-fw2:
+              - 'BB9/verify_fw2/**'
+            bb9-c04:
+              - 'BB9/verify_c04/**'
+              - 'BB9/verify_fw2/multifile/**'
+            bb43:
+              - 'BB43/**'
+            zf:
+              - 'ZF/**'
+
+      - id: all
+        run: |
+          if [ "${{ github.event_name }}" = schedule ] || [ "${{ github.event_name }}" = workflow_dispatch ] \
+             || [ "${{ steps.f.outputs.shared }}" = true ]; then
+            echo "all=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "all=false" >> "$GITHUB_OUTPUT"
+          fi
+
   pa238:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.pa238 == 'true'
     # Exact blank-tape PA238 halting iff a finite ordinary classical PA refutation.
     runs-on: ubuntu-latest
     timeout-minutes: 240
@@ -49,6 +107,8 @@ jobs:
         run: python3 -I PA/m238/check.py --coqc coqc --wall-seconds 120 --memory-mib 2048
 
   bb8:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb8 == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     container:
@@ -106,6 +166,8 @@ jobs:
             BB8/verify/probe_ci.log
 
   bb13-bb14:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb13-bb14 == 'true'
     # BB13/, BB14/: the 13- and 14-state f_(omega+2) machines M13 and M14 (about a minute each).
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -151,6 +213,8 @@ jobs:
           fi
 
   bb9-fw2:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb9-fw2 == 'true'
     # BB9/verify_fw2: the 9-state f_omega(f_omega(465009)) machine fw2, stage 1 only (halt and score bounds, about a
     # minute). Stage 2 (the comparisons, which need the ~1 MB halting proofs of the earlier BB(9) machines) takes hours
     # and, like BB10/ and BB12/, is not built here; see BB9/verify_fw2/README.md.
@@ -194,6 +258,8 @@ jobs:
           fi
 
   bb9-c04:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb9-c04 == 'true'
     # BB9/verify_c04: the 9-state machine C04 (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF), the BB(9)
     # entry: all 55 files from scratch, 4 coqc at a time, then the probe (about 1 h 40 min on a 4-vCPU runner; the
     # longest file, k31/K_e1.v, takes most of it).
@@ -254,6 +320,8 @@ jobs:
             BB9/verify_c04/_logs/
 
   bb43:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb43 == 'true'
     # BB43/: the BB(4,3) champion 1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD (4 states, 3 symbols): halting, the exact
     # final tape and the bracket 2^^^2^^^2^^^(2^96-1) < e4 <= 2^^^2^^^2^^^(2^96+6) (about two minutes).
     runs-on: ubuntu-latest
@@ -296,6 +364,8 @@ jobs:
           fi
 
   zf:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.zf == 'true'
     # ZF/: the 393-, 361- and 354-state "halts iff ZF proves a contradiction" machines.
     runs-on: ubuntu-latest
     timeout-minutes: 120
@@ -337,6 +407,8 @@ jobs:
         run: BUSYCOQ="$RUNNER_TEMP/busycoq/verify" python3 check.py ${{ matrix.machine }} 2>&1 | tee check_${{ matrix.machine }}.log
 
   zf-stdzf:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.zf == 'true'
     # ZF/stdzf: O'Rear's system vs the Coq Library of Undecidability Proofs' ZF, regularity, and the
     # end-to-end theorem halts tm c0 <-> ZFc ⊢TC ⊥ for the 354-state machine. Self-contained (vendored).
     runs-on: ubuntu-latest
@@ -362,6 +434,8 @@ jobs:
         run: python3 check.py 2>&1 | tee check_ci.log
 
   zf-stdzf-r3:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.zf == 'true'
     # ZF/stdzf_r3: the 335- and 336-state machines end to end against the Coq Library of Undecidability
     # Proofs' ZF (with/without regularity), plus the relative consistency of AC (zfc/): the 335-state
     # machine halts iff ZFC is inconsistent. Self-contained (vendored).
@@ -388,6 +462,8 @@ jobs:
         run: python3 check.py 2>&1 | tee check_ci.log
 
   zf-m254:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.zf == 'true'
     # ZF/m254: Mira-Cult's 254-state machine zfc_254.tm halts iff ZF (resp. ZFC) is inconsistent, end to
     # end against the Coq Library of Undecidability Proofs' ZF. Uses ../stdzf and ../stdzf_r3 sources.
     runs-on: ubuntu-latest
@@ -413,6 +489,8 @@ jobs:
         run: python3 check.py 2>&1 | tee check_ci.log
 
   zf-tg296:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.zf == 'true'
     # ZF/tg296: the 296-state machine m254tg_wade.tm halts iff ZFC + GU ("every set lies in a Grothendieck
     # universe") is inconsistent, end to end against the Coq Library of Undecidability Proofs' ZF.
     # Uses ../stdzf, ../stdzf_r3 and ../m254 sources, and ../generator (Wade's TMBuilder) for the rebuild check.
