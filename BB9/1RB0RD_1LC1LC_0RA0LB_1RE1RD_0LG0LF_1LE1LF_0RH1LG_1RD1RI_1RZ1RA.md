@@ -2,6 +2,10 @@
 
     1RB0RD_1LC1LC_0RA0LB_1RE1RD_0LG0LF_1LE1LF_0RH1LG_1RD1RI_1RZ1RA
 
+> **Superseded (2026-10-18)** as this folder's BB(9) entry by C04,
+> [`1RB0RA_..._1RI---_0RI0RF`](1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF.md), which Coq proves
+> beats fw2's exact score. fw2's files are unchanged; C04's comparison uses them.
+
 Below we call this machine **fw2**. It halts from the blank tape. Coq proves its exact number of ones at the halt as
 an explicit recursion, and proves that its score exceeds f_ω(f_ω(465009)) in the standard fast-growing hierarchy.
 Coq also proves that it beats the earlier BB(9) record of this repository (`1RB0RA_..._0LH1RZ`, which it supersedes),

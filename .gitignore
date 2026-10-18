@@ -12,3 +12,5 @@ ZF/verify/*/Probe.v
 ZF/verify/check_*.log
 ZF/stdzf/check_ci.log
 ZF/stdzf_r3/check_ci.log
+BB9/verify_c04/_logs/
+BB9/verify_c04/compile_ci.log

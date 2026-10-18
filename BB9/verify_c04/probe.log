@@ -1,0 +1,121 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : Base.tm (A, 0) = Some (1, R, B)
+     : Base.tm (A, 0) = Some (1, R, B)
+eq_refl : Base.tm (A, 1) = Some (0, R, A)
+     : Base.tm (A, 1) = Some (0, R, A)
+eq_refl : Base.tm (B, 0) = Some (1, L, C)
+     : Base.tm (B, 0) = Some (1, L, C)
+eq_refl : Base.tm (B, 1) = Some (1, L, F)
+     : Base.tm (B, 1) = Some (1, L, F)
+eq_refl : Base.tm (C, 0) = Some (1, R, D)
+     : Base.tm (C, 0) = Some (1, R, D)
+eq_refl : Base.tm (C, 1) = Some (0, L, B)
+     : Base.tm (C, 1) = Some (0, L, B)
+eq_refl : Base.tm (D, 0) = Some (1, R, A)
+     : Base.tm (D, 0) = Some (1, R, A)
+eq_refl : Base.tm (D, 1) = Some (1, L, E)
+     : Base.tm (D, 1) = Some (1, L, E)
+eq_refl : Base.tm (E, 0) = Some (1, L, H)
+     : Base.tm (E, 0) = Some (1, L, H)
+eq_refl : Base.tm (E, 1) = Some (0, L, C)
+     : Base.tm (E, 1) = Some (0, L, C)
+eq_refl : Base.tm (F, 0) = Some (0, R, G)
+     : Base.tm (F, 0) = Some (0, R, G)
+eq_refl : Base.tm (F, 1) = Some (1, L, D)
+     : Base.tm (F, 1) = Some (1, L, D)
+eq_refl : Base.tm (G, 0) = Some (0, L, H)
+     : Base.tm (G, 0) = Some (0, L, H)
+eq_refl : Base.tm (G, 1) = Some (1, L, H)
+     : Base.tm (G, 1) = Some (1, L, H)
+eq_refl : Base.tm (H, 0) = Some (1, R, I)
+     : Base.tm (H, 0) = Some (1, R, I)
+eq_refl : Base.tm (H, 1) = None
+     : Base.tm (H, 1) = None
+eq_refl : Base.tm (I, 0) = Some (0, R, I)
+     : Base.tm (I, 0) = Some (0, R, I)
+eq_refl : Base.tm (I, 1) = Some (0, R, F)
+     : Base.tm (I, 1) = Some (0, R, F)
+halted =
+fun (tm : TM) (c : Q * tape) =>
+let (q, p) := c in let (p0, _) := p in let (_, s) := p0 in tm (q, s) = None
+     : TM -> Q * tape -> Prop
+
+Arguments halted tm c
+K31_Abs.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments K31_Abs.sym_val s%sym_scope
+K31_Abs.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => K31_Abs.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments K31_Abs.count1 xs%list_scope
+K31_Abs.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = K31_Abs.count1 L + K31_Abs.sym_val s + K31_Abs.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments K31_Abs.ones c N%nat_scope
+Score.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => Abs.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments Score.f (k _)%nat_scope
+Score.f_omega = fun n : nat => Score.f n n
+     : nat -> nat
+
+Arguments Score.f_omega n%nat_scope
+Final.c04_halts : halts Base.tm c0
+     : halts Base.tm c0
+ScoreEnd.c04_sigma_lower_bound
+:
+exists (c : Q * tape) (N : nat),
+  c0 -[ Base.tm ]->* c /\
+  halted Base.tm c /\
+  K31_Abs.ones c N /\ Score.f_omega (Score.f_omega (465 * 1000 + 9)) < N
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ Base.tm ]->* c /\
+         halted Base.tm c /\
+         K31_Abs.ones c N /\
+         Score.f_omega (Score.f_omega (465 * 1000 + 9)) < N
+ScoreEnd.c04_beats_fw2
+:
+exists (c : Q * tape) (N : nat),
+  c0 -[ Base.tm ]->* c /\
+  halted Base.tm c /\
+  K31_Abs.ones c N /\
+  BB9_fw2_bound.f_omega (BB9_fw2_bound.f_omega (465 * 1000 + 9)) < N /\
+  (exists (cf : Q * tape) (Nf : nat),
+     c0 -[ BB9_fw2_1RB0RD.tm ]->* cf /\
+     halted BB9_fw2_1RB0RD.tm cf /\ BB9_fw2_bound.ones cf Nf /\ Nf + 1 < N)
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ Base.tm ]->* c /\
+         halted Base.tm c /\
+         K31_Abs.ones c N /\
+         BB9_fw2_bound.f_omega (BB9_fw2_bound.f_omega (465 * 1000 + 9)) < N /\
+         (exists (cf : Q * tape) (Nf : nat),
+            c0 -[ BB9_fw2_1RB0RD.tm ]->* cf /\
+            halted BB9_fw2_1RB0RD.tm cf /\
+            BB9_fw2_bound.ones cf Nf /\ Nf + 1 < N)
+Closed under the global context
+Closed under the global context
+Closed under the global context

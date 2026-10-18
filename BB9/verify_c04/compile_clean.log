@@ -1,0 +1,104 @@
+start 2026-10-18 08:02:49
+== lib/BB92.v started
+== dev/Orbit.v started
+   lib/BB92.v ok, 9 s
+== lib/Individual92.v started
+   dev/Orbit.v ok, 9 s
+== dev/Cascade.v started
+   lib/Individual92.v ok, 8 s
+== dev/Base.v started
+== lib/BB9_fw2_1RB0RD.v started
+   dev/Cascade.v ok, 8 s
+   dev/Base.v ok, 8 s
+== k31/K_e1.v started
+== dev/G_rules.v started
+== k31/K_e2.v started
+   lib/BB9_fw2_1RB0RD.v ok, 17 s
+== dev/G_sub2.v started
+   dev/G_rules.v ok, 86 s
+== dev/G_sub4.v started
+   dev/G_sub4.v ok, 1860 s
+== dev/G_entry.v started
+   k31/K_e2.v ok, 2211 s
+== dev/G_sub3.v started
+   dev/G_sub2.v ok, 3611 s
+== dev/G_sub5.v started
+   dev/G_sub3.v ok, 1582 s
+== dev/G_p20_5.v started
+   dev/G_entry.v ok, 2028 s
+== dev/G_p20_4.v started
+   dev/G_p20_5.v ok, 702 s
+== dev/G_p20_3.v started
+   dev/G_p20_4.v ok, 712 s
+== dev/G_p20_2.v started
+   dev/G_p20_3.v ok, 597 s
+== dev/G_p20_1.v started
+   dev/G_p20_2.v ok, 545 s
+== dev/G_p20_0.v started
+   dev/G_sub5.v ok, 1713 s
+== dev/G_reb1.v started
+   dev/G_p20_1.v ok, 504 s
+== dev/G_stop.v started
+   dev/G_p20_0.v ok, 483 s
+== dev/G_p14_5.v started
+   dev/G_reb1.v ok, 776 s
+== dev/G_p14_4.v started
+   dev/G_p14_5.v ok, 400 s
+== dev/G_p14_3.v started
+   dev/G_stop.v ok, 755 s
+== dev/G_p14_2.v started
+   dev/G_p14_3.v ok, 363 s
+== dev/G_p14_1.v started
+   dev/G_p14_4.v ok, 380 s
+== dev/G_p14_0.v started
+   dev/G_p14_2.v ok, 355 s
+== dev/G_top.v started
+   dev/G_p14_0.v ok, 320 s
+== k31/K_x.v started
+   dev/G_p14_1.v ok, 335 s
+== k31/K_rf.v started
+   k31/K_rf.v ok, 41 s
+== dev/G_end.v started
+   dev/G_end.v ok, 52 s
+== lib/BB9_fw2_bound.v started
+   lib/BB9_fw2_bound.v ok, 21 s
+== dev/Abs.v started
+   k31/K_x.v ok, 180 s
+   dev/Abs.v ok, 67 s
+== dev/Lift.v started
+== dev/Chain.v started
+   dev/Lift.v ok, 9 s
+   dev/Chain.v ok, 10 s
+== score/Score.v started
+   dev/G_top.v ok, 306 s
+== dev/Step.v started
+   score/Score.v ok, 13 s
+== score/Fw2Link.v started
+== score/Fw2Upper.v started
+   score/Fw2Link.v ok, 11 s
+   dev/Step.v ok, 17 s
+== k31/K31_Abs.v started
+== dev/CBtail.v started
+   score/Fw2Upper.v ok, 12 s
+== dev/Fin.v started
+   k31/K31_Abs.v ok, 10 s
+   dev/CBtail.v ok, 9 s
+== score/ScoreK.v started
+== dev/Endgame.v started
+   dev/Fin.v ok, 11 s
+   score/ScoreK.v ok, 10 s
+   dev/Endgame.v ok, 10 s
+   k31/K_e1.v ok, 7121 s
+== k31/K31_Mach.v started
+   k31/K31_Mach.v ok, 72 s
+== k31/K31_End.v started
+   k31/K31_End.v ok, 66 s
+== dev/Final.v started
+== dev/ScoreEnd.v started
+   dev/Final.v ok, 196 s
+   dev/ScoreEnd.v ok, 396 s
+COMPILE DONE, 7681 s
+== probe.v ==
+   ok, 560 s
+probe: 3 of 3 theorems closed under the global context
+exit 0 at 2026-10-18 10:20:10
