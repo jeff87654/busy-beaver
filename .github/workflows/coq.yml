@@ -1,7 +1,7 @@
 name: Coq proofs
 
-# Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/, BB9/verify_fw2 (stage 1),
-# BB9/verify_c04, BB13/, BB14/, BB43/, PA/m238 and ZF/. BB10/, BB12/ and stage 2 of BB9/verify_fw2 take hours and are not
+# Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/verify, BB8/verify_m8,
+# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB13/, BB14/, BB43/, PA/m238 and ZF/. BB10/, BB12/ and stage 2 of BB9/verify_fw2 take hours and are not
 # built here.
 #
 # When the jobs run: on pull requests and on pushes to main, a job runs only if its entry's files changed (job `changes`,
@@ -19,12 +19,14 @@ on:
 jobs:
   changes:
     # Which entries a pull request or push touches. An entry's job also runs when an entry it depends on changes:
-    # BB9/verify_c04 uses copies of BB9/verify_fw2/multifile files (checked byte for byte), so it runs when those change.
+    # BB9/verify_c04 uses copies of BB9/verify_fw2/multifile files (checked byte for byte), so it runs when those change;
+    # BB8/verify_m8 is built on BB9/verify_c04 and BB8/verify, so it runs when any of those change.
     runs-on: ubuntu-latest
     outputs:
       all: ${{ steps.all.outputs.all }}
       pa238: ${{ steps.f.outputs.pa238 }}
       bb8: ${{ steps.f.outputs.bb8 }}
+      bb8-m8: ${{ steps.f.outputs.bb8-m8 }}
       bb13-bb14: ${{ steps.f.outputs.bb13-bb14 }}
       bb9-fw2: ${{ steps.f.outputs.bb9-fw2 }}
       bb9-c04: ${{ steps.f.outputs.bb9-c04 }}
@@ -45,6 +47,10 @@ jobs:
               - 'PA/**'
             bb8:
               - 'BB8/**'
+            bb8-m8:
+              - 'BB8/**'
+              - 'BB9/verify_c04/**'
+              - 'BB9/verify_fw2/multifile/**'
             bb13-bb14:
               - 'BB13/**'
               - 'BB14/**'
@@ -164,6 +170,60 @@ jobs:
           path: |
             BB8/verify/compile_ci.log
             BB8/verify/probe_ci.log
+
+  bb8-m8:
+    # BB8/verify_m8: the 8-state machine M8 (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG---), the BB(8) entry,
+    # the 8-state collapse of C04. Builds BB9/verify_c04 (all 55 files, about 1 h 40 min) and BB8/verify from scratch,
+    # then the M8 layer and its probe (seven results closed under the global context).
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb8-m8 == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    env:
+      BUSYCOQ_COMMIT: bd2e36f6aa204eb011742d2ca6c8741102b2e59e
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v git >/dev/null || (apt-get update && apt-get install -y git)
+
+      - uses: actions/checkout@v4
+
+      - name: Build busycoq (pinned commit, only the files the proofs depend on)
+        run: |
+          git clone https://github.com/meithecatte/busycoq "$RUNNER_TEMP/busycoq"
+          cd "$RUNNER_TEMP/busycoq"
+          git checkout "$BUSYCOQ_COMMIT"
+          cd verify
+          coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
+          make -f Makefile.coq Individual.vo Flip.vo
+
+      - name: Compile BB9/verify_c04, BB8/verify and BB8/verify_m8, and run the probes
+        working-directory: BB8/verify_m8
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh deps 2>&1 | tee compile_ci.log
+          closed=$(grep -c 'Closed under the global context' probe.log || true)
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 7 ]; then
+            echo "::error::probe.v did not report seven axiom-free results"
+            exit 1
+          fi
+          tail -20 probe.log
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coq-logs-m8
+          path: |
+            BB8/verify_m8/compile_ci.log
+            BB8/verify_m8/probe.log
 
   bb13-bb14:
     needs: changes

@@ -14,3 +14,10 @@ ZF/stdzf/check_ci.log
 ZF/stdzf_r3/check_ci.log
 BB9/verify_c04/_logs/
 BB9/verify_c04/compile_ci.log
+BB8/verify_m8/BB82.log
+BB8/verify_m8/Individual82.log
+BB8/verify_m8/Tm8.log
+BB8/verify_m8/Sim.log
+BB8/verify_m8/Transfer.log
+BB8/verify_m8/Beats8.log
+BB8/verify_m8/compile_ci.log
