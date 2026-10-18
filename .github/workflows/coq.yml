@@ -195,7 +195,7 @@ jobs:
 
   bb9-c04:
     # BB9/verify_c04: the 9-state machine C04 (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF), the BB(9)
-    # entry: all 49 files from scratch, 4 coqc at a time, then the probe (about 1 h 40 min on a 4-vCPU runner; the
+    # entry: all 55 files from scratch, 4 coqc at a time, then the probe (about 1 h 40 min on a 4-vCPU runner; the
     # longest file, k31/K_e1.v, takes most of it).
     runs-on: ubuntu-latest
     timeout-minutes: 300
@@ -236,10 +236,10 @@ jobs:
         working-directory: BB9/verify_c04
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" J=4 bash ./compile_clean.sh 2>&1 | tee compile_ci.log
-          test "$(find lib dev k31 score -name '*.vo' | wc -l)" -eq 49
+          test "$(find lib dev k31 score fgh -name '*.vo' | wc -l)" -eq 55
           closed=$(grep -c 'Closed under the global context' probe.log || true)
-          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 3 ]; then
-            echo "::error::probe.v did not report three axiom-free theorems"
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 4 ]; then
+            echo "::error::probe.v did not report four axiom-free theorems"
             exit 1
           fi
           tail -20 probe.log

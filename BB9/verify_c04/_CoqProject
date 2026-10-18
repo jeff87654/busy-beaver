@@ -2,6 +2,7 @@
 -Q dev Dev
 -Q k31 K31
 -Q score Score
+-Q fgh Fgh
 -Q ../../../busycoq/verify BusyCoq
 lib/BB92.v
 lib/Individual92.v
@@ -52,3 +53,9 @@ score/Fw2Upper.v
 score/ScoreK.v
 dev/Final.v
 dev/ScoreEnd.v
+fgh/FArith.v
+fgh/Tower.v
+fgh/Uniq.v
+fgh/CascU.v
+fgh/EndU.v
+fgh/Exact.v

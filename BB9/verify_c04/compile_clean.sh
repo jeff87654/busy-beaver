@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # Clean compile of the C04 proof against a busycoq checkout (commit bd2e36f), in dependency order, then the probe.
-#   BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh            everything (49 files), then probe.v
+#   BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh            everything (55 files), then probe.v
 #   BUSYCOQ=... ./compile_clean.sh only dev/G_sub2 k31/K_e1 ...   only these files (whatever they need must already be
 #                                                                 compiled)
 #   BUSYCOQ=... ./compile_clean.sh probe                          probe.v only
@@ -9,7 +9,8 @@
 # files that only need dev/Base.v; the longest, k31/K_e1.v, takes about 35 min there on its own.  With J=4 on a 4-vCPU
 # runner the whole build takes about 1 h 40 min.
 # Per-file coqc output goes to $LOGDIR (default _logs/).  COQC may be set to a specific coqc executable.
-# Logical paths: lib/ = BB8 (historical; the same name the fw2 files use), dev/ = Dev, k31/ = K31, score/ = Score.
+# Logical paths: lib/ = BB8 (historical; the same name the fw2 files use), dev/ = Dev, k31/ = K31, score/ = Score,
+# fgh/ = Fgh.
 COQC=${COQC:-coqc}
 J=${J:-4}
 LOGDIR=${LOGDIR:-_logs}
@@ -18,7 +19,7 @@ if [ -z "$BUSYCOQ" ]; then
   exit 2
 fi
 cd "$(dirname "$0")" || exit 2
-FLAGS=(-Q "$BUSYCOQ" BusyCoq -Q lib BB8 -Q dev Dev -Q k31 K31 -Q score Score)
+FLAGS=(-Q "$BUSYCOQ" BusyCoq -Q lib BB8 -Q dev Dev -Q k31 K31 -Q score Score -Q fgh Fgh)
 
 # file  files it needs (from its Require lines), longest-running first within what can run in parallel
 declare -A DEPS STATE PIDFILE
@@ -73,6 +74,12 @@ score/Fw2Upper lib/Individual92 lib/BB9_fw2_1RB0RD lib/BB9_fw2_bound dev/Abs dev
 score/ScoreK lib/Individual92 lib/BB9_fw2_1RB0RD lib/BB9_fw2_bound dev/Abs dev/Chain dev/Step score/Score score/Fw2Link score/Fw2Upper
 dev/Final lib/Individual92 dev/Base dev/Lift dev/Endgame k31/K31_End
 dev/ScoreEnd lib/Individual92 lib/BB9_fw2_1RB0RD lib/BB9_fw2_bound dev/Base dev/G_rules dev/G_sub2 dev/G_sub3 dev/G_sub4 dev/G_sub5 dev/G_stop dev/G_entry dev/G_top dev/G_end dev/Abs dev/Lift dev/Orbit dev/Chain dev/Cascade dev/Step dev/CBtail dev/G_p14_0 dev/G_p14_1 dev/G_p14_2 dev/G_p14_3 dev/G_p14_4 dev/G_p14_5 dev/G_p20_0 dev/G_p20_1 dev/G_p20_2 dev/G_p20_3 dev/G_p20_4 dev/G_p20_5 dev/Endgame dev/Fin k31/K31_Abs k31/K31_Mach k31/K31_End score/Score score/ScoreK
+fgh/FArith lib/Individual92 dev/Abs dev/Chain score/Score
+fgh/Tower lib/Individual92 dev/Abs dev/Chain k31/K31_Abs score/Score fgh/FArith
+fgh/Uniq lib/Individual92 dev/Base dev/Abs dev/Step k31/K31_Abs k31/K31_Mach k31/K31_End
+fgh/CascU lib/Individual92 dev/Base dev/Abs dev/Lift dev/Orbit dev/Chain dev/Step dev/Fin k31/K31_Abs fgh/Tower
+fgh/EndU lib/Individual92 dev/Base dev/Abs dev/Lift dev/Orbit dev/Chain dev/Cascade dev/Step dev/Fin dev/CBtail dev/Endgame k31/K31_Abs k31/K31_Mach k31/K31_End dev/ScoreEnd score/Score fgh/FArith fgh/Tower fgh/Uniq fgh/CascU
+fgh/Exact lib/Individual92 dev/Base dev/Abs dev/Lift dev/Orbit dev/Chain dev/Cascade dev/Step dev/Fin dev/CBtail dev/Endgame k31/K31_Abs k31/K31_Mach k31/K31_End dev/ScoreEnd score/Score fgh/FArith fgh/Tower fgh/Uniq fgh/CascU fgh/EndU
 EOF
 
 probe() {
@@ -81,8 +88,8 @@ probe() {
   "$COQC" "${FLAGS[@]}" probe.v > probe.log || { cat probe.log; echo "probe.v FAILED"; exit 1; }
   closed=$(grep -c 'Closed under the global context' probe.log)
   echo "   ok, $(( $(date +%s) - start )) s"
-  echo "probe: $closed of 3 theorems closed under the global context"
-  if grep -q 'Axioms:' probe.log || [ "$closed" -ne 3 ]; then exit 1; fi
+  echo "probe: $closed of 4 theorems closed under the global context"
+  if grep -q 'Axioms:' probe.log || [ "$closed" -ne 4 ]; then exit 1; fi
 }
 [ "$1" = probe ] && { probe; exit 0; }
 case "$1" in ''|only) ;; *) echo "usage: compile_clean.sh [only FILE... | probe]" >&2; exit 2 ;; esac

@@ -1,16 +1,18 @@
-# C04: a 9-state machine that beats fw2
+# C04: a 9-state machine with f_ω(f_ω(12B+26)) < σ < f_ω(f_ω(12B+27))
 
     1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF
 
-Below we call this machine **C04** (its label in the search that found it, section 5). It halts from the blank tape.
-Coq proves, with no axioms, that it halts, that the halting tape holds N ones with
+Below we call this machine **C04** (its label in the search that found it, section 5). It halts from the blank tape,
+and Coq proves, with no axioms and with the standard fast-growing hierarchy, that its score σ satisfies
 
-    f_ω(f_ω(465009)) < N
+    f_ω(f_ω(12B + 26)) < σ < f_ω(f_ω(12B + 27)),        2B + 4 = 2↑^13 3        (c04_fgh_bracket, Bx_knuth)
 
-in the standard fast-growing hierarchy, and that N exceeds the **exact** score of fw2
+and, as an easier placement, f_(ω+1)(3) < σ < f_(ω+1)(4), where f_(ω+1)(n) = f_ω^n(n) (`c04_fgh_coarse`). Coq also
+gives σ exactly, as an explicit symbolic recursion along the run (`c04_score_exact`); its value depends on all base-5
+digits of B and cannot be evaluated in practice. σ exceeds the **exact** score of fw2
 ([`1RB0RD_..._1RZ1RA`](1RB0RD_1LC1LC_0RA0LB_1RE1RD_0LG0LF_1LE1LF_0RH1LG_1RD1RI_1RZ1RA.md)), the previous BB(9) entry of
-this folder, which C04 supersedes. It does not beat our 10-state machine n1 ([`../BB10/`](../BB10/)), which is at level
-f_(ω+1). Written 2026-10-18.
+this folder, which C04 supersedes (`c04_beats_fw2`). It does not beat our 10-state machine n1 ([`../BB10/`](../BB10/)),
+which is far up level f_(ω+1). Written 2026-10-18.
 
 C04 runs the BB(7) champion's digit-list counter, like our earlier BB(9) record, and starts exactly as that record does.
 It differs only in what happens when the digit list is used up (transition E0). The first time, it rebuilds a list of
@@ -41,11 +43,13 @@ already holds a 1, so whatever 1 the halting transition is taken to write (the u
 | | |
 |---|---|
 | Halts | **Yes**, machine-checked (Coq, no axioms): `c04_halts : halts tm c0`. |
-| Lower bound | Machine-checked, with the standard fast-growing hierarchy: f_ω(f_ω(465009)) < N = σ (`c04_sigma_lower_bound`). |
+| Score bracket | **f_ω(f_ω(12B+26)) < σ < f_ω(f_ω(12B+27))**, 2B + 4 = 2↑^13 3, machine-checked with the standard fast-growing hierarchy (`c04_fgh_bracket`, `Bx_knuth`). |
+| Coarse placement | f_(ω+1)(3) < σ < f_(ω+1)(4), f_(ω+1)(n) = f_ω^n(n), machine-checked (`c04_fgh_coarse`). |
+| Exact score | Machine-checked: σ = `sigma_c04`, an explicit recursion along the cascade (`c04_score_exact`, `c04_score_reached`). Not evaluated as a number: it depends on where the cascade orbit enters [0, 60), which depends on all base-5 digits of B. |
+| Weaker lower bound, used for the comparison | f_ω(f_ω(465009)) < σ (`c04_sigma_lower_bound`). |
 | fw2 (the previous BB(9) entry) | **Beaten**, machine-checked against fw2's Coq-proved exact score: fw2 halts with N_f ones and N_f + 1 < N, and N_f + 1 is fw2's score (`c04_beats_fw2`). |
 | The five machines fw2 beats (our earlier BB(9) record, two later 9-state machines of this project, Jacobzheng's 2024 BB(9) champion, Racheline's 2024 BB(10) champion) | Beaten, by combining `c04_beats_fw2` with fw2's five Coq comparisons (`fw2_beats_*`, [`verify_fw2/`](verify_fw2/)). Each step is machine-checked; the combination (one inequality, using that each machine has one halting configuration) is not stated as a Coq theorem. |
 | n1 ([`../BB10/`](../BB10/), f_(ω+1)) | **Not** beaten. |
-| Exact score | Not known. It depends on where the cascade orbit enters [0, 60), which depends on all base-5 digits of B. On paper (**not machine-checked**, section 3.2): f_ω(f_ω(12B+26)) < σ < f_ω(f_ω(12B+27)). |
 | Steps | Not computed. The first 2369 are in the Coq proof. |
 
 ---
@@ -149,7 +153,11 @@ its accumulator is R_E = U_K(U_K(0)). Then:
 ### 1.7 The score
 
 At the halt the tape still holds a token 6R_last + 7 (or, in one key-31 case, the token 6R_E + 1), where R_last ≥ R_E,
-so the tape has at least 6R_E + 2 ones. With K ≥ 11R₂ and f_k ≤ U_k this gives f_ω(f_ω(465009)) < U_K(0) < N.
+so the tape has at least 6R_E + 2 ones. Here R_E = U_K(U_K(0)) ≥ f_ω(K) and K ≥ R₂ ≥ f_ω(12B + 26), which gives the
+lower half of the bracket. For the upper half: the halting configuration is unique, every clear in the run happens at
+depth at most 12R₂ + 11, and so every quantity on the halting tape is bounded by iterates of one U at that depth. This
+gives σ < f_ω(12R₂ + 45), and 64R₂ < f_ω(12B + 27). The weaker bound f_ω(f_ω(465009)) < σ used for the comparison
+with fw2 follows from K ≥ 11R₂ and f_k ≤ U_k.
 
 ---
 
@@ -173,6 +181,15 @@ so the tape has at least 6R_E + 2 ones. With K ≥ 11R₂ and f_k ≤ U_k this g
 
 ### 3.1 What Coq proves
 
+    c04_fgh_bracket       : forall c N, c0 -->* c -> halted tm c -> ones c N ->
+                              f_omega (f_omega (12 * Bx + 26)) < N /\ N < f_omega (f_omega (12 * Bx + 27))
+    c04_fgh_coarse        : forall c N, c0 -->* c -> halted tm c -> ones c N -> f_w1 3 < N /\ N < f_w1 4
+    c04_score_exact       : forall c N, c0 -->* c -> halted tm c -> ones c N -> N = sigma_c04
+    c04_score_reached     : exists c, c0 -->* c /\ halted tm c /\ ones c sigma_c04
+    c04_sigma_bracket     : f_omega (f_omega (12 * Bx + 26)) < sigma_c04 /\
+                              sigma_c04 < f_omega (f_omega (12 * Bx + 27))
+    Bx_knuth              : 2 * Bx + 4 = arrow 13 2 3
+    R2_knuth              : 2 * R2 Bx + 4 = arrow (12 * Bx + 26) 2 4
     c04_sigma_lower_bound : exists c N, c0 -->* c /\ halted tm c /\ ones c N /\
                               f_omega (f_omega (465 * 1000 + 9)) < N
     c04_beats_fw2         : exists c N, c0 -->* c /\ halted tm c /\ ones c N /\
@@ -182,27 +199,25 @@ so the tape has at least 6R_E + 2 ones. With K ≥ 11R₂ and f_k ≤ U_k this g
 
 `ones c N` says that the tape of c is a finite word padded with 0s on both sides, holding N ones. `f`, `f_omega` and
 `ones` are fw2's definitions (`f 0 n = n+1`, `f (k+1) n = (f k)^n n`, `f_omega n = f n n`); the probe checks that the
-copies C04's files use are convertible to them. fw2 halts in state I reading 0 and its halting transition writes a 1,
+copies C04's files use are convertible to them. `f_w1 n = iter n f_omega n` is f_(ω+1)(n), and `arrow k a b` is
+a ↑^k b (`arrow 0 a b = a·b`). `Bx` is B = U_10(U_10(0)) and `R2 Bx` is R₂. `sigma_c04` runs the cascade recursion
+(one orbit step of g at a time, tracking the tail, the run, the parked list and the tokens written) from the top of the
+cascade until L < 60, and then applies the formula of the key's route; `c04_score_exact` and `c04_score_reached` say
+that this is the number of ones of the (unique) halting configuration. fw2 halts in state I reading 0 and its halting transition writes a 1,
 so fw2's score is N_f + 1, and N_f + 1 < N says that C04's score is larger.
 
 The comparison with fw2 uses fw2's own Coq files unchanged (`BB9_fw2_1RB0RD.v`, `BB9_fw2_bound.v`) and an upper bound
 on fw2's exact score b₃ + 3 proved here (`score/Fw2Upper.v`: b₃ + 5 ≤ U_K(0) for K ≥ R₂). So C04 beats fw2's exact score,
 not only its published lower bound.
 
-### 3.2 How large (paper, not machine-checked)
+### 3.2 How large
 
-Coq's proof bounds the score below by 6·U_K(0) with K ≥ 11R₂. With `Score.S1_core` (f_ω(a) + 2 ≤ K implies
-f_ω(f_ω(a)) < U_K(0)) and f_ω(12B + 24) ≤ R₂ this gives σ > f_ω(f_ω(12B + 24)); that composite statement is not a Coq
-theorem (the stated one uses 465009, which is all the comparison with fw2 needs). A separate paper analysis of every endgame case (not machine-checked) gives the bracket
-
-    f_ω(f_ω(12B + 26)) < σ < f_ω(f_ω(12B + 27)),        12B + 26 = 6·(2↑^13 3) + 2,
-
-with σ = f_ω(K + 1 + θ), 0 < θ < 2, where K, the depth of the ESC clear, lies between 2↑^(12B+26) 4 and 12R₂ − 10. The
-upper half rests on two facts of the analysis: no accumulator other than R₂ is ever turned into a list (so there is no
-third escalation), and every counter in the endgame is ≡ 0 (mod 3) (the other residues would lead to a far-end rebuild).
-That analysis was written before the Coq proof. Its erratum (two exact key-31 formulas were one level off) does not
-change the bracket. The Coq development proves the halting and the lower bound only; it proves no upper bound on C04's
-score.
+The bracket f_ω(f_ω(12B + 26)) < σ < f_ω(f_ω(12B + 27)) is machine-checked (`c04_fgh_bracket`), with
+2B + 4 = 2↑^13 3 (`Bx_knuth`), so 12B + 26 = 6·(2↑^13 3) + 2: the inner argument is pinned between two consecutive
+integers. In terms of f_(ω+1)(n) = f_ω^n(n), C04 lies between f_(ω+1)(3) and f_(ω+1)(4) (`c04_fgh_coarse`), since
+f_ω(3) ≤ 12B + 26 and 12B + 27 ≤ f_ω(f_ω(4)). On paper, a finer analysis of the endgame cases (written before the proof, not
+machine-checked) gives σ = f_ω(K + 1 + θ) with 0 < θ < 2, where K, the depth of the ESC clear, lies between
+2↑^(12B+26) 4 and 12R₂ − 10.
 
 ### 3.3 Comparisons
 
@@ -221,7 +236,7 @@ score.
 
 ### 4.1 What Coq proves
 
-The development is in [`verify_c04/`](verify_c04/): 49 `.v` files (15.4 MB, 80,000 lines), Coq 8.20.1 on top of
+The development is in [`verify_c04/`](verify_c04/): 55 `.v` files (15.5 MB, 81,000 lines), Coq 8.20.1 on top of
 [busycoq](https://github.com/meithecatte/busycoq) (commit `bd2e36f`). No axioms.
 
 | statement | Coq name | file |
@@ -229,6 +244,10 @@ The development is in [`verify_c04/`](verify_c04/): 49 `.v` files (15.4 MB, 80,0
 | C04 halts from the blank tape | `c04_halts : halts tm c0` | `dev/Final.v` |
 | the halting tape has N ones, f_ω(f_ω(465009)) < N | `c04_sigma_lower_bound` | `dev/ScoreEnd.v` |
 | the same, and fw2 halts with N_f ones, N_f + 1 < N | `c04_beats_fw2` | `dev/ScoreEnd.v` |
+| every reachable halting configuration has N ones with f_ω(f_ω(12B+26)) < N < f_ω(f_ω(12B+27)) | `c04_fgh_bracket` (also `c04_fgh_exists`) | `fgh/EndU.v` |
+| the same N satisfies f_(ω+1)(3) < N < f_(ω+1)(4) | `c04_fgh_coarse` | `fgh/EndU.v` |
+| N = `sigma_c04`, the exact symbolic score, and it is reached | `c04_score_exact`, `c04_score_reached`, `c04_sigma_bracket` | `fgh/Exact.v` |
+| 2B + 4 = 2↑^13 3 and 2R₂ + 4 = 2↑^(12B+26) 4 | `Bx_knuth`, `R2_knuth` | `fgh/FArith.v` |
 
 How the proof is put together:
 
@@ -251,23 +270,30 @@ How the proof is put together:
 - **The score** (`score/`, `ScoreEnd.v`): every key ends at the same halting tape with at least 6R_last + 2 ones and
   R_last ≥ U_K(U_K(0)), K ≥ 11R₂ (`ScoreK.K_ge_R2`); `Score.v` proves f_k ≤ U_k and f_ω(f_ω(465009)) < U_K(0);
   `Fw2Link.v` links the hierarchy to fw2's constants; `Fw2Upper.v` bounds fw2's exact score.
+- **The bracket and the exact score** (`fgh/`; no new machine lemmas, it reuses the compiled dev, k31 and score files):
+  `FArith.v` has the hierarchy arithmetic (f_(k+2)(n) ≤ U_k(n), U_j(x) < f_(j+2)(2x + 4), B and R₂ in Knuth arrows,
+  the two chains of inequalities); `Tower.v` the scale of iterates of one U that bounds every tape quantity; `Uniq.v`
+  the uniqueness of the halting configuration and the exact ones count of the final tape; `CascU.v` the cascade
+  invariant with upper bounds (parked list ≤ 12R₂ + 11, run and tokens bounded); `EndU.v` every endgame route ending
+  in an explicit tape, and the bracket; `Exact.v` the recursion `sigma_c04` and its correctness.
 
 `verify_c04/probe.v` checks by conversion all 18 entries of the transition table against lines generated from the
-machine string (H1 is `None`) and the blank start configuration, checks the types of the three theorems written out
-with fully qualified names, checks that the `ones` and `f_omega` used are fw2's, and runs `Print Assumptions` on the
-three theorems. All three report "Closed under the global context".
+machine string (H1 is `None`) and the blank start configuration, checks the types of all the theorems above written
+out with fully qualified names (the fgh ones as one conjunction, `c04_fgh_all_ok`), checks that the `ones` and
+`f_omega` used are fw2's, prints the definitions (including `sigma_c04`), and runs `Print Assumptions` on the three
+main theorems and on the conjunction. All four report "Closed under the global context".
 
 **Build.** `verify_c04/compile_clean.sh` builds everything from scratch in dependency order, J files at a time, and
 runs the probe. The whole build is about 3.2 CPU-hours on a GitHub runner (the longest file, `k31/K_e1.v`, takes about
 35 min on its own), about 1 h 40 min there with 4 coqc in parallel. The GitHub workflow (job `bb9-c04`) builds all of it from scratch on
-every push and fails unless the probe reports three axiom-free theorems. The recorded local clean build and its times
+every push and fails unless the probe reports four axiom-free results. The recorded local clean build and its times
 are in [`verify_c04/README.md`](verify_c04/README.md).
 
 ### 4.2 Not machine-checked
 
 - **σ = N.** In Coq the halt is the undefined transition H1 and `ones` counts the 1s of the halted configuration. The
   head reads a 1 there, so the conventional final write does not change the count.
-- **The bracket and the size estimates** of section 3.2, and the comparison with n1.
+- **The finer estimate** σ = f_ω(K + 1 + θ) of section 3.2, and the comparison with n1.
 - **The chaining** of `c04_beats_fw2` with fw2's comparison theorems (section 3.3).
 - **The descriptions** of sections 1–2 (the token pictures, the sub-step table, the key-31 forms) summarize what the
   Coq lemmas state; only the lemmas are checked.
@@ -288,10 +314,11 @@ None of this is needed for the proof.
   394,166 holdouts). Opus agents found the first escalation and the 5-adic cascade map, and classified it as probably
   Collatz-hard.
 - **Analysed** by a Fable agent (c04-fable, 2026-10-17), which found the parity invariant, the key set and the endgame,
-  and wrote the proof sketch. Agent c04-upper wrote the paper bracket of section 3.2.
+  and wrote the proof sketch. Agent c04-upper derived the bracket of section 3.2 on paper first.
 - **Proved** in Coq by Opus agents, 2026-10-17/18: c04-coq and c04-coq2 (the machine lemmas, the cascade, the class-b
   endgame, the final theorems), c04-k31 (the key-31 endgame), c04-bound (the score arithmetic and the bound on fw2's
-  exact score). The lead re-checked every theorem with `Print Assumptions`, and the development was rebuilt from scratch
+  exact score), and agent c04-fgh (`fgh/`: the two-sided bracket, the coarse placement and the exact score). The lead
+  re-checked every theorem with `Print Assumptions`, and the development was rebuilt from scratch
   for this folder (section 4.1).
 - **Built on** the BB(7) champion of Kropitz (2025; analysed by Ligocki), whose counter C04 runs, and on our earlier
   BB(9) record, whose start-up it shares and whose Coq development supplied the token family and the clearing lemmas.
