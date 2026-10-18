@@ -10,13 +10,19 @@
     types, written out here with fully qualified names (so [tm] is [Base.tm], [ones] is [K31_Abs.ones], [f_omega] is
     [Score.f_omega]); (3) [K31_Abs.ones] and [Score.f_omega] are convertible with fw2's [BB9_fw2_bound.ones] and
     [BB9_fw2_bound.f_omega], so the C04 score is counted, and compared, with fw2's definitions; (4) the theorems use no
-    axioms.  It also prints the definitions the statements use. *)
+    axioms.  It also prints the definitions the statements use.
+    Part (5), for fgh/: the two-sided bracket f_omega (f_omega (12 Bx + 26)) < N < f_omega (f_omega (12 Bx + 27)) for
+    every reachable halted configuration, the coarse placement f_w1 3 < N < f_w1 4, the exact score sigma_c04 (a
+    symbolic recursion), and 2 Bx + 4 = 2 ^(13) 3, 2 R2 + 4 = 2 ^(12 Bx + 26) 4 (Knuth arrows): their types written
+    out in one conjunction, the definitions printed, and one Print Assumptions on the conjunction. *)
 
 From BB8 Require Import Individual92.
 From BB8 Require BB9_fw2_1RB0RD BB9_fw2_bound.
 From Dev Require Base Final ScoreEnd.
 From K31 Require K31_Abs.
 From Score Require Score.
+From Dev Require Abs Chain.
+From Fgh Require FArith EndU Exact.
 Local Open Scope sym_scope.
 
 (** (1) the machine and the start configuration *)
@@ -59,3 +65,44 @@ Check (ScoreEnd.c04_beats_fw2 :
 Print Assumptions Final.c04_halts.
 Print Assumptions ScoreEnd.c04_sigma_lower_bound.
 Print Assumptions ScoreEnd.c04_beats_fw2.
+
+(** (5) fgh/: the two-sided bracket, the coarse placement, the exact score, B and R2 in Knuth arrows *)
+Print Abs.U.
+Print Abs.iter.
+Print Abs.arrow.
+Print Abs.Bx.
+Check Abs.Bx_def.
+Print Chain.R2.
+Print FArith.f_w1.
+Print Exact.sigma_c04.
+Print Exact.top.
+Print Exact.run.
+Print Exact.gnext.
+Print Exact.sig_key.
+Print Exact.sig31.
+Print Exact.sig37.
+Print Exact.sig43.
+Print Exact.sig49.
+Print Exact.sig55.
+Print Exact.HN.
+
+Definition c04_fgh_all : Prop :=
+  (forall c N, c0 -[ Base.tm ]->* c -> halted Base.tm c -> K31_Abs.ones c N ->
+     Score.f_omega (Score.f_omega (12 * Abs.Bx + 26)) < N /\ N < Score.f_omega (Score.f_omega (12 * Abs.Bx + 27)))%nat /\
+  (forall c N, c0 -[ Base.tm ]->* c -> halted Base.tm c -> K31_Abs.ones c N ->
+     FArith.f_w1 3 < N /\ N < FArith.f_w1 4)%nat /\
+  (forall c N, c0 -[ Base.tm ]->* c -> halted Base.tm c -> K31_Abs.ones c N -> N = Exact.sigma_c04) /\
+  (exists c, c0 -[ Base.tm ]->* c /\ halted Base.tm c /\ K31_Abs.ones c Exact.sigma_c04) /\
+  (Score.f_omega (Score.f_omega (12 * Abs.Bx + 26)) < Exact.sigma_c04 /\
+     Exact.sigma_c04 < Score.f_omega (Score.f_omega (12 * Abs.Bx + 27)))%nat /\
+  (2 * Abs.Bx + 4 = Abs.arrow 13 2 3)%nat /\
+  (2 * Chain.R2 Abs.Bx + 4 = Abs.arrow (12 * Abs.Bx + 26) 2 4)%nat.
+
+Theorem c04_fgh_all_ok : c04_fgh_all.
+Proof.
+  split; [exact EndU.c04_fgh_bracket |]. split; [exact EndU.c04_fgh_coarse |].
+  split; [exact Exact.c04_score_exact |]. split; [exact Exact.c04_score_reached |].
+  split; [exact Exact.c04_sigma_bracket |]. split; [exact FArith.Bx_knuth | exact FArith.R2_knuth].
+Qed.
+
+Print Assumptions c04_fgh_all_ok.

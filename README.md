@@ -27,26 +27,28 @@ ones (Knuth up-arrows), hence after more than 2 ↑^37 3 steps. It runs the BB(7
 ## BB9/
 
 `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF` (C04), a 9-state, 2-symbol machine that halts from the
-blank tape (it halts in state H reading 1, on the undefined transition H1) with N ones, where (machine-checked, standard
+blank tape (in state H reading 1, on the undefined transition H1) with score σ, where (machine-checked, standard
 fast-growing hierarchy)
 
-    f_ω(f_ω(465009)) < N = σ,
+    f_ω(f_ω(12B + 26)) < σ < f_ω(f_ω(12B + 27)),        2B + 4 = 2↑^13 3.
 
-and N exceeds the exact score of fw2 (below), the previous BB(9) entry, which it supersedes (machine-checked against
-fw2's Coq-proved exact score). C04 runs the BB(7) champion's digit-list counter and starts like our earlier BB(9)
-record. When the list is used up it rebuilds it (one f_ω-sized step, giving R₂ with 2R₂ + 4 = 2↑^(12B+26) 4, where
-2B + 4 = 2↑^13 3), parks a list of 12R₂ − 10 digits, and runs a cascade that is one orbit of the 5-adic map
-L → (3L + c)/5 from 36B + 73. Where that orbit ends depends on all base-5 digits of B and cannot be computed, but all
-the constants c are even, so the orbit stays odd, and every odd ending clears the parked list (the second f_ω-sized
-step) and then halts. On paper (not machine-checked) f_ω(f_ω(12B+26)) < σ < f_ω(f_ω(12B+27)). It does not beat n1
-(BB10/), which is at level f_(ω+1). Found in this project's n1f0 search; parity analysis by a Fable agent; Coq proof by
+Coarser: f_(ω+1)(3) < σ < f_(ω+1)(4), with f_(ω+1)(n) = f_ω^n(n) (`c04_fgh_coarse`). Coq also gives σ exactly, as an
+explicit symbolic recursion along the run (`c04_score_exact`), which cannot be evaluated in practice. σ exceeds the
+exact score of fw2 (below), the previous BB(9) entry, which C04 supersedes (machine-checked against fw2's Coq-proved
+exact score). C04 runs the BB(7) champion's digit-list counter and starts like our earlier BB(9) record. When the list
+is used up it rebuilds it (one f_ω-sized step, giving R₂ with 2R₂ + 4 = 2↑^(12B+26) 4), parks a list of 12R₂ − 10
+digits, and runs a cascade that is one orbit of the 5-adic map L → (3L + c)/5 from 36B + 73. Where that orbit ends
+depends on all base-5 digits of B and cannot be computed, but all the constants c are even, so the orbit stays odd,
+and every odd ending clears the parked list (the second f_ω-sized step) and then halts. It does not beat n1 (BB10/),
+which is far up level f_(ω+1). Found in this project's n1f0 search; parity analysis by a Fable agent; Coq proof by
 Opus agents (2026-10-17/18).
 
 - [`BB9/1RB0RA_..._1RI---_0RI0RF.md`](BB9/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF.md):
   the analysis (how it works, the run, the score, comparisons, verification status, credit).
 - [`BB9/verify_c04/`](BB9/verify_c04/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1): `c04_halts`,
-  `c04_sigma_lower_bound`, `c04_beats_fw2`, and a probe that re-checks the table against the machine string. No axioms.
-  49 files, about 3.2 CPU-hours (about 1 h 40 min on a 4-vCPU CI runner); built in full from scratch and probed in CI.
+  `c04_fgh_bracket`, `c04_fgh_coarse`, `c04_score_exact`, `c04_beats_fw2`, `Bx_knuth`, and a probe that re-checks the
+  table against the machine string. No axioms. 55 files, about 3.2 CPU-hours (about 1 h 40 min on a 4-vCPU CI runner);
+  built in full from scratch and probed in CI.
 
 **Previous entry (2026-10-16, superseded by C04).** `1RB0RD_1LC1LC_0RA0LB_1RE1RD_0LG0LF_1LE1LF_0RH1LG_1RD1RI_1RZ1RA`
 (fw2), with σ > f_ω(f_ω(465009)) and an exact score proved as a recursion. fw2 is a digit-list counter of Ackermann type,

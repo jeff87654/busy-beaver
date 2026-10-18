@@ -119,3 +119,218 @@ exists (c : Q * tape) (N : nat),
 Closed under the global context
 Closed under the global context
 Closed under the global context
+Abs.U =
+fix U (j : nat) : nat -> nat :=
+  match j with
+  | 0 => fun x : nat => Abs.dbl (2 * x + 2) 0
+  | S i => fun x : nat => Abs.iter (2 * x + 2) (U i) 0
+  end
+     : nat -> nat -> nat
+
+Arguments Abs.U (j _)%nat_scope
+Abs.iter =
+fix iter (n : nat) (g : nat -> nat) (x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => g (iter n' g x)
+  end
+     : nat -> (nat -> nat) -> nat -> nat
+
+Arguments Abs.iter n%nat_scope g%function_scope x%nat_scope
+Abs.arrow =
+fix arrow (k a b : nat) {struct k} : nat :=
+  match k with
+  | 0 => a * b
+  | S k' => PeanoNat.Nat.iter b (arrow k' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments Abs.arrow (k a b)%nat_scope
+Abs.Bx = proj1_sig Abs.Bx_sig
+     : nat
+Abs.Bx_def
+     : Abs.Bx = Abs.U 10 (Abs.U 10 0)
+Chain.R2 = fun B : nat => Abs.iter 2 (Abs.U (12 * B + 24)) 0
+     : nat -> nat
+
+Arguments Chain.R2 B%nat_scope
+FArith.f_w1 = fun n : nat => Abs.iter n Score.f_omega n
+     : nat -> nat
+
+Arguments FArith.f_w1 n%nat_scope
+Exact.sigma_c04 = Exact.sig_key (Exact.run Step.L1 Exact.top)
+     : nat
+Exact.top =
+{|
+  Exact.ct := 7;
+  Exact.cL := Step.L1;
+  Exact.cP := 12 * Chain.R2 Abs.Bx + 11;
+  Exact.cs := 0;
+  Exact.cy := 36 * PeanoNat.Nat.div Abs.Bx 5 + 24;
+  Exact.cm := 0
+|}
+     : Exact.cst
+Exact.run =
+fix run (n : nat) (x : Exact.cst) {struct n} : Exact.cst :=
+  match n with
+  | 0 => x
+  | S n' =>
+      if PeanoNat.Nat.leb 60 (Exact.cL x) then run n' (Exact.gnext x) else x
+  end
+     : nat -> Exact.cst -> Exact.cst
+
+Arguments Exact.run n%nat_scope x
+Exact.gnext =
+fun x : Exact.cst =>
+match PeanoNat.Nat.modulo (Exact.cL x) 5 with
+| 1 =>
+    {|
+      Exact.ct := 3 + Exact.ct x;
+      Exact.cL := 3 * (PeanoNat.Nat.div (Exact.cL x) 5 - 8) + 31;
+      Exact.cP := Exact.cP x - 11;
+      Exact.cs := 5;
+      Exact.cy := 4 + (PeanoNat.Nat.div (Exact.cL x) 5 - 8);
+      Exact.cm := Exact.cm x + Exact.cy x + Exact.cs x + 7
+    |}
+| 2 =>
+    {|
+      Exact.ct := 3 + Exact.ct x;
+      Exact.cL := 3 * (PeanoNat.Nat.div (Exact.cL x) 5 - 3) + 1;
+      Exact.cP := Exact.cP x - 4;
+      Exact.cs := 2;
+      Exact.cy := 4 + (PeanoNat.Nat.div (Exact.cL x) 5 - 3);
+      Exact.cm := Exact.cm x + Exact.cy x + Exact.cs x + 2
+    |}
+| 3 =>
+    {|
+      Exact.ct := 3 + Exact.ct x;
+      Exact.cL := 3 * (PeanoNat.Nat.div (Exact.cL x) 5 - 4) + 1;
+      Exact.cP := Exact.cP x - 6;
+      Exact.cs := 6;
+      Exact.cy := 6 + (PeanoNat.Nat.div (Exact.cL x) 5 - 4);
+      Exact.cm := Exact.cm x + Exact.cy x + Exact.cs x + 2
+    |}
+| 4 =>
+    {|
+      Exact.ct := 3 + Exact.ct x;
+      Exact.cL := 3 * (PeanoNat.Nat.div (Exact.cL x) 5 - 3) + 1;
+      Exact.cP := Exact.cP x - 6;
+      Exact.cs := 4;
+      Exact.cy := 6 + (PeanoNat.Nat.div (Exact.cL x) 5 - 3);
+      Exact.cm := Exact.cm x + Exact.cy x + Exact.cs x + 2
+    |}
+| _ =>
+    {|
+      Exact.ct := 3 + Exact.ct x;
+      Exact.cL :=
+        3 *
+        (3 * PeanoNat.Nat.div (PeanoNat.Nat.div (Exact.cL x) 5 - 8) 3 + 2) -
+        2;
+      Exact.cP := Exact.cP x - 3;
+      Exact.cs := Exact.cy x;
+      Exact.cy :=
+        9 +
+        6 *
+        Abs.iter
+          (3 + PeanoNat.Nat.div (PeanoNat.Nat.div (Exact.cL x) 5 - 8) 3)
+          (Abs.U
+             (3 * PeanoNat.Nat.div (PeanoNat.Nat.div (Exact.cL x) 5 - 8) 3 +
+              2)) 0;
+      Exact.cm := Exact.cm x + Exact.cs x + 1
+    |}
+end
+     : Exact.cst -> Exact.cst
+
+Arguments Exact.gnext x
+Exact.sig_key =
+fun x : Exact.cst =>
+if PeanoNat.Nat.eqb (Exact.cL x) 31
+then
+ Exact.sig31 (Exact.ct x) (Exact.cP x) (Exact.cs x) (Exact.cy x) (Exact.cm x)
+else
+ if PeanoNat.Nat.eqb (Exact.cL x) 37
+ then
+  Exact.sig37 (Exact.ct x) (Exact.cP x) (Exact.cs x) 
+    (Exact.cy x) (Exact.cm x)
+ else
+  if PeanoNat.Nat.eqb (Exact.cL x) 43
+  then
+   Exact.sig43 (Exact.ct x) (Exact.cP x) (Exact.cs x) 
+     (Exact.cy x) (Exact.cm x)
+  else
+   if PeanoNat.Nat.eqb (Exact.cL x) 49
+   then
+    Exact.sig49 (Exact.ct x) (Exact.cP x) (Exact.cs x) 
+      (Exact.cy x) (Exact.cm x)
+   else
+    Exact.sig55 (Exact.ct x) (Exact.cP x) (Exact.cs x) 
+      (Exact.cy x) (Exact.cm x)
+     : Exact.cst -> nat
+
+Arguments Exact.sig_key x
+Exact.sig31 =
+fun t P s y m : nat =>
+match PeanoNat.Nat.modulo (P - 35) 5 with
+| 0 =>
+    Exact.HN 0 2 (13 + y + s) m
+      (Abs.iter (2 * Exact.RE31 P + PeanoNat.Nat.div (P - 35) 5 + 7)
+         (Abs.U (S (3 * PeanoNat.Nat.div (P - 35) 5 + 2))) 0)
+      (S (3 * PeanoNat.Nat.div (P - 35) 5 + 2)) (t + 12)
+| 1 =>
+    Exact.HN 1 5 (7 + y + s) m
+      (Abs.iter 1 (Abs.U (S (S (3 * PeanoNat.Nat.div (P - 35) 5 + 1))))
+         (K31_End.Rb1 (PeanoNat.Nat.div (P - 35) 5) (Exact.RE31 P)))
+      (S (S (3 * PeanoNat.Nat.div (P - 35) 5 + 1))) 
+      (t + 12)
+| 2 =>
+    Exact.HN (6 * Exact.RE31 P) 4 (16 + y + s) m
+      (Abs.iter (PeanoNat.Nat.div (P - 35) 5 + 5)
+         (Abs.U (S (3 * PeanoNat.Nat.div (P - 35) 5 + 5))) 0)
+      (S (3 * PeanoNat.Nat.div (P - 35) 5 + 5)) (t + 12)
+| 3 =>
+    Exact.HN 1 5 (7 + y + s) m
+      (Abs.iter 1 (Abs.U (S (S (3 * PeanoNat.Nat.div (P - 35) 5 + 3))))
+         (K31_End.Ry3 (PeanoNat.Nat.div (P - 35) 5) (Exact.RE31 P)))
+      (S (S (3 * PeanoNat.Nat.div (P - 35) 5 + 3))) 
+      (t + 12)
+| S (S (S (S _))) =>
+    Exact.HN 0 2 (13 + y + s) m
+      (Abs.iter
+         (2 * K31_End.Rx3 (PeanoNat.Nat.div (P - 35) 5) + 2 * Exact.RE31 P +
+          6) (Abs.U (S (3 * PeanoNat.Nat.div (P - 35) 5 + 2))) 0)
+      (S (3 * PeanoNat.Nat.div (P - 35) 5 + 2)) (t + 12)
+end
+     : nat -> nat -> nat -> nat -> nat -> nat
+
+Arguments Exact.sig31 (t P s y m)%nat_scope
+Exact.sig37 =
+fun t P s y m : nat =>
+Exact.HN 7 2 0 (m + y + s + 2) (ScoreEnd.Rb3 (P - 15)) (S (P - 15)) (t + 7)
+     : nat -> nat -> nat -> nat -> nat -> nat
+
+Arguments Exact.sig37 (t P s y m)%nat_scope
+Exact.sig43 =
+fun t P s y m : nat =>
+Exact.HN 9 6 0 (m + y + s + 2) (ScoreEnd.Rb3 (P - 17)) (S (P - 17)) (t + 7)
+     : nat -> nat -> nat -> nat -> nat -> nat
+
+Arguments Exact.sig43 (t P s y m)%nat_scope
+Exact.sig49 =
+fun t P s y m : nat =>
+Exact.HN 3 12 5 (m + y + s + 2) (ScoreEnd.Rb3 (P - 18)) (S (P - 18)) (t + 8)
+     : nat -> nat -> nat -> nat -> nat -> nat
+
+Arguments Exact.sig49 (t P s y m)%nat_scope
+Exact.sig55 =
+fun t P s y m : nat =>
+Exact.HN (8 + 6 * Abs.iter 4 (Abs.U 5) 0) y 0 (m + s + 1)
+  (ScoreEnd.Rb3 (P - 14)) (S (P - 14)) (t + 7)
+     : nat -> nat -> nat -> nat -> nat -> nat
+
+Arguments Exact.sig55 (t P s y m)%nat_scope
+Exact.HN =
+fun d s g m R n t : nat => d + s + g + m + 6 * R + 2 * n + 4 * t + 15
+     : nat -> nat -> nat -> nat -> nat -> nat -> nat -> nat
+
+Arguments Exact.HN (d s g m R n t)%nat_scope
+Closed under the global context
