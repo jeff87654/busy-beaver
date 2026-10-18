@@ -6,8 +6,8 @@
 #   BUSYCOQ=... ./compile_clean.sh probe                          probe.v only
 # J (default 4) is the number of coqc run at once: a file starts as soon as the files it needs are compiled, the
 # longest files first.  The whole build is about 3.2 CPU-hours on a GitHub runner, nearly all of it in 26 generated
-# files that only need dev/Base.v; the longest, k31/K_e1.v, takes about 35 min there, so with J=4 the build takes
-# under an hour.
+# files that only need dev/Base.v; the longest, k31/K_e1.v, takes about 35 min there on its own.  With J=4 on a 4-vCPU
+# runner the whole build takes about 1 h 40 min.
 # Per-file coqc output goes to $LOGDIR (default _logs/).  COQC may be set to a specific coqc executable.
 # Logical paths: lib/ = BB8 (historical; the same name the fw2 files use), dev/ = Dev, k31/ = K31, score/ = Score.
 COQC=${COQC:-coqc}

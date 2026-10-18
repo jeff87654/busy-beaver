@@ -73,9 +73,10 @@ starts a file as soon as they are compiled, the longest files first; per-file co
 forms are used by CI: `./compile_clean.sh only FILE…` compiles just the listed files (it checks that the `.vo` files
 they need exist), and `./compile_clean.sh probe` runs only the probe.
 
-On a GitHub runner the whole build is about 3.2 CPU-hours. 26 generated files that need only `dev/Base.v` take nearly
-all of it; the longest are `k31/K_e1.v` (35 min there), `dev/G_sub2.v` (27 min) and `k31/K_e2.v` (17 min). So with
-J = 4 the build takes under an hour. At Idle priority on our shared machine everything took about three to four times
+On a GitHub runner the whole build is about 3.2 CPU-hours when each file has a core to itself. 26 generated files that
+need only `dev/Base.v` take nearly all of it; the longest are `k31/K_e1.v` (35 min alone), `dev/G_sub2.v` (27 min) and
+`k31/K_e2.v` (17 min). With J = 4 on a 4-vCPU runner the files slow each other down and the build takes about
+1 h 40 min. At Idle priority on our shared machine everything took about three to four times
 as long (section "Verification record"). Memory: under 1 GB per coqc.
 
 The GitHub workflow (`.github/workflows/coq.yml`, job `bb9-c04`) runs `compile_clean.sh` with J = 4 on every push,
@@ -101,4 +102,22 @@ are in `_logs/`.)
 
 ## Verification record
 
-BUILD_RECORD_PLACEHOLDER
+`compile_clean.log` and `probe.log` are from a from-scratch build on 2026-10-18: Coq 8.20.1 (Coq Platform 2025.01),
+Windows 11, a shared 16-core laptop, every coqc at Idle priority. A fresh directory held only the 49 `.v` files,
+`probe.v` and `compile_clean.sh`, next to a fresh clone of busycoq at commit `bd2e36f` with its 7 needed files compiled
+first. Command: `BUSYCOQ=../busycoq/verify J=4 ./compile_clean.sh`, with `COQC` set to a wrapper that starts coqc at Idle
+priority (exit 0). Times: compile 7681 s (2 h 08 min) of wall time, then the probe 560 s; the per-file times add up to
+29,017 s (8.1 h; `k31/K_e1.v` 7121 s, `dev/G_sub2.v` 3611 s, `k31/K_e2.v` 2211 s). The probe reported the three
+theorems closed under the global context, and `Final.v` and `ScoreEnd.v` printed the same while compiling.
+
+That build used `compile_clean.sh` as it was before two later edits: the header comment, and the check in `only` mode
+that the needed `.vo` files exist. Both modes of the final script were then run on the built tree (`only dev/Final`,
+178 s, and the error cases).
+
+On GitHub (run 39139815864, the first push of this directory, with the build split over seven jobs) the per-file
+times added up to 11,627 s (3.2 h; `k31/K_e1.v` 2074 s, `dev/G_sub2.v` 1606 s, `k31/K_e2.v` 1020 s) and the probe
+again reported three closed theorems. With the whole build in one job (J = 4, run 39143800688) the compile took
+5517 s and the probe 355 s, again with three closed theorems; `k31/K_e1.v` took 5187 s there, sharing the 4 vCPUs.
+(That run's final step failed only because it counted `probe.vo` among the 49 `.vo` files; the count was fixed.)
+
+`sha256.txt` has the SHA-256 of the 49 `.v` files, `probe.v`, `compile_clean.sh` and `_CoqProject`, as committed.

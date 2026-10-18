@@ -46,7 +46,7 @@ Opus agents (2026-10-17/18).
   the analysis (how it works, the run, the score, comparisons, verification status, credit).
 - [`BB9/verify_c04/`](BB9/verify_c04/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1): `c04_halts`,
   `c04_sigma_lower_bound`, `c04_beats_fw2`, and a probe that re-checks the table against the machine string. No axioms.
-  49 files, about 3.2 CPU-hours (under an hour with 4 parallel coqc); built in full from scratch and probed in CI.
+  49 files, about 3.2 CPU-hours (about 1 h 40 min on a 4-vCPU CI runner); built in full from scratch and probed in CI.
 
 **Previous entry (2026-10-16, superseded by C04).** `1RB0RD_1LC1LC_0RA0LB_1RE1RD_0LG0LF_1LE1LF_0RH1LG_1RD1RI_1RZ1RA`
 (fw2), with σ > f_ω(f_ω(465009)) and an exact score proved as a recursion. fw2 is a digit-list counter of Ackermann type,

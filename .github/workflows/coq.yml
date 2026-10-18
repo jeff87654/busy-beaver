@@ -2,7 +2,7 @@ name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1, compiles the BB8 proofs in BB8/verify/,
 # and fails unless probe.v reports "Closed under the global context" for all five main theorems.
-# Also builds BB13/, BB14/, BB43/, stage 1 of BB9/verify_fw2, and all of BB9/verify_c04 (under an hour). BB10/, BB12/
+# Also builds BB13/, BB14/, BB43/, stage 1 of BB9/verify_fw2, and all of BB9/verify_c04 (under 2 h). BB10/, BB12/
 # and stage 2 of BB9/verify_fw2 take hours and are not built here.
 
 on:
@@ -195,8 +195,8 @@ jobs:
 
   bb9-c04:
     # BB9/verify_c04: the 9-state machine C04 (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF), the BB(9)
-    # entry: all 49 files from scratch, 4 coqc at a time, then the probe (about 3.2 CPU-hours, under an hour of wall
-    # time on a 4-core runner; the longest file, k31/K_e1.v, takes about 35 min).
+    # entry: all 49 files from scratch, 4 coqc at a time, then the probe (about 1 h 40 min on a 4-vCPU runner; the
+    # longest file, k31/K_e1.v, takes most of it).
     runs-on: ubuntu-latest
     timeout-minutes: 300
     container:
@@ -236,7 +236,7 @@ jobs:
         working-directory: BB9/verify_c04
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" J=4 bash ./compile_clean.sh 2>&1 | tee compile_ci.log
-          test "$(find . -name '*.vo' | wc -l)" -eq 49
+          test "$(find lib dev k31 score -name '*.vo' | wc -l)" -eq 49
           closed=$(grep -c 'Closed under the global context' probe.log || true)
           if grep -q 'Axioms:' probe.log || [ "$closed" -ne 3 ]; then
             echo "::error::probe.v did not report three axiom-free theorems"
