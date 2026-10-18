@@ -285,8 +285,8 @@ main theorems and on the conjunction. All four report "Closed under the global c
 
 **Build.** `verify_c04/compile_clean.sh` builds everything from scratch in dependency order, J files at a time, and
 runs the probe. The whole build is about 3.2 CPU-hours on a GitHub runner (the longest file, `k31/K_e1.v`, takes about
-35 min on its own), about 1 h 40 min there with 4 coqc in parallel. The GitHub workflow (job `bb9-c04`) builds all of it from scratch on
-every push and fails unless the probe reports four axiom-free results. The recorded local clean build and its times
+35 min on its own), about 1 h 40 min there with 4 coqc in parallel. The GitHub workflow (job `bb9-c04`) builds all of it from scratch whenever its files change
+(and weekly) and fails unless the probe reports four axiom-free results. The recorded local clean build and its times
 are in [`verify_c04/README.md`](verify_c04/README.md).
 
 ### 4.2 Not machine-checked

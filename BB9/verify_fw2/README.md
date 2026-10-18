@@ -66,8 +66,8 @@ the copies in the development where Argon's proofs were first checked.
   `BB9_redir_0LA_fh.v`, 1.0 MB; `BB9_redir_0LA.v`, 0.2 MB). They do not depend on each other, and `PAR=1` compiles
   them in parallel.
 
-The GitHub workflow (`.github/workflows/coq.yml`, job `bb9-fw2`) runs stage 1 (`compile_clean.sh core`) on every
-push, and fails unless `probe.log` reports four theorems closed under the global context. Stage 2 takes hours and,
+The GitHub workflow (`.github/workflows/coq.yml`, job `bb9-fw2`) runs stage 1 (`compile_clean.sh core`) whenever its files
+change (and weekly), and fails unless `probe.log` reports four theorems closed under the global context. Stage 2 takes hours and,
 like BB10/ and BB12/, is not run in CI; it was checked locally (section "Verification record").
 
 `probe.v`:

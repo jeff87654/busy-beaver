@@ -240,7 +240,7 @@ All thirteen report "Closed under the global context".
 priority), in a fresh directory with only the published `verify/` sources next to busycoq `verify/` exported from
 commit `bd2e36f` (busycoq's 7 needed files compiled first): `compile_clean.sh` exit 0 in 75 s, of which `BB43_rules.v` took
 46 s. Logs: [`verify/compile_clean.log`](verify/compile_clean.log), [`verify/probe.log`](verify/probe.log); hashes:
-[`verify/sha256.txt`](verify/sha256.txt). The GitHub workflow (job `bb43`) runs the same build on every push and fails
+[`verify/sha256.txt`](verify/sha256.txt). The GitHub workflow (job `bb43`) runs the same build whenever its files change (and weekly) and fails
 unless `probe.log` reports thirteen closed theorems and no `Axioms:`.
 
 ### 5.2 Not machine-checked

@@ -272,7 +272,7 @@ file and its other 15 dependencies (1 h 43 min with `PAR=1` in the recorded buil
 - run `Print Assumptions` on the four main theorems (`probe.v`) and the five comparisons (`probe_vs.v`). All nine
   report "Closed under the global context".
 
-The GitHub workflow (job `bb9-fw2`) runs stage 1 and `probe.v` on every push. Stage 2 takes hours and, like BB10/
+The GitHub workflow (job `bb9-fw2`) runs stage 1 and `probe.v` whenever its files change (and weekly). Stage 2 takes hours and, like BB10/
 and BB12/, is not run in CI; it was checked locally from scratch, and the logs of that build (both stages) are in
 `verify_fw2/multifile/`.
 

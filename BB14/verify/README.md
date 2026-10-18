@@ -32,7 +32,7 @@ state J0 reading 0, and the halting transition writes 1, so the standard score i
 
 This compiles the 4 files in dependency order (about 30 s) and then runs `probe.v`. `BUSYCOQ` must point to the
 `verify/` directory of a busycoq checkout at commit `bd2e36f`, with `Individual.vo` and `Flip.vo` built. The
-GitHub workflow (`.github/workflows/coq.yml`, job `bb13-bb14`) runs the same build and probe on every push.
+GitHub workflow (`.github/workflows/coq.yml`, job `bb13-bb14`) runs the same build and probe whenever its files change (and weekly).
 
 `probe.v` does three things:
 
