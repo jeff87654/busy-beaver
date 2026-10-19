@@ -1,0 +1,11 @@
+# Generated local verification products; canonical sources and machine remain tracked.
+*.vo
+*.vos
+*.vok
+*.glob
+.*.aux
+*.vio
+.lia.cache
+.nia.cache
+__pycache__/
+*.log
