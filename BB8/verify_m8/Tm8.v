@@ -1,7 +1,7 @@
 (** * Tm8.v : the 8-state machine M8 over busycoq's 8-state context BB82 (M8.BB82 = copy of bb8_list/proofs/BB82.v).
 
     M8 = 1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG---
-    (H1 undefined = the halt).  Also: the ones count (verbatim copy of BB8_champ35_bound.ones / BB9_fw2_bound.ones,
+    (H1 undefined = the halt; the table is in Defs.v).  Also: the ones count (in Defs.v) (verbatim copy of BB8_champ35_bound.ones / BB9_fw2_bound.ones,
     over the 8-state Sym), and three generic facts about 8-state runs used by Sim.v: determinism of the halting
     configuration, ones uniqueness (padding a tape list with blanks does not change its count), and multistep -> evstep. *)
 From M8 Require Import Individual82.
@@ -9,35 +9,13 @@ From Coq Require Import Lia PeanoNat List.
 Import ListNotations.
 Set Default Goal Selector "!".
 
-(* machine: 1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG--- *)
-Definition tm8 : TM := fun '(q, s) =>
-  match q, s with
-  | A, 0 => Some (1, R, B)  | A, 1 => Some (0, R, A)
-  | B, 0 => Some (1, L, C)  | B, 1 => Some (1, L, F)
-  | C, 0 => Some (1, R, D)  | C, 1 => Some (0, L, B)
-  | D, 0 => Some (1, R, A)  | D, 1 => Some (1, L, E)
-  | E, 0 => Some (1, L, H)  | E, 1 => Some (0, L, C)
-  | F, 0 => Some (1, R, G)  | F, 1 => Some (1, L, D)
-  | G, 0 => Some (0, R, G)  | G, 1 => Some (0, R, F)
-  | H, 0 => Some (1, R, G)  | H, 1 => None
-  end.
-
-(** ** Counting ones (verbatim copy of BB8_champ35_bound.ones / count1) *)
-Definition sym_val (s : Sym) : nat :=
-  match s with
-  | S0 => 0
-  | S1 => 1
-  end.
-
-Fixpoint count1 (xs : list Sym) : nat :=
-  match xs with
-  | [] => 0
-  | x :: t => sym_val x + count1 t
-  end.
-
-Definition ones (c : Q * tape) (N : nat) : Prop :=
-  exists (q : Q) (L R : list Sym) (s : Sym),
-    c = (q, (L *> const S0, s, R *> const S0)) /\ N = count1 L + sym_val s + count1 R.
+(* The machine tm8 and sym_val / count1 / ones are defined in Defs.v (re-exported here); these abbreviations keep
+   the names Tm8.tm8, Tm8.sym_val, Tm8.count1, Tm8.ones working.  They are the same constants as Defs.tm8, ... *)
+From M8 Require Export Defs.
+Notation tm8 := Defs.tm8 (only parsing).
+Notation sym_val := Defs.sym_val (only parsing).
+Notation count1 := Defs.count1 (only parsing).
+Notation ones := Defs.ones (only parsing).
 
 (** ** Generic facts about 8-state runs *)
 Theorem halted_unique8 : forall (tm : TM) c c1 c2, c -[ tm ]->* c1 -> c -[ tm ]->* c2 ->

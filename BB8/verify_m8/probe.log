@@ -4,7 +4,7 @@ eq_refl : q0 = A
      : q0 = A
 eq_refl : s0 = 0
      : s0 = 0
-Tm8.tm8 =
+Defs.tm8 =
 fun pat : Q * Sym =>
 match pat with
 | (A, 0) => Some (1, R, B)
@@ -24,65 +24,71 @@ match pat with
 | _ => Some (1, R, G)
 end
      : TM
-eq_refl : Tm8.tm8 (A, 0) = Some (1, R, B)
-     : Tm8.tm8 (A, 0) = Some (1, R, B)
-eq_refl : Tm8.tm8 (A, 1) = Some (0, R, A)
-     : Tm8.tm8 (A, 1) = Some (0, R, A)
-eq_refl : Tm8.tm8 (B, 0) = Some (1, L, C)
-     : Tm8.tm8 (B, 0) = Some (1, L, C)
-eq_refl : Tm8.tm8 (B, 1) = Some (1, L, F)
-     : Tm8.tm8 (B, 1) = Some (1, L, F)
-eq_refl : Tm8.tm8 (C, 0) = Some (1, R, D)
-     : Tm8.tm8 (C, 0) = Some (1, R, D)
-eq_refl : Tm8.tm8 (C, 1) = Some (0, L, B)
-     : Tm8.tm8 (C, 1) = Some (0, L, B)
-eq_refl : Tm8.tm8 (D, 0) = Some (1, R, A)
-     : Tm8.tm8 (D, 0) = Some (1, R, A)
-eq_refl : Tm8.tm8 (D, 1) = Some (1, L, E)
-     : Tm8.tm8 (D, 1) = Some (1, L, E)
-eq_refl : Tm8.tm8 (E, 0) = Some (1, L, H)
-     : Tm8.tm8 (E, 0) = Some (1, L, H)
-eq_refl : Tm8.tm8 (E, 1) = Some (0, L, C)
-     : Tm8.tm8 (E, 1) = Some (0, L, C)
-eq_refl : Tm8.tm8 (F, 0) = Some (1, R, G)
-     : Tm8.tm8 (F, 0) = Some (1, R, G)
-eq_refl : Tm8.tm8 (F, 1) = Some (1, L, D)
-     : Tm8.tm8 (F, 1) = Some (1, L, D)
-eq_refl : Tm8.tm8 (G, 0) = Some (0, R, G)
-     : Tm8.tm8 (G, 0) = Some (0, R, G)
-eq_refl : Tm8.tm8 (G, 1) = Some (0, R, F)
-     : Tm8.tm8 (G, 1) = Some (0, R, F)
-eq_refl : Tm8.tm8 (H, 0) = Some (1, R, G)
-     : Tm8.tm8 (H, 0) = Some (1, R, G)
-eq_refl : Tm8.tm8 (H, 1) = None
-     : Tm8.tm8 (H, 1) = None
+eq_refl : Defs.tm8 (A, 0) = Some (1, R, B)
+     : Defs.tm8 (A, 0) = Some (1, R, B)
+eq_refl : Defs.tm8 (A, 1) = Some (0, R, A)
+     : Defs.tm8 (A, 1) = Some (0, R, A)
+eq_refl : Defs.tm8 (B, 0) = Some (1, L, C)
+     : Defs.tm8 (B, 0) = Some (1, L, C)
+eq_refl : Defs.tm8 (B, 1) = Some (1, L, F)
+     : Defs.tm8 (B, 1) = Some (1, L, F)
+eq_refl : Defs.tm8 (C, 0) = Some (1, R, D)
+     : Defs.tm8 (C, 0) = Some (1, R, D)
+eq_refl : Defs.tm8 (C, 1) = Some (0, L, B)
+     : Defs.tm8 (C, 1) = Some (0, L, B)
+eq_refl : Defs.tm8 (D, 0) = Some (1, R, A)
+     : Defs.tm8 (D, 0) = Some (1, R, A)
+eq_refl : Defs.tm8 (D, 1) = Some (1, L, E)
+     : Defs.tm8 (D, 1) = Some (1, L, E)
+eq_refl : Defs.tm8 (E, 0) = Some (1, L, H)
+     : Defs.tm8 (E, 0) = Some (1, L, H)
+eq_refl : Defs.tm8 (E, 1) = Some (0, L, C)
+     : Defs.tm8 (E, 1) = Some (0, L, C)
+eq_refl : Defs.tm8 (F, 0) = Some (1, R, G)
+     : Defs.tm8 (F, 0) = Some (1, R, G)
+eq_refl : Defs.tm8 (F, 1) = Some (1, L, D)
+     : Defs.tm8 (F, 1) = Some (1, L, D)
+eq_refl : Defs.tm8 (G, 0) = Some (0, R, G)
+     : Defs.tm8 (G, 0) = Some (0, R, G)
+eq_refl : Defs.tm8 (G, 1) = Some (0, R, F)
+     : Defs.tm8 (G, 1) = Some (0, R, F)
+eq_refl : Defs.tm8 (H, 0) = Some (1, R, G)
+     : Defs.tm8 (H, 0) = Some (1, R, G)
+eq_refl : Defs.tm8 (H, 1) = None
+     : Defs.tm8 (H, 1) = None
 eq_refl : parse_slot m8_string 7 1 = None
      : parse_slot m8_string 7 1 = None
-Tm8.ones =
+Notation Tm8.ones := Defs.ones
+
+Defs.ones =
 fun (c : Q * tape) (N : nat) =>
 exists (q : Q) (L R : list Sym) (s : Sym),
   c = (q, (L *> const 0, s, R *> const 0)) /\
-  N = Tm8.count1 L + Tm8.sym_val s + Tm8.count1 R
+  N = Defs.count1 L + Defs.sym_val s + Defs.count1 R
      : Q * tape -> nat -> Prop
 
-Arguments Tm8.ones c N%nat_scope
-Tm8.count1 =
+Arguments Defs.ones c N%nat_scope
+Notation Tm8.count1 := Defs.count1
+
+Defs.count1 =
 fix count1 (xs : list Sym) : nat :=
   match xs with
   | []%list => 0
-  | (x :: t)%list => Tm8.sym_val x + count1 t
+  | (x :: t)%list => Defs.sym_val x + count1 t
   end
      : list Sym -> nat
 
-Arguments Tm8.count1 xs%list_scope
-Tm8.sym_val =
+Arguments Defs.count1 xs%list_scope
+Notation Tm8.sym_val := Defs.sym_val
+
+Defs.sym_val =
 fun s : Sym => match s with
                | 0 => 0
                | 1 => 1
                end
      : Sym -> nat
 
-Arguments Tm8.sym_val s%sym_scope
+Arguments Defs.sym_val s%sym_scope
 Score.f =
 fix f (k : nat) : nat -> nat :=
   match k with
@@ -159,38 +165,39 @@ exists (q : state) (Ll : list sym) (s : sym) (Rr : list sym),
 
 Arguments Sim.Rel c8 c9
 Transfer.m8_halts
-     : halts Tm8.tm8 c0
+     : halts Defs.tm8 c0
 Transfer.m8_fgh_bracket
      : forall (c : Q * tape) (N : nat),
-       c0 -[ Tm8.tm8 ]->* c ->
-       halted Tm8.tm8 c ->
-       Tm8.ones c N ->
+       c0 -[ Defs.tm8 ]->* c ->
+       halted Defs.tm8 c ->
+       Defs.ones c N ->
        Score.f_omega (Score.f_omega (12 * Abs.Bx + 26)) < N <
        Score.f_omega (Score.f_omega (12 * Abs.Bx + 27))
 Transfer.m8_fgh_coarse
      : forall (c : Q * tape) (N : nat),
-       c0 -[ Tm8.tm8 ]->* c ->
-       halted Tm8.tm8 c -> Tm8.ones c N -> FArith.f_w1 3 < N < FArith.f_w1 4
+       c0 -[ Defs.tm8 ]->* c ->
+       halted Defs.tm8 c ->
+       Defs.ones c N -> FArith.f_w1 3 < N < FArith.f_w1 4
 Transfer.m8_score_exact
      : forall (c : Q * tape) (N : nat),
-       c0 -[ Tm8.tm8 ]->* c ->
-       halted Tm8.tm8 c -> Tm8.ones c N -> N = Exact.sigma_c04
+       c0 -[ Defs.tm8 ]->* c ->
+       halted Defs.tm8 c -> Defs.ones c N -> N = Exact.sigma_c04
 Transfer.m8_score_reached
      : exists c : Q * tape,
-         c0 -[ Tm8.tm8 ]->* c /\
-         halted Tm8.tm8 c /\ Tm8.ones c Exact.sigma_c04
+         c0 -[ Defs.tm8 ]->* c /\
+         halted Defs.tm8 c /\ Defs.ones c Exact.sigma_c04
 Transfer.m8_sigma_bracket
      : Score.f_omega (Score.f_omega (12 * Abs.Bx + 26)) < Exact.sigma_c04 <
        Score.f_omega (Score.f_omega (12 * Abs.Bx + 27))
 Transfer.m8_beats_bb8
      : forall (c : Q * tape) (N : nat),
-       c0 -[ Tm8.tm8 ]->* c ->
-       halted Tm8.tm8 c -> Tm8.ones c N -> 12 * Abs.arrow 37 2 3 + 59 < N
+       c0 -[ Defs.tm8 ]->* c ->
+       halted Defs.tm8 c -> Defs.ones c N -> 12 * Abs.arrow 37 2 3 + 59 < N
 Transfer.m8_beats_fw2
      : exists (c : Q * tape) (N : nat),
-         c0 -[ Tm8.tm8 ]->* c /\
-         halted Tm8.tm8 c /\
-         Tm8.ones c N /\
+         c0 -[ Defs.tm8 ]->* c /\
+         halted Defs.tm8 c /\
+         Defs.ones c N /\
          BB9_fw2_bound.f_omega (BB9_fw2_bound.f_omega (465 * 1000 + 9)) < N /\
          (exists
             (cf : BB92.BB92.Q *
@@ -201,14 +208,14 @@ Transfer.m8_beats_fw2
             BB9_fw2_bound.ones cf Nf /\ Nf + 1 < N)
 Beats8.m8_beats_bb8r
      : forall (c : Q * tape) (N : nat),
-       c0 -[ Tm8.tm8 ]->* c ->
-       halted Tm8.tm8 c ->
-       Tm8.ones c N -> 12 * BB8_champ35_bound.arrow 37 2 3 + 59 < N
+       c0 -[ Defs.tm8 ]->* c ->
+       halted Defs.tm8 c ->
+       Defs.ones c N -> 12 * BB8_champ35_bound.arrow 37 2 3 + 59 < N
 Beats8.m8_beats_champ35
      : exists (c : Q * tape) (N : nat),
-         c0 -[ Tm8.tm8 ]->* c /\
-         halted Tm8.tm8 c /\
-         Tm8.ones c N /\
+         c0 -[ Defs.tm8 ]->* c /\
+         halted Defs.tm8 c /\
+         Defs.ones c N /\
          (exists
             (cf : BB82.BB82.Q *
                   (Stream BB82.BB82.Sym * BB82.BB82.Sym *
@@ -228,9 +235,9 @@ BB8_champ35_exact.score_closed
          BB8_champ35_bound.ones c (12 * BB8_champ35_bound.arrow 37 2 3 + 58)
 Transfer.m8_score_to_c04
      : forall (c : Q * tape) (N : nat),
-       c0 -[ Tm8.tm8 ]->* c ->
-       halted Tm8.tm8 c ->
-       Tm8.ones c N ->
+       c0 -[ Defs.tm8 ]->* c ->
+       halted Defs.tm8 c ->
+       Defs.ones c N ->
        exists
          c9 : BB92.BB92.Q *
               (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym),
@@ -245,12 +252,12 @@ Transfer.m8_score_from_c04
        Transfer.T9.halted Base.tm c9 ->
        K31_Abs.ones c9 N ->
        exists c : Q * tape,
-         c0 -[ Tm8.tm8 ]->* c /\ halted Tm8.tm8 c /\ Tm8.ones c N
+         c0 -[ Defs.tm8 ]->* c /\ halted Defs.tm8 c /\ Defs.ones c N
 Sim.sim_step
      : forall (c8 c8' : Sim.cfg8)
          (c9 : BB92.BB92.Q *
                (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym)),
-       c8 -[ Tm8.tm8 ]-> c8' ->
+       c8 -[ Defs.tm8 ]-> c8' ->
        Sim.Rel c8 c9 ->
        exists
          (k : nat) (c9' : BB92.BB92.Q *
@@ -260,9 +267,9 @@ Sim.sim_step
            (S k) c9 c9' /\ Sim.Rel c8' c9'
 Sim.m8_to_c04
      : forall (c : Sim.cfg8) (N : nat),
-       Sim.T8.c0 -[ Tm8.tm8 ]->* c ->
-       Sim.T8.halted Tm8.tm8 c ->
-       Tm8.ones c N ->
+       Sim.T8.c0 -[ Defs.tm8 ]->* c ->
+       Sim.T8.halted Defs.tm8 c ->
+       Defs.ones c N ->
        exists
          c9 : BB92.BB92.Q *
               (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym),
@@ -280,8 +287,282 @@ Sim.c04_to_m8
        Individual92.Individual92.Permute.Flip.Compute.TM.halted Base.tm c9 ->
        K31_Abs.ones c9 N ->
        exists c : Sim.cfg8,
-         Sim.T8.c0 -[ Tm8.tm8 ]->* c /\
-         Sim.T8.halted Tm8.tm8 c /\ Tm8.ones c N
+         Sim.T8.c0 -[ Defs.tm8 ]->* c /\
+         Sim.T8.halted Defs.tm8 c /\ Defs.ones c N
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+c0 = (q0, tape0)
+     : Q * tape
+tape0 = (const s0, s0, const s0)
+     : tape
+Defs.tm8 =
+fun pat : Q * Sym =>
+match pat with
+| (A, 0) => Some (1, R, B)
+| (A, 1) => Some (0, R, A)
+| (B, 0) => Some (1, L, C)
+| (B, 1) => Some (1, L, F)
+| (C, 0) => Some (1, R, D)
+| (C, 1) => Some (0, L, B)
+| (D, 0) => Some (1, R, A)
+| (D, 1) => Some (1, L, E)
+| (E, 0) => Some (1, L, H)
+| (E, 1) => Some (0, L, C)
+| (F, 1) => Some (1, L, D)
+| (G, 0) => Some (0, R, G)
+| (G, 1) => Some (0, R, F)
+| (H, 1) => None
+| _ => Some (1, R, G)
+end
+     : TM
+Defs.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments Defs.sym_val s%sym_scope
+Defs.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => Defs.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments Defs.count1 xs%list_scope
+Defs.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = Defs.count1 L + Defs.sym_val s + Defs.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments Defs.ones c N%nat_scope
+Defs.iter =
+fix iter (n : nat) (g : nat -> nat) (x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => g (iter n' g x)
+  end
+     : nat -> (nat -> nat) -> nat -> nat
+
+Arguments Defs.iter n%nat_scope g%function_scope x%nat_scope
+Defs.arrow =
+fix arrow (k a b : nat) {struct k} : nat :=
+  match k with
+  | 0 => a * b
+  | S k' => Nat.iter b (arrow k' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments Defs.arrow (k a b)%nat_scope
+Defs.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => Defs.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments Defs.f (k _)%nat_scope
+Defs.f_omega = fun n : nat => Defs.f n n
+     : nat -> nat
+
+Arguments Defs.f_omega n%nat_scope
+Defs.f_w1 = fun n : nat => Defs.iter n Defs.f_omega n
+     : nat -> nat
+
+Arguments Defs.f_w1 n%nat_scope
+BB8_champ35_bound.ones =
+fun
+  (c : BB82.BB82.Q *
+       (Stream BB82.BB82.Sym * BB82.BB82.Sym * Stream BB82.BB82.Sym))
+  (N : nat) =>
+exists (q : BB82.BB82.Q) (L R : list BB82.BB82.Sym) 
+(s : BB82.BB82.Sym),
+  c = (q, (L *> const BB82.S0, s, R *> const BB82.S0)) /\
+  N =
+  BB8_champ35_bound.count1 L + BB8_champ35_bound.sym_val s +
+  BB8_champ35_bound.count1 R
+     : BB82.BB82.Q *
+       (Stream BB82.BB82.Sym * BB82.BB82.Sym * Stream BB82.BB82.Sym) ->
+       nat -> Prop
+
+Arguments BB8_champ35_bound.ones c N%nat_scope
+BB9_fw2_bound.ones =
+fun
+  (c : BB92.BB92.Q *
+       (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym))
+  (N : nat) =>
+exists (q : BB92.BB92.Q) (L R : list BB92.BB92.Sym) 
+(s : BB92.BB92.Sym),
+  c = (q, (L *> const BB92.S0, s, R *> const BB92.S0)) /\
+  N =
+  BB9_fw2_bound.count1 L + BB9_fw2_bound.sym_val s + BB9_fw2_bound.count1 R
+     : BB92.BB92.Q *
+       (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym) ->
+       nat -> Prop
+
+Arguments BB9_fw2_bound.ones c N%nat_scope
+Exact.sigma_c04 = Exact.sig_key (Exact.run Step.L1 Exact.top)
+     : nat
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.A, BB82.S0) = Some (BB82.S1, R, BB82.B)
+     : BB8_champ35_1RB0RA.tm (BB82.A, BB82.S0) = Some (BB82.S1, R, BB82.B)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.A, BB82.S1) = Some (BB82.S0, R, BB82.A)
+     : BB8_champ35_1RB0RA.tm (BB82.A, BB82.S1) = Some (BB82.S0, R, BB82.A)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.B, BB82.S0) = Some (BB82.S1, L, BB82.C)
+     : BB8_champ35_1RB0RA.tm (BB82.B, BB82.S0) = Some (BB82.S1, L, BB82.C)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.B, BB82.S1) = Some (BB82.S1, L, BB82.F)
+     : BB8_champ35_1RB0RA.tm (BB82.B, BB82.S1) = Some (BB82.S1, L, BB82.F)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.C, BB82.S0) = Some (BB82.S1, R, BB82.D)
+     : BB8_champ35_1RB0RA.tm (BB82.C, BB82.S0) = Some (BB82.S1, R, BB82.D)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.C, BB82.S1) = Some (BB82.S0, L, BB82.B)
+     : BB8_champ35_1RB0RA.tm (BB82.C, BB82.S1) = Some (BB82.S0, L, BB82.B)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.D, BB82.S0) = Some (BB82.S1, R, BB82.A)
+     : BB8_champ35_1RB0RA.tm (BB82.D, BB82.S0) = Some (BB82.S1, R, BB82.A)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.D, BB82.S1) = Some (BB82.S1, L, BB82.E)
+     : BB8_champ35_1RB0RA.tm (BB82.D, BB82.S1) = Some (BB82.S1, L, BB82.E)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.E, BB82.S0) = None
+     : BB8_champ35_1RB0RA.tm (BB82.E, BB82.S0) = None
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.E, BB82.S1) = Some (BB82.S0, L, BB82.C)
+     : BB8_champ35_1RB0RA.tm (BB82.E, BB82.S1) = Some (BB82.S0, L, BB82.C)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.F, BB82.S0) = Some (BB82.S1, R, BB82.G)
+     : BB8_champ35_1RB0RA.tm (BB82.F, BB82.S0) = Some (BB82.S1, R, BB82.G)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.F, BB82.S1) = Some (BB82.S1, L, BB82.D)
+     : BB8_champ35_1RB0RA.tm (BB82.F, BB82.S1) = Some (BB82.S1, L, BB82.D)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.G, BB82.S0) = Some (BB82.S1, L, BB82.C)
+     : BB8_champ35_1RB0RA.tm (BB82.G, BB82.S0) = Some (BB82.S1, L, BB82.C)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.G, BB82.S1) = Some (BB82.S0, R, BB82.H)
+     : BB8_champ35_1RB0RA.tm (BB82.G, BB82.S1) = Some (BB82.S0, R, BB82.H)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.H, BB82.S0) = Some (BB82.S1, R, BB82.G)
+     : BB8_champ35_1RB0RA.tm (BB82.H, BB82.S0) = Some (BB82.S1, R, BB82.G)
+eq_refl : BB8_champ35_1RB0RA.tm (BB82.H, BB82.S1) = Some (BB82.S1, L, BB82.F)
+     : BB8_champ35_1RB0RA.tm (BB82.H, BB82.S1) = Some (BB82.S1, L, BB82.F)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.A, BB92.S0) = Some (BB92.S1, R, BB92.B)
+     : BB9_fw2_1RB0RD.tm (BB92.A, BB92.S0) = Some (BB92.S1, R, BB92.B)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.A, BB92.S1) = Some (BB92.S0, R, BB92.D)
+     : BB9_fw2_1RB0RD.tm (BB92.A, BB92.S1) = Some (BB92.S0, R, BB92.D)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.B, BB92.S0) = Some (BB92.S1, L, BB92.C)
+     : BB9_fw2_1RB0RD.tm (BB92.B, BB92.S0) = Some (BB92.S1, L, BB92.C)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.B, BB92.S1) = Some (BB92.S1, L, BB92.C)
+     : BB9_fw2_1RB0RD.tm (BB92.B, BB92.S1) = Some (BB92.S1, L, BB92.C)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.C, BB92.S0) = Some (BB92.S0, R, BB92.A)
+     : BB9_fw2_1RB0RD.tm (BB92.C, BB92.S0) = Some (BB92.S0, R, BB92.A)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.C, BB92.S1) = Some (BB92.S0, L, BB92.B)
+     : BB9_fw2_1RB0RD.tm (BB92.C, BB92.S1) = Some (BB92.S0, L, BB92.B)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.D, BB92.S0) = Some (BB92.S1, R, BB92.E)
+     : BB9_fw2_1RB0RD.tm (BB92.D, BB92.S0) = Some (BB92.S1, R, BB92.E)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.D, BB92.S1) = Some (BB92.S1, R, BB92.D)
+     : BB9_fw2_1RB0RD.tm (BB92.D, BB92.S1) = Some (BB92.S1, R, BB92.D)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.E, BB92.S0) = Some (BB92.S0, L, BB92.G)
+     : BB9_fw2_1RB0RD.tm (BB92.E, BB92.S0) = Some (BB92.S0, L, BB92.G)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.E, BB92.S1) = Some (BB92.S0, L, BB92.F)
+     : BB9_fw2_1RB0RD.tm (BB92.E, BB92.S1) = Some (BB92.S0, L, BB92.F)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.F, BB92.S0) = Some (BB92.S1, L, BB92.E)
+     : BB9_fw2_1RB0RD.tm (BB92.F, BB92.S0) = Some (BB92.S1, L, BB92.E)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.F, BB92.S1) = Some (BB92.S1, L, BB92.F)
+     : BB9_fw2_1RB0RD.tm (BB92.F, BB92.S1) = Some (BB92.S1, L, BB92.F)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.G, BB92.S0) = Some (BB92.S0, R, BB92.H)
+     : BB9_fw2_1RB0RD.tm (BB92.G, BB92.S0) = Some (BB92.S0, R, BB92.H)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.G, BB92.S1) = Some (BB92.S1, L, BB92.G)
+     : BB9_fw2_1RB0RD.tm (BB92.G, BB92.S1) = Some (BB92.S1, L, BB92.G)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.H, BB92.S0) = Some (BB92.S1, R, BB92.D)
+     : BB9_fw2_1RB0RD.tm (BB92.H, BB92.S0) = Some (BB92.S1, R, BB92.D)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.H, BB92.S1) = Some (BB92.S1, R, BB92.I)
+     : BB9_fw2_1RB0RD.tm (BB92.H, BB92.S1) = Some (BB92.S1, R, BB92.I)
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.I, BB92.S0) = None
+     : BB9_fw2_1RB0RD.tm (BB92.I, BB92.S0) = None
+eq_refl : BB9_fw2_1RB0RD.tm (BB92.I, BB92.S1) = Some (BB92.S1, R, BB92.A)
+     : BB9_fw2_1RB0RD.tm (BB92.I, BB92.S1) = Some (BB92.S1, R, BB92.A)
+Statement.m8_table
+     : length Statement.m8_string = 55 /\
+       (forall (q : Q) (s : Sym),
+        Defs.tm8 (q, s) =
+        Statement.parse_slot Statement.m8_sym Statement.m8_st
+          Statement.m8_string (Statement.m8_idx q) 
+          (Statement.m8_sidx s))
+Statement.champ35_table
+     : length Statement.champ35_string = 55 /\
+       (forall (q : BB82.BB82.Q) (s : BB82.BB82.Sym),
+        BB8_champ35_1RB0RA.tm (q, s) =
+        Statement.parse_slot Statement.c8_sym Statement.c8_st
+          Statement.champ35_string (Statement.c8_idx q) 
+          (Statement.c8_sidx s))
+Statement.fw2_table
+     : length Statement.fw2_string = 62 /\
+       (forall (q : BB92.BB92.Q) (s : BB92.BB92.Sym),
+        BB9_fw2_1RB0RD.tm (q, s) =
+        Statement.parse_slot Statement.f9_sym Statement.f9_st
+          Statement.fw2_string (Statement.f9_idx q) 
+          (Statement.f9_sidx s))
+Statement.m8_halts
+     : halts Defs.tm8 c0
+Statement.m8_reached
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ Defs.tm8 ]->* c /\ halted Defs.tm8 c /\ Defs.ones c N
+Statement.m8_fgh3
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Defs.tm8 ]->* c ->
+       halted Defs.tm8 c ->
+       Defs.ones c N ->
+       Defs.f_omega (Defs.f_omega (Defs.f_omega 12)) < N <
+       Defs.f_omega (Defs.f_omega (Defs.f_omega 13))
+Statement.m8_bracket
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Defs.tm8 ]->* c ->
+       halted Defs.tm8 c ->
+       Defs.ones c N ->
+       Defs.f_omega (Defs.f_omega (6 * Defs.arrow 13 2 3 + 2)) < N <
+       Defs.f_omega (Defs.f_omega (6 * Defs.arrow 13 2 3 + 3))
+Statement.m8_coarse
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Defs.tm8 ]->* c ->
+       halted Defs.tm8 c -> Defs.ones c N -> Defs.f_w1 3 < N < Defs.f_w1 4
+Statement.m8_score_exact
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Defs.tm8 ]->* c ->
+       halted Defs.tm8 c -> Defs.ones c N -> N = Exact.sigma_c04
+Statement.m8_beats_bb8
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Defs.tm8 ]->* c ->
+       halted Defs.tm8 c -> Defs.ones c N -> 12 * Defs.arrow 37 2 3 + 59 < N
+Statement.m8_beats_champ35
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ Defs.tm8 ]->* c /\
+         halted Defs.tm8 c /\
+         Defs.ones c N /\
+         (exists
+            (cf : BB82.BB82.Q *
+                  (Stream BB82.BB82.Sym * BB82.BB82.Sym *
+                   Stream BB82.BB82.Sym)) (Nf : nat),
+            Statement.C8.evstep BB8_champ35_1RB0RA.tm Statement.C8.c0 cf /\
+            Statement.C8.halted BB8_champ35_1RB0RA.tm cf /\
+            BB8_champ35_bound.ones cf Nf /\ Nf + 1 < N)
+Statement.m8_beats_fw2
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ Defs.tm8 ]->* c /\
+         halted Defs.tm8 c /\
+         Defs.ones c N /\
+         Defs.f_omega (Defs.f_omega (465 * 1000 + 9)) < N /\
+         (exists
+            (cf : BB92.BB92.Q *
+                  (Stream BB92.BB92.Sym * BB92.BB92.Sym *
+                   Stream BB92.BB92.Sym)) (Nf : nat),
+            Statement.T9.evstep BB9_fw2_1RB0RD.tm Statement.T9.c0 cf /\
+            Statement.T9.halted BB9_fw2_1RB0RD.tm cf /\
+            BB9_fw2_bound.ones cf Nf /\ Nf + 1 < N)
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
