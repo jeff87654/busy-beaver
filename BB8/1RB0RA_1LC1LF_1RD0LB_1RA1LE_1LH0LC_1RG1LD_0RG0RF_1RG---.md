@@ -85,6 +85,26 @@ write-up. The BB(7) champion halts where M8 reads E0 the first time; M8 instead 
 
 ### 3.1 What Coq proves
 
+The files to read are [`verify_m8/Defs.v`](verify_m8/Defs.v) and [`verify_m8/Statement.v`](verify_m8/Statement.v),
+with busycoq's `TM.v`. `Defs.v` defines `tm8`, `ones`, `iter`, `arrow`, `f`, `f_omega` and `f_w1`; `Statement.v` states
+the results in those terms and busycoq's (`halts`, `halted`, `c0`, `-[ ]->*`), without B, and pins the three machine
+tables (M8's and the two compared machines') against their strings:
+
+    Statement.m8_halts         : halts tm8 c0
+    Statement.m8_fgh3          : forall c N, c0 -[ tm8 ]->* c -> halted tm8 c -> ones c N ->
+                                   f_omega (f_omega (f_omega 12)) < N /\ N < f_omega (f_omega (f_omega 13))
+    Statement.m8_bracket       : ... -> f_omega (f_omega (6 * arrow 13 2 3 + 2)) < N /\
+                                          N < f_omega (f_omega (6 * arrow 13 2 3 + 3))
+    Statement.m8_coarse        : ... -> f_w1 3 < N /\ N < f_w1 4
+    Statement.m8_reached       : exists c N, c0 -[ tm8 ]->* c /\ halted tm8 c /\ ones c N
+    Statement.m8_score_exact   : ... -> N = Exact.sigma_c04
+    Statement.m8_beats_bb8     : ... -> 12 * arrow 37 2 3 + 59 < N
+    Statement.m8_beats_champ35, Statement.m8_beats_fw2 : as below, with Defs's names
+    Statement.m8_table, champ35_table, fw2_table : the tables equal the strings, through a string parser
+
+(6 · arrow 13 2 3 + 2 = 6 · (2↑^13 3) + 2 = 12B + 26.) They are proved in one line each from the development's
+theorems, listed next, through `Bridge.v` (pointwise equalities of the copied definitions, by reflexivity).
+
     m8_halts          : halts tm8 c0
     m8_fgh3           : forall c N, c0 -[ tm8 ]->* c -> halted tm8 c -> ones c N ->
                           f_omega (f_omega (f_omega 12)) < N /\ N < f_omega (f_omega (f_omega 13))
@@ -100,8 +120,10 @@ write-up. The BB(7) champion halts where M8 reads E0 the first time; M8 instead 
                           exists cf Nf, (champ35 halts in cf) /\ BB8_champ35_bound.ones cf Nf /\ Nf + 1 < N
     m8_beats_fw2      : the same against fw2, as C04's c04_beats_fw2
 
-`tm8` is a busycoq machine over a genuine 8-state context (`BB82`). `ones` is a verbatim copy of the previous BB(8)
-entry's `BB8_champ35_bound.ones` (the probe checks this by `eq_refl`). `f`, `f_omega`, `f_w1` (f_(ω+1)), `arrow`
+`tm8` is a busycoq machine over a genuine 8-state context (`BB82`). `ones` (with `count1` and `sym_val`) is textually
+identical to the previous BB(8) entry's `BB8_champ35_bound.ones` and to fw2's `BB9_fw2_bound.ones` (checked by diff;
+they are over different `Sym` types, so Coq cannot compare them by `eq_refl`), and `Tm8.ones` (= `Defs.ones`) is
+printed in the probe. `f`, `f_omega`, `f_w1` (f_(ω+1)), `arrow`
 (Knuth's ↑^k) and `Bx` (B) are those of C04's development. `Beats8.arrow_same` shows that its `arrow` is the same
 Fixpoint as the previous entry's. The previous entry's machine halts on E0 = `None` and its halting transition writes
 a 1, so its score is Nf + 1.
@@ -126,18 +148,23 @@ compiled C04 tree [`../BB9/verify_c04/`](../BB9/verify_c04/) and, for the compar
 | file | content |
 |---|---|
 | `BB82.v`, `Individual82.v` | busycoq instantiated for 8 states (logical path `M8`; the same text as `../verify/`'s, which is under `BB8`) |
-| `Tm8.v` | M8's table `tm8`, `ones` (copy of the previous entry's), uniqueness of the halting configuration |
+| `Defs.v` | **read this**: M8's table `tm8`, `sym_val`, `count1`, `ones`, and copies of `iter`, `arrow`, `f`, `f_omega`, `f_w1` |
+| `Statement.v` | **read this**: the results in terms of `Defs.v` and busycoq only, and the three tables against their strings |
+| `Tm8.v` | re-exports `Defs.v` (so `Tm8.tm8`, `Tm8.ones`, … are the same constants); uniqueness of the halting configuration |
 | `Sim.v` | the state and symbol maps, `Rel`, `sim_step`, `sim_run`, `m8_halts_sim`, `m8_to_c04`, `c04_to_m8` |
 | `Transfer.v` | the theorems of section 3.1, transferred from C04's (`c04_halts`, `c04_fgh_bracket`, `c04_score_exact`, …) |
 | `Headline8.v` | `m8_fgh3`: the bound without B, from `m8_fgh_bracket` and C04's `Headline.Bx_fw` |
 | `Beats8.v` | the comparison with the previous BB(8) entry's exact count (`m8_beats_bb8r`, `m8_beats_champ35`) |
+| `Bridge.v` | `Defs.v`'s copies equal the development's definitions pointwise (by reflexivity), and the helper steps of `Statement.v` |
 | `probe.v` | the independent probe (below) |
 
 `probe.v` checks the table by conversion (16 `eq_refl` lines) and also against a parser of the literal string
 (`m8_string_ok`: every slot of `tm8` is what the string says, H1 = `---` = `None`), checks that the start is the blank
 tape in state A, prints the definitions, checks the theorem types, states the main results as one conjunction
 (`m8_all_ok`), and runs `Print Assumptions` eight times (the conjunction, `m8_beats_fw2`, the two transfer theorems,
-`m8_string_ok`, `m8_beats_bb8r`, `m8_beats_champ35`, and `m8_fgh3` as `m8_headline_ok`). All eight report "Closed under
+`m8_string_ok`, `m8_beats_bb8r`, `m8_beats_champ35`, and `m8_fgh3` as `m8_headline_ok`). Then it prints busycoq's `c0`
+and `tape0` and every definition of `Defs.v`, checks the two compared machines' tables entry by entry against their
+strings, and runs `Print Assumptions` on each of the twelve theorems of `Statement.v`. All twenty report "Closed under
 the global context".
 
 **Logical paths.** The C04 tree is loaded with its own paths (`lib` = `BB8`, `dev` = `Dev`, `k31` = `K31`,
@@ -149,7 +176,7 @@ its file names (`BB82`, `Individual82`, `BB8_champ35_*`) do not overlap the C04 
 scripts and then this directory; without `deps` it expects those two trees to be compiled. The M8 files take about a
 minute; the probe about 10 minutes, nearly all of it `Print Assumptions` over C04's development. The GitHub workflow
 (job `bb8-m8`) runs the whole chain whenever these files or the C04 tree change (and weekly), and fails unless the
-probe reports eight closed results. The recorded local build is in [`verify_m8/README.md`](verify_m8/README.md).
+probe reports twenty closed results. The recorded local build is in [`verify_m8/README.md`](verify_m8/README.md).
 
 ### 4.2 Not machine-checked
 

@@ -174,7 +174,8 @@ jobs:
   bb8-m8:
     # BB8/verify_m8: the 8-state machine M8 (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG---), the BB(8) entry,
     # the 8-state collapse of C04. Builds BB9/verify_c04 (all 55 files, about 1 h 40 min) and BB8/verify from scratch,
-    # then the M8 layer and its probe (eight results closed under the global context).
+    # then the M8 layer and its probe (twenty results closed under the global context, twelve of them the theorems of
+    # Statement.v).
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb8-m8 == 'true'
     runs-on: ubuntu-latest
@@ -211,8 +212,8 @@ jobs:
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh deps 2>&1 | tee compile_ci.log
           closed=$(grep -c 'Closed under the global context' probe.log || true)
-          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 8 ]; then
-            echo "::error::probe.v did not report eight axiom-free results"
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 20 ]; then
+            echo "::error::probe.v did not report twenty axiom-free results"
             exit 1
           fi
           tail -20 probe.log

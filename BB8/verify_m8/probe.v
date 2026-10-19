@@ -8,20 +8,23 @@
         c0 is the blank tape in state A.
     (2) The definitions the statements use are printed (Tm8.ones is a verbatim copy of BB8_champ35_bound.ones;
         Abs.arrow is the same Fixpoint as BB8_champ35_bound.arrow).
-    (3) The main theorems have the stated types.  (4) They use no axioms (one Print Assumptions on their conjunction). *)
+    (3) The main theorems have the stated types.  (4) They use no axioms (one Print Assumptions on their conjunction).
+    (5) At the end: busycoq's c0 and tape0, Defs.v's definitions, the other two machines' tables entry by entry, and
+        the types and Print Assumptions of every theorem of Statement.v. *)
 From M8 Require Import Individual82.
 From Coq Require Import String Ascii.
 From BB8 Require BB9_fw2_bound.
 From Dev Require Abs.
 From Score Require Score.
 From Fgh Require FArith Exact.
-From M8 Require Tm8 Sim Transfer Beats8 Headline8.
+From M8 Require Defs Tm8 Sim Transfer Beats8 Headline8 Statement.
+From BB8 Require BB92 BB9_fw2_1RB0RD.
 From BB8 Require BB8_champ35_1RB0RA BB8_champ35_bound BB8_champ35_exact.
 Local Open Scope sym_scope.
 
 Print c0.
 Check (eq_refl : q0 = A).  Check (eq_refl : s0 = S0).
-Print Tm8.tm8.
+Print Defs.tm8.
 Check (eq_refl : Tm8.tm8 (A, 0) = Some (1, R, B)).
 Check (eq_refl : Tm8.tm8 (A, 1) = Some (0, R, A)).
 Check (eq_refl : Tm8.tm8 (B, 0) = Some (1, L, C)).
@@ -145,3 +148,83 @@ Theorem m8_headline_ok : m8_headline.
 Proof. exact Headline8.m8_fgh3. Qed.
 
 Print Assumptions m8_headline_ok.
+
+(** ** Statement.v: the files to read are Defs.v and Statement.v (and busycoq's TM.v). *)
+Print c0.
+Print tape0.
+Print Defs.tm8.
+Print Defs.sym_val.
+Print Defs.count1.
+Print Defs.ones.
+Print Defs.iter.
+Print Defs.arrow.
+Print Defs.f.
+Print Defs.f_omega.
+Print Defs.f_w1.
+Print BB8_champ35_bound.ones.
+Print BB9_fw2_bound.ones.
+Print Exact.sigma_c04.
+
+(** The other two machines' tables, entry by entry (lines generated from their strings), as for tm8 above. *)
+(* champ35 = 1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_1LC0RH_1RG1LF (E0 = 1RZ is the halt: None) *)
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.A, BB8.BB82.S0) = Some (BB8.BB82.S1, R, BB8.BB82.B)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.A, BB8.BB82.S1) = Some (BB8.BB82.S0, R, BB8.BB82.A)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.B, BB8.BB82.S0) = Some (BB8.BB82.S1, L, BB8.BB82.C)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.B, BB8.BB82.S1) = Some (BB8.BB82.S1, L, BB8.BB82.F)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.C, BB8.BB82.S0) = Some (BB8.BB82.S1, R, BB8.BB82.D)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.C, BB8.BB82.S1) = Some (BB8.BB82.S0, L, BB8.BB82.B)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.D, BB8.BB82.S0) = Some (BB8.BB82.S1, R, BB8.BB82.A)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.D, BB8.BB82.S1) = Some (BB8.BB82.S1, L, BB8.BB82.E)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.E, BB8.BB82.S0) = None).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.E, BB8.BB82.S1) = Some (BB8.BB82.S0, L, BB8.BB82.C)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.F, BB8.BB82.S0) = Some (BB8.BB82.S1, R, BB8.BB82.G)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.F, BB8.BB82.S1) = Some (BB8.BB82.S1, L, BB8.BB82.D)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.G, BB8.BB82.S0) = Some (BB8.BB82.S1, L, BB8.BB82.C)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.G, BB8.BB82.S1) = Some (BB8.BB82.S0, R, BB8.BB82.H)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.H, BB8.BB82.S0) = Some (BB8.BB82.S1, R, BB8.BB82.G)).
+Check (eq_refl : BB8_champ35_1RB0RA.tm (BB8.BB82.H, BB8.BB82.S1) = Some (BB8.BB82.S1, L, BB8.BB82.F)).
+(* fw2 = 1RB0RD_1LC1LC_0RA0LB_1RE1RD_0LG0LF_1LE1LF_0RH1LG_1RD1RI_1RZ1RA (I0 = 1RZ is the halt: None) *)
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.A, BB92.S0) = Some (BB92.S1, R, BB92.B)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.A, BB92.S1) = Some (BB92.S0, R, BB92.D)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.B, BB92.S0) = Some (BB92.S1, L, BB92.C)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.B, BB92.S1) = Some (BB92.S1, L, BB92.C)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.C, BB92.S0) = Some (BB92.S0, R, BB92.A)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.C, BB92.S1) = Some (BB92.S0, L, BB92.B)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.D, BB92.S0) = Some (BB92.S1, R, BB92.E)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.D, BB92.S1) = Some (BB92.S1, R, BB92.D)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.E, BB92.S0) = Some (BB92.S0, L, BB92.G)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.E, BB92.S1) = Some (BB92.S0, L, BB92.F)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.F, BB92.S0) = Some (BB92.S1, L, BB92.E)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.F, BB92.S1) = Some (BB92.S1, L, BB92.F)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.G, BB92.S0) = Some (BB92.S0, R, BB92.H)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.G, BB92.S1) = Some (BB92.S1, L, BB92.G)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.H, BB92.S0) = Some (BB92.S1, R, BB92.D)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.H, BB92.S1) = Some (BB92.S1, R, BB92.I)).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.I, BB92.S0) = None).
+Check (eq_refl : BB9_fw2_1RB0RD.tm (BB92.I, BB92.S1) = Some (BB92.S1, R, BB92.A)).
+
+Check Statement.m8_table.
+Check Statement.champ35_table.
+Check Statement.fw2_table.
+Check Statement.m8_halts.
+Check Statement.m8_reached.
+Check Statement.m8_fgh3.
+Check Statement.m8_bracket.
+Check Statement.m8_coarse.
+Check Statement.m8_score_exact.
+Check Statement.m8_beats_bb8.
+Check Statement.m8_beats_champ35.
+Check Statement.m8_beats_fw2.
+
+Print Assumptions Statement.m8_table.
+Print Assumptions Statement.champ35_table.
+Print Assumptions Statement.fw2_table.
+Print Assumptions Statement.m8_halts.
+Print Assumptions Statement.m8_reached.
+Print Assumptions Statement.m8_fgh3.
+Print Assumptions Statement.m8_bracket.
+Print Assumptions Statement.m8_coarse.
+Print Assumptions Statement.m8_score_exact.
+Print Assumptions Statement.m8_beats_bb8.
+Print Assumptions Statement.m8_beats_champ35.
+Print Assumptions Statement.m8_beats_fw2.

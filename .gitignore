@@ -21,3 +21,7 @@ BB8/verify_m8/Sim.log
 BB8/verify_m8/Transfer.log
 BB8/verify_m8/Beats8.log
 BB8/verify_m8/compile_ci.log
+BB8/verify_m8/Defs.log
+BB8/verify_m8/Bridge.log
+BB8/verify_m8/Statement.log
+BB8/verify_m8/Headline8.log

@@ -1,0 +1,25 @@
+start 2026-10-18 21:14:01
+== BB82.v ==
+   ok, 5 s
+== Individual82.v ==
+   ok, 6 s
+== Defs.v ==
+   ok, 5 s
+== Tm8.v ==
+   ok, 5 s
+== Sim.v ==
+   ok, 8 s
+== Transfer.v ==
+   ok, 6 s
+== Headline8.v ==
+   ok, 8 s
+== Bridge.v ==
+   ok, 7 s
+== Beats8.v ==
+   ok, 7 s
+== Statement.v ==
+   ok, 7 s
+== probe.v ==
+   ok, 2382 s
+probe: 20 of 20 Print Assumptions closed under the global context
+exit 0 at 2026-10-18 21:54:51

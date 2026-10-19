@@ -29,7 +29,9 @@ by a Fable agent, Coq proof by Opus agents); the reduction was found by agent bb
 
 - [`BB8/1RB0RA_..._0RG0RF_1RG---.md`](BB8/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG---.md): the reduction
   from C04, the run, the score, verification status, credit.
-- [`BB8/verify_m8/`](BB8/verify_m8/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1), on top of BB9/verify_c04:
+- [`BB8/verify_m8/`](BB8/verify_m8/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1), on top of BB9/verify_c04. To check
+  the claims, read `Defs.v` and `Statement.v` there (the results stated with M8's table, the ones count and the
+  hierarchy defined in `Defs.v`, and busycoq's semantics only). Main theorems:
   `m8_halts`, `m8_fgh3`, `m8_fgh_bracket`, `m8_fgh_coarse`, `m8_score_exact`, `m8_beats_champ35`, `m8_beats_bb8r`, and a probe that
   checks the table against the machine string (also through a parser of the literal string). No axioms. Built in full
   from scratch and probed in CI (job `bb8-m8`, together with the C04 tree).

@@ -1,7 +1,11 @@
 # Coq proofs for `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG---` (M8)
 
 This directory is a Coq layer on top of the C04 development [`../../BB9/verify_c04/`](../../BB9/verify_c04/)
-(busycoq commit `bd2e36f`, Coq 8.20.1). For M8 (H1 undefined: the halt) it proves, with no axioms:
+(busycoq commit `bd2e36f`, Coq 8.20.1). **To check the claims, read `Defs.v` and `Statement.v`** (with busycoq's
+`TM.v`): `Statement.v` states every result below in terms of `Defs.v` and busycoq only, without B, and pins the three
+machine tables against their strings; `probe.v` prints `Print Assumptions` for each of its theorems.
+
+For M8 (H1 undefined: the halt) it proves, with no axioms:
 
 - `Transfer.m8_halts : halts tm8 c0`;
 - `Headline8.m8_fgh3`: every halted configuration c reached from the blank tape has N ones with
@@ -25,7 +29,10 @@ The machine and the collapse are described in
 | file | content |
 |---|---|
 | `BB82.v`, `Individual82.v` | busycoq for 8 states, logical path `M8` (the same text as `../verify/`'s, which is under `BB8`; only `Individual82.v`'s `From M8` line differs) |
-| `Tm8.v` | `tm8`, `ones` / `count1` / `sym_val` (verbatim copies of `BB8_champ35_bound`'s), `halted_unique8`, multistep facts |
+| `Defs.v` | `tm8`, `sym_val`, `count1`, `ones` (textually identical to `BB8_champ35_bound`'s and `BB9_fw2_bound`'s, checked by diff), and copies of `Abs.iter`, `Abs.arrow`, `Score.f`, `Score.f_omega`, `FArith.f_w1` |
+| `Statement.v` | the theorems to read: `m8_halts`, `m8_fgh3`, `m8_bracket` (`f_omega (f_omega (6 * arrow 13 2 3 + 2)) < N < f_omega (f_omega (6 * arrow 13 2 3 + 3))`), `m8_coarse`, `m8_reached`, `m8_score_exact`, `m8_beats_bb8`, `m8_beats_champ35`, `m8_beats_fw2`, and `m8_table`, `champ35_table`, `fw2_table` (each table equal to a parse of its string) |
+| `Bridge.v` | `iter_eq`, `arrow_eq`, `f_eq`, `fomega_eq`, `fw1_eq`, `fomega_fw2_eq` (pointwise, by reflexivity) and the helpers `Statement.v` uses |
+| `Tm8.v` | re-exports `Defs.v` (`Tm8.tm8`, `Tm8.ones`, `Tm8.count1`, `Tm8.sym_val` are abbreviations for the `Defs` constants), `halted_unique8`, multistep facts |
 | `Sim.v` | `stmap` (A..F → A..F, G → I, H → H), `symmap`, `Rel` (configurations related through finite tape lists), `sim_step`, `sim_run`, `m8_halts_sim`, `m8_to_c04`, `c04_to_m8` |
 | `Transfer.v` | the M8 theorems, from C04's `c04_halts`, `c04_fgh_bracket`, `c04_fgh_coarse`, `c04_score_exact`, `c04_score_reached`, `c04_beats_fw2` |
 | `Headline8.v` | `m8_fgh3`, from `Transfer.m8_fgh_bracket` and C04's `fgh/Headline.v` (`Bx_fw`: f_omega 12 < 12 Bx + 26, 12 Bx + 27 ≤ f_omega 13) |
@@ -50,7 +57,7 @@ name resolves to one file.
 `coqc`. The C04 tree takes about 1 h 40 min on a 4-vCPU GitHub runner (see its README), `../verify` about 10 min, this
 directory about a minute, and the probe about 10 minutes there (nearly all of it `Print Assumptions` over C04's
 development). The GitHub workflow (job `bb8-m8`) runs `compile_clean.sh deps` whenever these files, `../verify` or
-the C04 tree change (and weekly), and fails unless the probe reports eight results closed under the global context.
+the C04 tree change (and weekly), and fails unless the probe reports twenty results closed under the global context.
 
 `probe.v`:
 - checks by conversion all 16 entries of `tm8` against lines generated from the machine string, and again against a
@@ -60,9 +67,12 @@ the C04 tree change (and weekly), and fails unless the probe reports eight resul
   `arrow`s, `sigma_c04`, `stmap`, `Rel`) and checks the theorem types;
 - states the main results as one conjunction `m8_all`, written out with qualified names, and proves it (`m8_all_ok`);
 - runs `Print Assumptions` on `m8_all_ok`, `m8_beats_fw2`, `m8_score_to_c04`, `m8_score_from_c04`, `m8_string_ok`,
-  `m8_beats_bb8r`, `m8_beats_champ35`, and `m8_headline_ok` (`m8_fgh3` with its type written out).
+  `m8_beats_bb8r`, `m8_beats_champ35`, and `m8_headline_ok` (`m8_fgh3` with its type written out);
+- prints busycoq's `c0` and `tape0`, every definition of `Defs.v`, `BB8_champ35_bound.ones` and `BB9_fw2_bound.ones`;
+- checks the tables of champ35 and fw2 entry by entry against lines generated from their strings;
+- checks the types of the twelve theorems of `Statement.v` and runs `Print Assumptions` on each.
 
-Expected: `probe.log` contains eight lines `Closed under the global context` and no `Axioms:`.
+Expected: `probe.log` contains twenty lines `Closed under the global context` and no `Axioms:`.
 
 ## Verification record
 
@@ -75,3 +85,8 @@ results closed under the global context. `Headline8.v` was added after that: the
 the extended probe rerun (1245 s), with eight results closed under the global context (`probe.log`; the log of that
 run is `../../BB9/verify_c04/compile_headline.log`). `sha256.txt` has the SHA-256 of the `.v` files and
 `compile_clean.sh`.
+
+`Defs.v`, `Bridge.v` and `Statement.v` were added after that (and `Tm8.v` now takes its definitions from `Defs.v`).
+`compile_statement.log` recompiles the whole layer on the same trees (the ten files 64 s, Idle priority) and reruns
+the probe (2382 s on a busy machine); `probe.log` is its output: twenty results closed under the global context, no
+`Axioms:`.
