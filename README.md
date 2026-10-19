@@ -6,7 +6,28 @@ Busy beaver results, with machine-checked proofs.
 
 ## BB8/
 
-`1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_1LC0RH_1RG1LF`, an 8-state, 2-symbol machine that halts
+`1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG---` (M8), an 8-state, 2-symbol machine that halts from the blank
+tape (in state H reading 1, on the undefined transition H1) with score σ, where (machine-checked, standard fast-growing
+hierarchy)
+
+    f_ω(f_ω(12B + 26)) < σ < f_ω(f_ω(12B + 27)),        2B + 4 = 2↑^13 3.
+
+Coarser: f_(ω+1)(3) < σ < f_(ω+1)(4), with f_(ω+1)(n) = f_ω^n(n) (`m8_fgh_coarse`). Coq also gives σ exactly: it is
+C04's exact symbolic score `sigma_c04` (`m8_score_exact`, BB9/ below), and it beats the exact score
+12·(2↑^37 3) + 59 of the previous BB(8) entry (below), which M8 supersedes (`m8_beats_champ35`). M8 is the BB(7)
+champion with its halt E0 redirected to a new state H (H0 = 1RG, H1 = halt), and it is the 8-state collapse of the
+9-state C04: C04's detour F0 → G → H0 is M8's single F0 = 1RG, C04's H only ever reads 0 when entered from G, and the
+two machines halt on the same tape. Coq proves the simulation and transfers C04's theorems. Found by agent bb8-resid;
+Coq transfer by agent m8-coq (2026-10-18).
+
+- [`BB8/1RB0RA_..._0RG0RF_1RG---.md`](BB8/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG---.md): the collapse, the
+  run (by reference to C04), the score, verification status, credit.
+- [`BB8/verify_m8/`](BB8/verify_m8/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1), on top of BB9/verify_c04:
+  `m8_halts`, `m8_fgh_bracket`, `m8_fgh_coarse`, `m8_score_exact`, `m8_beats_champ35`, `m8_beats_bb8r`, and a probe that
+  checks the table against the machine string (also through a parser of the literal string). No axioms. Built in full
+  from scratch and probed in CI (job `bb8-m8`, together with the C04 tree).
+
+**Previous entry (2026-10-04, superseded by M8).** `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_1LC0RH_1RG1LF`, an 8-state, 2-symbol machine that halts
 from the blank tape with exactly
 
     sigma = 12 * (2 ↑^37 3) + 59
@@ -25,6 +46,9 @@ ones (Knuth up-arrows), hence after more than 2 ↑^37 3 steps. It runs the BB(7
   simulator that extracts the `B(a; b, ..., z)` configurations and rules of both machines.
 
 ## BB9/
+
+**Matched with one state fewer (2026-10-18).** The 8-state M8 (BB8/ above) reaches exactly C04's score, so C04 is
+dominated as a 9-state entry. It stays here because M8's proof is built on C04's. A 9-state machine now has to beat M8.
 
 `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF` (C04), a 9-state, 2-symbol machine that halts from the
 blank tape (in state H reading 1, on the undefined transition H1) with score σ, where (machine-checked, standard

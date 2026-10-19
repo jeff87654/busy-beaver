@@ -1,0 +1,291 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+Tm8.tm8 =
+fun pat : Q * Sym =>
+match pat with
+| (A, 0) => Some (1, R, B)
+| (A, 1) => Some (0, R, A)
+| (B, 0) => Some (1, L, C)
+| (B, 1) => Some (1, L, F)
+| (C, 0) => Some (1, R, D)
+| (C, 1) => Some (0, L, B)
+| (D, 0) => Some (1, R, A)
+| (D, 1) => Some (1, L, E)
+| (E, 0) => Some (1, L, H)
+| (E, 1) => Some (0, L, C)
+| (F, 1) => Some (1, L, D)
+| (G, 0) => Some (0, R, G)
+| (G, 1) => Some (0, R, F)
+| (H, 1) => None
+| _ => Some (1, R, G)
+end
+     : TM
+eq_refl : Tm8.tm8 (A, 0) = Some (1, R, B)
+     : Tm8.tm8 (A, 0) = Some (1, R, B)
+eq_refl : Tm8.tm8 (A, 1) = Some (0, R, A)
+     : Tm8.tm8 (A, 1) = Some (0, R, A)
+eq_refl : Tm8.tm8 (B, 0) = Some (1, L, C)
+     : Tm8.tm8 (B, 0) = Some (1, L, C)
+eq_refl : Tm8.tm8 (B, 1) = Some (1, L, F)
+     : Tm8.tm8 (B, 1) = Some (1, L, F)
+eq_refl : Tm8.tm8 (C, 0) = Some (1, R, D)
+     : Tm8.tm8 (C, 0) = Some (1, R, D)
+eq_refl : Tm8.tm8 (C, 1) = Some (0, L, B)
+     : Tm8.tm8 (C, 1) = Some (0, L, B)
+eq_refl : Tm8.tm8 (D, 0) = Some (1, R, A)
+     : Tm8.tm8 (D, 0) = Some (1, R, A)
+eq_refl : Tm8.tm8 (D, 1) = Some (1, L, E)
+     : Tm8.tm8 (D, 1) = Some (1, L, E)
+eq_refl : Tm8.tm8 (E, 0) = Some (1, L, H)
+     : Tm8.tm8 (E, 0) = Some (1, L, H)
+eq_refl : Tm8.tm8 (E, 1) = Some (0, L, C)
+     : Tm8.tm8 (E, 1) = Some (0, L, C)
+eq_refl : Tm8.tm8 (F, 0) = Some (1, R, G)
+     : Tm8.tm8 (F, 0) = Some (1, R, G)
+eq_refl : Tm8.tm8 (F, 1) = Some (1, L, D)
+     : Tm8.tm8 (F, 1) = Some (1, L, D)
+eq_refl : Tm8.tm8 (G, 0) = Some (0, R, G)
+     : Tm8.tm8 (G, 0) = Some (0, R, G)
+eq_refl : Tm8.tm8 (G, 1) = Some (0, R, F)
+     : Tm8.tm8 (G, 1) = Some (0, R, F)
+eq_refl : Tm8.tm8 (H, 0) = Some (1, R, G)
+     : Tm8.tm8 (H, 0) = Some (1, R, G)
+eq_refl : Tm8.tm8 (H, 1) = None
+     : Tm8.tm8 (H, 1) = None
+eq_refl : parse_slot m8_string 7 1 = None
+     : parse_slot m8_string 7 1 = None
+Tm8.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = Tm8.count1 L + Tm8.sym_val s + Tm8.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments Tm8.ones c N%nat_scope
+Tm8.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => Tm8.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments Tm8.count1 xs%list_scope
+Tm8.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments Tm8.sym_val s%sym_scope
+Score.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => Abs.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments Score.f (k _)%nat_scope
+Score.f_omega = fun n : nat => Score.f n n
+     : nat -> nat
+
+Arguments Score.f_omega n%nat_scope
+FArith.f_w1 = fun n : nat => Abs.iter n Score.f_omega n
+     : nat -> nat
+
+Arguments FArith.f_w1 n%nat_scope
+Abs.Bx = proj1_sig Abs.Bx_sig
+     : nat
+Abs.Bx_def
+     : Abs.Bx = Abs.U 10 (Abs.U 10 0)
+FArith.Bx_knuth
+     : 2 * Abs.Bx + 4 = Abs.arrow 13 2 3
+Abs.arrow =
+fix arrow (k a b : nat) {struct k} : nat :=
+  match k with
+  | 0 => a * b
+  | S k' => PeanoNat.Nat.iter b (arrow k' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments Abs.arrow (k a b)%nat_scope
+BB8_champ35_bound.arrow =
+fix arrow (k a b : nat) {struct k} : nat :=
+  match k with
+  | 0 => a * b
+  | S k' => PeanoNat.Nat.iter b (arrow k' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB8_champ35_bound.arrow (k a b)%nat_scope
+Beats8.arrow_same
+     : forall k a b : nat, BB8_champ35_bound.arrow k a b = Abs.arrow k a b
+Exact.sigma_c04 = Exact.sig_key (Exact.run Step.L1 Exact.top)
+     : nat
+Sim.stmap =
+fun q : state =>
+match q with
+| A => BB92.A
+| B => BB92.B
+| C => BB92.C
+| D => BB92.D
+| E => BB92.E
+| F => BB92.F
+| G => BB92.I
+| H => BB92.H
+end
+     : state -> BB92.state
+
+Arguments Sim.stmap q
+Sim.Rel =
+fun (c8 : Sim.cfg8)
+  (c9 : BB92.BB92.Q *
+        (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym)) =>
+exists (q : state) (Ll : list sym) (s : sym) (Rr : list sym),
+  c8 = (q, (Ll *> const 0, s, Rr *> const 0)) /\
+  c9 =
+  (Sim.stmap q,
+   (List.map Sim.symmap Ll *> const BB92.S0, Sim.symmap s,
+    List.map Sim.symmap Rr *> const BB92.S0))
+     : Sim.cfg8 ->
+       BB92.BB92.Q *
+       (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym) -> Prop
+
+Arguments Sim.Rel c8 c9
+Transfer.m8_halts
+     : halts Tm8.tm8 c0
+Transfer.m8_fgh_bracket
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Tm8.tm8 ]->* c ->
+       halted Tm8.tm8 c ->
+       Tm8.ones c N ->
+       Score.f_omega (Score.f_omega (12 * Abs.Bx + 26)) < N <
+       Score.f_omega (Score.f_omega (12 * Abs.Bx + 27))
+Transfer.m8_fgh_coarse
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Tm8.tm8 ]->* c ->
+       halted Tm8.tm8 c -> Tm8.ones c N -> FArith.f_w1 3 < N < FArith.f_w1 4
+Transfer.m8_score_exact
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Tm8.tm8 ]->* c ->
+       halted Tm8.tm8 c -> Tm8.ones c N -> N = Exact.sigma_c04
+Transfer.m8_score_reached
+     : exists c : Q * tape,
+         c0 -[ Tm8.tm8 ]->* c /\
+         halted Tm8.tm8 c /\ Tm8.ones c Exact.sigma_c04
+Transfer.m8_sigma_bracket
+     : Score.f_omega (Score.f_omega (12 * Abs.Bx + 26)) < Exact.sigma_c04 <
+       Score.f_omega (Score.f_omega (12 * Abs.Bx + 27))
+Transfer.m8_beats_bb8
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Tm8.tm8 ]->* c ->
+       halted Tm8.tm8 c -> Tm8.ones c N -> 12 * Abs.arrow 37 2 3 + 59 < N
+Transfer.m8_beats_fw2
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ Tm8.tm8 ]->* c /\
+         halted Tm8.tm8 c /\
+         Tm8.ones c N /\
+         BB9_fw2_bound.f_omega (BB9_fw2_bound.f_omega (465 * 1000 + 9)) < N /\
+         (exists
+            (cf : BB92.BB92.Q *
+                  (Stream BB92.BB92.Sym * BB92.BB92.Sym *
+                   Stream BB92.BB92.Sym)) (Nf : nat),
+            Transfer.T9.evstep BB9_fw2_1RB0RD.tm Transfer.T9.c0 cf /\
+            Transfer.T9.halted BB9_fw2_1RB0RD.tm cf /\
+            BB9_fw2_bound.ones cf Nf /\ Nf + 1 < N)
+Beats8.m8_beats_bb8r
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Tm8.tm8 ]->* c ->
+       halted Tm8.tm8 c ->
+       Tm8.ones c N -> 12 * BB8_champ35_bound.arrow 37 2 3 + 59 < N
+Beats8.m8_beats_champ35
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ Tm8.tm8 ]->* c /\
+         halted Tm8.tm8 c /\
+         Tm8.ones c N /\
+         (exists
+            (cf : BB82.BB82.Q *
+                  (Stream BB82.BB82.Sym * BB82.BB82.Sym *
+                   Stream BB82.BB82.Sym)) (Nf : nat),
+            Beats8.C8.evstep BB8_champ35_1RB0RA.tm Beats8.C8.c0 cf /\
+            Beats8.C8.halted BB8_champ35_1RB0RA.tm cf /\
+            BB8_champ35_bound.ones cf Nf /\ Nf + 1 < N)
+BB8_champ35_exact.score_closed
+     : exists
+         c : BB82.BB82.Q *
+             (Stream BB82.BB82.Sym * BB82.BB82.Sym * Stream BB82.BB82.Sym),
+         Individual82.Individual82.Permute.Flip.Compute.TM.evstep
+           BB8_champ35_1RB0RA.tm
+           Individual82.Individual82.Permute.Flip.Compute.TM.c0 c /\
+         Individual82.Individual82.Permute.Flip.Compute.TM.halted
+           BB8_champ35_1RB0RA.tm c /\
+         BB8_champ35_bound.ones c (12 * BB8_champ35_bound.arrow 37 2 3 + 58)
+Transfer.m8_score_to_c04
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Tm8.tm8 ]->* c ->
+       halted Tm8.tm8 c ->
+       Tm8.ones c N ->
+       exists
+         c9 : BB92.BB92.Q *
+              (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym),
+         Transfer.T9.evstep Base.tm Transfer.T9.c0 c9 /\
+         Transfer.T9.halted Base.tm c9 /\ K31_Abs.ones c9 N
+Transfer.m8_score_from_c04
+     : forall
+         (c9 : BB92.BB92.Q *
+               (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym))
+         (N : nat),
+       Transfer.T9.evstep Base.tm Transfer.T9.c0 c9 ->
+       Transfer.T9.halted Base.tm c9 ->
+       K31_Abs.ones c9 N ->
+       exists c : Q * tape,
+         c0 -[ Tm8.tm8 ]->* c /\ halted Tm8.tm8 c /\ Tm8.ones c N
+Sim.sim_step
+     : forall (c8 c8' : Sim.cfg8)
+         (c9 : BB92.BB92.Q *
+               (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym)),
+       c8 -[ Tm8.tm8 ]-> c8' ->
+       Sim.Rel c8 c9 ->
+       exists
+         (k : nat) (c9' : BB92.BB92.Q *
+                          (Stream BB92.BB92.Sym * BB92.BB92.Sym *
+                           Stream BB92.BB92.Sym)),
+         Individual92.Individual92.Permute.Flip.Compute.TM.multistep Base.tm
+           (S k) c9 c9' /\ Sim.Rel c8' c9'
+Sim.m8_to_c04
+     : forall (c : Sim.cfg8) (N : nat),
+       Sim.T8.c0 -[ Tm8.tm8 ]->* c ->
+       Sim.T8.halted Tm8.tm8 c ->
+       Tm8.ones c N ->
+       exists
+         c9 : BB92.BB92.Q *
+              (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym),
+         Individual92.Individual92.Permute.Flip.Compute.TM.evstep Base.tm
+           Individual92.Individual92.Permute.Flip.Compute.TM.c0 c9 /\
+         Individual92.Individual92.Permute.Flip.Compute.TM.halted Base.tm c9 /\
+         K31_Abs.ones c9 N
+Sim.c04_to_m8
+     : forall
+         (c9 : BB92.BB92.Q *
+               (Stream BB92.BB92.Sym * BB92.BB92.Sym * Stream BB92.BB92.Sym))
+         (N : nat),
+       Individual92.Individual92.Permute.Flip.Compute.TM.evstep Base.tm
+         Individual92.Individual92.Permute.Flip.Compute.TM.c0 c9 ->
+       Individual92.Individual92.Permute.Flip.Compute.TM.halted Base.tm c9 ->
+       K31_Abs.ones c9 N ->
+       exists c : Sim.cfg8,
+         Sim.T8.c0 -[ Tm8.tm8 ]->* c /\
+         Sim.T8.halted Tm8.tm8 c /\ Tm8.ones c N
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

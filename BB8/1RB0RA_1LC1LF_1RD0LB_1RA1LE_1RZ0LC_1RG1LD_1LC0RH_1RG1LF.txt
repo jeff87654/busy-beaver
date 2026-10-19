@@ -1,6 +1,11 @@
 1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_1LC0RH_1RG1LF
 ========================================================
 
+SUPERSEDED (2026-10-18) as this folder's BB(8) entry by M8,
+1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG--- (see the .md file next to this one), which Coq
+proves beats this machine's exact score.  Apart from this note, this file and verify/ are unchanged; M8's
+comparison uses verify/.
+
 An 8-state, 2-symbol Turing machine that halts from the blank tape with
 
     sigma = 12 * (2 ^^37 3) + 59        (exactly; machine-checked in Coq, see "Proofs")
