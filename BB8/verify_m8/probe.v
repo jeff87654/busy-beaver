@@ -15,7 +15,7 @@ From BB8 Require BB9_fw2_bound.
 From Dev Require Abs.
 From Score Require Score.
 From Fgh Require FArith Exact.
-From M8 Require Tm8 Sim Transfer Beats8.
+From M8 Require Tm8 Sim Transfer Beats8 Headline8.
 From BB8 Require BB8_champ35_1RB0RA BB8_champ35_bound BB8_champ35_exact.
 Local Open Scope sym_scope.
 
@@ -135,3 +135,13 @@ Print Assumptions Transfer.m8_score_from_c04.
 Print Assumptions m8_string_ok.
 Print Assumptions Beats8.m8_beats_bb8r.
 Print Assumptions Beats8.m8_beats_champ35.
+
+(** The bound without B (Headline8.v, from C04's fgh/Headline.v): f_omega^3 12 < N < f_omega^3 13. *)
+Definition m8_headline : Prop :=
+  forall c N, c0 -[ Tm8.tm8 ]->* c -> halted Tm8.tm8 c -> Tm8.ones c N ->
+    (Score.f_omega (Score.f_omega (Score.f_omega 12)) < N /\ N < Score.f_omega (Score.f_omega (Score.f_omega 13)))%nat.
+
+Theorem m8_headline_ok : m8_headline.
+Proof. exact Headline8.m8_fgh3. Qed.
+
+Print Assumptions m8_headline_ok.

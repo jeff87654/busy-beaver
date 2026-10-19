@@ -1,17 +1,24 @@
-# C04: a 9-state machine with f_ω(f_ω(12B+26)) < σ < f_ω(f_ω(12B+27))
+# C04: a 9-state machine with f_ω(f_ω(f_ω(12))) < σ < f_ω(f_ω(f_ω(13)))
 
     1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF
+
+> **Now the proof base of the BB(8) entry (2026-10-18).** The 8-state machine M8
+> ([`../BB8/1RB0RA_..._0RG0RF_1RG---.md`](../BB8/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG---.md)) is
+> reduced from C04 by collapsing its F0/G/H0 gadget into one transition; it halts on the same tape with the same score.
+> So C04 is not a BB(9) entry (a 9-state record must beat M8). It is kept here as the machine whose Coq proof M8's
+> is built on.
 
 Below we call this machine **C04** (its label in the search that found it, section 5). It halts from the blank tape,
 and Coq proves, with no axioms and with the standard fast-growing hierarchy, that its score σ satisfies
 
-    f_ω(f_ω(12B + 26)) < σ < f_ω(f_ω(12B + 27)),        2B + 4 = 2↑^13 3        (c04_fgh_bracket, Bx_knuth)
+    f_ω(f_ω(f_ω(12))) < σ < f_ω(f_ω(f_ω(13)))        (c04_fgh3)
 
-and, as an easier placement, f_(ω+1)(3) < σ < f_(ω+1)(4), where f_(ω+1)(n) = f_ω^n(n) (`c04_fgh_coarse`). Coq also
-gives σ exactly, as an explicit symbolic recursion along the run (`c04_score_exact`); its value depends on all base-5
+More precisely, f_ω(f_ω(12B + 26)) < σ < f_ω(f_ω(12B + 27)) with 2B + 4 = 2↑^13 3 (`c04_fgh_bracket`, `Bx_knuth`;
+f_ω(12) < 12B + 26 and 12B + 27 ≤ f_ω(13), `Bx_fw`). As an easier placement, f_(ω+1)(3) < σ < f_(ω+1)(4), where
+f_(ω+1)(n) = f_ω^n(n) (`c04_fgh_coarse`). Coq also gives σ exactly, as an explicit symbolic recursion along the run (`c04_score_exact`); its value depends on all base-5
 digits of B and cannot be evaluated in practice. σ exceeds the **exact** score of fw2
 ([`1RB0RD_..._1RZ1RA`](1RB0RD_1LC1LC_0RA0LB_1RE1RD_0LG0LF_1LE1LF_0RH1LG_1RD1RI_1RZ1RA.md)), the previous BB(9) entry of
-this folder, which C04 supersedes (`c04_beats_fw2`). It does not beat our 10-state machine n1 ([`../BB10/`](../BB10/)),
+this folder (`c04_beats_fw2`). It does not beat our 10-state machine n1 ([`../BB10/`](../BB10/)),
 which is far up level f_(ω+1). Written 2026-10-18.
 
 C04 runs the BB(7) champion's digit-list counter, like our earlier BB(9) record, and starts exactly as that record does.
@@ -43,11 +50,12 @@ already holds a 1, so whatever 1 the halting transition is taken to write (the u
 | | |
 |---|---|
 | Halts | **Yes**, machine-checked (Coq, no axioms): `c04_halts : halts tm c0`. |
-| Score bracket | **f_ω(f_ω(12B+26)) < σ < f_ω(f_ω(12B+27))**, 2B + 4 = 2↑^13 3, machine-checked with the standard fast-growing hierarchy (`c04_fgh_bracket`, `Bx_knuth`). |
+| Score | **f_ω(f_ω(f_ω(12))) < σ < f_ω(f_ω(f_ω(13)))**, machine-checked with the standard fast-growing hierarchy (`c04_fgh3`). |
+| More precisely | f_ω(f_ω(12B+26)) < σ < f_ω(f_ω(12B+27)), 2B + 4 = 2↑^13 3, machine-checked (`c04_fgh_bracket`, `Bx_knuth`, `Bx_fw`). |
 | Coarse placement | f_(ω+1)(3) < σ < f_(ω+1)(4), f_(ω+1)(n) = f_ω^n(n), machine-checked (`c04_fgh_coarse`). |
 | Exact score | Machine-checked: σ = `sigma_c04`, an explicit recursion along the cascade (`c04_score_exact`, `c04_score_reached`). Not evaluated as a number: it depends on where the cascade orbit enters [0, 60), which depends on all base-5 digits of B. |
 | Weaker lower bound, used for the comparison | f_ω(f_ω(465009)) < σ (`c04_sigma_lower_bound`). |
-| fw2 (the previous BB(9) entry) | **Beaten**, machine-checked against fw2's Coq-proved exact score: fw2 halts with N_f ones and N_f + 1 < N, and N_f + 1 is fw2's score (`c04_beats_fw2`). |
+| fw2 (the previous BB(9) entry, superseded) | **Beaten**, machine-checked against fw2's Coq-proved exact score: fw2 halts with N_f ones and N_f + 1 < N, and N_f + 1 is fw2's score (`c04_beats_fw2`). |
 | The five machines fw2 beats (our earlier BB(9) record, two later 9-state machines of this project, Jacobzheng's 2024 BB(9) champion, Racheline's 2024 BB(10) champion) | Beaten, by combining `c04_beats_fw2` with fw2's five Coq comparisons (`fw2_beats_*`, [`verify_fw2/`](verify_fw2/)). Each step is machine-checked; the combination (one inequality, using that each machine has one halting configuration) is not stated as a Coq theorem. |
 | n1 ([`../BB10/`](../BB10/), f_(ω+1)) | **Not** beaten. |
 | Steps | Not computed. The first 2369 are in the Coq proof. |
@@ -181,6 +189,9 @@ with fw2 follows from K ≥ 11R₂ and f_k ≤ U_k.
 
 ### 3.1 What Coq proves
 
+    c04_fgh3              : forall c N, c0 -->* c -> halted tm c -> ones c N ->
+                              f_omega (f_omega (f_omega 12)) < N /\ N < f_omega (f_omega (f_omega 13))
+    Bx_fw                 : f_omega 12 < 12 * Bx + 26 /\ 12 * Bx + 27 <= f_omega 13
     c04_fgh_bracket       : forall c N, c0 -->* c -> halted tm c -> ones c N ->
                               f_omega (f_omega (12 * Bx + 26)) < N /\ N < f_omega (f_omega (12 * Bx + 27))
     c04_fgh_coarse        : forall c N, c0 -->* c -> halted tm c -> ones c N -> f_w1 3 < N /\ N < f_w1 4
@@ -236,7 +247,7 @@ machine-checked) gives σ = f_ω(K + 1 + θ) with 0 < θ < 2, where K, the depth
 
 ### 4.1 What Coq proves
 
-The development is in [`verify_c04/`](verify_c04/): 55 `.v` files (15.5 MB, 81,000 lines), Coq 8.20.1 on top of
+The development is in [`verify_c04/`](verify_c04/): 56 `.v` files (15.5 MB, 81,000 lines), Coq 8.20.1 on top of
 [busycoq](https://github.com/meithecatte/busycoq) (commit `bd2e36f`). No axioms.
 
 | statement | Coq name | file |
@@ -248,6 +259,7 @@ The development is in [`verify_c04/`](verify_c04/): 55 `.v` files (15.5 MB, 81,0
 | the same N satisfies f_(ω+1)(3) < N < f_(ω+1)(4) | `c04_fgh_coarse` | `fgh/EndU.v` |
 | N = `sigma_c04`, the exact symbolic score, and it is reached | `c04_score_exact`, `c04_score_reached`, `c04_sigma_bracket` | `fgh/Exact.v` |
 | 2B + 4 = 2↑^13 3 and 2R₂ + 4 = 2↑^(12B+26) 4 | `Bx_knuth`, `R2_knuth` | `fgh/FArith.v` |
+| f_ω(12) < 12B + 26, 12B + 27 ≤ f_ω(13), hence f_ω(f_ω(f_ω(12))) < N < f_ω(f_ω(f_ω(13))) | `Bx_fw`, `c04_fgh3` (also `Bx_fw_tight2`: (12, 13) is the tightest such pair) | `fgh/Headline.v` |
 
 How the proof is put together:
 
@@ -281,12 +293,13 @@ How the proof is put together:
 machine string (H1 is `None`) and the blank start configuration, checks the types of all the theorems above written
 out with fully qualified names (the fgh ones as one conjunction, `c04_fgh_all_ok`), checks that the `ones` and
 `f_omega` used are fw2's, prints the definitions (including `sigma_c04`), and runs `Print Assumptions` on the three
-main theorems and on the conjunction. All four report "Closed under the global context".
+main theorems, on the conjunction, and on the headline conjunction `c04_headline_ok` (`Bx_fw`, `Bx_fw_tight2`,
+`c04_fgh3`). All five report "Closed under the global context".
 
 **Build.** `verify_c04/compile_clean.sh` builds everything from scratch in dependency order, J files at a time, and
 runs the probe. The whole build is about 3.2 CPU-hours on a GitHub runner (the longest file, `k31/K_e1.v`, takes about
 35 min on its own), about 1 h 40 min there with 4 coqc in parallel. The GitHub workflow (job `bb9-c04`) builds all of it from scratch whenever its files change
-(and weekly) and fails unless the probe reports four axiom-free results. The recorded local clean build and its times
+(and weekly) and fails unless the probe reports five axiom-free results. The recorded local clean build and its times
 are in [`verify_c04/README.md`](verify_c04/README.md).
 
 ### 4.2 Not machine-checked

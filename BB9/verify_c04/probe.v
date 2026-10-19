@@ -22,7 +22,7 @@ From Dev Require Base Final ScoreEnd.
 From K31 Require K31_Abs.
 From Score Require Score.
 From Dev Require Abs Chain.
-From Fgh Require FArith EndU Exact.
+From Fgh Require FArith EndU Exact Headline.
 Local Open Scope sym_scope.
 
 (** (1) the machine and the start configuration *)
@@ -106,3 +106,18 @@ Proof.
 Qed.
 
 Print Assumptions c04_fgh_all_ok.
+
+(** (6) fgh/Headline.v: the bound without B.  12 B + 26 lies strictly between f_omega 12 and f_omega 13, so
+    f_omega (f_omega (f_omega 12)) < N < f_omega (f_omega (f_omega 13)); (12, 13) is the tightest integer pair. *)
+Definition c04_headline : Prop :=
+  (Score.f_omega 12 < 12 * Abs.Bx + 26 /\ 12 * Abs.Bx + 27 <= Score.f_omega 13)%nat /\
+  (6 * (2 * Abs.Bx + 4) < Abs.arrow 12 2 13 /\ Abs.arrow 12 2 13 <= Score.f_omega 13)%nat /\
+  (forall c N, c0 -[ Base.tm ]->* c -> halted Base.tm c -> K31_Abs.ones c N ->
+     Score.f_omega (Score.f_omega (Score.f_omega 12)) < N /\ N < Score.f_omega (Score.f_omega (Score.f_omega 13)))%nat.
+
+Theorem c04_headline_ok : c04_headline.
+Proof.
+  split; [exact Headline.Bx_fw |]. split; [exact Headline.Bx_fw_tight2 | exact Headline.c04_fgh3].
+Qed.
+
+Print Assumptions c04_headline_ok.
