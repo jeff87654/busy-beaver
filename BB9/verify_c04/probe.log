@@ -334,3 +334,4 @@ fun d s g m R n t : nat => d + s + g + m + 6 * R + 2 * n + 4 * t + 15
 
 Arguments Exact.HN (d s g m R n t)%nat_scope
 Closed under the global context
+Closed under the global context

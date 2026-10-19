@@ -4,7 +4,9 @@ This directory is a Coq layer on top of the C04 development [`../../BB9/verify_c
 (busycoq commit `bd2e36f`, Coq 8.20.1). For M8 (H1 undefined: the halt) it proves, with no axioms:
 
 - `Transfer.m8_halts : halts tm8 c0`;
-- `Transfer.m8_fgh_bracket`: every halted configuration c reached from the blank tape has N ones with
+- `Headline8.m8_fgh3`: every halted configuration c reached from the blank tape has N ones with
+  `f_omega (f_omega (f_omega 12)) < N < f_omega (f_omega (f_omega 13))`;
+- `Transfer.m8_fgh_bracket`, more precisely: the same N satisfies
   `f_omega (f_omega (12 * Bx + 26)) < N < f_omega (f_omega (12 * Bx + 27))` (2B + 4 = 2↑^13 3 is C04's
   `FArith.Bx_knuth`);
 - `Transfer.m8_fgh_coarse`: the same N satisfies `f_w1 3 < N < f_w1 4` (f_(ω+1)(3) < N < f_(ω+1)(4));
@@ -26,6 +28,7 @@ The machine and the collapse are described in
 | `Tm8.v` | `tm8`, `ones` / `count1` / `sym_val` (verbatim copies of `BB8_champ35_bound`'s), `halted_unique8`, multistep facts |
 | `Sim.v` | `stmap` (A..F → A..F, G → I, H → H), `symmap`, `Rel` (configurations related through finite tape lists), `sim_step`, `sim_run`, `m8_halts_sim`, `m8_to_c04`, `c04_to_m8` |
 | `Transfer.v` | the M8 theorems, from C04's `c04_halts`, `c04_fgh_bracket`, `c04_fgh_coarse`, `c04_score_exact`, `c04_score_reached`, `c04_beats_fw2` |
+| `Headline8.v` | `m8_fgh3`, from `Transfer.m8_fgh_bracket` and C04's `fgh/Headline.v` (`Bx_fw`: f_omega 12 < 12 Bx + 26, 12 Bx + 27 ≤ f_omega 13) |
 | `Beats8.v` | `arrow_same` (C04's `arrow` and the previous entry's are the same Fixpoint), `m8_beats_bb8r`, `m8_beats_champ35` |
 | `probe.v` | the independent probe (below) |
 | `compile_clean.sh` | build script |
@@ -47,7 +50,7 @@ name resolves to one file.
 `coqc`. The C04 tree takes about 1 h 40 min on a 4-vCPU GitHub runner (see its README), `../verify` about 10 min, this
 directory about a minute, and the probe about 10 minutes there (nearly all of it `Print Assumptions` over C04's
 development). The GitHub workflow (job `bb8-m8`) runs `compile_clean.sh deps` whenever these files, `../verify` or
-the C04 tree change (and weekly), and fails unless the probe reports seven results closed under the global context.
+the C04 tree change (and weekly), and fails unless the probe reports eight results closed under the global context.
 
 `probe.v`:
 - checks by conversion all 16 entries of `tm8` against lines generated from the machine string, and again against a
@@ -57,9 +60,9 @@ the C04 tree change (and weekly), and fails unless the probe reports seven resul
   `arrow`s, `sigma_c04`, `stmap`, `Rel`) and checks the theorem types;
 - states the main results as one conjunction `m8_all`, written out with qualified names, and proves it (`m8_all_ok`);
 - runs `Print Assumptions` on `m8_all_ok`, `m8_beats_fw2`, `m8_score_to_c04`, `m8_score_from_c04`, `m8_string_ok`,
-  `m8_beats_bb8r` and `m8_beats_champ35`.
+  `m8_beats_bb8r`, `m8_beats_champ35`, and `m8_headline_ok` (`m8_fgh3` with its type written out).
 
-Expected: `probe.log` contains seven lines `Closed under the global context` and no `Axioms:`.
+Expected: `probe.log` contains eight lines `Closed under the global context` and no `Axioms:`.
 
 ## Verification record
 
@@ -68,4 +71,7 @@ a shared 16-core laptop, every coqc at Idle priority. `../verify` was compiled f
 (`BB8_champ35_1RB0RA.v` 560 s, the whole tree with its probe 11.5 min), and this directory was compiled from scratch on
 top of it and of the clean C04 tree recorded in `../../BB9/verify_c04/` (`compile_clean.sh` with `C04` and `BB8V` set
 to those copies): the six files took 84 s and the probe 2328 s (the machine was busy), and the probe reported seven
-results closed under the global context. `sha256.txt` has the SHA-256 of the `.v` files and `compile_clean.sh`.
+results closed under the global context. `Headline8.v` was added after that: the whole layer was recompiled on the same trees (the seven files about 50 s) and
+the extended probe rerun (1245 s), with eight results closed under the global context (`probe.log`; the log of that
+run is `../../BB9/verify_c04/compile_headline.log`). `sha256.txt` has the SHA-256 of the `.v` files and
+`compile_clean.sh`.

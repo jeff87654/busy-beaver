@@ -174,7 +174,7 @@ jobs:
   bb8-m8:
     # BB8/verify_m8: the 8-state machine M8 (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG---), the BB(8) entry,
     # the 8-state collapse of C04. Builds BB9/verify_c04 (all 55 files, about 1 h 40 min) and BB8/verify from scratch,
-    # then the M8 layer and its probe (seven results closed under the global context).
+    # then the M8 layer and its probe (eight results closed under the global context).
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb8-m8 == 'true'
     runs-on: ubuntu-latest
@@ -211,8 +211,8 @@ jobs:
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh deps 2>&1 | tee compile_ci.log
           closed=$(grep -c 'Closed under the global context' probe.log || true)
-          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 7 ]; then
-            echo "::error::probe.v did not report seven axiom-free results"
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 8 ]; then
+            echo "::error::probe.v did not report eight axiom-free results"
             exit 1
           fi
           tail -20 probe.log
@@ -321,7 +321,7 @@ jobs:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb9-c04 == 'true'
     # BB9/verify_c04: the 9-state machine C04 (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF), the BB(9)
-    # entry: all 55 files from scratch, 4 coqc at a time, then the probe (about 1 h 40 min on a 4-vCPU runner; the
+    # entry: all 56 files from scratch, 4 coqc at a time, then the probe (about 1 h 40 min on a 4-vCPU runner; the
     # longest file, k31/K_e1.v, takes most of it).
     runs-on: ubuntu-latest
     timeout-minutes: 300
@@ -362,10 +362,10 @@ jobs:
         working-directory: BB9/verify_c04
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" J=4 bash ./compile_clean.sh 2>&1 | tee compile_ci.log
-          test "$(find lib dev k31 score fgh -name '*.vo' | wc -l)" -eq 55
+          test "$(find lib dev k31 score fgh -name '*.vo' | wc -l)" -eq 56
           closed=$(grep -c 'Closed under the global context' probe.log || true)
-          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 4 ]; then
-            echo "::error::probe.v did not report four axiom-free theorems"
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 5 ]; then
+            echo "::error::probe.v did not report five axiom-free results"
             exit 1
           fi
           tail -20 probe.log

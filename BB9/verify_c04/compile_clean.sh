@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # Clean compile of the C04 proof against a busycoq checkout (commit bd2e36f), in dependency order, then the probe.
-#   BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh            everything (55 files), then probe.v
+#   BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh            everything (56 files), then probe.v
 #   BUSYCOQ=... ./compile_clean.sh only dev/G_sub2 k31/K_e1 ...   only these files (whatever they need must already be
 #                                                                 compiled)
 #   BUSYCOQ=... ./compile_clean.sh probe                          probe.v only
@@ -80,6 +80,7 @@ fgh/Uniq lib/Individual92 dev/Base dev/Abs dev/Step k31/K31_Abs k31/K31_Mach k31
 fgh/CascU lib/Individual92 dev/Base dev/Abs dev/Lift dev/Orbit dev/Chain dev/Step dev/Fin k31/K31_Abs fgh/Tower
 fgh/EndU lib/Individual92 dev/Base dev/Abs dev/Lift dev/Orbit dev/Chain dev/Cascade dev/Step dev/Fin dev/CBtail dev/Endgame k31/K31_Abs k31/K31_Mach k31/K31_End dev/ScoreEnd score/Score fgh/FArith fgh/Tower fgh/Uniq fgh/CascU
 fgh/Exact lib/Individual92 dev/Base dev/Abs dev/Lift dev/Orbit dev/Chain dev/Cascade dev/Step dev/Fin dev/CBtail dev/Endgame k31/K31_Abs k31/K31_Mach k31/K31_End dev/ScoreEnd score/Score fgh/FArith fgh/Tower fgh/Uniq fgh/CascU fgh/EndU
+fgh/Headline lib/Individual92 dev/Base dev/Abs dev/Chain k31/K31_Abs score/Score fgh/FArith fgh/EndU
 EOF
 
 probe() {
@@ -88,8 +89,8 @@ probe() {
   "$COQC" "${FLAGS[@]}" probe.v > probe.log || { cat probe.log; echo "probe.v FAILED"; exit 1; }
   closed=$(grep -c 'Closed under the global context' probe.log)
   echo "   ok, $(( $(date +%s) - start )) s"
-  echo "probe: $closed of 4 theorems closed under the global context"
-  if grep -q 'Axioms:' probe.log || [ "$closed" -ne 4 ]; then exit 1; fi
+  echo "probe: $closed of 5 theorems closed under the global context"
+  if grep -q 'Axioms:' probe.log || [ "$closed" -ne 5 ]; then exit 1; fi
 }
 [ "$1" = probe ] && { probe; exit 0; }
 case "$1" in ''|only) ;; *) echo "usage: compile_clean.sh [only FILE... | probe]" >&2; exit 2 ;; esac

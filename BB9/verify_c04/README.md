@@ -4,7 +4,10 @@ This directory is a Coq development on top of [busycoq](https://github.com/meith
 Coq 8.20.1). For this machine (H1 undefined: the halt) it proves:
 
 - `Final.c04_halts : halts tm c0`: the machine halts from the blank tape;
-- `EndU.c04_fgh_bracket`: every halted configuration c reached from the blank tape has N ones with
+- `Headline.c04_fgh3`: every halted configuration c reached from the blank tape has N ones with
+  `f_omega (f_omega (f_omega 12)) < N < f_omega (f_omega (f_omega 13))` (from `Headline.Bx_fw :
+  f_omega 12 < 12 * Bx + 26 /\ 12 * Bx + 27 <= f_omega 13`; `Bx_fw_tight2` shows (12, 13) is the tightest such pair);
+- `EndU.c04_fgh_bracket`, more precisely: the same N satisfies
   `f_omega (f_omega (12 * Bx + 26)) < N < f_omega (f_omega (12 * Bx + 27))`, where `Bx` is B and
   `FArith.Bx_knuth : 2 * Bx + 4 = arrow 13 2 3`, i.e. 2B + 4 = 2↑^13 3 (also `FArith.R2_knuth :
   2 * R2 Bx + 4 = arrow (12 * Bx + 26) 2 4`);
@@ -64,17 +67,18 @@ induction for each repeated block.
 | `fgh/CascU.v` | the cascade invariant with upper bounds (parked list ≤ 12R₂ + 11, run, tokens and tail bounded) |
 | `fgh/EndU.v` | every endgame route ending in an explicit tape; `c04_fgh_bracket`, `c04_fgh_coarse`, `c04_fgh_exists` |
 | `fgh/Exact.v` | the recursion `sigma_c04` and `c04_score_exact`, `c04_score_reached`, `c04_sigma_bracket` |
+| `fgh/Headline.v` | `Bx_fw`, `Bx_fw_tight2`, `c04_fgh3`: the bound without B |
 | `probe.v` | the independent probe (below) |
 | `compile_clean.sh`, `_CoqProject` | build script, project file |
 | `compile_clean.log`, `compile_fgh.log`, `probe.log`, `sha256.txt` | logs of the from-scratch build and of `fgh/` on top of it, the probe, hashes of the source files |
 
-The 55 `.v` files are those of the development where the proof was written, unchanged, except that four of them
+The 56 `.v` files are those of the development where the proof was written, unchanged, except that nine of them
 (`dev/Lift.v`, `score/Fw2Link.v`, `score/Fw2Upper.v`, `score/ScoreK.v`, and `fgh/FArith.v`, `fgh/Uniq.v`, `fgh/EndU.v`,
-`fgh/Exact.v`) had CRLF line endings there; here every file has LF endings. `fgh/` adds no machine lemmas: it reuses
+`fgh/Exact.v`, `fgh/Headline.v`) had CRLF line endings there; here every file has LF endings. `fgh/` adds no machine lemmas: it reuses
 the compiled dev, k31 and score files. There the dev and k31 files were compiled with `BB8` = a directory holding only `BB92` and `Individual92`,
 and the score files with `BB8` = a directory that also held the fw2 files (byte-identical `BB92.v` and
 `Individual92.v`); here `lib/` holds all four. Some comments name the development's generator scripts (`gen/*.py`) and
-build wrappers (`coqc_score.py`, …); those are not part of the proof and are not included. Only the 55 files in the
+build wrappers (`coqc_score.py`, …); those are not part of the proof and are not included. Only the 56 files in the
 dependency closure of the theorems are included (a few auxiliary files of the development are not).
 
 ## Check it
@@ -95,7 +99,7 @@ need only `dev/Base.v` take nearly all of it; the longest are `k31/K_e1.v` (35 m
 as long (section "Verification record"). Memory: under 1 GB per coqc.
 
 The GitHub workflow (`.github/workflows/coq.yml`, job `bb9-c04`) runs `compile_clean.sh` with J = 4 whenever its files change (and weekly),
-and fails unless all 55 `.vo` files are built and `probe.log` reports four results closed under the global context
+and fails unless all 56 `.vo` files are built and `probe.log` reports five results closed under the global context
 and no `Axioms:`. It also checks that the four `lib/` files are byte-identical to `../verify_fw2/multifile/`.
 
 `probe.v`:
@@ -110,9 +114,10 @@ and no `Axioms:`. It also checks that the four `lib/` files are byte-identical t
 - states the fgh/ results (`c04_fgh_bracket`, `c04_fgh_coarse`, `c04_score_exact`, `c04_score_reached`,
   `c04_sigma_bracket`, `Bx_knuth`, `R2_knuth`) as one conjunction `c04_fgh_all`, written out with qualified names,
   and proves it from them (`c04_fgh_all_ok`);
-- runs `Print Assumptions` on the three main theorems and on `c04_fgh_all_ok`.
+- states `Bx_fw`, `Bx_fw_tight2` and `c04_fgh3` as a second conjunction `c04_headline`, proved as `c04_headline_ok`;
+- runs `Print Assumptions` on the three main theorems, on `c04_fgh_all_ok` and on `c04_headline_ok`.
 
-Expected: `probe.log` contains four lines (three after the main theorems, one at the end)
+Expected: `probe.log` contains five lines
 
     Closed under the global context
 
@@ -145,4 +150,8 @@ closed under the global context; the fgh files took 367 s, the probe 1462 s on a
 attempt in that log failed on a typo in the new part of `probe.v` (a lost `/\`), which was fixed before the second
 attempt. The GitHub job `bb9-c04` builds all 55 files from scratch.
 
-`sha256.txt` has the SHA-256 of the 55 `.v` files, `probe.v`, `compile_clean.sh` and `_CoqProject`, as committed.
+`fgh/Headline.v` was added after that. `compile_headline.log` compiles it on top of the same tree (11 s, Idle) and
+reruns the extended probe (1137 s), and `probe.log` is that probe's output: five results closed under the global
+context, no `Axioms:`. In that log the M8 layer of `../../BB8/verify_m8` is then rebuilt on the same tree.
+
+`sha256.txt` has the SHA-256 of the 56 `.v` files, `probe.v`, `compile_clean.sh` and `_CoqProject`, as committed.

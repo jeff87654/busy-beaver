@@ -1,0 +1,26 @@
+start 2026-10-18 18:20:20
+== fgh/Headline.v started
+   fgh/Headline.v ok, 11 s
+COMPILE DONE, 12 s
+== probe.v ==
+   ok, 1137 s
+probe: 5 of 5 theorems closed under the global context
+c04 done 18:39:32
+== BB82.v ==
+   ok, 7 s
+== Individual82.v ==
+   ok, 6 s
+== Tm8.v ==
+   ok, 7 s
+== Sim.v ==
+   ok, 9 s
+== Transfer.v ==
+   ok, 8 s
+== Headline8.v ==
+   ok, 6 s
+== Beats8.v ==
+   ok, 7 s
+== probe.v ==
+   ok, 1245 s
+probe: 8 of 8 Print Assumptions closed under the global context
+exit 0 at 2026-10-18 19:01:07
