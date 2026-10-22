@@ -1,0 +1,154 @@
+c0 = (q0, tape0)
+     : Q * tape
+tape0 = (const s0, s0, const s0)
+     : tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+Defs.tm3 =
+fun pat : Q * Sym =>
+match pat with
+| (A, 0) => Some (1, R, B)
+| (A, 1) => Some (0, R, A)
+| (B, 0) => Some (1, L, C)
+| (B, 1) => Some (1, L, F)
+| (C, 0) => Some (1, R, D)
+| (C, 1) => Some (0, L, B)
+| (D, 0) => Some (1, R, A)
+| (D, 1) => Some (1, L, E)
+| (E, 0) => Some (1, L, H)
+| (E, 1) => Some (0, L, C)
+| (F, 0) => Some (1, R, G)
+| (F, 1) => Some (1, L, D)
+| (G, 0) => Some (0, R, G)
+| (G, 1) => Some (0, R, F)
+| (H, 0) => Some (0, L, I)
+| (H, 1) => None
+| (I, 0) => Some (0, R, C)
+| (I, 1) => Some (1, R, F)
+end
+     : TM
+eq_refl : Defs.tm3 (A, 0) = Some (1, R, B)
+     : Defs.tm3 (A, 0) = Some (1, R, B)
+eq_refl : Defs.tm3 (A, 1) = Some (0, R, A)
+     : Defs.tm3 (A, 1) = Some (0, R, A)
+eq_refl : Defs.tm3 (B, 0) = Some (1, L, C)
+     : Defs.tm3 (B, 0) = Some (1, L, C)
+eq_refl : Defs.tm3 (B, 1) = Some (1, L, F)
+     : Defs.tm3 (B, 1) = Some (1, L, F)
+eq_refl : Defs.tm3 (C, 0) = Some (1, R, D)
+     : Defs.tm3 (C, 0) = Some (1, R, D)
+eq_refl : Defs.tm3 (C, 1) = Some (0, L, B)
+     : Defs.tm3 (C, 1) = Some (0, L, B)
+eq_refl : Defs.tm3 (D, 0) = Some (1, R, A)
+     : Defs.tm3 (D, 0) = Some (1, R, A)
+eq_refl : Defs.tm3 (D, 1) = Some (1, L, E)
+     : Defs.tm3 (D, 1) = Some (1, L, E)
+eq_refl : Defs.tm3 (E, 0) = Some (1, L, H)
+     : Defs.tm3 (E, 0) = Some (1, L, H)
+eq_refl : Defs.tm3 (E, 1) = Some (0, L, C)
+     : Defs.tm3 (E, 1) = Some (0, L, C)
+eq_refl : Defs.tm3 (F, 0) = Some (1, R, G)
+     : Defs.tm3 (F, 0) = Some (1, R, G)
+eq_refl : Defs.tm3 (F, 1) = Some (1, L, D)
+     : Defs.tm3 (F, 1) = Some (1, L, D)
+eq_refl : Defs.tm3 (G, 0) = Some (0, R, G)
+     : Defs.tm3 (G, 0) = Some (0, R, G)
+eq_refl : Defs.tm3 (G, 1) = Some (0, R, F)
+     : Defs.tm3 (G, 1) = Some (0, R, F)
+eq_refl : Defs.tm3 (H, 0) = Some (0, L, I)
+     : Defs.tm3 (H, 0) = Some (0, L, I)
+eq_refl : Defs.tm3 (H, 1) = None
+     : Defs.tm3 (H, 1) = None
+eq_refl : Defs.tm3 (I, 0) = Some (0, R, C)
+     : Defs.tm3 (I, 0) = Some (0, R, C)
+eq_refl : Defs.tm3 (I, 1) = Some (1, R, F)
+     : Defs.tm3 (I, 1) = Some (1, R, F)
+Statement.f3_table
+     : length Statement.f3_string = 62 /\
+       (forall (q : Q) (s : Sym),
+        Defs.tm3 (q, s) =
+        Statement.parse_slot Statement.f3_string (Statement.st_idx q)
+          (Statement.sym_idx s))
+eq_refl : Statement.parse_slot Statement.f3_string 7 1 = None
+     : Statement.parse_slot Statement.f3_string 7 1 = None
+Defs.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = Defs.count1 L + Defs.sym_val s + Defs.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments Defs.ones c N%nat_scope
+Defs.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => Defs.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments Defs.count1 xs%list_scope
+Defs.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments Defs.sym_val s%sym_scope
+Defs.iter =
+fix iter (n : nat) (g : nat -> nat) (x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => g (iter n' g x)
+  end
+     : nat -> (nat -> nat) -> nat -> nat
+
+Arguments Defs.iter n%nat_scope g%function_scope x%nat_scope
+Defs.arrow =
+fix arrow (k a b : nat) {struct k} : nat :=
+  match k with
+  | 0 => a * b
+  | S k' => Nat.iter b (arrow k' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments Defs.arrow (k a b)%nat_scope
+Defs.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => Defs.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments Defs.f (k _)%nat_scope
+Defs.f_omega = fun n : nat => Defs.f n n
+     : nat -> nat
+
+Arguments Defs.f_omega n%nat_scope
+Statement.f3_halts
+     : halts Defs.tm3 c0
+Statement.f3_lower
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Defs.tm3 ]->* c ->
+       halted Defs.tm3 c ->
+       Defs.ones c N ->
+       Defs.f_omega
+         (Defs.f_omega
+            (6 *
+             Defs.iter (Defs.arrow 13 2 3 - 5) (Defs.arrow 6 2)
+               (Defs.iter 4 (Defs.arrow 5 2) 4) - 14)) < N
+Statement.f3_beats_m8_bound
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Defs.tm3 ]->* c ->
+       halted Defs.tm3 c ->
+       Defs.ones c N ->
+       Defs.f_omega (Defs.f_omega (6 * Defs.arrow 13 2 3 + 3)) < N
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

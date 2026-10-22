@@ -56,12 +56,33 @@ ones (Knuth up-arrows), hence after more than 2 ↑^37 3 steps. It runs the BB(7
 
 ## BB9/
 
-**No 9-state entry.** The best 9-state machine we know, C04 = `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF`,
-has exactly M8's score. M8 was obtained from it by removing a 2-state gadget, and M8's proof is built on C04's. A
-9-state record must beat M8.
+`1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_0RC1RF` (f3_0RC), a 9-state, 2-symbol machine that halts
+from the blank tape (in state H reading 1, on the undefined transition H1) with score σ, where (machine-checked)
 
-- [`BB9/1RB0RA_..._1RI---_0RI0RF.md`](BB9/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF.md): C04, the
-  9-state machine whose proof the BB8 entry M8 is reduced from (how it works, the run, the score, the proof).
+    f_ω(f_ω(6·(2↑^13 3) + 3)) < σ        (f3_beats_m8_bound)
+
+The left side is the Coq upper bound of the BB(8) entry M8 (`m8_bracket`), so f3_0RC beats M8, in whichever endgame
+class M8's run ends. More precisely, f_ω(f_ω(12R'' + 10)) < σ with 2R'' + 4 = iter (2↑^13 3 − 5) (2↑^6) (iter 4 (2↑^5) 4),
+about 2↑^7(2↑^13 3) (`f3_lower`). The gain is modest: f3_0RC is at M8's level, f_ω(f_ω(f_ω(12))) < σ < f_ω(f_ω(f_ω(13)))
+(the upper half on paper). It is M8 with H0 = 1RG replaced by a look at the cell to the left (H0 = 0LI, I1 = 1RF redo M8's
+step), which changes the run only at the two top-level exhaustions (I0 = 0RC). There it builds a much longer list than
+M8 before the cascade, and then runs M8's cascade and endgame. Found by this project's screen of 9-state extensions of
+M8 (2026-10-19), proved in Coq on top of C04's development (2026-10-20). It is the first 9-state entry that beats
+M8 in every endgame class. A larger machine built on the same proof infrastructure, C7 (f_ω^4 level), follows in the
+next pull request and will take over this row.
+
+- [`BB9/1RB0RA_..._0LI---_0RC1RF.md`](BB9/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_0RC1RF.md): how it
+  works, the run, the residues, the score, the comparison with M8, verification status, credit.
+- [`BB9/verify_f3/`](BB9/verify_f3/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1). To check the claims, read
+  `f3/Defs.v` and `f3/Statement.v` there. Main theorems: `f3_halts`, `f3_beats_m8_bound`, `f3_lower`, and `f3_table`
+  (the table against a parse of the machine string). No axioms. The proof runs on an auxiliary 11-state machine that
+  simulates f3_0RC and reuses C04's generated lemmas unchanged. Built in full from scratch and probed in CI (job `bb9-f3`).
+
+**C04 (proof base).** C04 = `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF` has exactly M8's score. M8
+was obtained from it by removing a 2-state gadget, and the proofs of M8 and f3_0RC are built on C04's.
+
+- [`BB9/1RB0RA_..._1RI---_0RI0RF.md`](BB9/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_0RG1LD_0LH1LH_1RI---_0RI0RF.md): C04 (how
+  it works, the run, the score, the proof).
 - [`BB9/verify_c04/`](BB9/verify_c04/): its Coq development (busycoq `bd2e36f`, Coq 8.20.1, no axioms, 56 files),
   built in full from scratch and probed in CI.
 
