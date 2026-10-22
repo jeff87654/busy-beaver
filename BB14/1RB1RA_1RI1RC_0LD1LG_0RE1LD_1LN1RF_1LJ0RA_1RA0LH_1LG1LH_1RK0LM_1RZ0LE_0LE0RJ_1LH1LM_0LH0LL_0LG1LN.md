@@ -1,4 +1,4 @@
-# A 14-state machine at level f_(ω+2)³
+# M14: a 14-state machine at level f_(ω+2)³
 
     1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LN1RF_1LJ0RA_1RA0LH_1LG1LH_1RK0LM_1RZ0LE_0LE0RJ_1LH1LM_0LH0LL_0LG1LN
 

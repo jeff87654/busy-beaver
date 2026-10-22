@@ -6,9 +6,10 @@ name: Coq proofs
 # BB9/verify_fw2 (about 2 hours).
 #
 # When the jobs run: on pull requests and on pushes to main, a job runs only if its entry's files, or the files of an
-# entry it depends on, changed (job `changes`, below; a skipped job counts as passed). Changing this file does not by
-# itself run any job, so a pull request that adds an entry and its job runs that job only. Every job runs on manual
-# runs (workflow_dispatch: Actions > Coq proofs > Run workflow) and in the weekly scheduled run.
+# entry it depends on, changed (job `changes`, below; a skipped job counts as passed). Changing this file, or only
+# documentation (.md files: write-ups, READMEs), does not by itself run any job, so a pull request that adds an entry
+# and its job runs that job only. Every job runs on manual runs (workflow_dispatch: Actions > Coq proofs > Run
+# workflow) and in the weekly scheduled run.
 #
 # So after changing how a job builds without changing its entry's files (its steps, the container image, or the busycoq
 # pin BUSYCOQ_COMMIT, which is set in each job below), run the workflow manually on the branch.
@@ -48,43 +49,41 @@ jobs:
       - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36   # v3.0.2
         id: f
         with:
+          predicate-quantifier: 'every'
+          # With 'every', a file selects a filter only if it matches every line of it: the first line is the
+          # entry's paths (a {a,b,...} brace pattern is their union) and '!**/*.md' leaves out documentation, so a
+          # change to .md files alone selects no job (no step a job runs reads a .md file).
           filters: |
             pa238:
               - 'PA/**'
+              - '!**/*.md'
             bb8:
               - 'BB8/**'
+              - '!**/*.md'
             bb8-m8:
-              - 'BB8/**'
-              - 'BB9/verify_c04/**'
-              - 'BB9/verify_fw2/multifile/**'
+              - '{BB8/**,BB9/verify_c04/**,BB9/verify_fw2/multifile/**}'
+              - '!**/*.md'
             bb13-bb14:
-              - 'BB13/**'
-              - 'BB14/**'
+              - '{BB13/**,BB14/**}'
+              - '!**/*.md'
             bb9-fw2:
               - 'BB9/verify_fw2/**'
+              - '!**/*.md'
             bb9-c04:
-              - 'BB9/verify_c04/**'
-              - 'BB9/verify_fw2/multifile/**'
+              - '{BB9/verify_c04/**,BB9/verify_fw2/multifile/**}'
+              - '!**/*.md'
             bb9-f3:
-              - 'BB9/verify_f3/**'
-              - 'BB9/verify_c04/**'
-              - 'BB8/verify_m8/Defs.v'
+              - '{BB9/verify_f3/**,BB9/verify_c04/**,BB8/verify_m8/Defs.v}'
+              - '!**/*.md'
             bb9-c7:                       # self-contained build; port_check.sh and the Defs.v diff read the others
-              - 'BB9/verify_c7/**'
-              - 'BB9/verify_c04/dev/Abs.v'
-              - 'BB9/verify_c04/dev/G_rules.v'
-              - 'BB9/verify_c04/dev/Lift.v'
-              - 'BB9/verify_c04/lib/BB92.v'
-              - 'BB9/verify_c04/lib/Individual92.v'
-              - 'BB9/verify_f3/lib/BB112.v'
-              - 'BB9/verify_f3/lib/Individual112.v'
-              - 'BB9/verify_f3/score/Score.v'
-              - 'BB9/verify_f3/dev/Base.v'
-              - 'BB8/verify_m8/Defs.v'
+              - '{BB9/verify_c7/**,BB9/verify_c04/{dev/Abs,dev/G_rules,dev/Lift,lib/BB92,lib/Individual92}.v,BB9/verify_f3/{lib/BB112,lib/Individual112,score/Score,dev/Base}.v,BB8/verify_m8/Defs.v}'
+              - '!**/*.md'
             bb43:
               - 'BB43/**'
+              - '!**/*.md'
             zf:
               - 'ZF/**'
+              - '!**/*.md'
 
       - id: all
         run: |
@@ -405,7 +404,8 @@ jobs:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb9-f3 == 'true'
     # BB9/verify_f3: the 9-state machine f3_0RC (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_0RC1RF), the BB(9)
-    # entry: all 51 files from scratch, 4 coqc at a time, then the probe (five results closed under the global context).
+    # entry before C7, whose proof reuses its files: all 51 files from scratch, 4 coqc at a time, then the probe (five
+    # results closed under the global context).
     # The files ported from BB9/verify_c04 are checked against it first (port_check.sh).
     runs-on: ubuntu-latest
     timeout-minutes: 355

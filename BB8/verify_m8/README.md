@@ -41,7 +41,7 @@ The machine and the collapse are described in
 | `compile_clean.sh` | build script |
 | `compile_clean.log`, `probe.log`, `sha256.txt` | logs of the from-scratch build, hashes of the source files |
 
-The `.v` files are those of the development where the layer was written (agent m8-coq), unchanged except for line
+The `.v` files are those of the development where the layer was written, unchanged except for line
 endings (`BB82.v` had CRLF there). Logical paths: the C04 tree's own (`lib` = `BB8`, `dev` = `Dev`, `k31` = `K31`,
 `score` = `Score`, `fgh` = `Fgh`), this directory = `M8`, and, for `Beats8.v` and `probe.v` only, `../verify` = `BB8`
 as well. The two `BB8` directories have no file name in common (`BB92`, `Individual92`, `BB9_fw2_*` against `BB82`,

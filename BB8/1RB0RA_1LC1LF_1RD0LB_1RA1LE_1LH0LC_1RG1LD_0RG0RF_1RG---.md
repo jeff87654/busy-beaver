@@ -188,13 +188,13 @@ probe reports twenty closed results. The recorded local build is in [`verify_m8/
 
 ## 5. Discovery and credit
 
-- **Found** by agent bb8-resid (Opus, 2026-10-18), re-examining the 8-state neighbourhood of the BB(7) champion after
-  C04 was proved: removing C04's two-state detour gives an 8-state machine. A literal lockstep comparison (3·10⁹ C04
-  steps = 2·10⁹ M8 steps, full tapes compared at regular sync points and at the end) agreed before any proof was
-  written. M8 had been in an earlier screen of that
-  neighbourhood (row 189 of our `halt_redirect/c7/set8.txt`), where a small-world screen graded it TIME and dismissed it.
-- **Proved** in Coq by agent m8-coq (Opus, 2026-10-18): the simulation and the transfer of C04's theorems, on top of
-  C04's development (section 5 of C04's write-up for its credits: our n1f0 search, the parity analysis by a Fable agent,
-  the Coq proof by Opus agents).
+- **Found** in this project (a Claude Opus agent, 2026-10-18), re-examining the 8-state neighbourhood of the BB(7)
+  champion after C04 was proved: removing C04's two-state detour gives an 8-state machine. A literal lockstep
+  comparison (3·10⁹ C04 steps = 2·10⁹ M8 steps, full tapes compared at regular sync points and at the end) agreed
+  before any proof was written. M8 had been in an earlier screen of that neighbourhood in this project, where a
+  small-world screen graded it TIME and dismissed it.
+- **Proved** in Coq in this project (a Claude Opus agent, 2026-10-18): the simulation and the transfer of C04's
+  theorems, on top of C04's development (section 5 of C04's write-up for its credits: this project's n1f0 search,
+  the parity analysis by a Claude Fable agent, the Coq proof by Claude Opus agents).
 - **Built on** the BB(7) champion of Kropitz (2025; analysed by Ligocki), whose counter M8 runs, and on the previous
   BB(8) entry's Coq files, used unchanged for the comparison.

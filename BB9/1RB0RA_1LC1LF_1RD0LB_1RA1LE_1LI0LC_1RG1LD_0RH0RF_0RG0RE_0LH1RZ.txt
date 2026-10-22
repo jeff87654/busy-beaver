@@ -1,6 +1,11 @@
 1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_1RG1LD_0RH0RF_0RG0RE_0LH1RZ
 ==============================================================
 
+SUPERSEDED (2026-10-17, pull request #21) as this folder's BB(9) entry by fw2,
+1RB0RD_1LC1LC_0RA0LB_1RE1RD_0LG0LF_1LE1LF_0RH1LG_1RD1RI_1RZ1RA (see the .md file next to this one), which Coq
+proves beats this machine's exact score (fw2_beats_record).  fw2 has since been superseded too; the current BB(9)
+entry is listed in BB9/README.md.  Apart from this note, this file and verify/ are unchanged.
+
 A 9-state, 2-symbol Turing machine that halts from the blank tape with
 
     sigma = 3 * (2 ^^(6T-33) 8) + (54 T + 26) / 5,      T = 2 ^^13 3        (exactly; machine-checked)
