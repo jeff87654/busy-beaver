@@ -17,6 +17,10 @@ The gain is modest. f3_0RC is at M8's level of the hierarchy: on paper, f_ω(f_�
 like M8. Only the lower half of that bracket follows from Coq results (section 2.2). What is proved is that σ is above
 M8's Coq upper bound. Written 2026-10-21.
 
+**Dominated (2026-10-22)** by C7 ([`1RB0RA_..._0LI---_1LC0RA.md`](1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_1LC0RA.md)),
+whose Coq lower bound f_ω⁴(6·(2↑^13 3) + 3) is two applications of f_ω above M8's upper bound. C7's proof is built on
+this one's auxiliary machine.
+
 f3_0RC is the first 9-state entry that beats M8 in every endgame class. A larger 9-state machine, C7 (at the
 f_ω^4 level), is proved on the same proof infrastructure (this development's auxiliary machine X); it follows in the
 next pull request and will take over the BB(9) entry.
