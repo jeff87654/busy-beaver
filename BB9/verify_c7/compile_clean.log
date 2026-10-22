@@ -1,0 +1,91 @@
+start 2026-10-22 05:52:36
+== lib/BB112.v started
+== lib9/BB92.v started
+   lib9/BB92.v ok, 8 s
+   lib/BB112.v ok, 8 s
+== lib9/Individual92.v started
+== lib/Individual112.v started
+   lib/Individual112.v ok, 19 s
+== dev/Base.v started
+   lib9/Individual92.v ok, 21 s
+== dev/Ones.v started
+== c7/Defs.v started
+   dev/Ones.v ok, 32 s
+   dev/Base.v ok, 33 s
+   c7/Defs.v ok, 33 s
+== dev/G_ent.v started
+== dev/G_pa2.v started
+== dev/G_pd.v started
+   dev/G_pd.v ok, 1241 s
+== dev/G_sub4.v started
+   dev/G_sub4.v ok, 784 s
+== dev/G_sub3.v started
+   dev/G_sub3.v ok, 691 s
+== dev/G_sub0.v started
+   dev/G_pa2.v ok, 2872 s
+== dev/G_pbab.v started
+   dev/G_sub0.v ok, 639 s
+== dev/G_pa1.v started
+   dev/G_pbab.v ok, 619 s
+== dev/G_pbc.v started
+   dev/G_pa1.v ok, 418 s
+== dev/G_e2.v started
+   dev/G_pbc.v ok, 390 s
+== dev/G_r30.v started
+   dev/G_e2.v ok, 162 s
+== dev/G_e3.v started
+   dev/G_r30.v ok, 252 s
+== dev/G_rules.v started
+   dev/G_e3.v ok, 206 s
+== dev/G_r2pre.v started
+   dev/G_r2pre.v ok, 162 s
+== dev/G_r2round.v started
+   dev/G_rules.v ok, 194 s
+== dev/G_r2vhq.v started
+   dev/G_r2round.v ok, 97 s
+== dev/G_r2a1.v started
+   dev/G_r2vhq.v ok, 106 s
+== dev/G_r2vh2b.v started
+   dev/G_r2vh2b.v ok, 26 s
+== dev/Abs.v started
+   dev/G_r2a1.v ok, 58 s
+== c7/Sim.v started
+   c7/Sim.v ok, 30 s
+   dev/Abs.v ok, 126 s
+== dev/Res.v started
+== dev/KStep.v started
+   dev/KStep.v ok, 19 s
+== dev/Lift.v started
+   dev/Res.v ok, 33 s
+== dev/C7Arith.v started
+   dev/Lift.v ok, 15 s
+== score/Score.v started
+   score/Score.v ok, 27 s
+== dev/C7Phases.v started
+   dev/C7Phases.v ok, 19 s
+== dev/C7PhB.v started
+   dev/C7PhB.v ok, 16 s
+== dev/C7Count.v started
+   dev/C7Count.v ok, 16 s
+== dev/C7Casc.v started
+   dev/C7Casc.v ok, 18 s
+== dev/C7Halt.v started
+   dev/C7Halt.v ok, 16 s
+   dev/C7Arith.v ok, 268 s
+   dev/G_ent.v ok, 6623 s
+== dev/C7Entry.v started
+   dev/C7Entry.v ok, 15 s
+== dev/C7Top.v started
+   dev/C7Top.v ok, 12 s
+== dev/C7Score.v started
+   dev/C7Score.v ok, 9 s
+== dev/C7Final.v started
+   dev/C7Final.v ok, 150 s
+== c7/Final7.v started
+   c7/Final7.v ok, 9 s
+== c7/Statement.v started
+   c7/Statement.v ok, 8 s
+COMPILE DONE, 6890 s
+== probe.v ==
+   ok, 213 s
+probe: 5 of 5 results closed under the global context

@@ -85,7 +85,11 @@ gained `Print tape0` and one `Print Assumptions` per theorem of `Statement.v`.
 compiled, the longest files first, and writes per-file coqc output to `_logs/`. `./compile_clean.sh only FILE…` and
 `./compile_clean.sh probe` work as in `../verify_c04`.
 
-BUILD_TIMES_PLACEHOLDER
+The from-scratch build here (section "Verification record") took 6,890 s of wall time with 3 coqc at a time on a
+shared, heavily loaded laptop, and 6,721 s of CPU time in all. The longest files were `dev/G_ent.v` (2,945 s CPU),
+`dev/G_pa2.v` (937 s) and `dev/G_pd.v` (387 s); everything else is under 260 s CPU. The development's builds of
+`../verify_f3` ran about 2.5 times slower in CPU time than GitHub's runners, so the CI job (J = 4) should take well
+under an hour. Memory: under 3 GB per coqc (`dev/G_ent.v`).
 
 `probe.v`:
 - checks by conversion all 18 entries of `tm7` against lines written from the machine string (H1 is `None`), and
@@ -97,4 +101,14 @@ BUILD_TIMES_PLACEHOLDER
 
 Expected: `probe.log` contains five lines `Closed under the global context` and no `Axioms:`.
 
-VERIFICATION_RECORD_PLACEHOLDER
+## Verification record
+
+`compile_clean.log` is from a from-scratch build on 2026-10-22: Coq 8.20.1 (Coq Platform 2025.01), Windows 11, a shared
+laptop with other builds running, every coqc at Idle priority. The directory held only the 43 `.v` files, `probe.v`
+and the scripts, against busycoq at commit `bd2e36f` with its 7 needed files compiled first. Command:
+`BUSYCOQ=… J=3 ./compile_clean.sh`, with `COQC` set to a wrapper that starts coqc at Idle priority. Result: all 43
+files compiled (COMPILE DONE, 6,890 s), then the probe (213 s). `probe.log` reports five results closed under the global
+context and contains no `Axioms:`. `port_check.sh` passed against `../verify_c04` and `../verify_f3`.
+
+`sha256.txt` has the SHA-256 of the 43 `.v` files, `probe.v`, `compile_clean.sh`, `port_check.sh` and `_CoqProject`, as
+committed.
