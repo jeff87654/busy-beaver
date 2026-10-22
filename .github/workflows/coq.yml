@@ -1,7 +1,7 @@
 name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/verify, BB8/verify_m8,
-# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB13/, BB14/, BB43/, PA/m238 and ZF/. Not built here, because they take long
+# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB13/, BB14/, BB43/, PA/m238 and ZF/. Not built here, because they take long
 # (recorded local builds are in their directories): BB10/ (about 20 minutes), BB12/ (about 3 hours) and stage 2 of
 # BB9/verify_fw2 (about 2 hours).
 #
@@ -69,11 +69,16 @@ jobs:
               - 'BB9/verify_f3/**'
               - 'BB9/verify_c04/**'
               - 'BB8/verify_m8/Defs.v'
-            bb9-c7:
+            bb9-c7:                       # self-contained build; port_check.sh and the Defs.v diff read the others
               - 'BB9/verify_c7/**'
-              - 'BB9/verify_c04/**'
-              - 'BB9/verify_f3/lib/**'
-              - 'BB9/verify_f3/score/**'
+              - 'BB9/verify_c04/dev/Abs.v'
+              - 'BB9/verify_c04/dev/G_rules.v'
+              - 'BB9/verify_c04/dev/Lift.v'
+              - 'BB9/verify_c04/lib/BB92.v'
+              - 'BB9/verify_c04/lib/Individual92.v'
+              - 'BB9/verify_f3/lib/BB112.v'
+              - 'BB9/verify_f3/lib/Individual112.v'
+              - 'BB9/verify_f3/score/Score.v'
               - 'BB9/verify_f3/dev/Base.v'
               - 'BB8/verify_m8/Defs.v'
             bb43:
