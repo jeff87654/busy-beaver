@@ -405,7 +405,8 @@ jobs:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb9-f3 == 'true'
     # BB9/verify_f3: the 9-state machine f3_0RC (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_0RC1RF), the BB(9)
-    # entry: all 51 files from scratch, 4 coqc at a time, then the probe (five results closed under the global context).
+    # entry before C7, whose proof reuses its files: all 51 files from scratch, 4 coqc at a time, then the probe (five
+    # results closed under the global context).
     # The files ported from BB9/verify_c04 are checked against it first (port_check.sh).
     runs-on: ubuntu-latest
     timeout-minutes: 355
