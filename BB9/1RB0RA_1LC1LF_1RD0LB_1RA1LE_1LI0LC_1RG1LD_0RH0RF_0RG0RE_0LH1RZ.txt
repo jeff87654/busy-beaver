@@ -3,8 +3,8 @@
 
 SUPERSEDED (2026-10-17, pull request #21) as this folder's BB(9) entry by fw2,
 1RB0RD_1LC1LC_0RA0LB_1RE1RD_0LG0LF_1LE1LF_0RH1LG_1RD1RI_1RZ1RA (see the .md file next to this one), which Coq
-proves beats this machine's exact score (fw2_beats_record).  Later BB(9) entries are listed in README.md in this
-folder.  Apart from this note, this file and verify/ are unchanged.
+proves beats this machine's exact score (fw2_beats_record).  fw2 has since been superseded too; the current BB(9)
+entry is listed in BB9/README.md.  Apart from this note, this file and verify/ are unchanged.
 
 A 9-state, 2-symbol Turing machine that halts from the blank tape with
 
