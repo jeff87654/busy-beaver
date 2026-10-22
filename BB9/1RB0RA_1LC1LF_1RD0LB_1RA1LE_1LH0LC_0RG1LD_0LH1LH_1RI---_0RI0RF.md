@@ -7,6 +7,9 @@
 > reduced from C04 by collapsing its F0/G/H0 gadget into one transition; it halts on the same tape with the same score.
 > So C04 is not a BB(9) entry (a 9-state record must beat M8). It is kept here as the machine whose Coq proof M8's
 > is built on.
+> The BB(9) entry is now f3_0RC
+> ([`1RB0RA_..._0LI---_0RC1RF.md`](1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_0RC1RF.md)), whose
+> Coq proof also reuses this development (2026-10-21).
 
 Below we call this machine **C04** (its label in the search that found it, section 5). It halts from the blank tape,
 and Coq proves, with no axioms and with the standard fast-growing hierarchy, that its score σ satisfies

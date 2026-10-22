@@ -25,3 +25,5 @@ BB8/verify_m8/Defs.log
 BB8/verify_m8/Bridge.log
 BB8/verify_m8/Statement.log
 BB8/verify_m8/Headline8.log
+BB9/verify_f3/_logs/
+BB9/verify_f3/compile_ci.log
