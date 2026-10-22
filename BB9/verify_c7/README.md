@@ -1,15 +1,19 @@
 # Coq proofs for `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_1LC0RA` (C7)
 
 This directory is a Coq development on top of [busycoq](https://github.com/meithecatte/busycoq) (commit `bd2e36f`,
-Coq 8.20.1). **To check the claims, read `c7/Defs.v` and `c7/Statement.v`**, together with busycoq's `TM.v`.
-`Statement.v` states every result in terms of `Defs.v` and busycoq only, and pins the table against the machine string
-through a parser of the literal string. `probe.v` runs `Print Assumptions` on each theorem.
+Coq 8.20.1). **To check the claims, read `c7/Defs.v`, `c7/Statement.v` and the two theorems at the end of
+`c7/Lower5.v`**, together with busycoq's `TM.v`. These state every result in terms of `Defs.v` and busycoq only, and
+`Statement.v` pins the table against the machine string through a parser of the literal string. `probe.v` runs
+`Print Assumptions` on each theorem.
 
 For C7 (H1 undefined: the halt) it proves, with no axioms:
 
 - `Statement.c7_halts : halts tm7 c0`;
-- `Statement.c7_lower`: every halted configuration c reached from the blank tape has N ones with
-  `f_omega (f_omega (f_omega (f_omega (6 * arrow 13 2 3 + 3)))) < N`;
+- `Lower5.c7_lower5`: every halted configuration c reached from the blank tape has N ones with
+  `f_omega (f_omega (f_omega (f_omega (f_omega (2 * arrow 13 2 3))))) < N`;
+- `Lower5.c7_lower6_12`: the same N satisfies `f_omega (f_omega (f_omega (f_omega (f_omega (f_omega 12))))) < N`;
+- `Statement.c7_lower`: the same N satisfies `f_omega (f_omega (f_omega (f_omega (6 * arrow 13 2 3 + 3)))) < N` (the
+  first bound proved; `Lower5.v` starts the f_omega levels one clear earlier);
 - `Statement.c7_beats_m8_bound`: the same N satisfies `f_omega (f_omega (6 * arrow 13 2 3 + 3)) < N`. This constant
   is the upper bound of the BB(8) entry M8 (`../../BB8/verify_m8/`, `Statement.m8_bracket`), so C7's score is above M8's;
 - `Statement.c7_table`: `tm7` is the parse of the string `"1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_1LC0RA"`.
@@ -62,10 +66,13 @@ proved by stepping the machine and by induction for each repeated block.
 | `score/Score.v` | f_k ≤ U_k and `S1_core`; identical to `../verify_f3/score/Score.v` |
 | `dev/C7Score.v` | f_ω²(12B + 27) < R₃ and f_ω⁴(12B + 27) < R₅ ≤ R₁₀ along the run |
 | `dev/C7Final.v` | `x_goal`: X' halts with N ones and f_ω⁴(12B + 27) < N; `x_halts` |
+| `dev/C7Score5.v` | five f_ω levels from the clear after J2 (depth (27B + 33)/5): f_ω⁵(y) < R₅ for y ≤ (27B + 28)/5 (`chain5`); f_(k+2) ≤ U_k, so f_ω(12) ≤ B |
+| `dev/C7Final5.v` | `x_goal5`: `x_goal`'s run, verbatim, with f_ω⁵(4B + 8) < N and f_ω⁶(12) < N |
 | `c7/Defs.v` | **read this**: `tm7`, `sym_val`, `count1`, `ones`, `iter`, `arrow`, `f`, `f_omega`, `f_w1`. From `(** Counting ones. *)` on, it is the text of `../../BB8/verify_m8/Defs.v` |
 | `c7/Sim.v` | the simulation of C7 by X': `stmap`, `Rel`, `c7_halts_of_x`, and the transfer of halting counts |
 | `c7/Final7.v` | `c7_halts`, `c7_lower`, `c7_beats_m8_bound`, with pointwise bridges between `Defs.v`'s copies and the development's definitions, proved by reflexivity |
-| `c7/Statement.v` | **read this**: the four theorems above, in terms of `Defs.v` and busycoq only |
+| `c7/Statement.v` | **read this**: `c7_table`, `c7_halts`, `c7_lower`, `c7_beats_m8_bound`, in terms of `Defs.v` and busycoq only |
+| `c7/Lower5.v` | **read its last two theorems**: `c7_lower5`, `c7_lower6_12` (transferred from `x_goal5` as in `Final7.v`) |
 | `probe.v` | the independent probe (below) |
 | `compile_clean.sh`, `_CoqProject`, `port_check.sh` | build script, project file, check of the reused files |
 | `compile_clean.log`, `probe.log`, `sha256.txt` | logs of the from-scratch build and the probe, hashes of the source files |
@@ -76,7 +83,7 @@ gained `Print tape0` and one `Print Assumptions` per theorem of `Statement.v`.
 
 ## Check it
 
-    BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh          # everything, then probe.v
+    BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh          # everything (46 files), then probe.v
     BUSYCOQ=/path/to/busycoq/verify J=8 ./compile_clean.sh      # 8 coqc at a time (default 4)
     ./port_check.sh                                             # the reused files against ../verify_c04, ../verify_f3
 
@@ -97,9 +104,11 @@ under an hour. Memory: under 3 GB per coqc (`dev/G_ent.v`).
 - prints the definitions the statements use (`ones`, `count1`, `sym_val`, `iter`, `arrow`, `f`, `f_omega`);
 - states the three main results as one conjunction `c7_all`, written out with qualified names, and proves it
   (`c7_all_ok`); checks the types of the theorems of `Statement.v`;
-- runs `Print Assumptions` on `c7_all_ok` and on each of the four theorems of `Statement.v`.
+- runs `Print Assumptions` on `c7_all_ok` and on each of the four theorems of `Statement.v`;
+- states the two bounds of `Lower5.v` as a second conjunction `c7_all5` with qualified names, proves it
+  (`c7_all5_ok`), and runs `Print Assumptions` on it and on each of the two theorems.
 
-Expected: `probe.log` contains five lines `Closed under the global context` and no `Axioms:`.
+Expected: `probe.log` contains eight lines `Closed under the global context` and no `Axioms:`.
 
 ## Verification record
 
@@ -107,8 +116,13 @@ Expected: `probe.log` contains five lines `Closed under the global context` and 
 laptop with other builds running, every coqc at Idle priority. The directory held only the 43 `.v` files, `probe.v`
 and the scripts, against busycoq at commit `bd2e36f` with its 7 needed files compiled first. Command:
 `BUSYCOQ=… J=3 ./compile_clean.sh`, with `COQC` set to a wrapper that starts coqc at Idle priority. Result: all 43
-files compiled (COMPILE DONE, 6,890 s), then the probe (213 s). `probe.log` reports five results closed under the global
-context and contains no `Axioms:`. `port_check.sh` passed against `../verify_c04` and `../verify_f3`.
+files compiled (COMPILE DONE, 6,890 s), then the probe of that time (213 s), which reported five results closed under
+the global context and no `Axioms:`. `port_check.sh` passed against `../verify_c04` and `../verify_f3`.
 
-`sha256.txt` has the SHA-256 of the 43 `.v` files, `probe.v`, `compile_clean.sh`, `port_check.sh` and `_CoqProject`, as
+Then the three files of the f_ω⁵ bound (`dev/C7Score5.v`, `dev/C7Final5.v`, `c7/Lower5.v`) were added and
+compiled on top of that build with `./compile_clean.sh only dev/C7Score5 dev/C7Final5 c7/Lower5` (91 s,
+`compile_lower5.log`), and the extended probe was run (`./compile_clean.sh probe`, 485 s). `probe.log` is from that run:
+eight results closed under the global context, no `Axioms:`.
+
+`sha256.txt` has the SHA-256 of the 46 `.v` files, `probe.v`, `compile_clean.sh`, `port_check.sh` and `_CoqProject`, as
 committed.

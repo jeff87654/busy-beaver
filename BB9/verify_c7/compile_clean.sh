@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # Clean compile of the C7 proof (the auxiliary machine X', then the C7 layer) against a busycoq checkout (commit
 # bd2e36f), in dependency order, then the probe.
-#   BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh            everything (43 files), then probe.v
+#   BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh            everything (46 files), then probe.v
 #   BUSYCOQ=... ./compile_clean.sh only dev/G_ent dev/C7Top ...   only these files (whatever they need must already be
 #                                                                 compiled)
 #   BUSYCOQ=... ./compile_clean.sh probe                          probe.v only
@@ -68,6 +68,9 @@ dev/C7Score lib/Individual112 score/Score dev/Base dev/G_rules dev/Abs dev/KStep
 dev/C7Final lib/Individual112 score/Score dev/Base dev/G_rules dev/Abs dev/Lift dev/KStep dev/Res dev/C7Arith dev/C7Count dev/C7Top dev/C7Halt dev/C7Score dev/Ones
 c7/Final7 lib9/Individual92 lib/Individual112 dev/Abs dev/Ones dev/C7Final score/Score c7/Defs c7/Sim
 c7/Statement lib9/Individual92 c7/Defs c7/Final7
+dev/C7Score5 lib/Individual112 score/Score dev/Base dev/G_rules dev/Abs dev/KStep dev/C7Count dev/C7Top dev/C7Score
+dev/C7Final5 lib/Individual112 score/Score dev/Base dev/G_rules dev/Abs dev/Lift dev/KStep dev/Res dev/C7Arith dev/C7Count dev/C7Top dev/C7Halt dev/C7Score dev/C7Score5 dev/Ones
+c7/Lower5 lib9/Individual92 lib/Individual112 dev/Abs dev/Ones dev/C7Final5 score/Score c7/Defs c7/Sim c7/Final7
 DEPLIST
 
 probe() {
@@ -76,8 +79,8 @@ probe() {
   "$COQC" "${FLAGS[@]}" probe.v > probe.log || { cat probe.log; echo "probe.v FAILED"; exit 1; }
   closed=$(grep -c 'Closed under the global context' probe.log)
   echo "   ok, $(( $(date +%s) - start )) s"
-  echo "probe: $closed of 5 results closed under the global context"
-  if grep -q 'Axioms:' probe.log || [ "$closed" -ne 5 ]; then exit 1; fi
+  echo "probe: $closed of 8 results closed under the global context"
+  if grep -q 'Axioms:' probe.log || [ "$closed" -ne 8 ]; then exit 1; fi
 }
 [ "$1" = probe ] && { probe; exit 0; }
 case "$1" in ''|only) ;; *) echo "usage: compile_clean.sh [only FILE... | probe]" >&2; exit 2 ;; esac

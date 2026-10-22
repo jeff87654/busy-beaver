@@ -59,10 +59,12 @@ ones (Knuth up-arrows), hence after more than 2 ↑^37 3 steps. It runs the BB(7
 `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_1LC0RA` (C7), a 9-state, 2-symbol machine that halts from the
 blank tape (in state H reading 1, on the undefined transition H1) with score σ, where (machine-checked)
 
-    f_ω(f_ω(f_ω(f_ω(6·(2↑^13 3) + 3)))) < σ        (c7_lower)
+    f_ω(f_ω(f_ω(f_ω(f_ω(2·(2↑^13 3)))))) < σ        (c7_lower5)
+    f_ω(f_ω(f_ω(f_ω(f_ω(f_ω(12)))))) < σ           (c7_lower6_12)
 
-so σ > f_ω⁵(12) (on paper). The BB(8) entry M8 has the Coq upper bound f_ω(f_ω(6·(2↑^13 3) + 3)) (`m8_bracket`), so C7
-beats M8 by two applications of f_ω (`c7_beats_m8_bound`). C7 is M8 with H0 = 1RG replaced by H0 = 0LI and a new state
+The BB(8) entry M8 has the Coq upper bound f_ω(f_ω(6·(2↑^13 3) + 3)) (`m8_bracket`) and f_ω³(12) < σ(M8) < f_ω³(13), so
+C7's lower bound has three more applications of f_ω than M8's bracket (and `c7_beats_m8_bound` proves σ is above M8's
+upper bound directly). C7 is M8 with H0 = 1RG replaced by H0 = 0LI and a new state
 I = 1LC/0RA. It changes M8's run at every exhaustion: six rebuilds, each feeding the next a clear of depth proportional to the
 previous accumulator, a counter of about 2R₅ rounds, then its own cascade, whose step-9 branch halts. Every accumulator
 is a tall tower of 2s with the same residue modulo 2^5·3^4·5^14, so the whole run, and the halt, follow from residues
@@ -70,10 +72,11 @@ is a tall tower of 2s with the same residue modulo 2^5·3^4·5^14, so the whole 
 proved in Coq (2026-10-22).
 
 - [`BB9/1RB0RA_..._0LI---_1LC0RA.md`](BB9/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_1LC0RA.md): how it
-  works, the run, the residues, the score, why the bound is f_ω⁴ and not f_ω⁵, verification status, credit.
+  works, the run, the residues, the score (where the five f_ω come from), verification status, credit.
 - [`BB9/verify_c7/`](BB9/verify_c7/): Coq proofs on busycoq (`bd2e36f`, Coq 8.20.1). To check the claims, read
-  `c7/Defs.v` and `c7/Statement.v` there. Main theorems: `c7_halts`, `c7_lower`, `c7_beats_m8_bound`, and `c7_table`
-  (the table against a parse of the machine string). No axioms. The proof runs on an auxiliary 11-state machine that
+  `c7/Defs.v`, `c7/Statement.v` and `c7/Lower5.v` there. Main theorems: `c7_halts`, `c7_lower5`, `c7_lower6_12`,
+  `c7_lower` (f_ω⁴(6·(2↑^13 3) + 3) < σ), `c7_beats_m8_bound`, and `c7_table` (the table against a parse of the machine
+  string). No axioms. The proof runs on an auxiliary 11-state machine that
   simulates C7 (f3_0RC's, with the new state I). Built in full from scratch and probed in CI (job `bb9-c7`).
 
 **f3_0RC (dominated).** `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_0RC1RF` was the first 9-state machine

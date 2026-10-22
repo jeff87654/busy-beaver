@@ -462,7 +462,7 @@ jobs:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb9-c7 == 'true'
     # BB9/verify_c7: the 9-state machine C7 (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_1LC0RA), the BB(9)
-    # entry: all 43 files from scratch, 4 coqc at a time, then the probe (five results closed under the global context).
+    # entry: all 46 files from scratch, 4 coqc at a time, then the probe (eight results closed under the global context).
     # The files reused from BB9/verify_c04 and BB9/verify_f3 are checked against them first (port_check.sh).
     runs-on: ubuntu-latest
     timeout-minutes: 150
@@ -503,10 +503,10 @@ jobs:
         working-directory: BB9/verify_c7
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" J=4 bash ./compile_clean.sh 2>&1 | tee compile_ci.log
-          test "$(find lib lib9 dev score c7 -name '*.vo' | wc -l)" -eq 43
+          test "$(find lib lib9 dev score c7 -name '*.vo' | wc -l)" -eq 46
           closed=$(grep -c 'Closed under the global context' probe.log || true)
-          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 5 ]; then
-            echo "::error::probe.v did not report five axiom-free results"
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 8 ]; then
+            echo "::error::probe.v did not report eight axiom-free results"
             exit 1
           fi
           tail -20 probe.log

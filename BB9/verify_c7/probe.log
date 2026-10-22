@@ -143,6 +143,27 @@ Statement.c7_beats_m8_bound
        halted Defs.tm7 c ->
        Defs.ones c N ->
        Defs.f_omega (Defs.f_omega (6 * Defs.arrow 13 2 3 + 3)) < N
+Lower5.c7_lower5
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Defs.tm7 ]->* c ->
+       halted Defs.tm7 c ->
+       Defs.ones c N ->
+       Defs.f_omega
+         (Defs.f_omega
+            (Defs.f_omega
+               (Defs.f_omega (Defs.f_omega (2 * Defs.arrow 13 2 3))))) < N
+Lower5.c7_lower6_12
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ Defs.tm7 ]->* c ->
+       halted Defs.tm7 c ->
+       Defs.ones c N ->
+       Defs.f_omega
+         (Defs.f_omega
+            (Defs.f_omega (Defs.f_omega (Defs.f_omega (Defs.f_omega 12))))) <
+       N
+Closed under the global context
+Closed under the global context
+Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context

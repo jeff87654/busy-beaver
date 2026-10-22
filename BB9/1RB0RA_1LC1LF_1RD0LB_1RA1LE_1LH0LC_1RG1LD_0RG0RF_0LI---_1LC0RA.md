@@ -1,17 +1,20 @@
-# C7: a 9-state machine at f_ω⁴, two levels above M8
+# C7: a 9-state machine above f_ω⁶(12), three levels above M8
 
     1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_1LC0RA
 
 Below we call this machine **C7**, its label in the screen that found it (section 4). It halts from the blank tape. Coq
 proves, with no axioms and with the standard fast-growing hierarchy, that its score σ satisfies
 
-    f_ω(f_ω(f_ω(f_ω(6·(2↑^13 3) + 3)))) < σ        (c7_lower)
+    f_ω(f_ω(f_ω(f_ω(f_ω(2·(2↑^13 3)))))) < σ        (c7_lower5)
+    f_ω(f_ω(f_ω(f_ω(f_ω(f_ω(12)))))) < σ           (c7_lower6_12)
 
 The BB(8) entry M8
 ([`../BB8/1RB0RA_..._0RG0RF_1RG---.md`](../BB8/1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_1RG---.md)) has the Coq
-upper bound σ(M8) < f_ω(f_ω(6·(2↑^13 3) + 3)) (`m8_bracket`). So C7 beats M8 by two applications of f_ω. It also beats
-f3_0RC ([`1RB0RA_..._0LI---_0RC1RF.md`](1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_0RC1RF.md)), which is at
-M8's level. Written 2026-10-22.
+upper bound σ(M8) < f_ω(f_ω(6·(2↑^13 3) + 3)) (`m8_bracket`), and f_ω³(12) < σ(M8) < f_ω³(13). So C7's lower bound
+has three more applications of f_ω than M8's bracket, and Coq also proves directly that σ is above M8's upper bound
+(`c7_beats_m8_bound`). C7 also beats f3_0RC
+([`1RB0RA_..._0LI---_0RC1RF.md`](1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_0RC1RF.md)), which is at M8's
+level. Written 2026-10-22.
 
 C7 runs M8's engine. It differs from M8 only in state H and in a new state I:
 
@@ -33,8 +36,8 @@ already holds a 1, so σ = N whatever 1 the halting transition is taken to write
 | | |
 |---|---|
 | Halts | **Yes**, machine-checked (Coq, no axioms): `c7_halts : halts tm7 c0`. |
-| Score | **f_ω⁴(6·(2↑^13 3) + 3) < σ**, machine-checked (`c7_lower`), where 6·(2↑^13 3) + 3 = 12B + 27. |
-| Level | f_ω⁵(12) < σ, on paper: f_ω(12) < 12B + 26 (C04's `Bx_fw`), and f_ω is increasing. No upper bound is proved. |
+| Score | **f_ω⁵(2·(2↑^13 3)) < σ** and **f_ω⁶(12) < σ**, machine-checked (`c7_lower5`, `c7_lower6_12`), where 2·(2↑^13 3) = 4B + 8. Also f_ω⁴(6·(2↑^13 3) + 3) < σ (`c7_lower`, the first bound proved). |
+| Level | f_ω⁶(12) < σ, three f_ω above M8 (f_ω³(12) < σ(M8) < f_ω³(13)). No upper bound is proved. |
 | M8 (the BB(8) entry, `../BB8/`) | **Beaten**, machine-checked through M8's Coq upper bound: σ(M8) < f_ω(f_ω(6·(2↑^13 3) + 3)) < σ (`m8_bracket` there, `c7_beats_m8_bound` here). |
 | f3_0RC, C04, fw2 (this folder) | Beaten: they are at M8's level or below. |
 | n1 (`../BB10/`, f_(ω+1)) | **Not** beaten. |
@@ -139,23 +142,37 @@ The files to read are [`verify_c7/c7/Defs.v`](verify_c7/c7/Defs.v) and
     Statement.c7_beats_m8_bound : forall c N, c0 -[ tm7 ]->* c -> halted tm7 c -> ones c N ->
                                     f_omega (f_omega (6 * arrow 13 2 3 + 3)) < N
 
+[`verify_c7/c7/Lower5.v`](verify_c7/c7/Lower5.v) states the stronger bounds, also in terms of `Defs.v` and busycoq
+only:
+
+    Lower5.c7_lower5            : forall c N, c0 -[ tm7 ]->* c -> halted tm7 c -> ones c N ->
+                                    f_omega (f_omega (f_omega (f_omega (f_omega (2 * arrow 13 2 3))))) < N
+    Lower5.c7_lower6_12         : forall c N, c0 -[ tm7 ]->* c -> halted tm7 c -> ones c N ->
+                                    f_omega (f_omega (f_omega (f_omega (f_omega (f_omega 12))))) < N
+
 The comparison with M8 is the chain of `m8_bracket` (in `../BB8/verify_m8`) and `c7_beats_m8_bound` (here). The two
 `Defs.v` define `f_omega` and `arrow` with the same text, which CI checks by `diff`.
 
-### 2.2 Where the four f_ω come from, and why not five
+### 2.2 Where the five f_ω come from
 
-At the halt the tape holds the parked list, about 12R₁₀ blocks with two 1s each, so σ > R₁₀. Let a = 12B + 27. Then:
+At the halt the tape holds the parked list, about 12R₁₀ blocks with two 1s each, so σ > R₁₀ ≥ R₅. Each level comes from
+a clear whose depth is at least the previous accumulator (plus 2). The first of them is R₁'s clear, which has depth
+K₂ − 2 = (27B + 33)/5, linear in B. Let y be any number with y + 1 ≤ K₂ − 2, for instance y = 4B + 8 = 2·(2↑^13 3).
+Then (`C7Score5.chain5`):
 
-- R₂'s clear has depth K₃ − 1 > a, so f_ω(a) ≤ R₂.
-- R₃'s clear has depth K₄ − 2 > R₂ + 2, so f_ω(f_ω(a)) < R₃. This uses `Score.S1_core`: f_ω(x) + 2 ≤ K implies
+- R₁'s clear has depth K₂ − 2 > y, so f_ω(y) ≤ U_(K₂−2)(0) ≤ R₁ (f_ω(y) ≤ U_y(y), `Score.fomega_le_U`).
+- R₂'s clear has depth K₃ − 1 > 12R₁, so f_ω²(y) < R₂. This uses `Score.S1_core`: f_ω(x) + 2 ≤ K implies
   f_ω(f_ω(x)) < U_K(0).
-- R₄'s depth K₅ − 1 > 12R₃ gives f_ω³(a) < R₄, and R₅'s depth K₆ − 1 > R₄ gives f_ω⁴(a) < R₅.
+- R₃'s depth K₄ − 2 > R₂ + 2 gives f_ω³(y) < R₃, R₄'s depth K₅ − 1 > 12R₃ gives f_ω⁴(y) < R₄, and R₅'s depth
+  K₆ − 1 > R₄ gives f_ω⁵(y) < R₅.
 - R₅ ≤ R₉ ≤ R₁₀ < σ.
 
-The clears after R₅ run at depth about N ≈ 5.4·R₄, a level below f_ω⁴(a), iterated about 2R₅ times. A fifth f_ω would
-need a clear whose level is above R₅, and C7 has none. On paper these clears give roughly f_(R₄)(R₅). That is more than
-f_ω⁴(a), but not provably f_ω⁵(a). The f_ω⁵(5B) estimate in the screening notes is therefore not claimed: we claim and
-prove f_ω⁴(12B + 27) only.
+For f_ω⁶(12), take y = f_ω(12): f_(k+2)(x) ≤ U_k(x) (`C7Score5.fSS_le_U`), so f_ω(12) = f_12(12) ≤ U_10(12) ≤
+U_10(U_10(0)) = B. No monotonicity of f_ω is needed, since each step only uses "previous value + 2 ≤ depth".
+
+The first proof (`c7_lower`, f_ω⁴(12B + 27)) started its levels at R₂ and used only K₃ − 1 > 12B + 27, so it did not
+use R₁'s level. The clears after R₅ (the counter, at depth about N ≈ 5.4·R₄, iterated about 2R₅ times) add no further
+f_ω level that we know how to prove.
 
 ---
 
@@ -163,7 +180,7 @@ prove f_ω⁴(12B + 27) only.
 
 ### 3.1 How the proof is organised
 
-[`verify_c7/`](verify_c7/) holds the development: Coq 8.20.1 on busycoq (commit `bd2e36f`), 43 files and a probe, no
+[`verify_c7/`](verify_c7/) holds the development: Coq 8.20.1 on busycoq (commit `bd2e36f`), 46 files and a probe, no
 axioms. Like f3_0RC's proof ([`verify_f3/`](verify_f3/)), it runs on an auxiliary 11-state machine:
 
     X' = 1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LJ0LC_0RG1LD_0LH1LH_1RI---_0RI0RF_0LK---_1LC0RA
@@ -189,19 +206,21 @@ Every exhaustion of C7 is new, so only three files of C04's development are reus
     handles the counter by induction on rounds.
   - `C7Top` chains J1 to the step-9 cascade moment.
   - `C7Halt` does the r = 2 branch, with its u rounds by induction.
-  - `C7Final` puts it together: X' halts with N ones, and f_ω⁴(12B + 27) < N.
+  - `C7Final` puts it together: X' halts with N ones, and f_ω⁴(12B + 27) < N. `C7Final5` repeats the same run with
+    the bounds of `C7Score5` (f_ω⁵(4B + 8) < N and f_ω⁶(12) < N), and `c7/Lower5.v` transfers them to C7.
 - **Residues.**
   - `Res.v` proves the tower residue, by a Carmichael chain of 16 moduli and the stdlib's verified modular
     exponentiation.
   - `C7Arith.v` was generated from the run's linear formulas. It proves every exact division and the residues of
     section 1.3, using explicit linear forms in the q's.
-- **Score.** `C7Score.v` uses `score/Score.v` (`S1_core`, f_k ≤ U_k).
+- **Score.** `C7Score.v` and `C7Score5.v` use `score/Score.v` (`S1_core`, f_k ≤ U_k).
 - **Simulation.** `c7/Sim.v` maps C7's states A..F → A..F, G → I, H → J, I → K. C7's F0 = 1RG is X''s F0, G, H0, and
   every other step is one X' step. C7 halts exactly where X' does, on the same tape.
 
 `probe.v` checks the 18 table entries by conversion and against the parser of the literal string. It also prints `c0`,
 `tape0` and the definitions. It states the three main results as one conjunction with qualified names (`c7_all_ok`), and
-runs `Print Assumptions` five times. All five report "Closed under the global context".
+runs `Print Assumptions` five times. It then states the two bounds of `Lower5.v` as a second conjunction
+(`c7_all5_ok`) and runs `Print Assumptions` on it and on each. All eight report "Closed under the global context".
 
 ### 3.2 Build
 
@@ -212,7 +231,6 @@ runs it whenever these files change, and weekly. It also runs `port_check.sh` an
 ### 3.3 Not machine-checked
 
 - **σ = N.** In Coq the halt is the undefined transition H1, and `ones` counts the 1s of the halted configuration.
-- **f_ω⁵(12) < σ** (section 2.2). It composes C04's `Bx_fw` with `c7_lower` and the monotonicity of f_ω.
 - **The M8 comparison as one theorem.** It is the chain of the two theorems in section 2.1.
 - **The u ≡ 1, 2 (mod 5) criterion for general L** (section 1.2). It was observed on literal runs. The proof uses only
   the real class u ≡ 2 (mod 5).

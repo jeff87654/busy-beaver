@@ -4,10 +4,11 @@
         c0 is the blank tape in state A.
     (2) The definitions the statements use are printed.
     (3) The main theorems have the stated types (written out with qualified names), proved as one conjunction.
-    (4) Print Assumptions on the conjunction and on each theorem of Statement.v (5 results). *)
+    (4) Print Assumptions on the conjunction and on each theorem of Statement.v (5 results).
+    (5) The bounds of Lower5.v as a second conjunction, and Print Assumptions on it and on each (3 results). *)
 From BB8 Require Import Individual92.
 From Coq Require Import String Ascii.
-From C7 Require Defs Sim Final7 Statement.
+From C7 Require Defs Sim Final7 Statement Lower5.
 Local Open Scope sym_scope.
 
 Print c0.
@@ -56,8 +57,24 @@ Check Statement.c7_halts.
 Check Statement.c7_lower.
 Check Statement.c7_beats_m8_bound.
 
+(** The stronger bounds of Lower5.v (stated there in terms of Defs.v and busycoq only, like Statement.v). *)
+Definition c7_all5 : Prop :=
+  (forall c N, c0 -[ Defs.tm7 ]->* c -> halted Defs.tm7 c -> Defs.ones c N ->
+     Defs.f_omega (Defs.f_omega (Defs.f_omega (Defs.f_omega (Defs.f_omega (2 * Defs.arrow 13 2 3))))) < N) /\
+  (forall c N, c0 -[ Defs.tm7 ]->* c -> halted Defs.tm7 c -> Defs.ones c N ->
+     Defs.f_omega (Defs.f_omega (Defs.f_omega (Defs.f_omega (Defs.f_omega (Defs.f_omega 12))))) < N).
+
+Lemma c7_all5_ok : c7_all5.
+Proof. split; [exact Lower5.c7_lower5 | exact Lower5.c7_lower6_12]. Qed.
+
+Check Lower5.c7_lower5.
+Check Lower5.c7_lower6_12.
+
 Print Assumptions c7_all_ok.
 Print Assumptions Statement.c7_table.
 Print Assumptions Statement.c7_halts.
 Print Assumptions Statement.c7_lower.
 Print Assumptions Statement.c7_beats_m8_bound.
+Print Assumptions c7_all5_ok.
+Print Assumptions Lower5.c7_lower5.
+Print Assumptions Lower5.c7_lower6_12.

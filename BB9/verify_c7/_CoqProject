@@ -47,3 +47,6 @@ dev/C7Score.v
 dev/C7Final.v
 c7/Final7.v
 c7/Statement.v
+dev/C7Score5.v
+dev/C7Final5.v
+c7/Lower5.v
