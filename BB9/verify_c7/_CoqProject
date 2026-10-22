@@ -1,0 +1,49 @@
+-Q lib XL
+-Q lib9 BB8
+-Q dev XDev
+-Q score XScore
+-Q c7 C7
+-Q ../../../busycoq/verify BusyCoq
+lib/BB112.v
+lib/Individual112.v
+dev/Base.v
+dev/G_ent.v
+dev/G_pa2.v
+dev/G_pd.v
+dev/G_sub4.v
+dev/G_sub3.v
+dev/G_sub0.v
+dev/G_pbab.v
+dev/G_pa1.v
+dev/G_pbc.v
+dev/G_e2.v
+dev/G_r30.v
+dev/G_e3.v
+dev/G_rules.v
+dev/G_r2pre.v
+dev/G_r2round.v
+dev/G_r2vhq.v
+dev/G_r2a1.v
+dev/G_r2vh2b.v
+dev/Abs.v
+dev/Res.v
+dev/C7Arith.v
+dev/KStep.v
+dev/Lift.v
+score/Score.v
+dev/Ones.v
+lib9/BB92.v
+lib9/Individual92.v
+c7/Defs.v
+c7/Sim.v
+dev/C7Phases.v
+dev/C7PhB.v
+dev/C7Count.v
+dev/C7Casc.v
+dev/C7Entry.v
+dev/C7Top.v
+dev/C7Halt.v
+dev/C7Score.v
+dev/C7Final.v
+c7/Final7.v
+c7/Statement.v
