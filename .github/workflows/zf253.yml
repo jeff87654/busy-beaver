@@ -1,8 +1,13 @@
 name: ZF253 Coq proof
 
+# Runs only when files under ZF/ change (ZF/m253/check.py also reads ZF/m254 and the shared ZF libraries).
+# Changing this file alone does not run it; after changing its steps or image, run it manually
+# (Actions > ZF253 Coq proof > Run workflow).
 on:
   push:
+    paths: ['ZF/**']
   pull_request:
+    paths: ['ZF/**']
   workflow_dispatch:
 
 permissions:
