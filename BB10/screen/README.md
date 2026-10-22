@@ -1,5 +1,9 @@
 # The f_(ω+1) candidate screen that found n1
 
+> **Note (2026-10-22).** "The BB(8) record" on this page is `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_1LC0RH_1RG1LF`
+> (σ = 12·(2↑^37 3) + 59), the BB(8) entry of this repository when this page was written. Since 2026-10-18 the BB(8)
+> entry is M8 ([`../../BB8/README.md`](../../BB8/README.md)); nothing on this page depends on that change.
+
 This folder holds the search that found the BB(10) machine
 
     n1 = 1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_0RG1LD_1RH1LG_1LC0RG_0LJ0LI_---0LC

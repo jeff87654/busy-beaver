@@ -1,4 +1,4 @@
-# A 13-state machine at level f_(ω+2)
+# M13: a 13-state machine at level f_(ω+2)
 
     1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_0LG1RI_1RE0RH_1LF0RC_1RM0LE_1LA1LE_0LL1LB_0RM1LL_1RZ1RH
 

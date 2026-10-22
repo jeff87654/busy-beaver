@@ -1,10 +1,14 @@
-# A 10-state machine at level f_(ω+1)
+# n1: a 10-state machine at level f_(ω+1)
 
     1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LI0LC_0RG1LD_1RH1LG_1LC0RG_0LJ0LI_1RZ0LC
 
+> **Note (2026-10-22).** "The BB(8) record" on this page is `1RB0RA_1LC1LF_1RD0LB_1RA1LE_1RZ0LC_1RG1LD_1LC0RH_1RG1LF`
+> (σ = 12·(2↑^37 3) + 59), the BB(8) entry of this repository when this page was written. Since 2026-10-18 the BB(8)
+> entry is M8 ([`../BB8/README.md`](../BB8/README.md)); nothing on this page depends on that change.
+
 Below we call this machine **n1**. It halts from the blank tape, its exact score is proved in Coq, and the score
-lies between two values of f_(ω+1). The current BB(10) champion has the published bound f_ω(f_ω(25)), at level ω of
-the fast-growing hierarchy. n1 beats it and moves BB(10) to level ω+1. Written 2026-10-08.
+lies between two values of f_(ω+1). The BB(10) champion before n1 (Racheline, 2024) has the published bound
+f_ω(f_ω(25)), at level ω of the fast-growing hierarchy. n1 beats it and moves BB(10) to level ω+1. Written 2026-10-08.
 
 |   | 0   | 1   |                                                    |
 |---|-----|-----|----------------------------------------------------|

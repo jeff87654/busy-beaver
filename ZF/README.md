@@ -1,5 +1,17 @@
 # ZF/ — verified Turing machines that halt iff ZF(C) proves a contradiction
 
+| theory | states | machine | main theorems (Coq, closed) | directory | CI |
+|---|---|---|---|---|---|
+| ZF, ZFC | **253** | [`zfc_253.tm`](m253/machine/zfc_253.tm): a one-state reduction of Mira-Cult's 254 (mira-emmy) | `zf253_halts_iff_ZF`, `zf253_halts_iff_ZFC` | [`m253/`](m253/) | `zf253.yml` |
+| ZF, ZFC | 254 | [`zfc_254.tm`](m254/machine/zfc_254.tm) (Mira-Cult) | `zf254_halts_iff_ZF`, `zf254_halts_iff_ZFC` | [`m254/`](m254/) | `zf-m254` |
+| ZFC + Grothendieck universes | **296** | [`m254tg_wade.tm`](tg296/machine/m254tg_wade.tm): Mira-Cult's program plus one axiom schema | `tg296_halts_iff_ZFGU`, `tg296_halts_iff_ZFCGU` | [`tg296/`](tg296/) | `zf-tg296` |
+| ZF, ZFC, with or without Reg | 335 | [`R3Y1_335.tm`](machines/R3Y1_335.tm) (Wade's compiler, reworked program) | `zf335_halts_iff_ZF`, …, `zf335_halts_iff_ZFC_reg` | [`stdzf_r3/`](stdzf_r3/) | `zf-stdzf-r3`, `zf` |
+| ZF, with or without Reg | 336, 354 | [`R3s336.tm`](machines/R3s336.tm), [`B354.tm`](machines/B354.tm) | `zf336_halts_iff_ZF`, `zf354_halts_iff_ZF`, … | [`stdzf_r3/`](stdzf_r3/), [`stdzf/`](stdzf/) | `zf-stdzf-r3`, `zf-stdzf`, `zf` |
+| O'Rear's system `prov` | 361, 393 | [`A361.tm`](machines/A361.tm), [`zf2.tm`](machines/zf2.tm) (Wade's machine) | `zf_machine : halts tm c0 <-> prov (Wel v0 v0)` | [`verify/`](verify/) | `zf` |
+
+The bold rows are the smallest machines for their theory. The others are kept: 254 is the base of 253 and 296, and
+the 393 → 335 line is a separate construction with its own proofs (section "Our own machines" below).
+
 **253 working states.** [`m253/`](m253/README.md) gives a one-state reduction of Mira-Cult's
 254-state machine, with exact blank-tape halting iff finite classical ZF or ZFC refutation.
 The Coq 8.20.1 build checks the literal table, all instruction sites, 194 closed assumption
@@ -225,3 +237,7 @@ the generator of `ZF2Dag.v` (`gen_coq_dag.py`).
   is built with his compiler.
 - **Rohan Ridenour, Johannes Riebel, CatsAreFluffy:** earlier improvements.
 - **Maja Kądziołka:** busycoq.
+- **Mira-Cult:** the 254-state machine `zfc_254.tm` and its program, on which the 253- and 296-state machines are
+  built.
+- **mira-emmy:** the 253-state reduction and its proof ([`m253/`](m253/)), and the PA development
+  ([`../PA/`](../PA/)).
