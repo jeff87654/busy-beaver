@@ -7,9 +7,11 @@
 > reduced from C04 by collapsing its F0/G/H0 gadget into one transition; it halts on the same tape with the same score.
 > So C04 is not a BB(9) entry (a 9-state record must beat M8). It is kept here as the machine whose Coq proof M8's
 > is built on.
-> The BB(9) entry is now f3_0RC
-> ([`1RB0RA_..._0LI---_0RC1RF.md`](1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_0RC1RF.md)), whose
-> Coq proof also reuses this development (2026-10-21).
+> Two later BB(9) entries, f3_0RC
+> ([`1RB0RA_..._0LI---_0RC1RF.md`](1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_0RC1RF.md), pull request
+> #30) and C7 ([`1RB0RA_..._0LI---_1LC0RA.md`](1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_1LC0RA.md),
+> pull request #32, 2026-10-22), have Coq proofs that also reuse this development. The current BB(9) entry is listed
+> in [`README.md`](README.md).
 
 Below we call this machine **C04** (its label in the search that found it, section 5). It halts from the blank tape,
 and Coq proves, with no axioms and with the standard fast-growing hierarchy, that its score σ satisfies
@@ -327,15 +329,14 @@ None of this is needed for the proof.
 
 - **Found** in this project's search for 9-state machines of the n1 type: C04 was one of the parked leads of the n1f0
   enumeration (the 9-state tree-normal-form completions of `1RB0RA_1LC1LF_1RD0LB_1RA1LE_---0LC_0RG1LD_------_------_------`,
-  394,166 holdouts). Opus agents found the first escalation and the 5-adic cascade map, and classified it as probably
-  Collatz-hard.
-- **Analysed** by a Fable agent (c04-fable, 2026-10-17), which found the parity invariant, the key set and the endgame,
-  and wrote the proof sketch. Agent c04-upper derived the bracket of section 3.2 on paper first.
-- **Proved** in Coq by Opus agents, 2026-10-17/18: c04-coq and c04-coq2 (the machine lemmas, the cascade, the class-b
-  endgame, the final theorems), c04-k31 (the key-31 endgame), c04-bound (the score arithmetic and the bound on fw2's
-  exact score), and agent c04-fgh (`fgh/`: the two-sided bracket, the coarse placement and the exact score). The lead
-  re-checked every theorem with `Print Assumptions`, and the development was rebuilt from scratch
-  for this folder (section 4.1).
+  394,166 holdouts). Claude Opus agents found the first escalation and the 5-adic cascade map, and classified it as
+  probably Collatz-hard.
+- **Analysed** by a Claude Fable agent (2026-10-17), which found the parity invariant, the key set and the endgame,
+  and wrote the proof sketch. Another agent derived the bracket of section 3.2 on paper first.
+- **Proved** in Coq by Claude Opus agents, 2026-10-17/18: the machine lemmas, the cascade, the class-b endgame and the
+  final theorems; the key-31 endgame; the score arithmetic and the bound on fw2's exact score; and `fgh/` (the
+  two-sided bracket, the coarse placement and the exact score). Every theorem was re-checked with `Print Assumptions`,
+  and the development was rebuilt from scratch for this folder (section 4.1).
 - **Built on** the BB(7) champion of Kropitz (2025; analysed by Ligocki), whose counter C04 runs, and on our earlier
   BB(9) record, whose start-up it shares and whose Coq development supplied the token family and the clearing lemmas.
 - **fw2**, the machine C04 is compared with, is Argon's (a Google Gemini model run by the repository owner; see its

@@ -21,9 +21,10 @@ M8's Coq upper bound. Written 2026-10-21.
 whose Coq lower bound f_ω⁴(6·(2↑^13 3) + 3) is two applications of f_ω above M8's upper bound. C7's proof is built on
 this one's auxiliary machine.
 
-f3_0RC is the first 9-state entry that beats M8 in every endgame class. A larger 9-state machine, C7 (at the
-f_ω^4 level), is proved on the same proof infrastructure (this development's auxiliary machine X); it follows in the
-next pull request and will take over the BB(9) entry.
+f3_0RC was the first 9-state entry that beats M8 in every endgame class (the BB(9) entry from pull request #30 until
+pull request #32, both 2026-10-22). C7 is proved on the same proof infrastructure (this development's auxiliary machine
+X), and its Coq lower bound is now f_ω⁶(12) < σ (`c7_lower6_12`). The current BB(9) entry is listed in
+[`README.md`](README.md).
 
 f3_0RC runs M8's engine and differs from M8 only in state H and in a new state I. M8's H0 = 1RG becomes H0 = 0LI, a look
 at the cell left of H. If that cell holds a 1, I1 = 1RF and F0 = 1RG redo M8's H0 in three steps. If it is blank, which
