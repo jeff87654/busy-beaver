@@ -1,7 +1,7 @@
 name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/verify, BB8/verify_m8,
-# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB13/, BB14/, BB43/, PA/m238 and ZF/. Not built here, because they take long
+# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB13/, BB14/, BB43/, PA/m238 and ZF/. Not built here, because they take long
 # (recorded local builds are in their directories): BB10/ (about 20 minutes), BB12/ (about 3 hours) and stage 2 of
 # BB9/verify_fw2 (about 2 hours).
 #
@@ -37,6 +37,7 @@ jobs:
       bb9-fw2: ${{ steps.f.outputs.bb9-fw2 }}
       bb9-c04: ${{ steps.f.outputs.bb9-c04 }}
       bb9-f3: ${{ steps.f.outputs.bb9-f3 }}
+      bb9-c7: ${{ steps.f.outputs.bb9-c7 }}
       bb43: ${{ steps.f.outputs.bb43 }}
       zf: ${{ steps.f.outputs.zf }}
     steps:
@@ -67,6 +68,18 @@ jobs:
             bb9-f3:
               - 'BB9/verify_f3/**'
               - 'BB9/verify_c04/**'
+              - 'BB8/verify_m8/Defs.v'
+            bb9-c7:                       # self-contained build; port_check.sh and the Defs.v diff read the others
+              - 'BB9/verify_c7/**'
+              - 'BB9/verify_c04/dev/Abs.v'
+              - 'BB9/verify_c04/dev/G_rules.v'
+              - 'BB9/verify_c04/dev/Lift.v'
+              - 'BB9/verify_c04/lib/BB92.v'
+              - 'BB9/verify_c04/lib/Individual92.v'
+              - 'BB9/verify_f3/lib/BB112.v'
+              - 'BB9/verify_f3/lib/Individual112.v'
+              - 'BB9/verify_f3/score/Score.v'
+              - 'BB9/verify_f3/dev/Base.v'
               - 'BB8/verify_m8/Defs.v'
             bb43:
               - 'BB43/**'
@@ -449,6 +462,68 @@ jobs:
             BB9/verify_f3/compile_ci.log
             BB9/verify_f3/probe.log
             BB9/verify_f3/_logs/
+
+  bb9-c7:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb9-c7 == 'true'
+    # BB9/verify_c7: the 9-state machine C7 (1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_1LC0RA), the BB(9)
+    # entry: all 46 files from scratch, 4 coqc at a time, then the probe (eight results closed under the global context).
+    # The files reused from BB9/verify_c04 and BB9/verify_f3 are checked against them first (port_check.sh).
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    env:
+      BUSYCOQ_COMMIT: bd2e36f6aa204eb011742d2ca6c8741102b2e59e
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v git >/dev/null || (apt-get update && apt-get install -y git)
+
+      - uses: actions/checkout@v4
+
+      - name: Check the reused files against BB9/verify_c04 and BB9/verify_f3, and Defs.v's definitions against BB8/verify_m8
+        run: |
+          bash BB9/verify_c7/port_check.sh
+          diff <(sed -n '/^(\*\* Counting ones. \*)/,$p' BB8/verify_m8/Defs.v) <(sed -n '/^(\*\* Counting ones. \*)/,$p' BB9/verify_c7/c7/Defs.v)
+          echo "c7/Defs.v: sym_val, count1, ones, iter, arrow, f, f_omega, f_w1 have the text of BB8/verify_m8/Defs.v"
+
+      - name: Build busycoq (pinned commit, only the files the proofs depend on)
+        run: |
+          git clone https://github.com/meithecatte/busycoq "$RUNNER_TEMP/busycoq"
+          cd "$RUNNER_TEMP/busycoq"
+          git checkout "$BUSYCOQ_COMMIT"
+          cd verify
+          coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
+          make -f Makefile.coq Individual.vo Flip.vo
+
+      - name: Compile BB9/verify_c7 and run the probe
+        working-directory: BB9/verify_c7
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" J=4 bash ./compile_clean.sh 2>&1 | tee compile_ci.log
+          test "$(find lib lib9 dev score c7 -name '*.vo' | wc -l)" -eq 46
+          closed=$(grep -c 'Closed under the global context' probe.log || true)
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 8 ]; then
+            echo "::error::probe.v did not report eight axiom-free results"
+            exit 1
+          fi
+          tail -20 probe.log
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coq-logs-c7
+          path: |
+            BB9/verify_c7/compile_ci.log
+            BB9/verify_c7/probe.log
+            BB9/verify_c7/_logs/
 
   bb43:
     needs: changes
