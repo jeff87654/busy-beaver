@@ -1,0 +1,73 @@
+-Q lib XL
+-Q lib9 BB8
+-Q dev XDev
+-Q k31 XK31
+-Q score XScore
+-Q h003 H3
+-Q ../../../busycoq/verify BusyCoq
+dev/Orbit.v
+lib/BB112.v
+lib9/BB92.v
+dev/Cascade.v
+lib/Individual112.v
+lib9/Individual92.v
+dev/Ones.v
+h003/Defs.v
+dev/Base.v
+k31/K_e1.v
+dev/G_sub2.v
+k31/K_e2.v
+dev/G_entry.v
+dev/G_sub4.v
+dev/G_sub5.v
+dev/G_sub3.v
+dev/G_stop.v
+dev/G_p20_5.v
+dev/G_p20_4.v
+dev/G_tops_P4.v
+dev/G_p20_3.v
+dev/G_p20_2.v
+dev/G_tops_P3.v
+dev/G_p20_1.v
+dev/G_p20_0.v
+dev/G_p14_5.v
+dev/G_p14_4.v
+dev/G_p14_3.v
+dev/G_tops_TXa.v
+dev/G_p14_2.v
+dev/G_p14_1.v
+dev/G_p14_0.v
+dev/G_pbab.v
+dev/G_t1_T1a1.v
+dev/G_pbc.v
+dev/G_xt1.v
+k31/K_x.v
+dev/G_rules.v
+dev/G_t1_T1a2a.v
+dev/G_tops_P4b.v
+dev/G_t1_T1b.v
+dev/G_end.v
+dev/G_t1_YE.v
+k31/K_rf.v
+h003/Sim.v
+dev/G_t1_YR.v
+dev/Abs.v
+dev/Res.v
+score/Score.v
+dev/Lift.v
+dev/KStep.v
+dev/HArith.v
+dev/HPhB.v
+dev/Step.v
+k31/K31_Mach.v
+dev/CBtail.v
+dev/HTop.v
+dev/Fin.v
+k31/K31_Abs.v
+k31/K31_End.v
+dev/Endgame.v
+dev/HFinal.v
+dev/HScore.v
+dev/HGoal.v
+h003/Final.v
+h003/Statement.v
