@@ -89,7 +89,12 @@ name this directory instead of the development's folders, and `probe.v` gained `
 compiled, the longest files first, and writes per-file coqc output to `_logs/`. `./compile_clean.sh only FILE…` and
 `./compile_clean.sh probe` work as in `../verify_c04`.
 
-BUILD_TIMES
+The from-scratch build here (section "Verification record") took 18,977 s of wall time with 3 coqc at a time on a
+shared, heavily loaded laptop, and 25,547 s of CPU time for the 66 files (the probe another 944 s). The longest files
+were `k31/K_e1.v` (6,498 s CPU), `dev/G_sub2.v` (3,441 s), `k31/K_e2.v` (2,065 s), `dev/G_entry.v` (2,031 s) and
+`dev/G_sub4.v` (1,935 s); these are C04's files, as in `../verify_f3`. The CI job of `../verify_f3`, with the same
+longest files and about 32,000 s of CPU in its recorded local build, took 99 minutes on GitHub's runners (J = 4), so
+this one should take about as long; its timeout is 240 minutes. Memory: under 2 GB per coqc (`dev/G_sub2.v`).
 
 `probe.v`:
 - checks by conversion all 18 entries of `tmh` against lines written from the machine string (H1 is `None`), and
@@ -103,4 +108,13 @@ Expected: `probe.log` contains six lines `Closed under the global context` and n
 
 ## Verification record
 
-BUILD_RECORD
+`compile_clean.log` is from a from-scratch build on 2026-10-22: Coq 8.20.1 (Coq Platform 2025.01), Windows 11, a shared
+laptop with other builds running, every coqc at Idle priority. The directory held only the 66 `.v` files, `probe.v`
+and the scripts, against busycoq at commit `bd2e36f` with its 7 needed files compiled first. Command:
+`BUSYCOQ=… J=3 ./compile_clean.sh`, with `COQC` set to a wrapper that starts coqc at Idle priority (and records each
+coqc's CPU time and peak memory). Result: all 66 files compiled (COMPILE DONE, 18,977 s), then the probe (1,335 s wall),
+which reported six results closed under the global context and no `Axioms:` (`probe.log`). `port_check.sh` passed
+against `../verify_c04`, `../verify_f3` and `../verify_c7`.
+
+`sha256.txt` has the SHA-256 of the 66 `.v` files, `probe.v`, `compile_clean.sh`, `port_check.sh` and `_CoqProject`,
+as committed.
