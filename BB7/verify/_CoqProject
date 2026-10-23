@@ -1,0 +1,2 @@
+-Q ../../busycoq/verify BusyCoq
+-Q . BB7

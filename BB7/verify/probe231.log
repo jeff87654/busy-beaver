@@ -1,0 +1,201 @@
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+c231_table
+     : String.length c231_string = 48 /\
+       (forall (q : Q) (s : Sym),
+        tm231 (q, s) = parse_slot c231_string (st_idx q) (sym_idx s))
+c231_halts
+     : halts tm231 c0
+c231_halting_config
+     : exists c : Q * tape,
+         c0 -[ tm231 ]->* c /\ halted tm231 c /\ ones c (2 * W 20 5 + 7)
+c231_score
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ tm231 ]->* c -> halted tm231 c -> ones c N -> N = 2 * W 20 5 + 7
+c231_lower
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ tm231 ]->* c -> halted tm231 c -> ones c N -> arrow 20 3 3 < N
+c231_beats_bb7_champion
+     : forall (c : Q * tape) (N : nat),
+       c0 -[ tm231 ]->* c ->
+       halted tm231 c ->
+       ones c N -> 3 * arrow 13 2 3 + 22 < N /\ arrow 11 2 (arrow 11 2 3) < N
+tm231 =
+fun pat : Q * Sym =>
+match pat with
+| (A, 1) => Some (0, R, G)
+| (B, 0) => Some (1, R, C)
+| (A, 0) | (B, 1) => Some (1, R, B)
+| (C, 0) => Some (0, R, D)
+| (C, 1) => None
+| (D, 0) => Some (0, L, E)
+| (E, 0) => Some (0, L, F)
+| (E, 1) => Some (1, L, E)
+| (F, 0) => Some (1, R, A)
+| (F, 1) => Some (1, L, F)
+| (G, 1) => Some (0, R, B)
+| _ => Some (0, L, D)
+end
+     : TM
+ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = count1 L + sym_val s + count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments ones c N%nat_scope
+count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments count1 xs%list_scope
+sym_val = fun s : Sym => match s with
+                         | 0 => 0
+                         | 1 => 1
+                         end
+     : Sym -> nat
+
+Arguments sym_val s%sym_scope
+iter =
+fix iter (n : nat) (g : nat -> nat) (x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => g (iter n' g x)
+  end
+     : nat -> (nat -> nat) -> nat -> nat
+
+Arguments iter n%nat_scope g%function_scope x%nat_scope
+UW =
+fix UW (j : nat) : (nat -> nat) * (nat -> nat) :=
+  match j with
+  | 0 => (fun x : nat => 3 * x + 9, fun B : nat => B)
+  | S i =>
+      let p := UW i in
+      (fun x : nat => iter (x + 2 - i) (fst p) (snd p 3),
+       fun B : nat => fst p (snd p B))
+  end
+     : nat -> (nat -> nat) * (nat -> nat)
+
+Arguments UW j%nat_scope
+U = fun j : nat => fst (UW j)
+     : nat -> nat -> nat
+
+Arguments U (j _)%nat_scope
+W = fun j : nat => snd (UW j)
+     : nat -> nat -> nat
+
+Arguments W (j _)%nat_scope
+arrow =
+fix arrow (k a b : nat) {struct k} : nat :=
+  match k with
+  | 0 => a * b
+  | S k' => Nat.iter b (arrow k' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments arrow (k a b)%nat_scope
+c0 = (q0, tape0)
+     : Q * tape
+tape0 = (const s0, s0, const s0)
+     : tape
+c231_string =
+String.String (Ascii.Ascii true false false false true true false false)
+  (String.String (Ascii.Ascii false true false false true false true false)
+     (String.String
+        (Ascii.Ascii false true false false false false true false)
+        (String.String
+           (Ascii.Ascii false false false false true true false false)
+           (String.String
+              (Ascii.Ascii false true false false true false true false)
+              (String.String
+                 (Ascii.Ascii true true true false false false true false)
+                 (String.String
+                    (Ascii.Ascii true true true true true false true false)
+                    (String.String
+                       (Ascii.Ascii true false false false true true false
+                          false)
+                       (String.String
+                          (Ascii.Ascii false true false false true false true
+                             false)
+                          (String.String
+                             (Ascii.Ascii true true false false false false
+                                true false)
+                             (String.String
+                                (Ascii.Ascii true false false false true true
+                                   false false)
+                                (String.String
+                                   (Ascii.Ascii false true false false true
+                                      false true false)
+                                   (String.String
+                                      (Ascii.Ascii false true false false
+                                         false false true false)
+                                      (String.String
+                                         (Ascii.Ascii true true true true
+                                            true false true false)
+                                         (String.String
+                                            (Ascii.Ascii false false false
+                                               false true true false false)
+                                            (String.String
+                                               (Ascii.Ascii false true false
+                                                 false true false true false)
+                                               (String.String
+                                                 (Ascii.Ascii false false
+                                                 true false false false true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true false true
+                                                 true false true false false)
+                                                 (String.String
+                                                 (Ascii.Ascii true false true
+                                                 true false true false false)
+                                                 (String.String
+                                                 (Ascii.Ascii true false true
+                                                 true false true false false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 false false true true false
+                                                 false)
+                                                 (String.String (...) (...)))))))))))))))))))))))
+     : String.string
+parse_slot =
+fun (str : String.string) (i j : nat) =>
+let k := 7 * i + 3 * j in
+match String.get k str with
+| Some a =>
+    match String.get (k + 1) str with
+    | Some b =>
+        match String.get (k + 2) str with
+        | Some c =>
+            match p_sym a with
+            | Some s =>
+                match p_dir b with
+                | Some d =>
+                    match p_st c with
+                    | Some q => Some (s, d, q)
+                    | None => None
+                    end
+                | None => None
+                end
+            | None => None
+            end
+        | None => None
+        end
+    | None => None
+    end
+| None => None
+end
+     : String.string -> nat -> nat -> option (Sym * dir * Q)
+
+Arguments parse_slot str%string_scope (i j)%nat_scope
