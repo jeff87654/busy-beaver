@@ -1,0 +1,137 @@
+start 2026-10-22 18:32:01
+== dev/Orbit.v started
+== lib/BB112.v started
+== lib9/BB92.v started
+   lib/BB112.v ok, 11 s
+   lib9/BB92.v ok, 11 s
+== lib/Individual112.v started
+== lib9/Individual92.v started
+   dev/Orbit.v ok, 12 s
+== dev/Cascade.v started
+   lib/Individual112.v ok, 20 s
+   lib9/Individual92.v ok, 20 s
+== dev/Ones.v started
+== h003/Defs.v started
+   dev/Cascade.v ok, 20 s
+== dev/Base.v started
+   dev/Ones.v ok, 23 s
+   h003/Defs.v ok, 23 s
+   dev/Base.v ok, 22 s
+== k31/K_e1.v started
+== dev/G_sub2.v started
+== k31/K_e2.v started
+   k31/K_e2.v ok, 4676 s
+== dev/G_entry.v started
+   dev/G_sub2.v ok, 8365 s
+== dev/G_sub4.v started
+   dev/G_entry.v ok, 5276 s
+== dev/G_sub5.v started
+   dev/G_sub4.v ok, 4678 s
+== dev/G_sub3.v started
+   dev/G_sub5.v ok, 3565 s
+== dev/G_stop.v started
+   dev/G_stop.v ok, 889 s
+== dev/G_p20_5.v started
+   dev/G_sub3.v ok, 1619 s
+== dev/G_p20_4.v started
+   k31/K_e1.v ok, 14981 s
+== dev/G_tops_P4.v started
+   dev/G_p20_5.v ok, 707 s
+== dev/G_p20_3.v started
+   dev/G_p20_4.v ok, 676 s
+== dev/G_p20_2.v started
+   dev/G_tops_P4.v ok, 454 s
+== dev/G_tops_P3.v started
+   dev/G_p20_3.v ok, 540 s
+== dev/G_p20_1.v started
+   dev/G_tops_P3.v ok, 353 s
+== dev/G_p20_0.v started
+   dev/G_p20_2.v ok, 467 s
+== dev/G_p14_5.v started
+   dev/G_p20_1.v ok, 447 s
+== dev/G_p14_4.v started
+   dev/G_p14_5.v ok, 363 s
+== dev/G_p14_3.v started
+   dev/G_p20_0.v ok, 471 s
+== dev/G_tops_TXa.v started
+   dev/G_tops_TXa.v ok, 344 s
+== dev/G_p14_2.v started
+   dev/G_p14_4.v ok, 501 s
+== dev/G_p14_1.v started
+   dev/G_p14_3.v ok, 496 s
+== dev/G_p14_0.v started
+   dev/G_p14_1.v ok, 423 s
+== dev/G_pbab.v started
+   dev/G_p14_2.v ok, 450 s
+== dev/G_t1_T1a1.v started
+   dev/G_p14_0.v ok, 409 s
+== dev/G_pbc.v started
+   dev/G_pbc.v ok, 278 s
+== dev/G_xt1.v started
+   dev/G_pbab.v ok, 350 s
+== k31/K_x.v started
+   dev/G_t1_T1a1.v ok, 349 s
+== dev/G_rules.v started
+   dev/G_rules.v ok, 141 s
+== dev/G_t1_T1a2a.v started
+   k31/K_x.v ok, 234 s
+== dev/G_tops_P4b.v started
+   dev/G_xt1.v ok, 274 s
+== dev/G_t1_T1b.v started
+   dev/G_t1_T1b.v ok, 62 s
+   dev/G_t1_T1a2a.v ok, 145 s
+== dev/G_end.v started
+== dev/G_t1_YE.v started
+   dev/G_tops_P4b.v ok, 97 s
+== k31/K_rf.v started
+   dev/G_t1_YE.v ok, 62 s
+== h003/Sim.v started
+   h003/Sim.v ok, 18 s
+== dev/G_t1_YR.v started
+   dev/G_end.v ok, 83 s
+== dev/Abs.v started
+   k31/K_rf.v ok, 66 s
+   dev/G_t1_YR.v ok, 16 s
+   dev/Abs.v ok, 80 s
+== dev/Res.v started
+== score/Score.v started
+== dev/Lift.v started
+   dev/Lift.v ok, 17 s
+== dev/KStep.v started
+   score/Score.v ok, 27 s
+== dev/Step.v started
+   dev/Res.v ok, 31 s
+== dev/HArith.v started
+   dev/KStep.v ok, 17 s
+== dev/HPhB.v started
+   dev/HPhB.v ok, 17 s
+   dev/Step.v ok, 31 s
+== k31/K31_Mach.v started
+== dev/CBtail.v started
+   dev/CBtail.v ok, 17 s
+== dev/Fin.v started
+   dev/Fin.v ok, 17 s
+== k31/K31_Abs.v started
+   k31/K31_Abs.v ok, 17 s
+== dev/Endgame.v started
+   dev/HArith.v ok, 95 s
+== dev/HTop.v started
+   k31/K31_Mach.v ok, 103 s
+== k31/K31_End.v started
+   dev/Endgame.v ok, 58 s
+   dev/HTop.v ok, 100 s
+   k31/K31_End.v ok, 82 s
+== dev/HFinal.v started
+   dev/HFinal.v ok, 316 s
+== dev/HScore.v started
+   dev/HScore.v ok, 272 s
+== dev/HGoal.v started
+   dev/HGoal.v ok, 218 s
+== h003/Final.v started
+   h003/Final.v ok, 7 s
+== h003/Statement.v started
+   h003/Statement.v ok, 6 s
+COMPILE DONE, 18977 s
+== probe.v ==
+   ok, 1335 s
+probe: 6 of 6 results closed under the global context

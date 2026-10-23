@@ -1,7 +1,7 @@
 name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/verify, BB8/verify_m8,
-# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB7/, BB13/, BB14/, BB43/, PA/m238 and ZF/. Not built here, because they take long
+# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB13/, BB14/, BB43/, PA/m238 and ZF/. Not built here, because they take long
 # (recorded local builds are in their directories): BB10/ (about 20 minutes), BB12/ (about 3 hours) and stage 2 of
 # BB9/verify_fw2 (about 2 hours).
 #
@@ -39,6 +39,7 @@ jobs:
       bb9-c04: ${{ steps.f.outputs.bb9-c04 }}
       bb9-f3: ${{ steps.f.outputs.bb9-f3 }}
       bb9-c7: ${{ steps.f.outputs.bb9-c7 }}
+      bb9-h003: ${{ steps.f.outputs.bb9-h003 }}
       bb43: ${{ steps.f.outputs.bb43 }}
       bb7: ${{ steps.f.outputs.bb7 }}
       zf: ${{ steps.f.outputs.zf }}
@@ -78,6 +79,9 @@ jobs:
               - '!**/*.md'
             bb9-c7:                       # self-contained build; port_check.sh and the Defs.v diff read the others
               - '{BB9/verify_c7/**,BB9/verify_c04/{dev/Abs,dev/G_rules,dev/Lift,lib/BB92,lib/Individual92}.v,BB9/verify_f3/{lib/BB112,lib/Individual112,score/Score,dev/Base}.v,BB8/verify_m8/Defs.v}'
+              - '!**/*.md'
+            bb9-h003:                     # self-contained build; port_check.sh and the Defs.v diff read the others
+              - '{BB9/verify_h003/**,BB9/verify_c04/lib/{BB92,Individual92}.v,BB9/verify_f3/{dev/Abs,dev/Cascade,dev/Endgame,dev/Fin,dev/G_entry,dev/G_p14_0,dev/G_p14_1,dev/G_p14_2,dev/G_p14_3,dev/G_p14_4,dev/G_p14_5,dev/G_p20_0,dev/G_p20_1,dev/G_p20_2,dev/G_p20_3,dev/G_p20_4,dev/G_p20_5,dev/G_rules,dev/G_stop,dev/G_sub2,dev/G_sub3,dev/G_sub4,dev/G_sub5,dev/Lift,dev/Orbit,dev/Step,k31/K_e1,k31/K_e2,k31/K_rf,k31/K31_Abs,lib/BB112,lib/Individual112,score/Score,dev/G_end,k31/K_x,dev/CBtail,k31/K31_Mach,k31/K31_End}.v,BB9/verify_c7/{dev/G_pbab,dev/G_pbc,dev/KStep,dev/Ones,dev/Res,dev/Base,c7/Defs}.v,BB8/verify_m8/Defs.v}'
               - '!**/*.md'
             bb43:
               - 'BB43/**'
@@ -528,6 +532,69 @@ jobs:
             BB9/verify_c7/compile_ci.log
             BB9/verify_c7/probe.log
             BB9/verify_c7/_logs/
+
+  bb9-h003:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb9-h003 == 'true'
+    # BB9/verify_h003: the 9-state machine h003 (1RB0RA_1LC1LF_1RD0LB_1RA1LE_0LH0LC_1RG1LD_0RG0RF_0LI---_1RI1RC), the
+    # BB(9) entry: all 66 files from scratch, 4 coqc at a time, then the probe (six results closed under the global
+    # context). The files reused from BB9/verify_c04, BB9/verify_f3 and BB9/verify_c7 are checked against them first
+    # (port_check.sh). About 100 minutes (BB9/verify_f3's job, with the same longest files, took 99).
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    env:
+      BUSYCOQ_COMMIT: bd2e36f6aa204eb011742d2ca6c8741102b2e59e
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v git >/dev/null || (apt-get update && apt-get install -y git)
+
+      - uses: actions/checkout@v4
+
+      - name: Check the reused files against BB9/verify_c04, BB9/verify_f3 and BB9/verify_c7, and Defs.v's definitions against BB8/verify_m8
+        run: |
+          bash BB9/verify_h003/port_check.sh
+          diff <(sed -n '/^(\*\* Counting ones. \*)/,$p' BB8/verify_m8/Defs.v) <(sed -n '/^(\*\* Counting ones. \*)/,$p' BB9/verify_h003/h003/Defs.v)
+          echo "h003/Defs.v: sym_val, count1, ones, iter, arrow, f, f_omega, f_w1 have the text of BB8/verify_m8/Defs.v"
+
+      - name: Build busycoq (pinned commit, only the files the proofs depend on)
+        run: |
+          git clone https://github.com/meithecatte/busycoq "$RUNNER_TEMP/busycoq"
+          cd "$RUNNER_TEMP/busycoq"
+          git checkout "$BUSYCOQ_COMMIT"
+          cd verify
+          coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
+          make -f Makefile.coq Individual.vo Flip.vo
+
+      - name: Compile BB9/verify_h003 and run the probe
+        working-directory: BB9/verify_h003
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" J=4 bash ./compile_clean.sh 2>&1 | tee compile_ci.log
+          test "$(find lib lib9 dev k31 score h003 -name '*.vo' | wc -l)" -eq 66
+          closed=$(grep -c 'Closed under the global context' probe.log || true)
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 6 ]; then
+            echo "::error::probe.v did not report six axiom-free results"
+            exit 1
+          fi
+          tail -20 probe.log
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coq-logs-h003
+          path: |
+            BB9/verify_h003/compile_ci.log
+            BB9/verify_h003/probe.log
+            BB9/verify_h003/_logs/
 
   bb43:
     needs: changes

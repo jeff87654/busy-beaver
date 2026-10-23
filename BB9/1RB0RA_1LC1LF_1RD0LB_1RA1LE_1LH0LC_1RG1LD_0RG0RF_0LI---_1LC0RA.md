@@ -2,6 +2,10 @@
 
     1RB0RA_1LC1LF_1RD0LB_1RA1LE_1LH0LC_1RG1LD_0RG0RF_0LI---_1LC0RA
 
+> **Superseded (2026-10-22)** as the BB(9) entry by h003, whose proved lower bound is one f_ω higher (f_ω⁷(12) < σ);
+> see [`README.md`](README.md). This write-up and [`verify_c7/`](verify_c7/) stay as they are; h003's proof reuses
+> five of C7's files.
+
 Below we call this machine **C7**, its label in the screen that found it (section 4). It halts from the blank tape. Coq
 proves, with no axioms and with the standard fast-growing hierarchy, that its score σ satisfies
 
