@@ -1,7 +1,7 @@
 name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/verify, BB8/verify_m8,
-# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB13/, BB14/, BB43/, PA/m238 and ZF/. Not built here, because they take long
+# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB7/, BB13/, BB14/, BB43/, PA/m238 and ZF/. Not built here, because they take long
 # (recorded local builds are in their directories): BB10/ (about 20 minutes), BB12/ (about 3 hours) and stage 2 of
 # BB9/verify_fw2 (about 2 hours).
 #
@@ -40,6 +40,7 @@ jobs:
       bb9-f3: ${{ steps.f.outputs.bb9-f3 }}
       bb9-c7: ${{ steps.f.outputs.bb9-c7 }}
       bb43: ${{ steps.f.outputs.bb43 }}
+      bb7: ${{ steps.f.outputs.bb7 }}
       zf: ${{ steps.f.outputs.zf }}
     steps:
       - uses: actions/checkout@v4
@@ -80,6 +81,9 @@ jobs:
               - '!**/*.md'
             bb43:
               - 'BB43/**'
+              - '!**/*.md'
+            bb7:
+              - 'BB7/**'
               - '!**/*.md'
             zf:
               - 'ZF/**'
@@ -568,6 +572,52 @@ jobs:
             echo "::error::probe.v did not report thirteen axiom-free theorems"
             exit 1
           fi
+
+  bb7:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb7 == 'true'
+    # BB7/: champ_231 1RB0RG_1RC1RB_0RD---_0LE0LD_0LF1LE_1RA1LF_0LD0RB and its twin champ_232 (G0 = 1LC): halting, the
+    # exact score 2 * W 20 5 + 7 and 3^^20 3 < sigma, for both machines (about 25 minutes, mostly the two start-ups).
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    env:
+      BUSYCOQ_COMMIT: bd2e36f6aa204eb011742d2ca6c8741102b2e59e
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v git >/dev/null || (apt-get update && apt-get install -y git)
+
+      - uses: actions/checkout@v4
+
+      - name: Build busycoq (pinned commit, only the files the proofs depend on)
+        run: |
+          git clone https://github.com/meithecatte/busycoq "$RUNNER_TEMP/busycoq"
+          cd "$RUNNER_TEMP/busycoq"
+          git checkout "$BUSYCOQ_COMMIT"
+          cd verify
+          coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
+          make -f Makefile.coq Individual.vo Flip.vo
+
+      - name: Compile BB7 and run the probes
+        working-directory: BB7/verify
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
+          for p in probe231 probe232; do
+            closed=$(grep -c 'Closed under the global context' $p.log || true)
+            if grep -q 'Axioms:' $p.log || [ "$closed" -ne 6 ]; then
+              echo "::error::$p.v did not report six axiom-free theorems"
+              exit 1
+            fi
+          done
 
   zf:
     needs: changes

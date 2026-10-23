@@ -1,0 +1,51 @@
+== BB72.v ==
+   ok, 9 s
+== Individual72.v ==
+   ok, 54 s
+== Defs.v ==
+   ok, 27 s
+== Uniq.v ==
+   ok, 26 s
+== Clr.v ==
+   ok, 22 s
+== Bound.v ==
+   ok, 27 s
+== Bound3.v ==
+   ok, 25 s
+== C231_rules1.v ==
+   ok, 25 s
+== C231_rules2.v ==
+   ok, 35 s
+== C231_rules3.v ==
+   ok, 33 s
+== C231_init.v ==
+   ok, 394 s
+== C231_clear.v ==
+   ok, 27 s
+== C231_run.v ==
+   ok, 27 s
+== C231_main.v ==
+c231_halts
+     : halts tm231 c0
+   ok, 27 s
+== C232_rules1.v ==
+   ok, 30 s
+== C232_rules2.v ==
+   ok, 36 s
+== C232_rules3.v ==
+   ok, 34 s
+== C232_init.v ==
+   ok, 456 s
+== C232_clear.v ==
+   ok, 30 s
+== C232_run.v ==
+   ok, 31 s
+== C232_main.v ==
+c232_halts
+     : halts tm232 c0
+   ok, 32 s
+== Statement.v ==
+   ok, 32 s
+COMPILE DONE
+probe231: 6 of 6 theorems closed under the global context
+probe232: 6 of 6 theorems closed under the global context
