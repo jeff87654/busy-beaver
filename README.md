@@ -6,6 +6,11 @@ Busy beaver machines with machine-checked proofs. Every bound in the tables belo
 axioms (`Print Assumptions` reports "Closed under the global context"), unless it is marked "on paper". Machines are
 named by their standard strings; the short names (M8, n1, ...) are labels used in the write-ups.
 
+The working notes behind these results are in a companion repository,
+[busy-beaver-notebook](https://github.com/jeff87654/busy-beaver-notebook). It holds the search plans, investigation
+reports, tools, dead ends and lessons, and is written mainly for other people's AI agents. It is an unverified lab
+notebook: only what is proved here counts.
+
 ## Current entries
 
 | | machine | proved (Coq) | main theorems | checked | found by | added |
