@@ -1,0 +1,27 @@
+AX roots, bottom of stack to top (t = old current formula):
+  slot  0: t
+  slot  1: ∀a H
+  slot  2: (σva ⊕ vb) = σ(va ⊕ vb)
+  slot  3: (σva = σvb → va = vb)
+  slot  4: (∃a ∀a B → B)
+  slot  5: (T(a) = T(b) → (T(a) ⊗ T(c)) = (T(b) ⊗ T(c)))
+  slot  6: ¬∀v4+6 ((∃v2 vv4+6 = (v2 ⊕ v2) → ¬∃v2 vv4+6 = (σσσσ0 ⊕ v2)) ∨ ∃v4+4 ∃v4+2 (((∃v2 vv4+4 = (σσ0 ⊕ v2) ∧ ∀v4 ∀v2 (vv4+4 = (v4 ⊗ v2) → (v4 = σ0 ∨ v2 = σ0))) ∧ (∃v2 vv4+2 = (σσ0 ⊕ v2) ∧ ∀v4 ∀v2 (vv4+2 = (v4 ⊗ v2) → (v4 = σ0 ∨ v2 = σ0)))) ∧ (vv4+4 ⊕ vv4+2) = vv4+6))
+  slot  7: (σva ⊗ vb) = (vb ⊕ (va ⊗ vb))
+  slot  8: ∃c+1 vc+1 = T(c)
+  slot  9: (T(a) = T(b) → σT(a) = σT(b))
+  slot 10: (T(a) = T(b) → (T(a) ⊕ T(c)) = (T(b) ⊕ T(c)))
+  slot 11: (∀a ∀b Φ → ∀b ∀a Φ)
+  slot 12: (0 ⊕ vc) = vc
+  slot 13: (((Φ → U) → A) → ((A → Φ) → (B → Φ)))
+  slot 14: (T(a) = T(b) → (T(c) ⊗ T(a)) = (T(c) ⊗ T(b)))
+  slot 15: (T(c) = T(a) → (T(c) = T(b) → T(a) = T(b)))
+  slot 16: (T(a) = T(b) → (T(c) ⊕ T(a)) = (T(c) ⊕ T(b)))
+  slot 17: (∀a (B → Φ) → (∀a B → ∀a Φ))
+  slot 18: ∃a va = vb
+  slot 19: (0 ⊗ va) = 0
+  slot 20: ¬0 = σva
+Upper case = formula positions (Φ = decode(c)); lower case = variable labels.
+current (gated: c ∉ vars T(a) ∪ vars T(b), else ⊤), conjuncts:
+  B0: (∀a (va = 0 → Φ) → (∀a (Φ → ∀c (vc = σva → ∀a (va = vc → Φ))) → ∀a Φ))
+  B1: (T(a) = T(b) → ∀c T(a) = T(b))
+gate ops: 1

@@ -48,8 +48,11 @@ with closed assumptions.
 | ZFC + Grothendieck universes | **296** | [`m254tg_wade.tm`](ZF/tg296/machine/m254tg_wade.tm) | `tg296_halts_iff_ZFGU`, `tg296_halts_iff_ZFCGU` | this project (Mira-Cult's program plus one schema, Wade's compiler) | [`ZF/tg296/`](ZF/tg296/) |
 | ZF, ZFC, with or without regularity | 335 | [`R3Y1_335.tm`](ZF/machines/R3Y1_335.tm) | `zf335_halts_iff_ZF`, …, `zf335_halts_iff_ZFC_reg` | this project (Wade's compiler) | [`ZF/stdzf_r3/`](ZF/stdzf_r3/) |
 | PA | **238** | [`pa_238.tm`](PA/m238/machine/pa_238.tm) | `pa238_iff_ordinary_proved` | mira-emmy | [`PA/m238/`](PA/m238/) |
+| PA + ¬Goldbach, i.e. halts iff PA ⊢ Goldbach's conjecture | **449** | [`pa_wade.tm`](PA/goldbach/machine/pa_wade.tm) | `pagb_halts_iff_PA_GC`, `GC_adequate` | this project (Mira-Cult's program with new axiom rows, Wade's compiler) | [`PA/goldbach/`](PA/goldbach/) |
 
-Bold: the smallest machine here for that theory. [`ZF/README.md`](ZF/README.md) has the whole ZF line (393, 361, 354,
+Bold: the smallest machine here for that theory. The last row is a provability machine: `pagb_halts_iff_PA_GC`
+states that it halts iff `PAeq ⊢ GC_form`, and `GC_adequate` that `GC_form` holds in ℕ iff Goldbach's conjecture
+does. [`ZF/README.md`](ZF/README.md) has the whole ZF line (393, 361, 354,
 336, 335 states, from Wade's 393-state machine), what has to be trusted, and the credits.
 
 ## Superseded entries

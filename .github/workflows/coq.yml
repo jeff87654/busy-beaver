@@ -1,7 +1,7 @@
 name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/verify, BB8/verify_m8,
-# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB13/, BB14/, BB43/, PA/m238 and ZF/. Not built here, because they take long
+# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB13/, BB14/, BB43/, PA/m238, PA/goldbach and ZF/. Not built here, because they take long
 # (recorded local builds are in their directories): BB10/ (about 20 minutes), BB12/ (about 3 hours) and stage 2 of
 # BB9/verify_fw2 (about 2 hours).
 #
@@ -32,6 +32,7 @@ jobs:
     outputs:
       all: ${{ steps.all.outputs.all }}
       pa238: ${{ steps.f.outputs.pa238 }}
+      pa-goldbach: ${{ steps.f.outputs.pa-goldbach }}
       bb8: ${{ steps.f.outputs.bb8 }}
       bb8-m8: ${{ steps.f.outputs.bb8-m8 }}
       bb13-bb14: ${{ steps.f.outputs.bb13-bb14 }}
@@ -57,7 +58,10 @@ jobs:
           # change to .md files alone selects no job (no step a job runs reads a .md file).
           filters: |
             pa238:
-              - 'PA/**'
+              - 'PA/m238/**'
+              - '!**/*.md'
+            pa-goldbach:                  # uses ZF/generator (TMBuilder rebuild check) and the busycoq copy in ZF/stdzf_r3
+              - '{PA/goldbach/**,ZF/generator/**,ZF/stdzf_r3/vendor/busycoq/**}'
               - '!**/*.md'
             bb8:
               - 'BB8/**'
@@ -139,6 +143,34 @@ jobs:
 
       - name: Build PA238 and check closed assumptions
         run: python3 -I PA/m238/check.py --coqc coqc --wall-seconds 120 --memory-mib 2048
+
+  pa-goldbach:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.pa-goldbach == 'true'
+    # PA/goldbach: the 449-state machine pa_wade.tm halts iff PA proves Goldbach's conjecture
+    # (PAeq ⊢TC GC_form, the Coq Library of Undecidability Proofs' PA), end to end, with coqchk.
+    # Uses ../../ZF/generator (Wade's TMBuilder) for the rebuild check and ../../ZF/stdzf_r3/vendor/busycoq.
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH; install python3
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v python3 >/dev/null || (apt-get update && apt-get install -y python3)
+
+      - uses: actions/checkout@v4
+
+      - name: Build and check PA/goldbach
+        working-directory: PA/goldbach
+        run: python3 check.py 2>&1 | tee check_ci.log
 
   bb8:
     needs: changes
