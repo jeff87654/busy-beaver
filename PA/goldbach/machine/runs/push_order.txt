@@ -1,0 +1,22 @@
+t
+GEN
+add_rec(x=a,y=b)
+succ_inj(x=a,y=b)
+B6c
+Ctimes1
+NG
+mult_rec(x=a,y=b)
+EX
+Csigma
+Cplus1
+COMM
+add_zero(x=c,y=0)
+L
+Ctimes2
+Euclid
+Cplus2
+QI
+rho1
+mult_zero(x=a,y=0)
+zero_succ(x=a,y=d)
+current: IND ∧ VAC

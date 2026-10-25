@@ -6,3 +6,6 @@
 *.md text eol=lf
 _CoqProject text eol=lf
 *.tm text eol=lf
+# PA/goldbach: check.py compares the frozen machine files with their sha256 byte for byte, and some of them
+# (spec_pa.py and four of its imports) have CRLF line endings. Store and check out these files unconverted.
+PA/goldbach/machine/** -text

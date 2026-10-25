@@ -31,3 +31,5 @@ BB9/verify_c7/_logs/
 BB9/verify_c7/compile_ci.log
 BB9/verify_h003/_logs/
 BB9/verify_h003/compile_ci.log
+PA/goldbach/check_ci.log
+PA/goldbach/machine/pa_rebuilt.tm

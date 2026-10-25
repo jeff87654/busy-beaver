@@ -1,0 +1,58 @@
+     = Wal 10
+         (Wim
+            (Wn
+               (Wim (Wn (Wal 2 (Wn (Weq (TV 10) (TP (TV 2) (TV 2))))))
+                  (Wn
+                     (Wn
+                        (Wal 2
+                           (Wn
+                              (Weq (TV 10) (TP (TS (TS (TS (TS TZ)))) (TV 2)))))))))
+            (Wn
+               (Wal 8
+                  (Wn
+                     (Wn
+                        (Wal 6
+                           (Wn
+                              (Wn
+                                 (Wim
+                                    (Wn
+                                       (Wim
+                                          (Wn
+                                             (Wim
+                                                (Wn
+                                                 (Wal 2
+                                                 (Wn
+                                                 (Weq 
+                                                 (TV 8)
+                                                 (TP (TS (TS TZ)) (TV 2))))))
+                                                (Wn
+                                                 (Wal 4
+                                                 (Wal 2
+                                                 (Wim
+                                                 (Weq 
+                                                 (TV 8) 
+                                                 (TM (TV 4) (TV 2)))
+                                                 (Wim
+                                                 (Wn (Weq (TV 4) (TS TZ)))
+                                                 (Weq (TV 2) (TS TZ)))))))))
+                                          (Wn
+                                             (Wn
+                                                (Wim
+                                                 (Wn
+                                                 (Wal 2
+                                                 (Wn
+                                                 (Weq 
+                                                 (TV 6)
+                                                 (TP (TS (TS TZ)) (TV 2))))))
+                                                 (Wn
+                                                 (Wal 4
+                                                 (Wal 2
+                                                 (Wim
+                                                 (Weq 
+                                                 (TV 6) 
+                                                 (TM (TV 4) (TV 2)))
+                                                 (Wim
+                                                 (Wn (Weq (TV 4) (TS TZ)))
+                                                 (Weq (TV 2) (TS TZ))))))))))))
+                                    (Wn (Weq (TP (TV 8) (TV 6)) (TV 10))))))))))))
+     : wff
