@@ -69,8 +69,8 @@ jobs:
             bb8-m8:
               - '{BB8/**,BB9/verify_c04/**,BB9/verify_fw2/multifile/**}'
               - '!**/*.md'
-            bb13-bb14:
-              - '{BB13/**,BB14/**}'
+            bb13-bb14:                    # also builds BB12/verify_m12 (M12)
+              - '{BB12/verify_m12/**,BB13/**,BB14/**}'
               - '!**/*.md'
             bb9-fw2:
               - 'BB9/verify_fw2/**'
@@ -289,13 +289,14 @@ jobs:
   bb13-bb14:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb13-bb14 == 'true'
-    # BB13/, BB14/: the 13- and 14-state f_(omega+2) machines M13 and M14 (about a minute each).
+    # BB12/verify_m12, BB13/, BB14/: the 12-, 13- and 14-state f_(omega+2) machines M12, M13 and M14 (about a minute
+    # each). The job id is historical.
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
-        n: ['13', '14']
+        dir: ['BB12/verify_m12/multifile', 'BB13/verify/multifile', 'BB14/verify/multifile']
     container:
       image: coqorg/coq:8.20.1
       options: --user root
@@ -323,8 +324,8 @@ jobs:
           coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
           make -f Makefile.coq Individual.vo Flip.vo
 
-      - name: Compile BB${{ matrix.n }} and run the probe
-        working-directory: BB${{ matrix.n }}/verify/multifile
+      - name: Compile ${{ matrix.dir }} and run the probe
+        working-directory: ${{ matrix.dir }}
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
           closed=$(grep -c 'Closed under the global context' probe.log || true)

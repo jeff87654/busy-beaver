@@ -1,0 +1,10 @@
+== BB122.v ==
+   ok, 11 s
+== Individual122.v ==
+   ok, 6 s
+== BB12_M12.v ==
+   ok, 10 s
+== BB12_M12_bound.v ==
+   ok, 8 s
+COMPILE DONE
+probe: 4 of 4 theorems closed under the global context
