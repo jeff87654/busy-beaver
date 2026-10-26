@@ -1,0 +1,138 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB12_M12.tm (A, 0) = Some (1, R, B)
+     : BB12_M12.tm (A, 0) = Some (1, R, B)
+eq_refl : BB12_M12.tm (A, 1) = Some (1, R, A)
+     : BB12_M12.tm (A, 1) = Some (1, R, A)
+eq_refl : BB12_M12.tm (B, 0) = Some (1, R, I)
+     : BB12_M12.tm (B, 0) = Some (1, R, I)
+eq_refl : BB12_M12.tm (B, 1) = Some (1, R, C)
+     : BB12_M12.tm (B, 1) = Some (1, R, C)
+eq_refl : BB12_M12.tm (C, 0) = Some (0, TM.L, D)
+     : BB12_M12.tm (C, 0) = Some (0, TM.L, D)
+eq_refl : BB12_M12.tm (C, 1) = Some (1, TM.L, G)
+     : BB12_M12.tm (C, 1) = Some (1, TM.L, G)
+eq_refl : BB12_M12.tm (D, 0) = Some (0, R, E)
+     : BB12_M12.tm (D, 0) = Some (0, R, E)
+eq_refl : BB12_M12.tm (D, 1) = Some (1, TM.L, D)
+     : BB12_M12.tm (D, 1) = Some (1, TM.L, D)
+eq_refl : BB12_M12.tm (E, 0) = Some (1, TM.L, K)
+     : BB12_M12.tm (E, 0) = Some (1, TM.L, K)
+eq_refl : BB12_M12.tm (E, 1) = Some (1, R, F)
+     : BB12_M12.tm (E, 1) = Some (1, R, F)
+eq_refl : BB12_M12.tm (F, 0) = Some (1, R, G)
+     : BB12_M12.tm (F, 0) = Some (1, R, G)
+eq_refl : BB12_M12.tm (F, 1) = Some (0, R, A)
+     : BB12_M12.tm (F, 1) = Some (0, R, A)
+eq_refl : BB12_M12.tm (G, 0) = Some (1, R, A)
+     : BB12_M12.tm (G, 0) = Some (1, R, A)
+eq_refl : BB12_M12.tm (G, 1) = Some (0, TM.L, H)
+     : BB12_M12.tm (G, 1) = Some (0, TM.L, H)
+eq_refl : BB12_M12.tm (H, 0) = Some (1, TM.L, G)
+     : BB12_M12.tm (H, 0) = Some (1, TM.L, G)
+eq_refl : BB12_M12.tm (H, 1) = Some (1, TM.L, H)
+     : BB12_M12.tm (H, 1) = Some (1, TM.L, H)
+eq_refl : BB12_M12.tm (I, 0) = Some (1, R, E)
+     : BB12_M12.tm (I, 0) = Some (1, R, E)
+eq_refl : BB12_M12.tm (I, 1) = Some (0, TM.L, J)
+     : BB12_M12.tm (I, 1) = Some (0, TM.L, J)
+eq_refl : BB12_M12.tm (J, 0) = Some (1, TM.L, H)
+     : BB12_M12.tm (J, 0) = Some (1, TM.L, H)
+eq_refl : BB12_M12.tm (J, 1) = Some (1, TM.L, I)
+     : BB12_M12.tm (J, 1) = Some (1, TM.L, I)
+eq_refl : BB12_M12.tm (K, 0) = None
+     : BB12_M12.tm (K, 0) = None
+eq_refl : BB12_M12.tm (K, 1) = Some (0, TM.L, L)
+     : BB12_M12.tm (K, 1) = Some (0, TM.L, L)
+eq_refl : BB12_M12.tm (L, 0) = Some (0, TM.L, H)
+     : BB12_M12.tm (L, 0) = Some (0, TM.L, H)
+eq_refl : BB12_M12.tm (L, 1) = Some (1, TM.L, K)
+     : BB12_M12.tm (L, 1) = Some (1, TM.L, K)
+BB12_M12.iter =
+fix iter (X : Type) (n : nat) (g : X -> X) (x : X) {struct n} : X :=
+  match n with
+  | 0 => x
+  | S n' => g (iter X n' g x)
+  end
+     : forall {X : Type}, nat -> (X -> X) -> X -> X
+
+Arguments BB12_M12.iter {X}%type_scope n%nat_scope g%function_scope x
+BB12_M12_bound.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB12_M12.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB12_M12_bound.f (k _)%nat_scope
+BB12_M12_bound.f_omega = fun n : nat => BB12_M12_bound.f n n
+     : nat -> nat
+
+Arguments BB12_M12_bound.f_omega n%nat_scope
+BB12_M12_bound.f_omega1 =
+fun n : nat => BB12_M12.iter n BB12_M12_bound.f_omega n
+     : nat -> nat
+
+Arguments BB12_M12_bound.f_omega1 n%nat_scope
+BB12_M12_bound.f_omega2 =
+fun n : nat => BB12_M12.iter n BB12_M12_bound.f_omega1 n
+     : nat -> nat
+
+Arguments BB12_M12_bound.f_omega2 n%nat_scope
+BB12_M12_bound.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB12_M12_bound.sym_val s%sym_scope
+BB12_M12_bound.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB12_M12_bound.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB12_M12_bound.count1 xs%list_scope
+BB12_M12_bound.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB12_M12_bound.count1 L + BB12_M12_bound.sym_val s +
+  BB12_M12_bound.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB12_M12_bound.ones c N%nat_scope
+BB12_M12.halt
+     : halts BB12_M12.tm c0
+BB12_M12_bound.score_exact
+     : exists c : Q * tape,
+         c0 -[ BB12_M12.tm ]->* c /\
+         halted BB12_M12.tm c /\
+         BB12_M12_bound.ones c (fst BB12_M12.pb2 + snd BB12_M12.pb2 / 2 + 3)
+BB12_M12_bound.sigma_lower_bound_strong
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB12_M12.tm ]->* c /\
+         halted BB12_M12.tm c /\
+         BB12_M12_bound.ones c N /\
+         BB12_M12_bound.f_omega2 (BB12_M12_bound.f_omega 20) < N + 1
+BB12_M12_bound.sigma_lower_bound_m12
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB12_M12.tm ]->* c /\
+         halted BB12_M12.tm c /\
+         BB12_M12_bound.ones c N /\
+         BB12_M12_bound.f_omega2
+           (BB12_M12_bound.f_omega1 (BB12_M12_bound.f_omega1 3)) < 
+         N + 1
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
