@@ -1,8 +1,8 @@
 name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/verify, BB8/verify_m8,
-# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB13/, BB14/, BB43/, PA/m238, PA/goldbach and ZF/. Not built here, because they take long
-# (recorded local builds are in their directories): BB10/ (about 20 minutes), BB12/ (about 3 hours) and stage 2 of
+# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB11/verify (without the n1 comparison), BB12/verify_m12, BB13/, BB14/, BB43/, PA/m238, PA/goldbach and ZF/. Not built here, because they take long
+# (recorded local builds are in their directories): BB10/ (about 20 minutes), BB11/'s comparison with n1 (about 6 minutes), BB12/verify (about 3 hours) and stage 2 of
 # BB9/verify_fw2 (about 2 hours).
 #
 # When the jobs run: on pull requests and on pushes to main, a job runs only if its entry's files, or the files of an
@@ -69,8 +69,8 @@ jobs:
             bb8-m8:
               - '{BB8/**,BB9/verify_c04/**,BB9/verify_fw2/multifile/**}'
               - '!**/*.md'
-            bb13-bb14:                    # also builds BB12/verify_m12 (M12)
-              - '{BB12/verify_m12/**,BB13/**,BB14/**}'
+            bb13-bb14:                    # also builds BB11/verify (M11b) and BB12/verify_m12 (M12)
+              - '{BB11/verify/**,BB12/verify_m12/**,BB13/**,BB14/**}'
               - '!**/*.md'
             bb9-fw2:
               - 'BB9/verify_fw2/**'
@@ -289,14 +289,14 @@ jobs:
   bb13-bb14:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb13-bb14 == 'true'
-    # BB12/verify_m12, BB13/, BB14/: the 12-, 13- and 14-state f_(omega+2) machines M12, M13 and M14 (about a minute
-    # each). The job id is historical.
+    # BB11/verify (M11b, f_(omega+1); its comparison with n1 is not built here), BB12/verify_m12, BB13/, BB14/: the 12-,
+    # 13- and 14-state f_(omega+2) machines M12, M13 and M14 (about a minute each). The job id is historical.
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
-        dir: ['BB12/verify_m12/multifile', 'BB13/verify/multifile', 'BB14/verify/multifile']
+        dir: ['BB11/verify/multifile', 'BB12/verify_m12/multifile', 'BB13/verify/multifile', 'BB14/verify/multifile']
     container:
       image: coqorg/coq:8.20.1
       options: --user root
