@@ -1,0 +1,237 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = qA
+     : q0 = qA
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB31_tm.tm (qA, 0) = Some (0, R, qK)
+     : BB31_tm.tm (qA, 0) = Some (0, R, qK)
+eq_refl : BB31_tm.tm (qA, 1) = Some (1, R, qK)
+     : BB31_tm.tm (qA, 1) = Some (1, R, qK)
+eq_refl : BB31_tm.tm (qB, 0) = None
+     : BB31_tm.tm (qB, 0) = None
+eq_refl : BB31_tm.tm (qB, 1) = Some (0, L, qC)
+     : BB31_tm.tm (qB, 1) = Some (0, L, qC)
+eq_refl : BB31_tm.tm (qC, 0) = Some (1, L, qQ)
+     : BB31_tm.tm (qC, 0) = Some (1, L, qQ)
+eq_refl : BB31_tm.tm (qC, 1) = Some (0, L, qB)
+     : BB31_tm.tm (qC, 1) = Some (0, L, qB)
+eq_refl : BB31_tm.tm (qD, 0) = Some (1, R, qF)
+     : BB31_tm.tm (qD, 0) = Some (1, R, qF)
+eq_refl : BB31_tm.tm (qD, 1) = Some (1, L, qE)
+     : BB31_tm.tm (qD, 1) = Some (1, L, qE)
+eq_refl : BB31_tm.tm (qE, 0) = Some (0, L, qD)
+     : BB31_tm.tm (qE, 0) = Some (0, L, qD)
+eq_refl : BB31_tm.tm (qE, 1) = Some (1, L, qD)
+     : BB31_tm.tm (qE, 1) = Some (1, L, qD)
+eq_refl : BB31_tm.tm (qF, 0) = Some (0, R, qAB)
+     : BB31_tm.tm (qF, 0) = Some (0, R, qAB)
+eq_refl : BB31_tm.tm (qF, 1) = Some (1, R, qG)
+     : BB31_tm.tm (qF, 1) = Some (1, R, qG)
+eq_refl : BB31_tm.tm (qG, 0) = Some (1, R, qM)
+     : BB31_tm.tm (qG, 0) = Some (1, R, qM)
+eq_refl : BB31_tm.tm (qG, 1) = Some (0, R, qK)
+     : BB31_tm.tm (qG, 1) = Some (0, R, qK)
+eq_refl : BB31_tm.tm (qH, 0) = Some (0, R, qI)
+     : BB31_tm.tm (qH, 0) = Some (0, R, qI)
+eq_refl : BB31_tm.tm (qH, 1) = Some (1, R, qJ)
+     : BB31_tm.tm (qH, 1) = Some (1, R, qJ)
+eq_refl : BB31_tm.tm (qI, 0) = Some (1, L, qAA)
+     : BB31_tm.tm (qI, 0) = Some (1, L, qAA)
+eq_refl : BB31_tm.tm (qI, 1) = Some (1, R, qH)
+     : BB31_tm.tm (qI, 1) = Some (1, R, qH)
+eq_refl : BB31_tm.tm (qJ, 0) = Some (0, R, qH)
+     : BB31_tm.tm (qJ, 0) = Some (0, R, qH)
+eq_refl : BB31_tm.tm (qJ, 1) = Some (1, R, qH)
+     : BB31_tm.tm (qJ, 1) = Some (1, R, qH)
+eq_refl : BB31_tm.tm (qK, 0) = Some (0, R, qL)
+     : BB31_tm.tm (qK, 0) = Some (0, R, qL)
+eq_refl : BB31_tm.tm (qK, 1) = Some (1, R, qA)
+     : BB31_tm.tm (qK, 1) = Some (1, R, qA)
+eq_refl : BB31_tm.tm (qL, 0) = Some (1, L, qAC)
+     : BB31_tm.tm (qL, 0) = Some (1, L, qAC)
+eq_refl : BB31_tm.tm (qL, 1) = Some (1, R, qK)
+     : BB31_tm.tm (qL, 1) = Some (1, R, qK)
+eq_refl : BB31_tm.tm (qM, 0) = Some (0, R, qN)
+     : BB31_tm.tm (qM, 0) = Some (0, R, qN)
+eq_refl : BB31_tm.tm (qM, 1) = Some (1, R, qN)
+     : BB31_tm.tm (qM, 1) = Some (1, R, qN)
+eq_refl : BB31_tm.tm (qN, 0) = Some (0, L, qAC)
+     : BB31_tm.tm (qN, 0) = Some (0, L, qAC)
+eq_refl : BB31_tm.tm (qN, 1) = Some (1, R, qM)
+     : BB31_tm.tm (qN, 1) = Some (1, R, qM)
+eq_refl : BB31_tm.tm (qO, 0) = Some (1, R, qAB)
+     : BB31_tm.tm (qO, 0) = Some (1, R, qAB)
+eq_refl : BB31_tm.tm (qO, 1) = Some (1, L, qAD)
+     : BB31_tm.tm (qO, 1) = Some (1, L, qAD)
+eq_refl : BB31_tm.tm (qP, 0) = Some (0, R, qW)
+     : BB31_tm.tm (qP, 0) = Some (0, R, qW)
+eq_refl : BB31_tm.tm (qP, 1) = Some (0, R, qW)
+     : BB31_tm.tm (qP, 1) = Some (0, R, qW)
+eq_refl : BB31_tm.tm (qQ, 0) = Some (0, L, qU)
+     : BB31_tm.tm (qQ, 0) = Some (0, L, qU)
+eq_refl : BB31_tm.tm (qQ, 1) = Some (1, L, qR)
+     : BB31_tm.tm (qQ, 1) = Some (1, L, qR)
+eq_refl : BB31_tm.tm (qR, 0) = Some (0, R, qAB)
+     : BB31_tm.tm (qR, 0) = Some (0, R, qAB)
+eq_refl : BB31_tm.tm (qR, 1) = Some (1, L, qS)
+     : BB31_tm.tm (qR, 1) = Some (1, L, qS)
+eq_refl : BB31_tm.tm (qS, 0) = Some (0, L, qAC)
+     : BB31_tm.tm (qS, 0) = Some (0, L, qAC)
+eq_refl : BB31_tm.tm (qS, 1) = Some (1, L, qT)
+     : BB31_tm.tm (qS, 1) = Some (1, L, qT)
+eq_refl : BB31_tm.tm (qT, 0) = Some (0, L, qQ)
+     : BB31_tm.tm (qT, 0) = Some (0, L, qQ)
+eq_refl : BB31_tm.tm (qT, 1) = Some (1, L, qU)
+     : BB31_tm.tm (qT, 1) = Some (1, L, qU)
+eq_refl : BB31_tm.tm (qU, 0) = Some (0, R, qZ)
+     : BB31_tm.tm (qU, 0) = Some (0, R, qZ)
+eq_refl : BB31_tm.tm (qU, 1) = Some (1, L, qV)
+     : BB31_tm.tm (qU, 1) = Some (1, L, qV)
+eq_refl : BB31_tm.tm (qV, 0) = Some (0, L, qS)
+     : BB31_tm.tm (qV, 0) = Some (0, L, qS)
+eq_refl : BB31_tm.tm (qV, 1) = Some (1, L, qAC)
+     : BB31_tm.tm (qV, 1) = Some (1, L, qAC)
+eq_refl : BB31_tm.tm (qW, 0) = Some (0, R, qX)
+     : BB31_tm.tm (qW, 0) = Some (0, R, qX)
+eq_refl : BB31_tm.tm (qW, 1) = Some (1, R, qY)
+     : BB31_tm.tm (qW, 1) = Some (1, R, qY)
+eq_refl : BB31_tm.tm (qX, 0) = Some (0, R, qM)
+     : BB31_tm.tm (qX, 0) = Some (0, R, qM)
+eq_refl : BB31_tm.tm (qX, 1) = Some (1, R, qW)
+     : BB31_tm.tm (qX, 1) = Some (1, R, qW)
+eq_refl : BB31_tm.tm (qY, 0) = Some (0, L, qC)
+     : BB31_tm.tm (qY, 0) = Some (0, L, qC)
+eq_refl : BB31_tm.tm (qY, 1) = Some (1, R, qW)
+     : BB31_tm.tm (qY, 1) = Some (1, R, qW)
+eq_refl : BB31_tm.tm (qZ, 0) = Some (0, L, qAD)
+     : BB31_tm.tm (qZ, 0) = Some (0, L, qAD)
+eq_refl : BB31_tm.tm (qZ, 1) = Some (1, L, qAA)
+     : BB31_tm.tm (qZ, 1) = Some (1, L, qAA)
+eq_refl : BB31_tm.tm (qAA, 0) = Some (0, L, qZ)
+     : BB31_tm.tm (qAA, 0) = Some (0, L, qZ)
+eq_refl : BB31_tm.tm (qAA, 1) = Some (1, L, qZ)
+     : BB31_tm.tm (qAA, 1) = Some (1, L, qZ)
+eq_refl : BB31_tm.tm (qAB, 0) = Some (0, R, qP)
+     : BB31_tm.tm (qAB, 0) = Some (0, R, qP)
+eq_refl : BB31_tm.tm (qAB, 1) = Some (0, R, qH)
+     : BB31_tm.tm (qAB, 1) = Some (0, R, qH)
+eq_refl : BB31_tm.tm (qAC, 0) = Some (1, L, qAE)
+     : BB31_tm.tm (qAC, 0) = Some (1, L, qAE)
+eq_refl : BB31_tm.tm (qAC, 1) = Some (1, L, qQ)
+     : BB31_tm.tm (qAC, 1) = Some (1, L, qQ)
+eq_refl : BB31_tm.tm (qAD, 0) = Some (0, L, qO)
+     : BB31_tm.tm (qAD, 0) = Some (0, L, qO)
+eq_refl : BB31_tm.tm (qAD, 1) = Some (1, L, qD)
+     : BB31_tm.tm (qAD, 1) = Some (1, L, qD)
+eq_refl : BB31_tm.tm (qAE, 0) = Some (1, L, qH)
+     : BB31_tm.tm (qAE, 0) = Some (1, L, qH)
+eq_refl : BB31_tm.tm (qAE, 1) = Some (1, L, qAA)
+     : BB31_tm.tm (qAE, 1) = Some (1, L, qAA)
+Ord.fs =
+fix fs (x : Ord.ord) (n : nat) {struct x} : Ord.ord :=
+  match x with
+  | Ord.oz => Ord.oz
+  | Ord.ow a Ord.oz =>
+      match a with
+      | Ord.oz => Ord.oz
+      | Ord.ow _ _ =>
+          match Ord.opred a with
+          | Some a' => Ord.orep a' n Ord.oz
+          | None => Ord.ow (fs a n) Ord.oz
+          end
+      end
+  | Ord.ow a (Ord.ow _ _ as b) => Ord.ow a (fs b n)
+  end
+     : Ord.ord -> nat -> Ord.ord
+
+Arguments Ord.fs x n%nat_scope
+Inductive fgh : Ord.ord -> nat -> nat -> Prop :=
+    fgh_zero : forall n : nat, Ord.fgh Ord.oz n (S n)
+  | fgh_succ : forall (x b : Ord.ord) (n m : nat),
+               Ord.okind x = Ord.KSucc b -> Ord.fghi b n n m -> Ord.fgh x n m
+  | fgh_lim : forall (x : Ord.ord) (n m : nat),
+              Ord.okind x = Ord.KLim ->
+              Ord.fgh (Ord.fs x n) n m -> Ord.fgh x n m
+  with fghi : Ord.ord -> nat -> nat -> nat -> Prop :=
+    fghi_O : forall (b : Ord.ord) (y : nat), Ord.fghi b 0 y y
+  | fghi_S : forall (b : Ord.ord) (k y y1 m : nat),
+             Ord.fgh b y y1 -> Ord.fghi b k y1 m -> Ord.fghi b (S k) y m.
+
+Arguments Ord.fgh _ (_ _)%nat_scope
+Arguments Ord.fgh_zero n%nat_scope
+Arguments Ord.fgh_succ x b (n m)%nat_scope _ _
+Arguments Ord.fgh_lim x (n m)%nat_scope _ _
+Arguments Ord.fghi _ (_ _ _)%nat_scope
+Arguments Ord.fghi_O b y%nat_scope
+Arguments Ord.fghi_S b (k y y1 m)%nat_scope _ _
+Ord.FGH =
+fun (x : Ord.ord) (n : nat) =>
+match Ord.nf_dec x with
+| Specif.left H => proj1_sig (Ord.fgh_total x H n)
+| No => 0
+end
+     : Ord.ord -> nat -> nat
+
+Arguments Ord.FGH x n%nat_scope
+Ord.tower =
+fix tower (k : nat) : Ord.ord :=
+  match k with
+  | 0 => Ord.one
+  | S k' => Ord.opow (tower k')
+  end
+     : nat -> Ord.ord
+
+Arguments Ord.tower k%nat_scope
+Ord.opow = fun a : Ord.ord => Ord.ow a Ord.oz
+     : Ord.ord -> Ord.ord
+
+Arguments Ord.opow a
+Ord.one = Ord.ow Ord.oz Ord.oz
+     : Ord.ord
+BB31_game.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = BB31_game.count1 L + BB31_game.sym_val s + BB31_game.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB31_game.ones c N%nat_scope
+BB31_game.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB31_game.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB31_game.count1 xs%list_scope
+BB31_game.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB31_game.sym_val s%sym_scope
+BB31_halt.halt
+     : halts BB31_tm.tm c0
+BB31_bound.hardy_score
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB31_tm.tm ]->* c /\
+         halted BB31_tm.tm c /\
+         BB31_game.ones c N /\ Ord.FGH (Ord.tower 4) 4 <= N + 2
+BB31_bound.sigma_lower_bound_w4
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB31_tm.tm ]->* c /\
+         halted BB31_tm.tm c /\
+         BB31_game.ones c N /\ Ord.FGH (Ord.tower 4) 3 < N
+BB31_bound.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB31_tm.tm ]->* c /\
+         halted BB31_tm.tm c /\
+         BB31_game.ones c N /\ Ord.FGH (Ord.tower 3) 3 < N
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

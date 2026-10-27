@@ -1,0 +1,83 @@
+== blank-tape run vs hydra model (BB29)
+      K(a=0,b=1) d=3 height=3  o=w^(w^(3)) 
+      K(a=1,b=0) d=3 height=3  o=w^(w^(4)) 
+      K(a=0,b=2) d=2 height=3  o=w^(w^(3)*2) 
+      K(a=1,b=1) d=2 height=3  o=w^(w^(3)*3) 
+      K(a=2,b=0) d=2 height=3  o=w^(w^(3)*4) 
+      K(a=0,b=3) d=2 height=3  o=w^(w^(3)*3+w^(2)*2) 
+      K(a=1,b=2) d=2 height=3  o=w^(w^(3)*3+w^(2)*3) 
+      first C(m)=K(m,0) configs: [(0, 'w^(w^(w))'), (1, 'w^(w^(4))'), (2, 'w^(w^(3)*4)'), (3, 'w^(w^(3)*3+w^(2)*5)')]
+== blank-tape run vs hydra model (BB31)
+      K(a=0,b=1) d=5 height=5  o=w^(w^(w^(w^(3)))) 
+      K(a=1,b=0) d=5 height=5  o=w^(w^(w^(w^(4)))) 
+      K(a=0,b=2) d=4 height=5  o=w^(w^(w^(w^(3)*2))) 
+      K(a=1,b=1) d=4 height=5  o=w^(w^(w^(w^(3)*3))) 
+      K(a=2,b=0) d=4 height=5  o=w^(w^(w^(w^(3)*4))) 
+      K(a=0,b=3) d=4 height=5  o=w^(w^(w^(w^(3)*3+w^(2)*2))) 
+      K(a=1,b=2) d=4 height=5  o=w^(w^(w^(w^(3)*3+w^(2)*3))) 
+      first C(m)=K(m,0) configs: [(0, 'w^(w^(w^(w^(w))))'), (1, 'w^(w^(w^(w^(4))))'), (2, 'w^(w^(w^(w^(3)*4)))'), (3, 'w^(w^(w^(w^(3)*3+w^(2)*5)))')]
+== blank-tape run vs hydra model (BB33)
+      K(a=0,b=1) d=7 height=7  o=w^(w^(w^(w^(w^(w^(2)))))) 
+      K(a=1,b=0) d=7 height=7  o=w^(w^(w^(w^(w^(w^(3)))))) 
+      K(a=0,b=2) d=6 height=7  o=w^(w^(w^(w^(w^(w^(2)*2))))) 
+      K(a=1,b=1) d=6 height=7  o=w^(w^(w^(w^(w^(w^(2)*3))))) 
+      K(a=2,b=0) d=6 height=7  o=w^(w^(w^(w^(w^(w^(2)*4))))) 
+      K(a=0,b=3) d=6 height=7  o=w^(w^(w^(w^(w^(w^(2)*3+w*2))))) 
+      K(a=1,b=2) d=6 height=7  o=w^(w^(w^(w^(w^(w^(2)*3+w*3))))) 
+      first C(m)=K(m,0) configs: [(0, 'w^(w^(w^(w^(w^(w^(w))))))'), (1, 'w^(w^(w^(w^(w^(w^(3))))))'), (2, 'w^(w^(w^(w^(w^(w^(2)*4)))))'), (3, 'w^(w^(w^(w^(w^(w^(2)*3+w*5)))))')]
+== random K(a,b,h,d), height<=3 (BB29)
+    BB29 maxheight 3 {'ok': 300, 'halt': 187, 'cap': 113, 'bad': 0, 'undef': 0}
+== random K(a,b,h,d), height<=5 (BB31)
+    BB31 maxheight 5 {'ok': 200, 'halt': 104, 'cap': 96, 'bad': 0, 'undef': 0}
+== random K(a,b,h,d), height<=7 (BB33)
+    BB33 maxheight 7 {'ok': 200, 'halt': 98, 'cap': 102, 'bad': 0, 'undef': 0}
+== NEGATIVE control: height 4 on BB29 (expect bad>0)
+       model   (0, 7, (((((), ()), (), ()),), ((((), ()), (), ()),)), 1)
+    MISMATCH (0, 2, (((((), ()),), (((),),)),), 2) height 4 event 41 
+       machine (0, 9, (((((), ()),), (((),),), (((),),), ((), (), (), ()), ((), (), (), ()), ((), (), (), ()), ((), (), (), ()), ((), (), (), ()), ((), (), ()), ((), 
+       model   (0, 9, (((((), ()),), (((),),), (((),),), ((), (), (), ()), ((), (), (), ()), ((), (), (), ()), ((), (), (), ()), ((), (), (), ()), ((), (), ()), ((),
+    MISMATCH (3, 1, (((((), ()), ((),), ()), (((),),), ()), ((),)), 0) height 4 event 0 
+       machine None 
+       model   (4, 0, (((((), ()), ((),), ()), (((),),), ()), ((),)), 0)
+    BB29 maxheight 4 {'ok': 135, 'halt': 89, 'cap': 46, 'bad': 15, 'undef': 10}
+== TM-literal cross-check (BB29)
+    BB29 event 1 at TM step 59: K(a=0,b=0,d=4) state P head -5  TM-literal-match=True
+    BB29 event 2 at TM step 113: K(a=0,b=1,d=3) state P head -5  TM-literal-match=True
+    BB29 event 3 at TM step 175: K(a=1,b=0,d=3) state P head -5  TM-literal-match=True
+    BB29 event 6 at TM step 1265: K(a=2,b=0,d=2) state P head -5  TM-literal-match=True
+    BB29 event 21 at TM step 6343: K(a=5,b=0,d=2) state P head -5  TM-literal-match=True
+    BB29 event 61 at TM step 1254795: K(a=5,b=5,d=1) state P head -5  TM-literal-match=True
+    BB29 event 151 at TM step 5632383: K(a=14,b=2,d=1) state P head -5  TM-literal-match=True
+== TM-literal cross-check (BB31)
+    BB31 event 1 at TM step 196: K(a=0,b=0,d=6) state O head -8  TM-literal-match=True
+    BB31 event 2 at TM step 274: K(a=0,b=1,d=5) state O head -8  TM-literal-match=True
+    BB31 event 3 at TM step 360: K(a=1,b=0,d=5) state O head -8  TM-literal-match=True
+    BB31 event 6 at TM step 1522: K(a=2,b=0,d=4) state O head -8  TM-literal-match=True
+    BB31 event 21 at TM step 6960: K(a=5,b=0,d=4) state O head -8  TM-literal-match=True
+    BB31 event 61 at TM step 1313492: K(a=5,b=5,d=3) state O head -8  TM-literal-match=True
+    BB31 event 151 at TM step 5852040: K(a=14,b=2,d=3) state O head -8  TM-literal-match=True
+== TM-literal cross-check (BB33)
+    BB33 event 1 at TM step 140: K(a=0,b=0,d=8) state P head -8  TM-literal-match=True
+    BB33 event 2 at TM step 210: K(a=0,b=1,d=7) state P head -8  TM-literal-match=True
+    BB33 event 3 at TM step 288: K(a=1,b=0,d=7) state P head -8  TM-literal-match=True
+    BB33 event 6 at TM step 1042: K(a=2,b=0,d=6) state P head -8  TM-literal-match=True
+    BB33 event 21 at TM step 59052: K(a=5,b=0,d=5) state P head -8  TM-literal-match=True
+    BB33 event 61 at TM step 504468: K(a=5,b=5,d=5) state P head -8  TM-literal-match=True
+    BB33 event 151 at TM step 2655840: K(a=14,b=2,d=5) state P head -8  TM-literal-match=True
+== ordinal step alpha->alpha[m+3] / alpha-1 at chop configs
+    BB29 checked 18 consecutive chop configs C(1)..; bad = 0
+    BB29 ordinary-sum check over 18 rounds: equal 18 larger 0 SMALLER 0  C(1) ordinal w^(w^(4))
+    BB31 ordinary-sum check over 18 rounds: equal 18 larger 0 SMALLER 0  C(1) ordinal w^(w^(w^(w^(4))))
+    BB33 ordinary-sum check over 24 rounds: equal 24 larger 0 SMALLER 0  C(1) ordinal w^(w^(w^(w^(w^(w^(3))))))
+== closed form W/T_k vs model run to HALT
+    [[], [], []] m=2 model sigma 6 formula 6 OK
+    [[0]] m=0 model sigma 5 formula 5 OK
+    [[0]] m=2 model sigma 9 formula 9 OK
+    [[0], []] m=1 model sigma 9 formula 9 OK
+    [[], [0]] m=1 model sigma 8 formula 8 OK
+    [[0, 0]] m=0 model sigma 37 formula 37 OK
+    [[0, 0]] m=1 model sigma 93 formula 93 OK
+    [[0], [0]] m=0 model sigma 13 formula 13 OK
+== TM transitions never used (BB29)
+    BB29 unused in blank run (3M pair steps): B0 T0
+    BB29 unused in blank run AND random hydra runs:

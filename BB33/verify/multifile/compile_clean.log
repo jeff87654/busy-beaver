@@ -1,0 +1,30 @@
+== BB332.v ==
+   ok, 4 s
+== Individual332.v ==
+   ok, 4 s
+== BB33_tm.v ==
+   ok, 4 s
+== BB33_rules.v ==
+   ok, 5 s
+== Ord.v ==
+   ok, 4 s
+== Hardy.v ==
+   ok, 4 s
+== HydraOrd.v ==
+   ok, 4 s
+== BB33_scan.v ==
+   ok, 4 s
+== BB33_round.v ==
+   ok, 4 s
+== BB33_game.v ==
+   ok, 4 s
+== BB33_halt.v ==
+Closed under the global context
+   ok, 12 s
+== BB33_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 4 s
+COMPILE DONE
+probe: 4 of 4 theorems closed under the global context

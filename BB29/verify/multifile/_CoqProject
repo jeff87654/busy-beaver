@@ -1,0 +1,13 @@
+-Q . BB8
+-Q ../../../busycoq/verify BusyCoq
+BB292.v
+Individual292.v
+BB29_tm.v
+BB29_rules.v
+BB29_scan.v
+BB29_round.v
+BB29_hydra.v
+BB29_halt.v
+Ord.v
+Ufun.v
+BB29_bound.v

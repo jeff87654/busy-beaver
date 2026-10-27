@@ -1,0 +1,29 @@
+== BB292.v ==
+   ok, 4 s
+== Individual292.v ==
+   ok, 3 s
+== BB29_tm.v ==
+   ok, 3 s
+== BB29_rules.v ==
+   ok, 4 s
+== BB29_scan.v ==
+   ok, 4 s
+== BB29_round.v ==
+   ok, 4 s
+== BB29_hydra.v ==
+   ok, 4 s
+== BB29_halt.v ==
+Closed under the global context
+   ok, 9 s
+== Ord.v ==
+   ok, 4 s
+== Ufun.v ==
+   ok, 4 s
+== BB29_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 5 s
+COMPILE DONE
+probe: 4 of 4 theorems closed under the global context

@@ -23,13 +23,19 @@ notebook: only what is proved here counts.
 | **BB(12)** | [`1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RG0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_0LH1LK`](BB12/1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RG0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_0LH1LK.md) (M12) | f_(ω+2)(f_(ω+1)(f_(ω+1)(3))) < σ, σ = N + 1 | `halt`, `score_exact`, `sigma_lower_bound_m12` | CI `bb13-bb14` | Argon | 2026-10-26 |
 | **BB(13)** | [`1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_0LG1RI_1RE0RH_1LF0RC_1RM0LE_1LA1LE_0LL1LB_0RM1LL_1RZ1RH`](BB13/1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_0LG1RI_1RE0RH_1LF0RC_1RM0LE_1LA1LE_0LL1LB_0RM1LL_1RZ1RH.md) (M13) | f_(ω+2)(f_ω(20)) < σ | `halt`, `score_exact`, `sigma_lower_bound_strong` | CI `bb13-bb14` | Argon | 2026-10-14 (#17) |
 | **BB(14)** | [`1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LN1RF_1LJ0RA_1RA0LH_1LG1LH_1RK0LM_1RZ0LE_0LE0RJ_1LH1LM_0LH0LL_0LG1LN`](BB14/1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LN1RF_1LJ0RA_1RA0LH_1LG1LH_1RK0LM_1RZ0LE_0LE0RJ_1LH1LM_0LH0LL_0LG1LN.md) (M14) | f_(ω+2)(f_(ω+2)(f_(ω+2)(15))) < σ | `halt`, `score_exact`, `sigma_lower_bound` | CI `bb13-bb14` | Argon | 2026-10-14 (#17) |
+| **BB(29)** | [`0LP1LD_---0LC_1LR0LB_1RF1LE_0LD1LD_0R[1RG_1RN0RK_0RI1RJ_1LZ1RH_0RH1RH_0RL1RM_1L\1RK_0RK1RK_0RO1RO_0L\1RN_1R[1LA_0RV0RV_0LT1LS_0R[1LT_0RY1LU_0LR1L\_0RW1RX_0RN1RV_0LC1RV_0LA1LZ_0LY1LY_0RQ0RH_1L]1LR_1LH1LZ`](BB29/hydra29.md) (hydra machine) | f_(ω^ω)(3) < N, with N = T₄(S)(1) + 1 exactly | `halt`, `score_exact`, `sigma_lower_bound` | CI `bb13-bb14` | mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here | 2026-10-27 |
+| **BB(31)** | [`0RK1RK_---0LC_1LQ0LB_1RF1LE_0LD1LD_0R\1RG_1RM0RK_0RI1RJ_1L[1RH_0RH1RH_0RL1RA_1L]1RK_0RN1RN_0L]1RM_1R\1L^_0RW0RW_0LU1LR_0R\1LS_0L]1LT_0LQ1LU_0RZ1LV_0LS1L]_0RX1RY_0RM1RW_0LC1RW_0L^1L[_0LZ1LZ_0RP0RH_1L_1LQ_0LO1LD_1LH1L[`](BB31/hydra31.md) (hydra machine) | f_(ω^ω^ω^ω)(4) ≤ N + 2, so f_(ω^ω^ω^ω)(3) < N | `halt`, `hardy_score`, `sigma_lower_bound_w4` | CI `bb13-bb14` | mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here | 2026-10-27 |
+| **BB(33)** | [`1LH1L^_---0LC_1LR0LB_1RF1LE_0LD1LD_0R_1RG_1RN0RK_0RI1RJ_1L^1RH_0RH1RH_0RL1RM_1L`1RK_0RK1RK_0RO1RO_0L`1RN_1R_1La_0RZ0RZ_0LX1LS_0R_1LT_0L`1LU_0LR1LV_0LS1LW_0LT1LX_0R]1LY_0LV1L`_0R[1R\_0RN1RZ_0LC1RZ_0La1L^_0L]1L]_0RQ0RH_1LA1LR_0LP1LD`](BB33/hydra33.md) (hydra machine) | f_(ω^ω^ω^ω^ω^3)(4) ≤ N + 2, so f_(ω↑↑6)(3) < N | `halt`, `hardy_score`, `sigma_lower_bound_w6` | CI `bb13-bb14` | mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here | 2026-10-27 |
 | **BB(4,3)** | [`1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD`](BB43/1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD.md) | σ = 4·e₄ + 18 exactly, 2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < e₄ ≤ 2↑↑↑2↑↑↑2↑↑↑(2^96 + 6) | `bb43_halts`, `bb43_main`, `e4_bounds`, `wiki_bracket` | CI `bb43` | Kropitz (machine), Polygon (analysis); Coq proof here | 2026-10-17 (#22, #23) |
 
 - σ is the score: the number of ones on the tape after the halting transition. Where the halting transition is read
   on a 1 (champ_231/232: C1 undefined; M8 and h003: H1 undefined), σ = N, the ones count of the
-  halted configuration; where it is `1RZ` read on a 0 (n1, M11b, M12, M13, M14), σ = N + 1. Each write-up's "Main facts" table says which.
+  halted configuration; where it is `1RZ` read on a 0 (n1, M11b, M12, M13, M14), σ = N + 1. The hydra machines BB29, BB31
+  and BB33 halt on B0 = `---` read on a 0, so σ = N or N + 1 by convention; their bounds are on N, so they hold for σ
+  either way. Each write-up's "Main facts" table says which.
 - Fast-growing hierarchy, as defined in the Coq files: f_0(n) = n + 1, f_(k+1)(n) = f_k^n(n), f_ω(n) = f_n(n),
-  f_(ω+1)(n) = f_ω^n(n), f_(ω+2)(n) = f_(ω+1)^n(n). a ↑^k b is Knuth's up-arrow.
+  f_(ω+1)(n) = f_ω^n(n), f_(ω+2)(n) = f_(ω+1)^n(n); for BB29–BB33, f_α for all α < ε₀ with the standard fundamental
+  sequences (`Ord.v` in their `verify/` directories), and ω↑↑k = ω^ω^…^ω (k omegas). a ↑^k b is Knuth's up-arrow.
 - Comparisons, in Coq: champ_231 and champ_232 are above the BB(7) champion's score 3·(2↑^13 3) + 22 (our analysis
   of that machine, on paper) and the wiki's lower bound 2↑^11 (2↑^11 3); M8 beats champ35's and fw2's exact scores;
   h003 is above M8's Coq upper bound; n1 beats Racheline's 2024 BB(10) champion against that machine's Coq-proved exact score; M11b is above n1's Coq upper bound; T12a (the previous BB(12) entry, kept in `BB12/`) beats n1's exact score. **On
@@ -37,10 +43,13 @@ notebook: only what is proved here counts.
   have not been compared with the f_(ω+2)-class BB(17)/BB(18) champions.
 - "This project" is the repository owner's work with Claude models (Anthropic) as agents; each write-up's credit
   section has the details. Argon is a Google Gemini model run by the repository owner in Google's Antigravity; its
-  machines and Coq files were re-checked here.
+  machines and Coq files were re-checked here. The hydra machines BB29, BB31 and BB33 were found by mxdys, who posted
+  them in the bbchallenge Discord (#large-bb-domains, 2026-10-26) as unverified AI-generated results with the bounds
+  f_(ω^ω)(3), f_(ω^ω^ω^ω)(3) and f_(ω↑↑6)(3); the analysis and the Coq proofs that confirm those bounds were done here.
 - Each directory has a README with the entry's files, its full list of theorems and how to build it:
   [BB7](BB7/README.md), [BB8](BB8/README.md), [BB9](BB9/README.md), [BB10](BB10/README.md),
-  [BB11](BB11/README.md), [BB12](BB12/README.md), [BB13](BB13/README.md), [BB14](BB14/README.md), [BB43](BB43/README.md), [PA](PA/README.md), [ZF](ZF/README.md).
+  [BB11](BB11/README.md), [BB12](BB12/README.md), [BB13](BB13/README.md), [BB14](BB14/README.md), [BB29](BB29/README.md),
+  [BB31](BB31/README.md), [BB33](BB33/README.md), [BB43](BB43/README.md), [PA](PA/README.md), [ZF](ZF/README.md).
 
 ## Consistency machines
 
