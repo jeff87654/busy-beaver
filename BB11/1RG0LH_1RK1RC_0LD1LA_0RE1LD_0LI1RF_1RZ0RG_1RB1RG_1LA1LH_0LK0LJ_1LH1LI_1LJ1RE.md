@@ -22,7 +22,7 @@
 |---|---|
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB11_M11b.halt`. |
 | Exact score | Machine-checked formula: N = p + a + 4 ones at the halt, where (p, a) = `pa_end` is given by the recursion of section 2 (`score_exact`). The halt F0 = `1RZ` is read on a 0, so σ = N + 1. Not evaluated as a number. |
-| Level | Machine-checked, with the standard fast-growing hierarchy: f_(ω+1)(f_ω(f_ω(5))) < N (`sigma_lower_bound_m11`), hence f_(ω+1)(f_ω(64)) < N (`sigma_lower_bound_64`). No upper bound is proved. |
+| Level | Machine-checked, with the standard fast-growing hierarchy: f_(ω+1)(f_ω(f_ω(5))) < N (`sigma_lower_bound_m11`), hence f_(ω+1)(f_ω(64)) < N (`sigma_lower_bound_64`); and σ = N + 1 < f_(ω+1)(f_ω(f_ω(6))) (`sigma_upper_bound_m11`; both bounds together: `sigma_bracket_m11`). So the level is exactly ω+1. |
 | n1 (BB(10) entry) | Beaten, in Coq: n1's halting count is below f_(ω+1)(f_ω(44)) by n1's proved upper bound, and M11b's is above f_(ω+1)(f_ω(f_ω(5))) (`M11_beats_n1`). |
 | M12 (BB(12) entry) | Larger, on paper: M12 is f_(ω+2)-class. |
 | Steps | Not computed. |
@@ -75,12 +75,22 @@ So N = p + a + 4 for (p, a) = pa_end, and σ = N + 1. In `BB11_M11b_fgh.v`: W_6(
 j7 ≥ 16·f_ω(5) and c10 ≥ 2·f_ω(f_ω(5)) + 3 (`c2_0_bound`). Two Kc steps apply f_ω to the level (`Kc_dom2`), so
 phase 2 applies f_ω at least f_ω(f_ω(5)) times, which gives `sigma_lower_bound_m11`.
 
+The upper bound (`BB11_M11b_upper.v`) runs the same argument the other way:
+
+- W_j(b) ≤ f_j(f_j(b + 2)) for every j (`W_le`). Hence W_6(1) = W_5(W_5(2)) ≤ f_5^5(4) and
+  W_4(1) ≤ f_5(3), so j7 + 10 ≤ f_5^6(6) = f_ω(6) (`j7_upper`).
+- The bridge runs W only at levels ≤ L = j7 + 7, each application costing at most three applications of f_L, so
+  w10 ≤ f_L^12(3) ≤ f_(L+1)(L+1) = f_ω(j7 + 8); likewise W_p10(1) ≤ f_ω(j7 + 8) (`bridge_upper`, `a10_upper`).
+- With M = max(level, accumulator), one Kc step gives M' ≤ f_ω(M) (`Kc_up`), and the halt adds at most one more
+  f_ω, so N + 1 ≤ f_ω^(c10+1)(M₀) ≤ f_(ω+1)(f_ω(j7 + 8) + 1) (`phase2_final`, `N_upper`). Since
+  f_ω(j7 + 8) + 1 < f_ω(j7 + 10) ≤ f_ω(f_ω(6)), this gives `sigma_upper_bound_m11`.
+
 ## 3. Verification
 
 [`verify/`](verify/): busycoq `bd2e36f`, Coq 8.20.1. `compile_clean.sh` builds the halting proof and the bounds from
-scratch in 18 s (CI job `bb13-bb14`); `probe.v` re-checks the transition table entry by entry against the string
-above and confirms that `halt`, `score_exact`, `sigma_lower_bound_m11` and `sigma_lower_bound_64` are closed under
-the global context. `compile_vs_n1.sh` builds the comparison with n1 on copies of n1's Coq files (about 6 minutes,
+scratch in 21 s (CI job `bb13-bb14`); `probe.v` re-checks the transition table entry by entry against the string
+above and confirms that `halt`, `score_exact`, `sigma_lower_bound_m11`, `sigma_lower_bound_64`,
+`sigma_upper_bound_m11` and `sigma_bracket_m11` are closed under the global context. `compile_vs_n1.sh` builds the comparison with n1 on copies of n1's Coq files (about 6 minutes,
 recorded locally, not in CI).
 
 ## 4. Relation to other entries

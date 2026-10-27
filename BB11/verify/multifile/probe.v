@@ -7,7 +7,7 @@
     transition F0 (1RZ) is None), and the start configuration is the blank tape in state A; (2) the main theorems
     have the stated types; (3) they use no axioms.  It also prints the definitions the statements use. *)
 
-From BB8 Require BB11_M11b BB11_M11b_fgh.
+From BB8 Require BB11_M11b BB11_M11b_fgh BB11_M11b_upper.
 From BB8 Require Import Individual112.
 From Coq Require Import PeanoNat.
 Local Open Scope sym_scope.
@@ -38,8 +38,12 @@ Check BB11_M11b.halt.
 Check BB11_M11b_fgh.score_exact.
 Check BB11_M11b_fgh.sigma_lower_bound_m11.
 Check BB11_M11b_fgh.sigma_lower_bound_64.
+Check BB11_M11b_upper.sigma_upper_bound_m11.
+Check BB11_M11b_upper.sigma_bracket_m11.
 
 Print Assumptions BB11_M11b.halt.
 Print Assumptions BB11_M11b_fgh.score_exact.
 Print Assumptions BB11_M11b_fgh.sigma_lower_bound_m11.
 Print Assumptions BB11_M11b_fgh.sigma_lower_bound_64.
+Print Assumptions BB11_M11b_upper.sigma_upper_bound_m11.
+Print Assumptions BB11_M11b_upper.sigma_bracket_m11.

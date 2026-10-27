@@ -8,6 +8,9 @@ Coq 8.20.1). For this machine (F0 undefined = the halt, `1RZ` in the string) it 
   is the explicit pair computed by the run (see `BB11_M11b.v`, section "Full halting trajectory of M11");
 - `BB11_M11b_fgh.sigma_lower_bound_m11`: the halting tape holds N ones with `f_omega1 (f_omega (f_omega 5)) < N`;
 - `BB11_M11b_fgh.sigma_lower_bound_64`: `f_omega1 (f_omega 64) < N`;
+- `BB11_M11b_upper.sigma_upper_bound_m11`: the halting tape holds N ones with
+  `N + 1 < f_omega1 (f_omega (f_omega 6))`, so σ = N + 1 is below f_(ω+1)(f_ω(f_ω(6)));
+- `BB11_M11b_upper.sigma_bracket_m11`: both bounds for the same N;
 - `BB11_M11b_vs_n1.M11_beats_n1`: n1's halting tape holds Nn ones with `Nn + 1 < f_omega1 (f_omega 44)` (from
   n1's upper bound `BB10_n1_fgh.fgh_level`), and Nn + 1 < Nm + 1 for M11b's Nm: M11b's score is larger.
 
@@ -23,6 +26,7 @@ transition writes 1, so the standard score is N + 1.
 | `BB112.v`, `Individual112.v` | busycoq instantiated for 11 states |
 | `BB11_M11b.v` | the halting proof: configuration families, shift and cascade rules, the maps `W`, `Kc`, `Bridge`, the run |
 | `BB11_M11b_fgh.v` | the exact score and the lower bounds; imports the halting file unchanged |
+| `BB11_M11b_upper.v` | the upper bound (written here, not by Argon): W against the hierarchy, the bridge, phase 2 |
 | `BB11_M11b_vs_n1.v` | the comparison with n1 |
 | `BB102.v`, `Individual102.v`, `BB10_*.v` | n1's development, byte-identical to [`../../BB10/verify/multifile/`](../../BB10/verify/multifile/) |
 | `probe.v`, `probe_vs_n1.v` | the independent probes (below) |
@@ -32,12 +36,12 @@ transition writes 1, so the standard score is N + 1.
 ## Check it
 
     cd multifile
-    BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh      # 18 s
+    BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh      # 21 s
     BUSYCOQ=/path/to/busycoq/verify ./compile_vs_n1.sh      # about 6 minutes, after compile_clean.sh
 
 `probe.v` checks the compiled transition table against the machine string entry by entry (lines generated from the
 string, not from the Coq file), prints the definitions the statements use, and runs `Print Assumptions` on the
-first four theorems above: all four are closed under the global context. CI job `bb13-bb14` runs
+first six theorems above: all six are closed under the global context. CI job `bb13-bb14` runs
 `compile_clean.sh`. `probe_vs_n1.v` checks n1's table against its string and runs `Print Assumptions` on
 `M11_beats_n1` (closed).
 

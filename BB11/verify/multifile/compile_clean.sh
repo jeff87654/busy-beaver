@@ -9,7 +9,7 @@ if [ -z "$BUSYCOQ" ]; then
   exit 2
 fi
 set -e
-for f in BB112 Individual112 BB11_M11b BB11_M11b_fgh; do
+for f in BB112 Individual112 BB11_M11b BB11_M11b_fgh BB11_M11b_upper; do
   echo "== $f.v =="
   start=$(date +%s)
   "$COQC" -Q "$BUSYCOQ" BusyCoq -Q . BB8 "$f.v"
@@ -17,4 +17,4 @@ for f in BB112 Individual112 BB11_M11b BB11_M11b_fgh; do
 done
 echo "COMPILE DONE"
 "$COQC" -Q "$BUSYCOQ" BusyCoq -Q . BB8 probe.v > probe.log
-echo "probe: $(grep -c 'Closed under the global context' probe.log) of 4 theorems closed under the global context"
+echo "probe: $(grep -c 'Closed under the global context' probe.log) of 6 theorems closed under the global context"
