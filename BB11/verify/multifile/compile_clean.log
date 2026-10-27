@@ -1,0 +1,13 @@
+== BB112.v ==
+   ok, 4 s
+== Individual112.v ==
+   ok, 3 s
+== BB11_M11b.v ==
+   ok, 7 s
+== BB11_M11b_fgh.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 4 s
+COMPILE DONE
+probe: 4 of 4 theorems closed under the global context

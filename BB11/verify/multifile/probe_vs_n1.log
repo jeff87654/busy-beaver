@@ -1,0 +1,69 @@
+eq_refl : BB10_n1.tm (A, 0) = Some (1, R, B)
+     : BB10_n1.tm (A, 0) = Some (1, R, B)
+eq_refl : BB10_n1.tm (A, 1) = Some (0, R, A)
+     : BB10_n1.tm (A, 1) = Some (0, R, A)
+eq_refl : BB10_n1.tm (B, 0) = Some (1, L, C)
+     : BB10_n1.tm (B, 0) = Some (1, L, C)
+eq_refl : BB10_n1.tm (B, 1) = Some (1, L, F)
+     : BB10_n1.tm (B, 1) = Some (1, L, F)
+eq_refl : BB10_n1.tm (C, 0) = Some (1, R, D)
+     : BB10_n1.tm (C, 0) = Some (1, R, D)
+eq_refl : BB10_n1.tm (C, 1) = Some (0, L, B)
+     : BB10_n1.tm (C, 1) = Some (0, L, B)
+eq_refl : BB10_n1.tm (D, 0) = Some (1, R, A)
+     : BB10_n1.tm (D, 0) = Some (1, R, A)
+eq_refl : BB10_n1.tm (D, 1) = Some (1, L, E)
+     : BB10_n1.tm (D, 1) = Some (1, L, E)
+eq_refl : BB10_n1.tm (E, 0) = Some (1, L, I)
+     : BB10_n1.tm (E, 0) = Some (1, L, I)
+eq_refl : BB10_n1.tm (E, 1) = Some (0, L, C)
+     : BB10_n1.tm (E, 1) = Some (0, L, C)
+eq_refl : BB10_n1.tm (F, 0) = Some (0, R, G)
+     : BB10_n1.tm (F, 0) = Some (0, R, G)
+eq_refl : BB10_n1.tm (F, 1) = Some (1, L, D)
+     : BB10_n1.tm (F, 1) = Some (1, L, D)
+eq_refl : BB10_n1.tm (G, 0) = Some (1, R, H)
+     : BB10_n1.tm (G, 0) = Some (1, R, H)
+eq_refl : BB10_n1.tm (G, 1) = Some (1, L, G)
+     : BB10_n1.tm (G, 1) = Some (1, L, G)
+eq_refl : BB10_n1.tm (H, 0) = Some (1, L, C)
+     : BB10_n1.tm (H, 0) = Some (1, L, C)
+eq_refl : BB10_n1.tm (H, 1) = Some (0, R, G)
+     : BB10_n1.tm (H, 1) = Some (0, R, G)
+eq_refl : BB10_n1.tm (I, 0) = Some (0, L, J)
+     : BB10_n1.tm (I, 0) = Some (0, L, J)
+eq_refl : BB10_n1.tm (I, 1) = Some (0, L, I)
+     : BB10_n1.tm (I, 1) = Some (0, L, I)
+eq_refl : BB10_n1.tm (J, 0) = None
+     : BB10_n1.tm (J, 0) = None
+eq_refl : BB10_n1.tm (J, 1) = Some (0, L, C)
+     : BB10_n1.tm (J, 1) = Some (0, L, C)
+BB10_n1_bound.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB10_n1_bound.count1 L + BB10_n1_bound.sym_val s + BB10_n1_bound.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB10_n1_bound.ones c N%nat_scope
+BB11_M11b_vs_n1.M11_beats_n1
+     : exists
+         (cm : BB112.BB112.Q *
+               (Stream BB112.BB112.Sym * BB112.BB112.Sym *
+                Stream BB112.BB112.Sym)) (Nm : nat) 
+       (cn : Q * tape) (Nn : nat),
+         Individual112.Individual112.Permute.Flip.Compute.TM.evstep
+           BB11_M11b.tm
+           Individual112.Individual112.Permute.Flip.Compute.TM.c0 cm /\
+         Individual112.Individual112.Permute.Flip.Compute.TM.halted
+           BB11_M11b.tm cm /\
+         BB11_M11b_fgh.ones cm Nm /\
+         BB11_M11b_vs_n1.TM10.c0 -[ BB10_n1.tm ]->* cn /\
+         BB11_M11b_vs_n1.TM10.halted BB10_n1.tm cn /\
+         BB10_n1_bound.ones cn Nn /\
+         Nn + 1 < BB11_M11b_fgh.f_omega1 (BB11_M11b_fgh.f_omega 44) /\
+         BB11_M11b_fgh.f_omega1
+           (BB11_M11b_fgh.f_omega (BB11_M11b_fgh.f_omega 5)) < Nm /\
+         Nn + 1 < Nm + 1
+Closed under the global context
