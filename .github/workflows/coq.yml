@@ -328,9 +328,11 @@ jobs:
         working-directory: ${{ matrix.dir }}
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
+          # one 'Closed under the global context' per Print Assumptions line of probe.v (4 for M12-M14, 6 for M11b)
+          expected=$(grep -c '^Print Assumptions' probe.v)
           closed=$(grep -c 'Closed under the global context' probe.log || true)
-          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 4 ]; then
-            echo "::error::probe.v did not report four axiom-free theorems"
+          if grep -q 'Axioms:' probe.log || [ "$expected" -lt 4 ] || [ "$closed" -ne "$expected" ]; then
+            echo "::error::probe.v did not report $expected axiom-free theorems"
             exit 1
           fi
 

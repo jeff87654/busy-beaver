@@ -122,6 +122,26 @@ BB11_M11b_fgh.sigma_lower_bound_64
          halted BB11_M11b.tm c /\
          BB11_M11b_fgh.ones c N /\
          BB11_M11b_fgh.f_omega1 (BB11_M11b_fgh.f_omega 64) < N
+BB11_M11b_upper.sigma_upper_bound_m11
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB11_M11b.tm ]->* c /\
+         halted BB11_M11b.tm c /\
+         BB11_M11b_fgh.ones c N /\
+         N + 1 <
+         BB11_M11b_fgh.f_omega1
+           (BB11_M11b_fgh.f_omega (BB11_M11b_fgh.f_omega 6))
+BB11_M11b_upper.sigma_bracket_m11
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB11_M11b.tm ]->* c /\
+         halted BB11_M11b.tm c /\
+         BB11_M11b_fgh.ones c N /\
+         BB11_M11b_fgh.f_omega1
+           (BB11_M11b_fgh.f_omega (BB11_M11b_fgh.f_omega 5)) < N /\
+         N + 1 <
+         BB11_M11b_fgh.f_omega1
+           (BB11_M11b_fgh.f_omega (BB11_M11b_fgh.f_omega 6))
+Closed under the global context
+Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
