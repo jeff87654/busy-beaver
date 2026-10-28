@@ -290,14 +290,15 @@ jobs:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb13-bb14 == 'true'
     # BB11/verify (M11b, f_(omega+1); its comparison with n1 is not built here), BB12/verify_m12, BB13/, BB14/: the 12-,
-    # 13- and 14-state f_(omega+2) machines M12, M13 and M14, and BB29/31/33/verify (the hydra machines, below epsilon_0)
-    # (about a minute each). The job id is historical.
+    # 13- and 14-state f_(omega+2) machines M12, M13, M13b, M14 and M14b, and BB29/31/33/verify (the hydra machines,
+    # below epsilon_0) (about a minute each). The job id is historical.
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
-        dir: ['BB11/verify/multifile', 'BB12/verify_m12/multifile', 'BB13/verify/multifile', 'BB14/verify/multifile',
+        dir: ['BB11/verify/multifile', 'BB12/verify_m12/multifile', 'BB13/verify/multifile', 'BB13/verify_m13b/multifile',
+              'BB14/verify/multifile', 'BB14/verify_m14b/multifile',
               'BB29/verify/multifile', 'BB31/verify/multifile', 'BB33/verify/multifile']
     container:
       image: coqorg/coq:8.20.1
@@ -330,10 +331,11 @@ jobs:
         working-directory: ${{ matrix.dir }}
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
-          # one 'Closed under the global context' per Print Assumptions line of probe.v (4 for M12-M14, 6 for M11b)
+          # one 'Closed under the global context' per Print Assumptions line of probe.v (3 for M13b/M14b, 4 for
+          # M12-M14, 6 for M11b)
           expected=$(grep -c '^Print Assumptions' probe.v)
           closed=$(grep -c 'Closed under the global context' probe.log || true)
-          if grep -q 'Axioms:' probe.log || [ "$expected" -lt 4 ] || [ "$closed" -ne "$expected" ]; then
+          if grep -q 'Axioms:' probe.log || [ "$expected" -lt 3 ] || [ "$closed" -ne "$expected" ]; then
             echo "::error::probe.v did not report $expected axiom-free theorems"
             exit 1
           fi

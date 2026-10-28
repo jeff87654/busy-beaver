@@ -25,7 +25,7 @@
 | Exact score | Machine-checked formula: N = p + b/2 + 3 ones at the halt, where (p, b) = `pb2` is given by the recursion of section 2 (`score_exact`). The halt K0 = `1RZ` is read on a 0, so σ = N + 1. Not evaluated as a number. |
 | Level | Machine-checked, with the standard fast-growing hierarchy: f_(ω+2)(f_(ω+1)(f_(ω+1)(3))) < σ (`sigma_lower_bound_m12`). |
 | T12a (previous BB(12) entry) | Beaten, on paper: T12a is f_(ω+1)(f_(ω+1)(·))-class, M12 is f_(ω+2)-class. Not in Coq (T12a has no proved upper bound). |
-| M13 (BB(13) entry) | M12's proved lower bound exceeds M13's proved lower bound f_(ω+2)(f_ω(20)). M13 has no proved upper bound, so M12 is not shown to beat M13. |
+| M13b (BB(13) entry) | M13b is M12 plus one state; it runs M12's whole computation and continues, and its proved lower bound f_(ω+2)^6(f_(ω+1)(f_(ω+1)(3))) is larger. (M12's proved lower bound exceeds that of M13, the previous BB(13) entry.) |
 | Steps | Not computed. |
 
 ## 1. How it works
@@ -83,8 +83,10 @@ So σ = p + b/2 + 4 for (p, b) = pb2. Round 1 already bounds pa1 below by f_(ω+
 
 ## 4. Relation to other entries
 
-M12 shares its A–D, G and H rows (the W engine) with M14 ([`../BB14/`](../BB14/)), whose proved lower bound
-f_(ω+2)(f_(ω+2)(f_(ω+2)(15))) is larger. M12 replaces T12a ([`README.md`](README.md)) as the BB(12) entry.
+M13b ([`../BB13/`](../BB13/)) is M12 with one more state: K0 becomes a reload instead of the halt, so the machine
+runs five more f_(ω+2) rounds after M12's run ends; M14b ([`../BB14/`](../BB14/)) adds a second state. M12 also
+shares its A–D, G and H rows (the W engine) with M14, the previous BB(14) entry. M12 replaces T12a
+([`README.md`](README.md)) as the BB(12) entry.
 
 ## Credit
 

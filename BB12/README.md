@@ -17,7 +17,8 @@ proved upper bound).
 - [`verify_m12/`](verify_m12/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
   `sigma_lower_bound_strong`, `sigma_lower_bound_m12`. Built in CI (job `bb13-bb14`, about a minute).
 
-M12 shares its A–D, G and H rows with M14 ([`../BB14/`](../BB14/)). Found and proved by Argon (a Google Gemini
+M12 shares its A–D, G and H rows with M14 and is the base of M13b and M14b ([`../BB13/`](../BB13/),
+[`../BB14/`](../BB14/)). Found and proved by Argon (a Google Gemini
 model run by the repository owner), 2026-10-26; the Coq files were re-checked here.
 
 ## Previous entry: T12a
