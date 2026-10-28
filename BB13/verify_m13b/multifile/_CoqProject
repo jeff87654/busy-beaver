@@ -1,0 +1,6 @@
+-Q . BB8
+-Q ../../../busycoq/verify BusyCoq
+BB132.v
+Individual132.v
+BB13_M13b.v
+BB13_M13b_bound.v

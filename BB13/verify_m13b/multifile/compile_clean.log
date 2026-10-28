@@ -1,0 +1,10 @@
+== BB132.v ==
+   ok, 6 s
+== Individual132.v ==
+   ok, 5 s
+== BB13_M13b.v ==
+   ok, 13 s
+== BB13_M13b_bound.v ==
+   ok, 6 s
+COMPILE DONE
+probe: 3 of 3 theorems closed under the global context
