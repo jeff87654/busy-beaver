@@ -29,4 +29,12 @@ bound for it. Not yet reviewed by the bbchallenge community.
 The machines were found by Argon (a Google Gemini model run by the repository owner) in this project's scan of the
 bbchallenge BB(7) holdout list; the checks, the Coq proof and the write-up are this project's (2026-10-22).
 
+## Decided holdouts
+
+[`holdouts/`](holdouts/README.md): five machines from the bbchallenge BB(7) holdout list proved in Coq never to halt
+(`~ halts tm c0`, no axioms): `1RB1LD_1RC0RF_0LA0RA_0LA0LE_1LA0LG_0LA---_1RD1LG`,
+`1RB0RC_1RC0RA_1LD0LB_1LE0LA_0LF---_1RC0LG_1LF1LA`, `1RB1RE_1LC0RA_1RF0RD_1LC0LE_1LD0LC_1RG0RE_0RB---`,
+`1RB1RE_1RC1RA_0LD1LE_1RE1LE_0RG0RF_---0LG_1LC1RA` and `1RB1RF_0LC1LD_1RD1LD_0RE0RG_1LB1RF_1RA1RD_---0LE`. Each has a
+short argument in the README; `holdouts/verify/check.py` checks them (CI job `bb7-holdouts`).
+
 No superseded entries in this directory.
