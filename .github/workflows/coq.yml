@@ -1,7 +1,7 @@
 name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/verify, BB8/verify_m8,
-# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB11/verify (without the n1 comparison), BB12/verify_m12, BB13/, BB14/, BB29/, BB31/, BB33/, BB43/, PA/m238, PA/goldbach and ZF/. Not built here, because they take long
+# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB7/holdouts, BB11/verify (without the n1 comparison), BB12/verify_m12, BB13/, BB14/, BB29/, BB31/, BB33/, BB43/, PA/m238, PA/goldbach and ZF/. Not built here, because they take long
 # (recorded local builds are in their directories): BB10/ (about 20 minutes), BB11/'s comparison with n1 (about 6 minutes), BB12/verify (about 3 hours) and stage 2 of
 # BB9/verify_fw2 (about 2 hours).
 #
@@ -43,6 +43,7 @@ jobs:
       bb9-h003: ${{ steps.f.outputs.bb9-h003 }}
       bb43: ${{ steps.f.outputs.bb43 }}
       bb7: ${{ steps.f.outputs.bb7 }}
+      bb7-holdouts: ${{ steps.f.outputs.bb7-holdouts }}
       zf: ${{ steps.f.outputs.zf }}
     steps:
       - uses: actions/checkout@v4
@@ -92,6 +93,10 @@ jobs:
               - '!**/*.md'
             bb7:
               - 'BB7/**'
+              - '!BB7/holdouts/**'
+              - '!**/*.md'
+            bb7-holdouts:                 # compares its BB72.v / Individual72.v with BB7/verify's copies
+              - '{BB7/holdouts/**,BB7/verify/BB72.v,BB7/verify/Individual72.v}'
               - '!**/*.md'
             zf:
               - 'ZF/**'
@@ -724,6 +729,46 @@ jobs:
               exit 1
             fi
           done
+
+  bb7-holdouts:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb7-holdouts == 'true'
+    # BB7/holdouts: five BB(7) holdouts never halt (16582, N2, N2m, H1, H2). check.py compiles them, ties each tm table to
+    # the file's machine string, checks the statement ~ halts tm c0 and requires closed assumptions (a few minutes).
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    env:
+      BUSYCOQ_COMMIT: bd2e36f6aa204eb011742d2ca6c8741102b2e59e
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH; install git and python3
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          if ! command -v git >/dev/null || ! command -v python3 >/dev/null; then
+            apt-get update && apt-get install -y git python3
+          fi
+
+      - uses: actions/checkout@v4
+
+      - name: Build busycoq (pinned commit, only the files the proofs depend on)
+        run: |
+          git clone https://github.com/meithecatte/busycoq "$RUNNER_TEMP/busycoq"
+          cd "$RUNNER_TEMP/busycoq"
+          git checkout "$BUSYCOQ_COMMIT"
+          cd verify
+          coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
+          make -f Makefile.coq Individual.vo Flip.vo
+
+      - name: Compile and check the five proofs
+        working-directory: BB7/holdouts/verify
+        run: BUSYCOQ="$RUNNER_TEMP/busycoq/verify" python3 check.py
 
   zf:
     needs: changes

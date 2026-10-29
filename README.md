@@ -72,6 +72,14 @@ states that it halts iff `PAeq ⊢ GC_form`, and `GC_adequate` that `GC_form` ho
 does. [`ZF/README.md`](ZF/README.md) has the whole ZF line (393, 361, 354,
 336, 335 states, from Wade's 393-state machine), what has to be trusted, and the credits.
 
+## Decided holdouts
+
+Machines from bbchallenge holdout lists proved in Coq never to halt from the blank tape (`~ halts tm c0`, no axioms).
+
+| | machines | directory | checked |
+|---|---|---|---|
+| **BB(7)** | five holdouts of the June 2026 list (16,949,557 machines): `1RB1LD_1RC0RF_…`, `1RB0RC_1RC0RA_…`, `1RB1RE_1LC0RA_…`, `1RB1RE_1RC1RA_…`, `1RB1RF_0LC1LD_…` | [`BB7/holdouts/`](BB7/holdouts/README.md) | CI `bb7-holdouts` |
+
 ## Superseded entries
 
 Their files stay where they are: most are proof bases of the current entries or are still built in CI, and links
