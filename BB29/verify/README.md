@@ -32,7 +32,7 @@ all of these definitions.
 | `BB29_halt.v` | the 175-step opening and `halt` |
 | `BB29_bound.v` | exact score, `U_is_FGH`, the bound |
 | `Ufun.v` | the recursions T and U, and T ≥ U |
-| `Ord.v`, `Ufun.v` | shared library, byte-identical in BB29/, BB31/ and BB33/ (`Ord.v` in all three; `Hardy.v` and `HydraOrd.v` in BB31/BB33) |
+| `Ord.v` | ordinals and the fast-growing hierarchy; byte-identical in BB29/, BB31/ and BB33/ (`Hardy.v` and `HydraOrd.v` are shared by BB31/ and BB33/ only) |
 | `probe.v` | the independent probe (below) |
 | `compile_clean.sh`, `_CoqProject` | build script, project file |
 | `compile_clean.log`, `probe.log`, `sha256.txt` | logs of a from-scratch build, hashes of the source files |
