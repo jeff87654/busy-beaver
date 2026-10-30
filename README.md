@@ -23,6 +23,7 @@ notebook: only what is proved here counts.
 | **BB(12)** | [`1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RG0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_0LH1LK`](BB12/1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RG0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_0LH1LK.md) (M12) | f_(ω+2)(f_(ω+1)(f_(ω+1)(3))) < σ, σ = N + 1 | `halt`, `score_exact`, `sigma_lower_bound_m12` | CI `bb13-bb14` | Argon | 2026-10-26 |
 | **BB(13)** | [`1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_1RZ0LH`](BB13/1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_1RZ0LH.md) (M13b) | f_(ω+2)^6(f_(ω+1)(f_(ω+1)(3))) < σ, σ = N + 1 | `halt`, `score_exact`, `sigma_lower_bound` | CI `bb13-bb14` | Argon | 2026-10-28 |
 | **BB(14)** | [`1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LN0LL_0LH1LK_1RZ0LH_0RJ0LI`](BB14/1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LN0LL_0LH1LK_1RZ0LH_0RJ0LI.md) (M14b) | f_(ω+2)^9(f_(ω+1)(f_(ω+1)(3))) < σ, σ = N + 1 | `halt`, `score_exact`, `sigma_lower_bound` | CI `bb13-bb14` | Argon | 2026-10-28 |
+| **BB(16)** | [`1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_0RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_0RO0LO_1LP1RM_1RZ1LI`](BB16/1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_0RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_0RO0LO_1LP1RM_1RZ1LI.md) (M16_B) | f_(ω+2)(f_(ω+3)(9)) < N, σ = N + 1, with N = p + a + 5 exactly for (p, a) = `pa_11`; on paper (an argument, not a Coq lemma) above M14b and the f_(ω+2)-class BB(17) champion (not yet reviewed by the bbchallenge community) | `halt`, `halt_f_omega3`, `score_exact`, `sigma_lower_bound` | CI `bb13-bb14` | Argon (machine and Coq proof); score theorems and packaging here | 2026-10-29 (#47) |
 | **BB(18)** | [`1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_1RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_0RQ0RG_0LG1LP_0LO1LP_1LQ0RR_1RZ0LP`](BB18/1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_1RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_0RQ0RG_0LG1LP_0LO1LP_1LQ0RR_1RZ0LP.md) (BB18_fw3) | f_(ω+2)(f_(ω+3)(114)) < N, σ = N + 1, with N = p + a + 5 exactly for (p, a) = `Kpass1 pa_init`; on paper (an argument, not a Coq lemma) far above M14b and the f_(ω+2)-class BB(17)/BB(18) champions (not yet reviewed by the bbchallenge community) | `halt`, `score_exact`, `sigma_lower_bound`, `sigma_lower_bound_fw3` | CI `bb13-bb14` | Argon (engine, BB16_fw4); 18-state halter and Coq proof by this project | 2026-10-29 (#46) |
 | **BB(29)** | [`0LP1LD_---0LC_1LR0LB_1RF1LE_0LD1LD_0R[1RG_1RN0RK_0RI1RJ_1LZ1RH_0RH1RH_0RL1RM_1L\1RK_0RK1RK_0RO1RO_0L\1RN_1R[1LA_0RV0RV_0LT1LS_0R[1LT_0RY1LU_0LR1L\_0RW1RX_0RN1RV_0LC1RV_0LA1LZ_0LY1LY_0RQ0RH_1L]1LR_1LH1LZ`](BB29/hydra29.md) (hydra machine) | f_(ω^ω)(3) < N, with N = T₄(S)(1) + 1 exactly | `halt`, `score_exact`, `sigma_lower_bound` | CI `bb13-bb14` | mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here | 2026-10-27 |
 | **BB(31)** | [`0RK1RK_---0LC_1LQ0LB_1RF1LE_0LD1LD_0R\1RG_1RM0RK_0RI1RJ_1L[1RH_0RH1RH_0RL1RA_1L]1RK_0RN1RN_0L]1RM_1R\1L^_0RW0RW_0LU1LR_0R\1LS_0L]1LT_0LQ1LU_0RZ1LV_0LS1L]_0RX1RY_0RM1RW_0LC1RW_0L^1L[_0LZ1LZ_0RP0RH_1L_1LQ_0LO1LD_1LH1L[`](BB31/hydra31.md) (hydra machine) | f_(ω^ω^ω^ω)(4) ≤ N + 2, so f_(ω^ω^ω^ω)(3) < N | `halt`, `hardy_score`, `sigma_lower_bound_w4` | CI `bb13-bb14` | mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here | 2026-10-27 |
@@ -31,7 +32,7 @@ notebook: only what is proved here counts.
 
 - σ is the score: the number of ones on the tape after the halting transition. Where the halting transition is read
   on a 1 (champ_231/232: C1 undefined; M8 and h003: H1 undefined), σ = N, the ones count of the
-  halted configuration; where it is `1RZ` read on a 0 (n1, M11b, M12, M13b, M14b, BB18_fw3, and the previous entries M13, M14), σ = N + 1. The hydra machines BB29, BB31
+  halted configuration; where it is `1RZ` read on a 0 (n1, M11b, M12, M13b, M14b, M16_B, BB18_fw3, and the previous entries M13, M14), σ = N + 1. The hydra machines BB29, BB31
   and BB33 halt on B0 = `---` read on a 0, so σ = N or N + 1 by convention; their bounds are on N, so they hold for σ
   either way. Each write-up's "Main facts" table says which.
 - Fast-growing hierarchy, as defined in the Coq files: f_0(n) = n + 1, f_(k+1)(n) = f_k^n(n), f_ω(n) = f_n(n),
@@ -44,10 +45,11 @@ notebook: only what is proved here counts.
   proved lower bounds exceed those of the previous BB(13) and BB(14) entries M13 and M14 (kept in `BB13/`, `BB14/`;
   neither has a proved upper bound) and the published BB(14)–BB(16) lower bounds; M13b runs M12's whole computation
   and then continues. None of these f_(ω+2)-class entries has been compared with the f_(ω+2)-class BB(17)/BB(18)
-  champions. **An argument, not a Coq lemma:** BB18_fw3's proved lower bound f_(ω+3)(114) = f_(ω+2)^114(114) is far
-  above M14b's proved f_(ω+2)^9(f_(ω+1)(f_(ω+1)(3))) and the f_(ω+2)-class BB(17)/BB(18) champions (Jacobzheng);
-  none of these has a proved upper bound, so the comparison is not machine-checked, and it has not yet been reviewed
-  by the bbchallenge community.
+  champions. **Arguments, not Coq lemmas:** M16_B's proved lower bound f_(ω+2)(f_(ω+3)(9)) = f_(ω+2)^10(9) is above
+  M14b's proved f_(ω+2)^9(f_(ω+1)(f_(ω+1)(3))), since f_(ω+2)(9) > f_(ω+1)(f_(ω+1)(3)), and above the f_(ω+2)-class
+  BB(17) champion (Jacobzheng). BB18_fw3's proved lower bound f_(ω+3)(114) = f_(ω+2)^114(114) is far above M16_B's,
+  M14b's and the f_(ω+2)-class BB(17)/BB(18) champions. None of these machines has a proved upper bound, so the
+  comparisons are not machine-checked, and they have not yet been reviewed by the bbchallenge community.
 - "This project" is the repository owner's work with Claude models (Anthropic) as agents; each write-up's credit
   section has the details. Argon is a Google Gemini model run by the repository owner in Google's Antigravity; its
   machines and Coq files were re-checked here. The hydra machines BB29, BB31 and BB33 were found by mxdys, who posted
@@ -55,7 +57,7 @@ notebook: only what is proved here counts.
   f_(ω^ω)(3), f_(ω^ω^ω^ω)(3) and f_(ω↑↑6)(3); the analysis and the Coq proofs that confirm those bounds were done here.
 - Each directory has a README with the entry's files, its full list of theorems and how to build it:
   [BB7](BB7/README.md), [BB8](BB8/README.md), [BB9](BB9/README.md), [BB10](BB10/README.md),
-  [BB11](BB11/README.md), [BB12](BB12/README.md), [BB13](BB13/README.md), [BB14](BB14/README.md), [BB18](BB18/README.md), [BB29](BB29/README.md),
+  [BB11](BB11/README.md), [BB12](BB12/README.md), [BB13](BB13/README.md), [BB14](BB14/README.md), [BB16](BB16/README.md), [BB18](BB18/README.md), [BB29](BB29/README.md),
   [BB31](BB31/README.md), [BB33](BB33/README.md), [BB43](BB43/README.md), [PA](PA/README.md), [ZF](ZF/README.md).
 
 ## Consistency machines
