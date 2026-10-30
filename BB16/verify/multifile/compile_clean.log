@@ -1,0 +1,8 @@
+== BB162.v ==
+   ok, 14 s
+== Individual162.v ==
+   ok, 12 s
+== BB16_halt_fw3.v ==
+   ok, 34 s
+COMPILE DONE
+probe: 4 of 4 theorems closed under the global context
