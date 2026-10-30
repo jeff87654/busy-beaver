@@ -1,0 +1,8 @@
+== BB182.v ==
+   ok, 8 s
+== Individual182.v ==
+   ok, 8 s
+== BB18_fw3.v ==
+   ok, 25 s
+COMPILE DONE
+probe: 4 of 4 theorems closed under the global context

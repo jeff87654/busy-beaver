@@ -1,0 +1,5 @@
+-Q . BB8
+-Q ../../../busycoq/verify BusyCoq
+BB182.v
+Individual182.v
+BB18_fw3.v
