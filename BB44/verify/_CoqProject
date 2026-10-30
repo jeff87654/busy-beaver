@@ -1,0 +1,8 @@
+-Q D:/busycoq/verify BusyCoq
+-Q . TM44
+BB44.v
+Individual44.v
+BB44_rules.v
+BB44_start.v
+BB44_run.v
+BB44_score.v
