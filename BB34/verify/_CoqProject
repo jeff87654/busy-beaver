@@ -1,0 +1,8 @@
+-Q . TM34
+-Q ../../busycoq/verify BusyCoq
+BB34.v
+Individual34.v
+BB34_rules.v
+BB34_start.v
+BB34_run.v
+BB34_score.v

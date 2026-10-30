@@ -1,0 +1,51 @@
+bb34_halts
+     : halts tm c0
+reaches_final
+     : c0 -->* c_final
+final_halted
+     : halted tm c_final
+sigma_eq
+     : sigma = knuth 15 2 5 + 14
+bb34_main
+     : halts tm c0 /\
+       c0 -->* c_final /\ halted tm c_final /\ sigma = knuth 15 2 5 + 14
+B_rule
+     : forall (k n m : nat) (r : Stream sym),
+       Bcfg (S k) n m r -->* Bcfg (S k) 0 (PeanoNat.Nat.iter n (g k) m) r
+g_closed
+     : forall k m : nat, 2 * g (S k) m + 4 = knuth k 2 (2 * m + 4)
+g_iter_closed
+     : forall k n : nat,
+       2 * PeanoNat.Nat.iter n (g k) 0 + 4 = knuth k 2 (n + 2)
+g15_closed
+     : 2 * g15 + 4 = knuth 15 2 5
+start
+     : c0 -->* Bcfg 16 3 0 (2 >> const 0)
+sigma
+     : nat
+c_final
+     : Q * tape
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
