@@ -34,7 +34,7 @@ halting transition writes 1, so the standard score is σ = N.
 | `BB18_4round_fw3.v` | Argon's proof: the table, the engine lemmas of M16_B's `BB16_halt_fw3.v` re-proved for this table, the new lemmas (`Kd2_alt_loop`, `bounce_155`, `P0_bounce`, `SWEEP_1`, `SWEEP_001`, `ROUND_after_sweep`, `Round_1_step`, `Round_001_step`, `run_to_end`), the domination lemmas and the score section. |
 | `probe.v` | the independent probe (below) |
 | `compile_clean.sh`, `_CoqProject` | build script, project file |
-| `compile_clean.log`, `probe.log` | logs of a from-scratch build (about 50 s) and of the probe |
+| `compile_clean.log`, `probe.log`, `sha256.txt` | logs of a from-scratch build (about 50 s) and of the probe, hashes of the source files |
 
 ## Check it
 

@@ -39,7 +39,7 @@ state Q reading 0, and the halting transition writes 1, so the standard score is
 | `BB17_halt_fw3.v` | Argon's proof: the table, the engine lemmas of M16_B's `BB16_halt_fw3.v` re-proved for this table (the Kd2 lemmas stated for a general tail `1 0 1 s`), the new lemmas (`Kd2_alt_loop`, `SWEEP_M17B`, `bounce_156`, `P0_bounce`, `Full_Round`, `run_to_end`), the domination lemmas and the score section. |
 | `probe.v` | the independent probe (below) |
 | `compile_clean.sh`, `_CoqProject` | build script, project file |
-| `compile_clean.log`, `probe.log` | logs of a from-scratch build (about 40 s) and of the probe |
+| `compile_clean.log`, `probe.log`, `sha256.txt` | logs of a from-scratch build (about 40 s) and of the probe, hashes of the source files |
 
 ## Check it
 
