@@ -1,0 +1,8 @@
+== BB162.v ==
+   ok, 6 s
+== Individual162.v ==
+   ok, 6 s
+== BB16_M16c_fw3.v ==
+   ok, 17 s
+COMPILE DONE
+probe: 6 of 6 theorems closed under the global context

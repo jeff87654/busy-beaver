@@ -1,0 +1,11 @@
+== BB142.v ==
+   ok, 6 s
+== Individual142.v ==
+   ok, 5 s
+== BB14_M14d_18.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 22 s
+COMPILE DONE
+probe: 4 of 4 theorems closed under the global context
