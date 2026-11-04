@@ -1,0 +1,12 @@
+== BB192.v ==
+   ok, 8 s
+== Individual192.v ==
+   ok, 5 s
+== BB19_fw4_fw3_9.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 34 s
+COMPILE DONE
+probe: 3 of 3 theorems closed under the global context

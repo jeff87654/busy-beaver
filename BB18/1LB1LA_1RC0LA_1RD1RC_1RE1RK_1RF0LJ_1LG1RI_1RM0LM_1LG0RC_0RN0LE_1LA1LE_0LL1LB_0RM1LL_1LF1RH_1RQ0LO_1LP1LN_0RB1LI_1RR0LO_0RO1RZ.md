@@ -153,8 +153,9 @@ machines below has a proved upper bound.
   f_(ω+3)^2(9) (M17_B write-up, section 4), and so far below f_(ω+3)^4(9).
 - **The earlier f_(ω+2)-class BB(18) champion** (Jacobzheng, wiki bound f_(ω+2)(f_(ω+1)^3(f_ω^2(60)))): its analysis
   gives an f_(ω+2)-class score, far below f_(ω+3)(9).
-- **M19_fw4** ([`../BB19/`](../BB19/), BB(19) entry): proved f_(ω+4)(f_(ω+2)(114)) < N, above f_(ω+3)^4(9). The
-  wiki's BB(20) champion (Jacobzheng, f_(ω+7)(f_(ω+7)(5))) is far above all of them.
+- **M19_fw4** ([`../BB19/`](../BB19/), a BB(19) entry): proved f_(ω+4)(f_(ω+2)(114)) < N, above f_(ω+3)^4(9). The
+  wiki's BB(19) champion (Jacobzheng, f_(ω+7)(f_(ω+7)(5)); as of 2026-11-04, the wiki's BB(19) row) is far above all
+  of them.
 - Not yet reviewed by the bbchallenge community.
 
 ## 5. Relation to other entries

@@ -1,0 +1,10 @@
+== BB182.v ==
+   ok, 6 s
+== Individual182.v ==
+   ok, 8 s
+== BB18_229round_fw3.v ==
+Closed under the global context
+Closed under the global context
+   ok, 25 s
+COMPILE DONE
+probe: 3 of 3 theorems closed under the global context

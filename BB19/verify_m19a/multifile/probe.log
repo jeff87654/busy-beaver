@@ -1,0 +1,168 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB19_fw4_fw3_9.tm (A, 0) = Some (1, TM.L, B)
+     : BB19_fw4_fw3_9.tm (A, 0) = Some (1, TM.L, B)
+eq_refl : BB19_fw4_fw3_9.tm (A, 1) = Some (1, TM.L, A)
+     : BB19_fw4_fw3_9.tm (A, 1) = Some (1, TM.L, A)
+eq_refl : BB19_fw4_fw3_9.tm (B, 0) = Some (1, R, C)
+     : BB19_fw4_fw3_9.tm (B, 0) = Some (1, R, C)
+eq_refl : BB19_fw4_fw3_9.tm (B, 1) = Some (0, TM.L, A)
+     : BB19_fw4_fw3_9.tm (B, 1) = Some (0, TM.L, A)
+eq_refl : BB19_fw4_fw3_9.tm (C, 0) = Some (1, R, D)
+     : BB19_fw4_fw3_9.tm (C, 0) = Some (1, R, D)
+eq_refl : BB19_fw4_fw3_9.tm (C, 1) = Some (1, R, C)
+     : BB19_fw4_fw3_9.tm (C, 1) = Some (1, R, C)
+eq_refl : BB19_fw4_fw3_9.tm (D, 0) = Some (1, R, E)
+     : BB19_fw4_fw3_9.tm (D, 0) = Some (1, R, E)
+eq_refl : BB19_fw4_fw3_9.tm (D, 1) = Some (1, R, K)
+     : BB19_fw4_fw3_9.tm (D, 1) = Some (1, R, K)
+eq_refl : BB19_fw4_fw3_9.tm (E, 0) = Some (1, R, F)
+     : BB19_fw4_fw3_9.tm (E, 0) = Some (1, R, F)
+eq_refl : BB19_fw4_fw3_9.tm (E, 1) = Some (0, TM.L, J)
+     : BB19_fw4_fw3_9.tm (E, 1) = Some (0, TM.L, J)
+eq_refl : BB19_fw4_fw3_9.tm (F, 0) = Some (1, TM.L, G)
+     : BB19_fw4_fw3_9.tm (F, 0) = Some (1, TM.L, G)
+eq_refl : BB19_fw4_fw3_9.tm (F, 1) = Some (1, R, I)
+     : BB19_fw4_fw3_9.tm (F, 1) = Some (1, R, I)
+eq_refl : BB19_fw4_fw3_9.tm (G, 0) = Some (1, R, M)
+     : BB19_fw4_fw3_9.tm (G, 0) = Some (1, R, M)
+eq_refl : BB19_fw4_fw3_9.tm (G, 1) = Some (0, TM.L, M)
+     : BB19_fw4_fw3_9.tm (G, 1) = Some (0, TM.L, M)
+eq_refl : BB19_fw4_fw3_9.tm (H, 0) = Some (1, TM.L, G)
+     : BB19_fw4_fw3_9.tm (H, 0) = Some (1, TM.L, G)
+eq_refl : BB19_fw4_fw3_9.tm (H, 1) = Some (0, R, C)
+     : BB19_fw4_fw3_9.tm (H, 1) = Some (0, R, C)
+eq_refl : BB19_fw4_fw3_9.tm (I, 0) = Some (0, R, N)
+     : BB19_fw4_fw3_9.tm (I, 0) = Some (0, R, N)
+eq_refl : BB19_fw4_fw3_9.tm (I, 1) = Some (0, TM.L, E)
+     : BB19_fw4_fw3_9.tm (I, 1) = Some (0, TM.L, E)
+eq_refl : BB19_fw4_fw3_9.tm (J, 0) = Some (1, TM.L, A)
+     : BB19_fw4_fw3_9.tm (J, 0) = Some (1, TM.L, A)
+eq_refl : BB19_fw4_fw3_9.tm (J, 1) = Some (1, TM.L, E)
+     : BB19_fw4_fw3_9.tm (J, 1) = Some (1, TM.L, E)
+eq_refl : BB19_fw4_fw3_9.tm (K, 0) = Some (0, TM.L, L)
+     : BB19_fw4_fw3_9.tm (K, 0) = Some (0, TM.L, L)
+eq_refl : BB19_fw4_fw3_9.tm (K, 1) = Some (1, TM.L, B)
+     : BB19_fw4_fw3_9.tm (K, 1) = Some (1, TM.L, B)
+eq_refl : BB19_fw4_fw3_9.tm (L, 0) = Some (0, R, M)
+     : BB19_fw4_fw3_9.tm (L, 0) = Some (0, R, M)
+eq_refl : BB19_fw4_fw3_9.tm (L, 1) = Some (1, TM.L, L)
+     : BB19_fw4_fw3_9.tm (L, 1) = Some (1, TM.L, L)
+eq_refl : BB19_fw4_fw3_9.tm (M, 0) = Some (1, TM.L, F)
+     : BB19_fw4_fw3_9.tm (M, 0) = Some (1, TM.L, F)
+eq_refl : BB19_fw4_fw3_9.tm (M, 1) = Some (1, R, H)
+     : BB19_fw4_fw3_9.tm (M, 1) = Some (1, R, H)
+eq_refl : BB19_fw4_fw3_9.tm (N, 0) = Some (1, R, QQ)
+     : BB19_fw4_fw3_9.tm (N, 0) = Some (1, R, QQ)
+eq_refl : BB19_fw4_fw3_9.tm (N, 1) = Some (0, TM.L, O)
+     : BB19_fw4_fw3_9.tm (N, 1) = Some (0, TM.L, O)
+eq_refl : BB19_fw4_fw3_9.tm (O, 0) = Some (1, TM.L, P)
+     : BB19_fw4_fw3_9.tm (O, 0) = Some (1, TM.L, P)
+eq_refl : BB19_fw4_fw3_9.tm (O, 1) = Some (1, R, RR)
+     : BB19_fw4_fw3_9.tm (O, 1) = Some (1, R, RR)
+eq_refl : BB19_fw4_fw3_9.tm (P, 0) = Some (0, R, B)
+     : BB19_fw4_fw3_9.tm (P, 0) = Some (0, R, B)
+eq_refl : BB19_fw4_fw3_9.tm (P, 1) = Some (1, TM.L, I)
+     : BB19_fw4_fw3_9.tm (P, 1) = Some (1, TM.L, I)
+eq_refl : BB19_fw4_fw3_9.tm (QQ, 0) = Some (1, R, SS)
+     : BB19_fw4_fw3_9.tm (QQ, 0) = Some (1, R, SS)
+eq_refl : BB19_fw4_fw3_9.tm (QQ, 1) = Some (0, TM.L, QQ)
+     : BB19_fw4_fw3_9.tm (QQ, 1) = Some (0, TM.L, QQ)
+eq_refl : BB19_fw4_fw3_9.tm (RR, 0) = Some (1, TM.L, N)
+     : BB19_fw4_fw3_9.tm (RR, 0) = Some (1, TM.L, N)
+eq_refl : BB19_fw4_fw3_9.tm (RR, 1) = Some (0, TM.L, RR)
+     : BB19_fw4_fw3_9.tm (RR, 1) = Some (0, TM.L, RR)
+eq_refl : BB19_fw4_fw3_9.tm (SS, 0) = Some (0, TM.L, RR)
+     : BB19_fw4_fw3_9.tm (SS, 0) = Some (0, TM.L, RR)
+eq_refl : BB19_fw4_fw3_9.tm (SS, 1) = None
+     : BB19_fw4_fw3_9.tm (SS, 1) = None
+BB19_fw4_fw3_9.iter =
+fix iter (X : Type) (n : nat) (g : X -> X) (x : X) {struct n} : X :=
+  match n with
+  | 0 => x
+  | S n' => g (iter X n' g x)
+  end
+     : forall {X : Type}, nat -> (X -> X) -> X -> X
+
+Arguments BB19_fw4_fw3_9.iter {X}%type_scope n%nat_scope g%function_scope x
+BB19_fw4_fw3_9.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB19_fw4_fw3_9.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB19_fw4_fw3_9.f (k _)%nat_scope
+BB19_fw4_fw3_9.f_omega = fun n : nat => BB19_fw4_fw3_9.f n n
+     : nat -> nat
+
+Arguments BB19_fw4_fw3_9.f_omega n%nat_scope
+BB19_fw4_fw3_9.f_omega1 =
+fun n : nat => BB19_fw4_fw3_9.iter n BB19_fw4_fw3_9.f_omega n
+     : nat -> nat
+
+Arguments BB19_fw4_fw3_9.f_omega1 n%nat_scope
+BB19_fw4_fw3_9.f_omega2 =
+fun n : nat => BB19_fw4_fw3_9.iter n BB19_fw4_fw3_9.f_omega1 n
+     : nat -> nat
+
+Arguments BB19_fw4_fw3_9.f_omega2 n%nat_scope
+BB19_fw4_fw3_9.f_omega3 =
+fun n : nat => BB19_fw4_fw3_9.iter n BB19_fw4_fw3_9.f_omega2 n
+     : nat -> nat
+
+Arguments BB19_fw4_fw3_9.f_omega3 n%nat_scope
+BB19_fw4_fw3_9.f_omega4 =
+fun n : nat => BB19_fw4_fw3_9.iter n BB19_fw4_fw3_9.f_omega3 n
+     : nat -> nat
+
+Arguments BB19_fw4_fw3_9.f_omega4 n%nat_scope
+BB19_fw4_fw3_9.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB19_fw4_fw3_9.sym_val s%sym_scope
+BB19_fw4_fw3_9.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB19_fw4_fw3_9.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB19_fw4_fw3_9.count1 xs%list_scope
+BB19_fw4_fw3_9.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB19_fw4_fw3_9.count1 L + BB19_fw4_fw3_9.sym_val s +
+  BB19_fw4_fw3_9.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB19_fw4_fw3_9.ones c N%nat_scope
+BB19_fw4_fw3_9.halt
+     : halts BB19_fw4_fw3_9.tm c0
+BB19_fw4_fw3_9.score_exact
+     : exists c : Q * tape,
+         c0 -[ BB19_fw4_fw3_9.tm ]->* c /\
+         halted BB19_fw4_fw3_9.tm c /\
+         BB19_fw4_fw3_9.ones c
+           (fst BB19_fw4_fw3_9.pa_final + snd BB19_fw4_fw3_9.pa_final + 234)
+BB19_fw4_fw3_9.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB19_fw4_fw3_9.tm ]->* c /\
+         halted BB19_fw4_fw3_9.tm c /\
+         BB19_fw4_fw3_9.ones c N /\
+         BB19_fw4_fw3_9.f_omega4 (BB19_fw4_fw3_9.f_omega3 9) < N
+Closed under the global context
+Closed under the global context
+Closed under the global context

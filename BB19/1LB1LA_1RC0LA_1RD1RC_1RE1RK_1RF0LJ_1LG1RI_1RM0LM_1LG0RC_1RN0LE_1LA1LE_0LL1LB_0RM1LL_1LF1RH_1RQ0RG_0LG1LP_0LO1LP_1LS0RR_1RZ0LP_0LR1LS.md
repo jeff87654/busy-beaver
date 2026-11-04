@@ -33,7 +33,7 @@ Rows A–P are the table of DUMP_2552 (`BB16_fw4`), a 16-state machine of Argon'
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB19_halt_fw4.halt`. |
 | Exact score | Machine-checked formula: N = p + a + 6 ones at the halt, where (p, a) = `pa_final` = `Kcycle pa_init` is the pair after the opening and the last pass (`score_exact`). The halt R0 = `1RZ` is read on a 0, so σ = N + 1 = p + a + 7. Not evaluated as a number. |
 | Level | Machine-checked, with the standard fast-growing hierarchy: f_(ω+4)(f_(ω+2)(114)) < N (`sigma_lower_bound`), so f_(ω+4)(114) < N (`sigma_lower_bound_fw4`). |
-| Comparisons | **Argument, not a Coq lemma** (section 4): above the proved bound f_(ω+3)^4(9) of M18_4round, the BB(18) entry, and so above the smaller entries here. **Not a BB(20) record**: the wiki's BB(20) champion (Jacobzheng, f_(ω+7)(f_(ω+7)(5))) is far larger. Not yet reviewed by the bbchallenge community. |
+| Comparisons | **Argument, not a Coq lemma** (section 4): above the proved bound f_(ω+3)^4(9) of M18_4round, the BB(18) entry, and so above the smaller entries here. **Not a BB(19) record** (corrected 2026-11-04): the wiki's BB(19) champion (Jacobzheng, > f_(ω+7)^2(5)) is far larger. Not yet reviewed by the bbchallenge community. |
 | Steps | Not computed. |
 
 ## 1. How it works
@@ -177,14 +177,14 @@ a proved upper bound.
 - f_(ω+4)(n) = f_(ω+3)^n(n), by the definition. Here n = f_(ω+2)(114) ≥ 114.
 - **M18_4round** ([`../BB18/`](../BB18/), the BB(18) entry): proved f_(ω+3)^4(9) < σ. Since f_(ω+3) is increasing
   and x ≤ f_(ω+3)(x), and n ≥ 4, n > 9: f_(ω+3)^n(n) ≥ f_(ω+3)^4(n) > f_(ω+3)^4(9). So M19_fw4's proved bound is
-  above M18_4round's. Through BB(19) ≥ BB(18), that is the bound to beat.
+  above M18_4round's.
 - **M17_B** ([`../BB17/`](../BB17/), the BB(17) entry, f_(ω+2)^116(f_(ω+3)^3(9))), **BB18_fw3**
   (f_(ω+2)(f_(ω+3)(114))) and **M16_B** ([`../BB16/`](../BB16/)) have proved bounds below M18_4round's (see the main
   README), so below this one as well. The wiki's BB(17) and BB(18) champions (Jacobzheng) are f_(ω+2)-class.
-- **BB(19)**: the BB(19) row of the bbchallenge wiki's Champions page (checked 2026-11-03) is empty.
-- **BB(20) and above: not a record.** The wiki's BB(20) champion (Jacobzheng) has the lower bound f_(ω+7)^2(5) =
-  f_(ω+7)(f_(ω+7)(5)). That is far above anything at level f_(ω+4), so M19_fw4 says nothing new about BB(20) or
-  higher.
+- **BB(19): not a record** (corrected 2026-11-04; this write-up first said the wiki's BB(19) row was empty). The
+  bbchallenge wiki's Champions page (checked 2026-11-04) lists BB(19) = Jacobzheng, > f_(ω+7)^2(5) (marked "Not
+  independently verified"). That is far above anything at level f_(ω+4), so M19_fw4 says nothing new about BB(19) or
+  higher. The wiki's BB(20) champion (Jacobzheng, > f_(ω·2)(f_(ω+2)^2(f_10(2)))) is larger still.
 - The bound is not yet reviewed by the bbchallenge community.
 
 ## 5. Relation to other entries
