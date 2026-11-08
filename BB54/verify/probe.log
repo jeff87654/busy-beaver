@@ -1,0 +1,297 @@
+start
+     : c0 -->* Bcfg 2 1 0 (const 0)
+descent_1
+     : Bcfg 2 1 0 (const 0) -->* Bcfg 2 0 2 (const 0)
+D_phase_run
+     : Bcfg 2 0 2 (const 0) -->* Bcfg 5 1 0 (3 >> 1 >> const 0)
+descent_4
+     : Bcfg 5 1 0 (3 >> 1 >> const 0) -->* c_score
+reaches_score
+     : c0 -->* c_score
+sigma_eq
+     : sigma = knuth 4 2 3 + 4
+bb54_main
+     : c0 -->* c_score /\
+       Datatypes.length score_cells = sigma /\ sigma = knuth 4 2 3 + 4
+B_rule
+     : forall (k n m : nat) (r : Stream sym),
+       Bcfg (S k) n m r -->* Bcfg (S k) 0 (PeanoNat.Nat.iter n (g k) m) r
+g_closed
+     : forall k m : nat, 2 * g (S k) m + 4 = knuth k 2 (2 * m + 4)
+g_iter_closed
+     : forall k n : nat,
+       2 * PeanoNat.Nat.iter n (g k) 0 + 4 = knuth k 2 (n + 2)
+g40_closed
+     : 2 * g40 + 4 = knuth 4 2 3
+D_phase_raw
+     : forall L : nat,
+       [2] ^^ 2 *> [3] ^^ S L *> const 0 {{A}}> const 0 -->*
+       [2] ^^ S L *> 3 >> const 0 {{A}}> 1 >> 3 >> 1 >> const 0
+D_phase_2
+     : Bcfg 2 0 2 (const 0) -->* Bcfg 5 1 0 (3 >> 1 >> const 0)
+D_phase_halt
+     : forall L : nat,
+       [2] ^^ 3 *> [3] ^^ S L *> const 0 {{A}}> const 0 -->*
+       (E, ([3] ^^ L *> const 0, 3, 3 >> 1 >> 3 >> 1 >> const 0))
+D_phase_halt_1
+     : forall L : nat,
+       [2] ^^ 1 *> [3] ^^ S L *> const 0 {{A}}> const 0 -->*
+       (E, ([3] ^^ L *> const 0, 3, 3 >> 1 >> const 0))
+D_sweep_left
+     : forall (j : nat) (l : Stream sym) (r : side),
+       [3] ^^ j *> l <{{D}} r -->* l <{{D}} [3] ^^ j *> r
+macro_descent
+     : forall (k n m : nat) (r : Stream sym),
+       Bcfg (S (S k)) (S n) m r -->*
+       Bcfg (S k) (2 * m + 2) 0 (3 >> [1] ^^ n *> r)
+B1_iter
+     : forall (n m : nat) (r : Stream sym),
+       Bcfg 1 n m r -->* Bcfg 1 0 (m + n) r
+a3_step
+     : forall (k m b : nat) (r : Stream sym),
+       Bcfg k 0 m (3 >> [1] ^^ b *> r) -->* Bcfg (S k) b m r
+chain_step
+     : forall (n m : nat) (r : Stream sym),
+       Bcfg 2 (S n) m (3 >> r) -->* Bcfg 2 n (2 * m + 2) (3 >> r)
+chain
+     : forall (n m : nat) (r : Stream sym),
+       Bcfg 2 (S n) m (3 >> r) -->*
+       Bcfg 2 0 (PeanoNat.Nat.pow 2 (S n) * (m + 2) - 2) (3 >> r)
+pow_chain
+     : forall n m : nat,
+       PeanoNat.Nat.pow 2 (S n) * (m + 2) - 2 =
+       PeanoNat.Nat.pow 2 n * (2 * m + 2 + 2) - 2
+sigma
+     : nat
+c_score
+     : Q * tape
+target
+     : nat
+f_omega
+     : nat -> nat
+f_omega2
+     : nat -> nat
+eat2
+     : forall (j : nat) (l : Stream sym) (r : side),
+       [2] ^^ S (S j) *> l <{{D}} r -->* [2] ^^ j *> l <{{D}} 1 >> 3 >> r
+eat_reach
+     : forall (n L : nat) (s : Stream sym),
+       [2] ^^ twos n *> [3] ^^ S L *> const 0 <{{D}} 1 >> s -->*
+       [3] ^^ S L *> const 0 <{{D}} pat13 (S n) (1 >> s)
+eat_reach_odd
+     : forall (n L : nat) (s : Stream sym),
+       [2] ^^ S (twos n) *> [3] ^^ S L *> const 0 <{{D}} 1 >> s -->*
+       [2] ^^ 1 *> [3] ^^ S L *> const 0 <{{D}} pat13 (S n) (1 >> s)
+D_phase_even
+     : forall q m : nat,
+       Bcfg (S (S (2 * q))) 0 m (const 0) -->*
+       Bcfg (2 * m + 1) 1 0 (pat31 (S q) (const 0))
+D_phase_odd
+     : forall q m : nat,
+       Bcfg (S (S (S (2 * q)))) 0 m (const 0) -->*
+       (E, ([3] ^^ (2 * m) *> const 0, 3, 3 >> pat13 (S q) (1 >> const 0)))
+bb54_dchain
+     : Bcfg 5 0 (g 4 0) (3 >> 1 >> const 0) -->*
+       Bcfg (2 * X + 1) 1 0 (pat31 3 (const 0))
+round_step
+     : forall (k m T : nat) (r : Stream sym),
+       Bcfg (S (S k)) 1 m (pat31 (S T) r) -->*
+       Bcfg (S (S (S k))) 1 (g (S k) m) (pat31 T r)
+level
+     : forall (T k m : nat) (r : Stream sym),
+       Bcfg (S (S k)) 1 m (pat31 T r) -->*
+       Bcfg (S (S k + T)) 0 (gchain (S k) T m) r
+level_gen
+     : forall (T k m : nat) (r : Stream sym),
+       Bcfg (S k) 1 m (pat31 T r) -->* Bcfg (S k + T) 0 (gchain k T m) r
+reaches_d1
+     : c0 -->* c_d1
+level0
+     : Bcfg (2 * X + 1) 1 0 (pat31 3 (const 0)) -->*
+       Bcfg (2 * M0 + 1) 1 0 (pat31 (S (X + 1)) (const 0))
+level1
+     : Bcfg (2 * M0 + 1) 1 0 (pat31 (S (X + 1)) (const 0)) -->*
+       Bcfg (S (2 * M0) + S (X + 1)) 0 M1 (const 0)
+count_final_gen
+     : forall a b : nat,
+       PeanoNat.Nat.modulo b 2 = 0 ->
+       S (2 * a) + S (b + 1) = S (S (S (2 * (a + PeanoNat.Nat.div b 2))))
+count_final
+     : S (2 * M0) + S (X + 1) = S (S (S (2 * (M0 + Xh))))
+bb54_halt
+     : c0 -->*
+       (E,
+        ([3] ^^ (2 * M1) *> const 0, 3,
+         3 >> pat13 (S (M0 + Xh)) (1 >> const 0)))
+sigma_final
+     : nat
+final_cells_count
+     : Datatypes.length final_cells = sigma_final
+sigma_final_eq
+     : 2 * M1s + 2 * M0s + X + 5 = sigma_final
+final_cells_nonblank
+     : forall y : sym, In y final_cells -> y <> 0
+bb54_halt_main
+     : c0 -->*
+       (E,
+        ([3] ^^ (2 * M1) *> const 0, 3,
+         3 >> pat13 (S (M0 + Xh)) (1 >> const 0))) /\
+       Datatypes.length final_cells = sigma_final
+knuth_3_2_4
+     : knuth 3 2 4 =
+       knuth 2 2
+         (Nat.of_num_uint
+            (Number.UIntDecimal
+               (Decimal.D6
+                  (Decimal.D5
+                     (Decimal.D5 (Decimal.D3 (Decimal.D6 Decimal.Nil)))))))
+knuth_4_2_3
+     : knuth 4 2 3 = knuth 3 2 4
+g5_closed_gen
+     : forall m : nat, 2 * g 5 m + 4 = knuth 4 2 (2 * m + 4)
+g4_zero_iter
+     : g 4 0 = PeanoNat.Nat.iter 2 (g 3) 0
+g4_zero_closed
+     : 2 * g 4 0 + 4 = knuth 3 2 4
+X_inner
+     : 2 * X + 4 = knuth 4 2 (knuth 3 2 4)
+target_is_jacobzheng
+     : target =
+       f_omega2
+         (knuth 4 10
+            (knuth 2 10
+               (Nat.of_num_uint
+                  (Number.UIntDecimal
+                     (Decimal.D6
+                        (Decimal.D5
+                           (Decimal.D5 (Decimal.D3 (Decimal.D3 Decimal.Nil)))))))))
+target_refined
+     : nat
+target_refined_eq
+     : target_refined = f_omega2 (2 * X + 4)
+knuth_1_pow
+     : forall a x : nat, knuth 1 a x = PeanoNat.Nat.pow a x
+knuth_2_pow
+     : forall a m : nat, knuth 2 a (S m) = PeanoNat.Nat.pow a (knuth 2 a m)
+pow2_pos
+     : forall k : nat, 1 <= PeanoNat.Nat.pow 2 k
+pow2_ge2
+     : forall k : nat, 1 <= k -> 2 <= PeanoNat.Nat.pow 2 k
+pow2_ge4
+     : forall k : nat, 2 <= k -> 4 <= PeanoNat.Nat.pow 2 k
+pow2_mul4
+     : forall k : nat, 4 * PeanoNat.Nat.pow 2 k = PeanoNat.Nat.pow 2 (k + 2)
+pow2_add4
+     : forall u : nat,
+       1 <= u -> PeanoNat.Nat.pow 2 u + 4 <= PeanoNat.Nat.pow 2 (u + 2)
+pow_two_pow
+     : forall k x : nat,
+       PeanoNat.Nat.pow (PeanoNat.Nat.pow 2 k) x = PeanoNat.Nat.pow 2 (k * x)
+knuth2_pos
+     : forall a m : nat, 1 <= a -> 1 <= knuth 2 a m
+tower2_ge2
+     : forall m : nat, 2 <= knuth 2 2 (S m)
+tower2_ge4
+     : forall m : nat, 4 <= knuth 2 2 (S (S m))
+tower10_inv
+     : forall n : nat, 4 * knuth 2 10 n + 4 <= knuth 2 2 (S (S (S n)))
+tower10_lt
+     : knuth 2 10
+         (Nat.of_num_uint
+            (Number.UIntDecimal
+               (Decimal.D6
+                  (Decimal.D5
+                     (Decimal.D5 (Decimal.D3 (Decimal.D3 Decimal.Nil))))))) <
+       knuth 2 2
+         (Nat.of_num_uint
+            (Number.UIntDecimal
+               (Decimal.D6
+                  (Decimal.D5
+                     (Decimal.D5 (Decimal.D3 (Decimal.D6 Decimal.Nil)))))))
+tower10_lt_tower3
+     : knuth 2 10
+         (Nat.of_num_uint
+            (Number.UIntDecimal
+               (Decimal.D6
+                  (Decimal.D5
+                     (Decimal.D5 (Decimal.D3 (Decimal.D3 Decimal.Nil))))))) <
+       knuth 3 2 4
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
