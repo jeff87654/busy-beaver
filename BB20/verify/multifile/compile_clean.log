@@ -1,0 +1,11 @@
+The Coq Proof Assistant, version 8.20.1
+== BB202.v ==
+   ok, 7 s
+== Individual202.v ==
+   ok, 7 s
+== BB20_JZ20.v ==
+Closed under the global context
+Closed under the global context
+   ok, 13 s
+COMPILE DONE
+probe: 3 of 3 theorems closed under the global context

@@ -1,0 +1,190 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB19_JZ19.tm (A, 0) = Some (1, R, QQ)
+     : BB19_JZ19.tm (A, 0) = Some (1, R, QQ)
+eq_refl : BB19_JZ19.tm (A, 1) = Some (1, R, L)
+     : BB19_JZ19.tm (A, 1) = Some (1, R, L)
+eq_refl : BB19_JZ19.tm (B, 0) = Some (0, TM.L, I)
+     : BB19_JZ19.tm (B, 0) = Some (0, TM.L, I)
+eq_refl : BB19_JZ19.tm (B, 1) = Some (1, R, C)
+     : BB19_JZ19.tm (B, 1) = Some (1, R, C)
+eq_refl : BB19_JZ19.tm (C, 0) = Some (0, TM.L, D)
+     : BB19_JZ19.tm (C, 0) = Some (0, TM.L, D)
+eq_refl : BB19_JZ19.tm (C, 1) = Some (1, TM.L, F)
+     : BB19_JZ19.tm (C, 1) = Some (1, TM.L, F)
+eq_refl : BB19_JZ19.tm (D, 0) = Some (0, R, A)
+     : BB19_JZ19.tm (D, 0) = Some (0, R, A)
+eq_refl : BB19_JZ19.tm (D, 1) = Some (1, TM.L, D)
+     : BB19_JZ19.tm (D, 1) = Some (1, TM.L, D)
+eq_refl : BB19_JZ19.tm (E, 0) = Some (1, R, B)
+     : BB19_JZ19.tm (E, 0) = Some (1, R, B)
+eq_refl : BB19_JZ19.tm (E, 1) = Some (1, R, E)
+     : BB19_JZ19.tm (E, 1) = Some (1, R, E)
+eq_refl : BB19_JZ19.tm (F, 0) = Some (1, TM.L, H)
+     : BB19_JZ19.tm (F, 0) = Some (1, TM.L, H)
+eq_refl : BB19_JZ19.tm (F, 1) = Some (0, TM.L, G)
+     : BB19_JZ19.tm (F, 1) = Some (0, TM.L, G)
+eq_refl : BB19_JZ19.tm (G, 0) = Some (1, TM.L, F)
+     : BB19_JZ19.tm (G, 0) = Some (1, TM.L, F)
+eq_refl : BB19_JZ19.tm (G, 1) = Some (1, TM.L, G)
+     : BB19_JZ19.tm (G, 1) = Some (1, TM.L, G)
+eq_refl : BB19_JZ19.tm (H, 0) = Some (1, R, E)
+     : BB19_JZ19.tm (H, 0) = Some (1, R, E)
+eq_refl : BB19_JZ19.tm (H, 1) = Some (1, R, M)
+     : BB19_JZ19.tm (H, 1) = Some (1, R, M)
+eq_refl : BB19_JZ19.tm (I, 0) = Some (1, TM.L, J)
+     : BB19_JZ19.tm (I, 0) = Some (1, TM.L, J)
+eq_refl : BB19_JZ19.tm (I, 1) = Some (1, TM.L, I)
+     : BB19_JZ19.tm (I, 1) = Some (1, TM.L, I)
+eq_refl : BB19_JZ19.tm (J, 0) = Some (0, TM.L, K)
+     : BB19_JZ19.tm (J, 0) = Some (0, TM.L, K)
+eq_refl : BB19_JZ19.tm (J, 1) = Some (1, TM.L, I)
+     : BB19_JZ19.tm (J, 1) = Some (1, TM.L, I)
+eq_refl : BB19_JZ19.tm (K, 0) = Some (1, R, L)
+     : BB19_JZ19.tm (K, 0) = Some (1, R, L)
+eq_refl : BB19_JZ19.tm (K, 1) = Some (1, R, A)
+     : BB19_JZ19.tm (K, 1) = Some (1, R, A)
+eq_refl : BB19_JZ19.tm (L, 0) = Some (0, R, L)
+     : BB19_JZ19.tm (L, 0) = Some (0, R, L)
+eq_refl : BB19_JZ19.tm (L, 1) = Some (0, R, E)
+     : BB19_JZ19.tm (L, 1) = Some (0, R, E)
+eq_refl : BB19_JZ19.tm (M, 0) = Some (0, TM.L, N)
+     : BB19_JZ19.tm (M, 0) = Some (0, TM.L, N)
+eq_refl : BB19_JZ19.tm (M, 1) = Some (1, R, M)
+     : BB19_JZ19.tm (M, 1) = Some (1, R, M)
+eq_refl : BB19_JZ19.tm (N, 0) = Some (1, TM.L, O)
+     : BB19_JZ19.tm (N, 0) = Some (1, TM.L, O)
+eq_refl : BB19_JZ19.tm (N, 1) = Some (0, TM.L, O)
+     : BB19_JZ19.tm (N, 1) = Some (0, TM.L, O)
+eq_refl : BB19_JZ19.tm (O, 0) = Some (1, R, E)
+     : BB19_JZ19.tm (O, 0) = Some (1, R, E)
+eq_refl : BB19_JZ19.tm (O, 1) = Some (1, TM.L, P)
+     : BB19_JZ19.tm (O, 1) = Some (1, TM.L, P)
+eq_refl : BB19_JZ19.tm (P, 0) = Some (1, TM.L, N)
+     : BB19_JZ19.tm (P, 0) = Some (1, TM.L, N)
+eq_refl : BB19_JZ19.tm (P, 1) = Some (1, TM.L, N)
+     : BB19_JZ19.tm (P, 1) = Some (1, TM.L, N)
+eq_refl : BB19_JZ19.tm (QQ, 0) = Some (1, TM.L, RR)
+     : BB19_JZ19.tm (QQ, 0) = Some (1, TM.L, RR)
+eq_refl : BB19_JZ19.tm (QQ, 1) = Some (1, R, QQ)
+     : BB19_JZ19.tm (QQ, 1) = Some (1, R, QQ)
+eq_refl : BB19_JZ19.tm (RR, 0) = None
+     : BB19_JZ19.tm (RR, 0) = None
+eq_refl : BB19_JZ19.tm (RR, 1) = Some (1, TM.L, SS)
+     : BB19_JZ19.tm (RR, 1) = Some (1, TM.L, SS)
+eq_refl : BB19_JZ19.tm (SS, 0) = Some (0, TM.L, E)
+     : BB19_JZ19.tm (SS, 0) = Some (0, TM.L, E)
+eq_refl : BB19_JZ19.tm (SS, 1) = Some (0, TM.L, RR)
+     : BB19_JZ19.tm (SS, 1) = Some (0, TM.L, RR)
+BB19_JZ19.iter =
+fix iter (X : Type) (n : nat) (g : X -> X) (x : X) {struct n} : X :=
+  match n with
+  | 0 => x
+  | S n' => g (iter X n' g x)
+  end
+     : forall {X : Type}, nat -> (X -> X) -> X -> X
+
+Arguments BB19_JZ19.iter {X}%type_scope n%nat_scope g%function_scope x
+BB19_JZ19.U =
+fix U (p b : nat) {struct p} : nat :=
+  match p with
+  | 0 => b + 4
+  | S p' => BB19_JZ19.iter (S b) (U p') 3
+  end
+     : nat -> nat -> nat
+
+Arguments BB19_JZ19.U (p b)%nat_scope
+BB19_JZ19.Wc =
+fix Wc (k b : nat) {struct k} : nat :=
+  match k with
+  | 0 => b
+  | S k' => BB19_JZ19.U k' (Wc k' b)
+  end
+     : nat -> nat -> nat
+
+Arguments BB19_JZ19.Wc (k b)%nat_scope
+BB19_JZ19.G =
+fun a : nat =>
+match a mod 3 with
+| 0 => BB19_JZ19.Wc (a / 3) 4 + 2 * (a / 3) + 2
+| 1 => BB19_JZ19.Wc (a / 3 + 1) 1 + 2 * (a / 3 + 1) + 2
+| S (S _) => BB19_JZ19.Wc (a / 3 + 1) 4 + 2 * (a / 3 + 1) + 2
+end
+     : nat -> nat
+
+Arguments BB19_JZ19.G a%nat_scope
+BB19_JZ19.T =
+fix T (p a : nat) {struct p} : nat :=
+  match p with
+  | 0 => BB19_JZ19.G a
+  | S p' => BB19_JZ19.iter a (T p') 6
+  end
+     : nat -> nat -> nat
+
+Arguments BB19_JZ19.T (p a)%nat_scope
+BB19_JZ19.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB19_JZ19.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB19_JZ19.f (k _)%nat_scope
+BB19_JZ19.f_omega = fun n : nat => BB19_JZ19.f n n
+     : nat -> nat
+
+Arguments BB19_JZ19.f_omega n%nat_scope
+BB19_JZ19.f_wk =
+fix f_wk (k : nat) : nat -> nat :=
+  match k with
+  | 0 => BB19_JZ19.f_omega
+  | S k' => fun n : nat => BB19_JZ19.iter n (f_wk k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB19_JZ19.f_wk (k _)%nat_scope
+BB19_JZ19.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB19_JZ19.sym_val s%sym_scope
+BB19_JZ19.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB19_JZ19.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB19_JZ19.count1 xs%list_scope
+BB19_JZ19.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = BB19_JZ19.count1 L + BB19_JZ19.sym_val s + BB19_JZ19.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB19_JZ19.ones c N%nat_scope
+BB19_JZ19.halt
+     : halts BB19_JZ19.tm c0
+BB19_JZ19.score_exact
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB19_JZ19.tm ]->* c /\
+         halted BB19_JZ19.tm c /\
+         BB19_JZ19.ones c N /\ 2 * N = BB19_JZ19.T 8 2 + 23
+BB19_JZ19.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB19_JZ19.tm ]->* c /\
+         halted BB19_JZ19.tm c /\
+         BB19_JZ19.ones c N /\ BB19_JZ19.f_wk 7 (BB19_JZ19.f_wk 7 5) < N
+Closed under the global context
+Closed under the global context
+Closed under the global context
