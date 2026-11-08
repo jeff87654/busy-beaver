@@ -1,13 +1,47 @@
 # BB19/: 19 states, 2 symbols
 
-**Not a record.** The bbchallenge wiki's Champions page (checked 2026-11-04) lists a BB(19) champion by Jacobzheng
-with the lower bound f_(ω+7)^2(5), for
-`1RQ1RL_0LI1RC_0LD1LF_0RA1LD_1RB1RE_1LH0LG_1LF1LG_1RE1RM_1LJ1LI_0LK1LI_1RL1RA_0RL0RE_0LN1RM_1LO0LO_1RE1LP_1LN1LN_1LR1RQ_1RZ1LS_0LE0LR`
-(marked "Not independently verified"). Both machines below are far below it. They are kept as our best 19-state
-machines with complete Coq proofs. (Earlier versions of this page said the wiki's BB(19) row was empty; corrected
-2026-11-04.)
+## Current entry: J19 (Jacobzheng's machine)
 
-## Current entry: M19_fw4_A
+    1RQ1RL_0LI1RC_0LD1LF_0RA1LD_1RB1RE_1LH0LG_1LF1LG_1RE1RM_1LJ1LI_0LK1LI_1RL1RA_0RL0RE_0LN1RM_1LO0LO_1RE1LP_1LN1LN_1LR1RQ_1RZ1LS_0LE0LR
+
+The bbchallenge wiki's BB(19) champion, found by Jacobzheng and listed on the wiki's Champions page with the lower
+bound f_(ω+7)^2(5), marked "Not independently verified" (checked 2026-11-07). Proved here. Halts from the blank tape;
+R0 (`1RZ` in the string) is the halt. It is read on a 0 and writes 1, so σ = N + 1, where N is the number of ones
+when R0 is read. Machine-checked, with the standard fast-growing hierarchy and no axioms:
+
+    f_(ω+7)(f_(ω+7)(5)) < N,   σ = N + 1        (sigma_lower_bound)
+
+and the exact score 2N = T_8(2) + 23 for the machine's explicit recursion T (`score_exact`; not evaluated). That is
+the wiki's claim, exactly.
+
+The machine keeps a list of digits (the outer list) that one sweep engine runs in "marker mode", where a digit at
+depth p is f_(ω+p)-class. When it lowers the digit next to the head, the head is expanded into an inner list, which
+the same engine runs as an f_ω-class computation. When the outer list
+is used up, a refill rebuilds it from the merged block of M ones if M is odd, and halts if M is even. From the boot
+list [2, 2] the first refill gives [2, 1^8, 2], whose last digit is cleared at depth 8; the second exhaustion has M
+even, because every outer clearing value T_(p+1)(a) is odd, so the machine halts there.
+
+On paper (an argument, not a Coq lemma): far above the two earlier 19-state machines below (Argon's, not records) and
+the BB(18) entries. No proved upper bound; not yet reviewed by the bbchallenge community.
+
+- [`1RQ1RL_0LI1RC..._1RZ1LS_0LE0LR.md`](1RQ1RL_0LI1RC_0LD1LF_0RA1LD_1RB1RE_1LH0LG_1LF1LG_1RE1RM_1LJ1LI_0LK1LI_1RL1RA_0RL0RE_0LN1RM_1LO0LO_1RE1LP_1LN1LN_1LR1RQ_1RZ1LS_0LE0LR.md):
+  the write-up (the sweep, the two modes, the expansion, the outer rounds, the refill, the run, parity, the score,
+  verification, comparisons, credit).
+- [`verify_jz19/`](verify_jz19/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_lower_bound`. About 25 s to compile; built and probed in CI (job `bb13-bb14`), which requires three closed
+  `Print Assumptions` reports.
+- [`tools/j19_writeup_chk.py`](tools/j19_writeup_chk.py): an independent simulator that re-checks the write-up's
+  rules on concrete instances.
+
+Machine by Jacobzheng; analysis, Coq proof (2026-11-04), probe, write-up and packaging by this project.
+
+## Earlier entries: M19_fw4_A and M19_fw4 (not records)
+
+These two machines (by Argon, see below) were published here before J19 was proved. Both are far below J19. They are
+kept as they were published, with their complete Coq proofs. (Earlier versions of this page said the wiki's BB(19) row was
+empty; corrected 2026-11-04.)
+
+### M19_fw4_A
 
     1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_0RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_1RQ0LO_1LP1RR_0RB1LI_1RS0LQ_1LN0LR_0LR1RZ
 
@@ -39,7 +73,7 @@ upper bounds; not yet reviewed by the bbchallenge community.
 Machine and Coq proof by Argon, a Google Gemini model run by the repository owner in Google's Antigravity
 (2026-11-03); probe, write-up, packaging and re-check by this project.
 
-## Previous entry: M19_fw4
+### M19_fw4
 
     1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_1RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_1RQ0RG_0LG1LP_0LO1LP_1LS0RR_1RZ0LP_0LR1LS
 
