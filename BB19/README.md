@@ -24,6 +24,9 @@ even, because every outer clearing value T_(p+1)(a) is odd, so the machine halts
 On paper (an argument, not a Coq lemma): far above the two earlier 19-state machines below (Argon's, not records) and
 the BB(18) entries. No proved upper bound; not yet reviewed by the bbchallenge community.
 
+In Coq, the 18-state R18a ([`../BB18/`](../BB18/), derived from Jacobzheng's J20) has a proved bound above J19's
+(`beats_J19`: f_(ω+7)(f_(ω+7)(5)) < σ(R18a)), so BB(19) ≥ BB(18) + 1 is the better proved bound for BB(19).
+
 - [`1RQ1RL_0LI1RC..._1RZ1LS_0LE0LR.md`](1RQ1RL_0LI1RC_0LD1LF_0RA1LD_1RB1RE_1LH0LG_1LF1LG_1RE1RM_1LJ1LI_0LK1LI_1RL1RA_0RL0RE_0LN1RM_1LO0LO_1RE1LP_1LN1LN_1LR1RQ_1RZ1LS_0LE0LR.md):
   the write-up (the sweep, the two modes, the expansion, the outer rounds, the refill, the run, parity, the score,
   verification, comparisons, credit).

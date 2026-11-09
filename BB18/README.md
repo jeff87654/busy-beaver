@@ -1,6 +1,42 @@
 # BB18/: 18 states, 2 symbols
 
-## Current entry: M18_229round
+## Current entry: R18a (derived from Jacobzheng's J20)
+
+    1LH0LG_0LI1RC_0LD1LA_0RE1LD_0RH1RL_1RB1RF_1LA1LG_1RF1RM_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LN1RM_0LQ0LO_1LR1LP_0LQ1LN_0RO1LB_0LL1RZ
+
+Halts from the blank tape; R1 (`1RZ` in the string) is the halt. It is read on a 1 and writes 1, so σ = N, where N
+is the number of ones when R1 is read. Machine-checked, with the standard fast-growing hierarchy and no axioms:
+
+    f_(ω·2)(f_ω(f_ω(f_10(2)))) < N = σ        (sigma_lower_bound)
+    f_(ω+7)(f_(ω+7)(5)) < N                   (beats_J19: J19's proved BB(19) bound)
+    f_(ω+3)^229(9) < N                         (beats_M18_229: M18_229round's proved bound, below)
+
+and the exact score N = 2c + 2 for the c given by J20's recursion (`score_exact`; not evaluated).
+
+R18a is Jacobzheng's 20-state BB(20) champion J20 ([`../BB20/`](../BB20/)) with its four refill states removed. J20's
+refill rewriter was the same period-3 cycle as its expansion rewriter, so in R18a the refill reuses the expansion's
+walker and rewriter, and two new states, Q and R, read the cell left of the rewriter's exit: the blank in an
+expansion, the far-left marker in a refill (E0 = `0RH` keeps the marker apart in a refill). Rows A–P are J20's except
+E0, N0, O0 and P0. The two lists, the engine and J20's mod-3 schedule are unchanged: exactly two refills, then the
+halt, at level f_(ω·2).
+
+In Coq (`beats_J19`, `beats_M18_229`): N is above J19's and M18_229round's proved lower bounds (neither of those has a
+proved upper bound). So BB(19) ≥ BB(18) + 1 is the better proved bound for BB(19) too. J20 ([`../BB20/`](../BB20/)) has
+a higher proved bound. Not yet reviewed by the bbchallenge community.
+
+- [`1LH0LG_0LI1RC..._0RO1LB_0LL1RZ.md`](1LH0LG_0LI1RC_0LD1LA_0RE1LD_0RH1RL_1RB1RF_1LA1LG_1RF1RM_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LN1RM_0LQ0LO_1LR1LP_0LQ1LN_0RO1LB_0LL1RZ.md):
+  the write-up (the changes to J20, the refill, the run, the mod-3 invariant, the score, verification, comparisons,
+  credit).
+- [`verify_r18a/`](verify_r18a/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_lower_bound`, `beats_J19`, `beats_M18_229`. About 30 s to compile; built and probed in CI (job `bb13-bb14`),
+  which requires five closed `Print Assumptions` reports.
+- [`tools/r18a_writeup_chk.py`](tools/r18a_writeup_chk.py): an independent simulator that re-checks the write-up's
+  rules on concrete instances and the first outer boundaries of the blank-tape run.
+
+This project's machine (2026-11-07), derived from Jacobzheng's J20: found by a search for a compression of J20,
+proved in Coq by adapting this repository's J20 proof.
+
+## Previous entry: M18_229round
 
     1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_0RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_1RQ0LO_1LP1LR_0RB1LI_1RZ1RR_1RN0LO
 
@@ -21,7 +57,7 @@ f_(ω+3) rounds in all. When the reservoir is empty, Q reads 0 and halts.
 
 On paper (an argument, not a Coq lemma): f_(ω+3)^229(9) is above M18_4round's proved f_(ω+3)^4(9) (the BB(18) row
 of the wiki's Champions table, checked 2026-11-04), and above f_(ω+4)(9) = f_(ω+3)^9(9). None of these has a proved
-upper bound. Not yet reviewed by the bbchallenge community.
+upper bound. R18a (above) has a higher proved lower bound. Not yet reviewed by the bbchallenge community.
 
 - [`1LB1LA_1RC0LA..._1RZ1RR_1RN0LO.md`](1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_0RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_1RQ0LO_1LP1LR_0RB1LI_1RZ1RR_1RN0LO.md):
   the write-up (the reader, the two sweeps, a round, the run, the score, verification, comparisons, credit).
@@ -33,7 +69,7 @@ upper bound. Not yet reviewed by the bbchallenge community.
 Found and proved by Argon, a Google Gemini model, run by the repository owner in Google's Antigravity (2026-11-03);
 re-checked here.
 
-## Previous entry: M18_4round
+## Earlier entry: M18_4round
 
     1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_0RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_1RQ0LO_1LP1LN_0RB1LI_1RR0LO_0RO1RZ
 
@@ -86,7 +122,7 @@ start of the second pass Q finds the marker and R halts.
 On paper (an argument, not a Coq lemma): f_(ω+3)(114) = f_(ω+2)^114(114) is far above M14b's proved
 f_(ω+2)^9(f_(ω+1)(f_(ω+1)(3))) ([`../BB14/`](../BB14/)) and the f_(ω+2)-class BB(17)/BB(18) champions (Jacobzheng).
 Neither has a proved upper bound. M17_B ([`../BB17/`](../BB17/)), with one fewer state, and M18_4round (above) have
-higher proved lower bounds, and M18_229round higher still. Not yet reviewed by the bbchallenge community.
+higher proved lower bounds, M18_229round higher still, and R18a higher again. Not yet reviewed by the bbchallenge community.
 
 - [`1LB1LA_1RC0LA..._1LQ0RR_1RZ0LP.md`](1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_1RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_0RQ0RG_0LG1LP_0LO1LP_1LQ0RR_1RZ0LP.md):
   the write-up (the engine, the counter routine, the run, the score, verification, comparisons, credit).

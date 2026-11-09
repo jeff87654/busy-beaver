@@ -1,0 +1,29 @@
+The Coq Proof Assistant, version 8.20.1
+== BB212.v ==
+   ok, 7 s
+== Individual212.v ==
+   ok, 9 s
+== BB21_B21_absdef.v ==
+   ok, 9 s
+== BB21_B21_tm.v ==
+   ok, 18 s
+== BB21_B21_sim.v ==
+   ok, 7 s
+== BB21_B21_grow.v ==
+   ok, 18 s
+== BB21_B21_steps.v ==
+   ok, 36 s
+== BB21_B21_inv.v ==
+   ok, 22 s
+== BB21_B21_proc.v ==
+   ok, 10 s
+== BB21_B21_phase.v ==
+   ok, 20 s
+== BB21_B21_run.v ==
+   ok, 25 s
+== BB21_B21_score.v ==
+   ok, 38 s
+== BB21_B21.v ==
+   ok, 18 s
+COMPILE DONE
+probe: 3 of 3 theorems closed under the global context

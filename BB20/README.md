@@ -23,6 +23,9 @@ reduced at outer level k (the f_(ω·2) step), and the third exhaustion halts.
 On paper (an argument, not a Coq lemma): far above every entry here with fewer states, which are all below f_(ω·2).
 No proved upper bound; not yet reviewed by the bbchallenge community.
 
+R18a ([`../BB18/`](../BB18/)) is J20 with its four refill states removed (the refill merged into the expansion
+rewriter): 18 states, the same f_(ω·2) class, and a lower proved bound, f_(ω·2)(f_ω(f_ω(f_10(2)))).
+
 - [`1LH0LG_0LI1RC..._0LF1LT_0LF0LR.md`](1LH0LG_0LI1RC_0LD1LA_0RE1LD_1RQ1RL_1RB1RF_1LA1LG_1RF1RM_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LN1RM_0RF0LO_0RF1LP_0RF1LN_1LR1RQ_1RZ1LS_0LF1LT_0LF0LR.md):
   the write-up (the two lists, the expansion, the refill, the run, the mod-3 invariant, the score, verification,
   comparisons, credit).
