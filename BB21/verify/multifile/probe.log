@@ -1,0 +1,140 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB21_B21.tm (A, 0) = Some (0, TM.L, I)
+     : BB21_B21.tm (A, 0) = Some (0, TM.L, I)
+eq_refl : BB21_B21.tm (A, 1) = Some (0, TM.L, F)
+     : BB21_B21.tm (A, 1) = Some (0, TM.L, F)
+eq_refl : BB21_B21.tm (B, 0) = Some (0, R, J)
+     : BB21_B21.tm (B, 0) = Some (0, R, J)
+eq_refl : BB21_B21.tm (B, 1) = Some (1, R, G)
+     : BB21_B21.tm (B, 1) = Some (1, R, G)
+eq_refl : BB21_B21.tm (C, 0) = Some (0, R, D)
+     : BB21_B21.tm (C, 0) = Some (0, R, D)
+eq_refl : BB21_B21.tm (C, 1) = Some (1, TM.L, C)
+     : BB21_B21.tm (C, 1) = Some (1, TM.L, C)
+eq_refl : BB21_B21.tm (D, 0) = Some (1, R, H)
+     : BB21_B21.tm (D, 0) = Some (1, R, H)
+eq_refl : BB21_B21.tm (D, 1) = Some (1, R, E)
+     : BB21_B21.tm (D, 1) = Some (1, R, E)
+eq_refl : BB21_B21.tm (E, 0) = Some (1, TM.L, O)
+     : BB21_B21.tm (E, 0) = Some (1, TM.L, O)
+eq_refl : BB21_B21.tm (E, 1) = Some (0, R, H)
+     : BB21_B21.tm (E, 1) = Some (0, R, H)
+eq_refl : BB21_B21.tm (F, 0) = Some (1, TM.L, A)
+     : BB21_B21.tm (F, 0) = Some (1, TM.L, A)
+eq_refl : BB21_B21.tm (F, 1) = Some (1, TM.L, F)
+     : BB21_B21.tm (F, 1) = Some (1, TM.L, F)
+eq_refl : BB21_B21.tm (G, 0) = Some (0, TM.L, C)
+     : BB21_B21.tm (G, 0) = Some (0, TM.L, C)
+eq_refl : BB21_B21.tm (G, 1) = Some (1, TM.L, A)
+     : BB21_B21.tm (G, 1) = Some (1, TM.L, A)
+eq_refl : BB21_B21.tm (H, 0) = Some (1, R, B)
+     : BB21_B21.tm (H, 0) = Some (1, R, B)
+eq_refl : BB21_B21.tm (H, 1) = Some (1, R, H)
+     : BB21_B21.tm (H, 1) = Some (1, R, H)
+eq_refl : BB21_B21.tm (I, 0) = Some (1, R, D)
+     : BB21_B21.tm (I, 0) = Some (1, R, D)
+eq_refl : BB21_B21.tm (I, 1) = Some (0, TM.L, F)
+     : BB21_B21.tm (I, 1) = Some (0, TM.L, F)
+eq_refl : BB21_B21.tm (J, 0) = Some (1, TM.L, P)
+     : BB21_B21.tm (J, 0) = Some (1, TM.L, P)
+eq_refl : BB21_B21.tm (J, 1) = Some (0, R, K)
+     : BB21_B21.tm (J, 1) = Some (0, R, K)
+eq_refl : BB21_B21.tm (K, 0) = Some (0, TM.L, M)
+     : BB21_B21.tm (K, 0) = Some (0, TM.L, M)
+eq_refl : BB21_B21.tm (K, 1) = Some (1, TM.L, L)
+     : BB21_B21.tm (K, 1) = Some (1, TM.L, L)
+eq_refl : BB21_B21.tm (L, 0) = Some (0, TM.L, L)
+     : BB21_B21.tm (L, 0) = Some (0, TM.L, L)
+eq_refl : BB21_B21.tm (L, 1) = Some (1, TM.L, M)
+     : BB21_B21.tm (L, 1) = Some (1, TM.L, M)
+eq_refl : BB21_B21.tm (M, 0) = Some (1, TM.L, E)
+     : BB21_B21.tm (M, 0) = Some (1, TM.L, E)
+eq_refl : BB21_B21.tm (M, 1) = Some (1, TM.L, N)
+     : BB21_B21.tm (M, 1) = Some (1, TM.L, N)
+eq_refl : BB21_B21.tm (N, 0) = Some (0, R, QQ)
+     : BB21_B21.tm (N, 0) = Some (0, R, QQ)
+eq_refl : BB21_B21.tm (N, 1) = Some (0, TM.L, M)
+     : BB21_B21.tm (N, 1) = Some (0, TM.L, M)
+eq_refl : BB21_B21.tm (O, 0) = Some (0, R, P)
+     : BB21_B21.tm (O, 0) = Some (0, R, P)
+eq_refl : BB21_B21.tm (O, 1) = Some (1, TM.L, O)
+     : BB21_B21.tm (O, 1) = Some (1, TM.L, O)
+eq_refl : BB21_B21.tm (P, 0) = Some (1, TM.L, RR)
+     : BB21_B21.tm (P, 0) = Some (1, TM.L, RR)
+eq_refl : BB21_B21.tm (P, 1) = Some (0, R, H)
+     : BB21_B21.tm (P, 1) = Some (0, R, H)
+eq_refl : BB21_B21.tm (QQ, 0) = Some (1, TM.L, F)
+     : BB21_B21.tm (QQ, 0) = Some (1, TM.L, F)
+eq_refl : BB21_B21.tm (QQ, 1) = Some (1, R, QQ)
+     : BB21_B21.tm (QQ, 1) = Some (1, R, QQ)
+eq_refl : BB21_B21.tm (RR, 0) = None
+     : BB21_B21.tm (RR, 0) = None
+eq_refl : BB21_B21.tm (RR, 1) = Some (0, TM.L, SS)
+     : BB21_B21.tm (RR, 1) = Some (0, TM.L, SS)
+eq_refl : BB21_B21.tm (SS, 0) = Some (1, TM.L, H)
+     : BB21_B21.tm (SS, 0) = Some (1, TM.L, H)
+eq_refl : BB21_B21.tm (SS, 1) = Some (0, TM.L, TT)
+     : BB21_B21.tm (SS, 1) = Some (0, TM.L, TT)
+eq_refl : BB21_B21.tm (TT, 0) = Some (1, TM.L, H)
+     : BB21_B21.tm (TT, 0) = Some (1, TM.L, H)
+eq_refl : BB21_B21.tm (TT, 1) = Some (1, TM.L, UU)
+     : BB21_B21.tm (TT, 1) = Some (1, TM.L, UU)
+eq_refl : BB21_B21.tm (UU, 0) = Some (0, TM.L, E)
+     : BB21_B21.tm (UU, 0) = Some (0, TM.L, E)
+eq_refl : BB21_B21.tm (UU, 1) = Some (1, TM.L, RR)
+     : BB21_B21.tm (UU, 1) = Some (1, TM.L, RR)
+BB21_B21_score.tet =
+fix tet (n : nat) : nat := match n with
+                           | 0 => 1
+                           | S n' => 4 ^ tet n'
+                           end
+     : nat -> nat
+
+Arguments BB21_B21_score.tet n%nat_scope
+BB21_B21_score.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB21_B21_score.sym_val s%sym_scope
+BB21_B21_score.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB21_B21_score.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB21_B21_score.count1 xs%list_scope
+BB21_B21_score.onesN =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB21_B21_score.count1 L + BB21_B21_score.sym_val s +
+  BB21_B21_score.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB21_B21_score.onesN c N%nat_scope
+BB21_B21.halt
+     : halts BB21_B21.tm c0
+BB21_B21.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB21_B21.tm ]->* c /\
+         halted BB21_B21.tm c /\
+         BB21_B21_score.onesN c N /\ BB21_B21_score.tet 341 < N
+BB21_B21_run.abstract_halt
+     : exists bs : list (list nat),
+         BB21_B21_proc.star BB21_B21_absdef.refill21 BB21_B21_run.S3 bs /\
+         BB21_B21_absdef.astepG BB21_B21_absdef.refill21 bs =
+         BB21_B21_absdef.Halt
+Closed under the global context
+Closed under the global context
+Closed under the global context
