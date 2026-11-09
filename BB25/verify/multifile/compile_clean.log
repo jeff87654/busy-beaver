@@ -1,0 +1,32 @@
+7 of 7 B21 layers byte-identical to ../../../BB21/verify/multifile's
+The Coq Proof Assistant, version 8.20.1
+== BB252.v ==
+   ok, 13 s
+== Individual252.v ==
+   ok, 9 s
+== BB21_B21_absdef.v ==
+   ok, 7 s
+== BB21_B21_grow.v ==
+   ok, 9 s
+== BB21_B21_steps.v ==
+   ok, 9 s
+== BB21_B21_inv.v ==
+   ok, 14 s
+== BB21_B21_proc.v ==
+   ok, 16 s
+== BB21_B21_phase.v ==
+   ok, 11 s
+== BB21_B21_run.v ==
+   ok, 8 s
+== BB25_W2PR_tm.v ==
+   ok, 24 s
+== BB25_W2PR_sim.v ==
+   ok, 9 s
+== BB25_W2PR_run.v ==
+   ok, 31 s
+== BB25_W2PR_score.v ==
+   ok, 13 s
+== BB25_W2PR.v ==
+   ok, 7 s
+COMPILE DONE
+probe: 3 of 3 theorems closed under the global context

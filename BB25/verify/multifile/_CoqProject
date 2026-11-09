@@ -1,0 +1,16 @@
+-Q . BB8
+-Q ../../../busycoq/verify BusyCoq
+BB252.v
+Individual252.v
+BB21_B21_absdef.v
+BB21_B21_grow.v
+BB21_B21_steps.v
+BB21_B21_inv.v
+BB21_B21_proc.v
+BB21_B21_phase.v
+BB21_B21_run.v
+BB25_W2PR_tm.v
+BB25_W2PR_sim.v
+BB25_W2PR_run.v
+BB25_W2PR_score.v
+BB25_W2PR.v
