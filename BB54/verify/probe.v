@@ -127,6 +127,7 @@ Check level1.
 Check count_final_gen.
 Check count_final.
 Check bb54_halt.
+Check bb54_halts.
 Check sigma_final.
 Check final_cells_count.
 Check sigma_final_eq.
@@ -212,6 +213,7 @@ Print Assumptions level1.
 Print Assumptions count_final_gen.
 Print Assumptions count_final.
 Print Assumptions bb54_halt.
+Print Assumptions bb54_halts.
 Print Assumptions sigma_final.
 Print Assumptions final_cells_count.
 Print Assumptions sigma_final_eq.

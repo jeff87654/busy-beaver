@@ -5,9 +5,10 @@
     "0^inf 3^(2m+1) 2^k A> 1^n R" is [(Bcfg k n m r)] with left stream
     [[2]^^k *> [3]^^(2m+1) *> const 0].  The halting transition E3 = 1RZ is [None].
 
-    This machine is the BB(5,4) champion of the Busy Beaver Challenge, up to the
-    renaming of the states A<->B and of the symbols 2<->3 (see
-    ../tools/explore.py, which checks the equivalence exhaustively).  It differs
+    This machine is the BB(5,4) champion listed on the wiki's Champions
+    page (../tools/explore.py checks its equivalence, under the renaming of
+    the states A<->B and of the symbols 2<->3, with the string
+    1LD2RA3RB1LC_1LD2LA3RB---_2RA1LA3RC2LC_2RA---2LD2LE_------1RZ1LD).  It differs
     from the BB(3,4) champion in the entries A0, B0, in the extra states D and E,
     and in the fact that the halting entry is E3 rather than A2.
 

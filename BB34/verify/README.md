@@ -68,7 +68,7 @@ and does not contain `Axioms:`.
 `compile_clean.log` and `probe.log` are from a from-scratch build on 2026-10-29: Coq 8.20.1 (Coq Platform 2025.01),
 Windows 11, a 20-core machine with 24 GB RAM.  A fresh directory held only the seven `.v` files, `_CoqProject` and
 `compile_clean.sh`, next to busycoq `verify/` exported from commit `bd2e36f` with its 7 needed files compiled first.
-Command: `BUSYCOQ=../busycoq/verify ./compile_clean.sh` (exit 0, 31 s for the six files; `BB34_start.v` 16 s, the
+Command: `BUSYCOQ=<busycoq>/verify ./compile_clean.sh` (exit 0, 31 s for the six files; `BB34_start.v` 16 s, the
 other five 3 s each; the probe 5 s).  stderr contained only deprecation warnings about `app_length`.  `sha256.txt`
 has the hashes of the sources.
 

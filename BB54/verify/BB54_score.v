@@ -6,8 +6,10 @@
       bb54_main : the machine reaches the Ligocki configuration
                   B(5, 0, g_4(0)) [3 1] 0^inf from the blank tape, and the
                   tape of that configuration carries
-                  sigma = 2 * g_4(0) + 8 = (2 ↑^4 3) + 4 = 2^65536 + 4
-                  nonzero symbols;
+                  sigma = 2 * g_4(0) + 8 = (2 ↑^4 3) + 4 = (2 ↑↑ 65536) + 4
+                  nonzero symbols.  This [sigma] is an intermediate count,
+                  not the sigma of the machine: that is [sigma_final] of
+                  BB54_halt.v, and halting is [bb54_halts] there;
       g_closed  : 2 * g_(k+1)(m) + 4 = knuth k 2 (2m+4)   (closed form of the g hierarchy)
       g_iter_closed : 2 * g_k^n(0) + 4 = knuth k 2 (n + 2)
       f_omega   : f_w n = 2 ↑^(n+1) (n+3)  (an upper bound for F_w(n))
@@ -16,13 +18,9 @@
     No large number is ever evaluated: [knuth 4 2 3], [f_omega] and the sealed
     [g40] stay symbolic throughout.
 
-    What is *not* proved here: the wiki's bound
-    [f_w^2 (10 ↑^4 10 ↑↑ 65533)] is a bound on the *runtime* of the machine,
-    and reaching it requires the global recursion of the run -- the part in
-    which the tail of the configuration is consumed and rebuilt, level by
-    level, 65533 times.  That recursion is analysed in ../tools/macro4.py
-    (and described in ../README.md) but is not formalised yet; see the
-    section "What is still open" of ../README.md. *)
+    What is *not* proved in Coq: any comparison of the machine's sigma
+    with the wiki's bound [f_w^2 (10 ↑^4 10 ↑↑ 65533)]; it is a hand
+    calculation in ../README.md ("The size of σ"). *)
 
 From TM54 Require Import Individual54 BB54_rules BB54_run.
 From Coq Require Import Lia PeanoNat.
@@ -134,12 +132,12 @@ Theorem g_iter_closed_gen : forall k n (x : nat),
 Proof. intros k n x Hx. subst x. apply g_iter_closed. Qed.
 
 (** [g40 = g_4(0)] satisfies the closed form with k = 4, n = 1:
-    [2 * g40 + 4 = 2 ↑^4 3 = 2 ↑^3 4 = 2^65536]. *)
+    [2 * g40 + 4 = 2 ↑^4 3 = 2 ↑^3 4 = 2 ↑↑ 65536]. *)
 Lemma g40_closed : 2 * g40 + 4 = knuth 4 2 3.
 Proof. exact (g_iter_closed_gen 4 1 g40 g40_eq). Qed.
 
-(** ** The exact score of the configuration [c_score]:
-    [sigma = (2 ↑^3 4) + 4 = 2^65536 + 4]. *)
+(** ** The exact cell count of the intermediate configuration [c_score]:
+    [sigma = (2 ↑^3 4) + 4 = (2 ↑↑ 65536) + 4]. *)
 Theorem sigma_eq : sigma = knuth 4 2 3 + 4.
 Proof.
   unfold sigma.
@@ -150,9 +148,9 @@ Qed.
 (** ** The fast-growing function at [omega], and the number claimed on the
     wiki's Champions page.
 
-    [f_omega n = 2 ↑^(n+1) (n+3)] is the Knuth-arrow normal form of the
-    omega-th element of the fast-growing hierarchy [F_{k+1}(n) = F_k^{n+3}(n)],
-    [F_w(n) = F_n(n)]; it is an upper bound for [F_w(n)].
+    [f_omega n = 2 ↑^(n+1) (n+3)] is a Knuth-arrow function, not the
+    fast-growing hierarchy's f_w; it is an upper bound for the
+    hierarchy [F_{k+1}(n) = F_k^{n+3}(n)], [F_w(n) = F_n(n)].
 
     The wiki claims for the BB(5,4) champion a runtime larger than
     [f_w^2 (10 ↑^4 10 ↑↑ 65533)]; [target] is that number. *)
@@ -174,10 +172,6 @@ Proof.
   exact sigma_eq.
 Qed.
 
-(** The score at the level of the wiki's number: the run performs the
-    descent at level 4, whose closed form is [2 ↑^3 4]; the global recursion
-    of the run (analysed in ../tools/macro4.py) performs such a descent at
-    every one of the 65533 levels of the tail, which is where the tower
-    [10 ↑↑ 65533] of the wiki's bound comes from. *)
+(** The level-4 descent of the run has the closed form [2 ↑^3 4]. *)
 Theorem sigma_level_4 : 2 * g40 + 4 = knuth 4 2 3.
 Proof. exact g40_closed. Qed.

@@ -332,3 +332,8 @@ Theorem bb54_halt_main :
 Proof.
   split; [apply bb54_halt | exact final_cells_count].
 Qed.
+
+(** ** The machine halts from the blank tape, as busycoq's [halts].
+    [bb54_halt] reaches state E reading a 3, and [E3 = 1RZ] is [None] in [tm]. *)
+Theorem bb54_halts : halts tm c0.
+Proof. eapply halted_evstep_halts; [apply bb54_halt | reflexivity]. Qed.

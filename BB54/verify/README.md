@@ -18,12 +18,12 @@ root `TM54`.  For this 5-state, 4-symbol machine (E3 = `1RZ` is the halt,
   in which the parameter `m` (the size of the block of threes on the tape) is exponentiated once per unit of `n`;
 - `BB54_run.reaches_score : c0 -->* c_score`, where `c_score = Bcfg 5 0 g40 (3 >> 1 >> const 0)`: state A reads
   the 3 that follows `3^(2 g40 + 1) 2^5`, with blanks everywhere else;
-- `BB54_score.sigma_eq : sigma = knuth 4 2 3 + 4`, that is **σ = (2 ↑^3 4) + 4 = 2^65536 + 4** at that point of
-  the run, where `knuth n a b` is Knuth's a ↑^n b (`knuth 0 a b = a * b`, `knuth (n+1) a b = (knuth n a)^b 1`);
+- `BB54_score.sigma_eq : sigma = knuth 4 2 3 + 4`: an *intermediate* count, the nonzero cells of `c_score`,
+  (2 ↑^3 4) + 4 = (2 ↑↑ 65536) + 4 (the σ of the machine is `BB54_halt.sigma_final`), where `knuth n a b` is Knuth's a ↑^n b (`knuth 0 a b = a * b`, `knuth (n+1) a b = (knuth n a)^b 1`);
 - `BB54_score.g_closed : 2 * g (S k) m + 4 = knuth k 2 (2 * m + 4)` and
   `BB54_score.g_iter_closed : 2 * Nat.iter n (g k) 0 + 4 = knuth k 2 (n + 2)` -- the closed form of the `g`
   hierarchy (Ligocki's theorem);
-- `BB54_score.bb54_main`: the run up to the score-carrying configuration and its σ in one statement;
+- `BB54_score.bb54_main`: the run up to `c_score` and its cell count in one statement (not the halt);
 - `BB54_dphase.D_phase_even`, `BB54_dphase.D_phase_odd` -- the D/E phase for an **arbitrary** number of
   twos: an even number lets the machine continue, an odd number halts it (`E3 = 1RZ`);
 - `BB54_dphase.bb54_dchain` -- `B(5,0,g_4(0)) [3 1] 0^inf -->* B(2X+1,1,0) [3 1]^3 0^inf` with
@@ -32,22 +32,25 @@ root `TM54`.  For this 5-state, 4-symbol machine (E3 = `1RZ` is the halt,
   rule followed by an A3 sweep;
 - `BB54_halt.reaches_d1`, `BB54_halt.level0`, `BB54_halt.level1` -- the two levels of the main regime;
 - **`BB54_halt.bb54_halt` -- the machine halts**: it reaches state E on a 3, where `E3 = 1RZ`;
+- **`BB54_halt.bb54_halts : halts tm c0`** -- the same, as busycoq's `halts` (`E3` is `None` in `tm`);
 - `BB54_halt.sigma_final` and `BB54_halt.bb54_halt_main` -- the exact number of nonzero cells at halting,
   **σ = 2 M1 + 2 M0 + X + 5** with `M0 = gchain (2X) 3 0` and `M1 = gchain (2M0) (X+2) 0`;
 - `BB54_bound.knuth_3_2_4`, `BB54_bound.knuth_4_2_3` -- the shapes of the arrows, `2 ↑^3 4 = 2 ↑↑ 65536` and
   `2 ↑^4 3 = 2 ↑^3 4`;
 - **`BB54_bound.X_inner` -- `2 ↑^4 2 ↑^3 4 = 2X + 4`**: the inner argument of the refined runtime bound is the descent
-  parameter of the main regime, i.e. the number of twos the first D/E phase has to erase;
-- `BB54_bound.target_is_jacobzheng` -- the wiki's entry is Jacobzheng's original bound,
-  `target = f_ω² (10 ↑^4 10 ↑↑ 65533)`;
-- **`BB54_bound.target_refined_eq` -- `f_ω² (2 ↑^4 2 ↑^3 4) = f_ω² (2X + 4)`**: the refined runtime bound, the one the
-  wiki's runtime entry is being corrected to;
+  parameter of the main regime, i.e. the number of twos the first D/E phase has to erase (on paper, `f_ω²` of it is
+  an upper bound for σ);
+- `BB54_bound.target_is_jacobzheng` -- an unfolding: `target = f_ω² (10 ↑^4 10 ↑↑ 65533)`, the wiki's number
+  written with this development's `f_omega n = 2 ↑^(n+1) (n+3)` (a Knuth-arrow function, not FGH);
+- `BB54_bound.target_refined_eq` -- `f_ω² (2 ↑^4 2 ↑^3 4) = f_ω² (2X + 4)`;
 - `BB54_tower.tower10_inv` -- the invariant of the tower comparison, `4 · (10 ↑↑ n) + 4 ≤ 2 ↑↑ (n+3)`;
 - **`BB54_tower.tower10_lt` and `BB54_tower.tower10_lt_tower3` -- `10 ↑↑ 65533 < 2 ↑↑ 65536 = 2 ↑^3 4`**: the inner
-  tower of Jacobzheng's original bound is *below* the inner tower of the refined bound.
+  tower of Jacobzheng's bound is *below* the inner tower of the upper comparison number.
 
-The machine is the BB(5,4) champion up to the renaming of the states A↔B and of the symbols 2↔3;
-`../tools/explore.py` checks that exhaustively.
+No theorem compares σ with the wiki's bound: that comparison is a hand calculation (see `../README.md`).
+
+The wiki's Champions page lists this exact string for BB(5,4).  `../tools/explore.py` checks that it equals
+`1LD2RA3RB1LC_1LD2LA3RB---_2RA1LA3RC2LC_2RA---2LD2LE_------1RZ1LD` up to renaming A↔B and 2↔3.
 
 ## Files
 
@@ -73,9 +76,9 @@ The machine is the BB(5,4) champion up to the renaming of the states A↔B and o
 
 This compiles the 10 files in dependency order (about 40 s) and then runs `probe.v`, writing `probe.log`.
 `BUSYCOQ` must point to the `verify/` directory of a busycoq checkout, with `Individual.vo` built.  COQC may name
-a specific `coqc`.  `_CoqProject` (for editors) assumes busycoq is checked out at `D:/busycoq`; the build script
-does not use it.
+a specific `coqc`.  `_CoqProject` (for editors) assumes busycoq is checked out next to the repository, at `../../busycoq`; the build
+script does not use it.
 
 `probe.v` re-parses the machine string, checks that it agrees with the Coq table `tm`, and then prints
-`Print Assumptions` for every main theorem: the log says that all 79 of them are *closed under the global
+`Print Assumptions` for every main theorem: the log says that all 80 of them are *closed under the global
 context*, i.e. the development uses no axioms at all.

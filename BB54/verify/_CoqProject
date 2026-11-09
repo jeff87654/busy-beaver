@@ -1,5 +1,5 @@
 -Q . TM54
--Q D:/busycoq/verify BusyCoq
+-Q ../../busycoq/verify BusyCoq
 BB54.v
 Individual54.v
 BB54_rules.v
