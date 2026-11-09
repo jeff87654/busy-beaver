@@ -128,7 +128,7 @@ Machines from bbchallenge holdout lists proved in Coq never to halt from the bla
 
 | | machines | directory | checked |
 |---|---|---|---|
-| **BB(7)** | seven holdouts of the June 2026 list (16,949,557 machines): `1RB1LD_1RC0RF_…`, `1RB0RC_1RC0RA_…`, `1RB1RE_1LC0RA_…`, `1RB1RE_1RC1RA_…`, `1RB1RF_0LC1LD_…`, and c01/c02 `1RB---_0RC0RA_…_0LD0LB`, `…_0RD0LB` | [`BB7/holdouts/`](BB7/holdouts/README.md) | CI `bb7-holdouts` |
+| **BB(7)** | 131 holdouts of the June 2026 list (16,949,557 machines): seven with individual arguments (`1RB1LD_1RC0RF_…`, `1RB0RC_1RC0RA_…`, `1RB1RE_1LC0RA_…`, `1RB1RE_1RC1RA_…`, `1RB1RF_0LC1LD_…`, and c01/c02 `1RB---_0RC0RA_…_0LD0LB`, `…_0RD0LB`) and 124 digit-list machines with one shared proof scheme | [`BB7/holdouts/`](BB7/holdouts/README.md) | CI `bb7-holdouts` |
 
 ## Superseded entries
 

@@ -893,10 +893,11 @@ jobs:
   bb7-holdouts:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb7-holdouts == 'true'
-    # BB7/holdouts: seven BB(7) holdouts never halt (16582, N2, N2m, H1, H2, c01, c02). check.py compiles them, ties each tm table to
-    # the file's machine string, checks the statement ~ halts tm c0 and requires closed assumptions (a few minutes).
+    # BB7/holdouts: 131 BB(7) holdouts never halt (16582, N2, N2m, H1, H2, c01, c02 and the 124 digit-list machines BB7_F*.v).
+    # check.py compiles them, ties each tm table to the file's machine string, checks the statement ~ halts tm c0 and
+    # requires closed assumptions (about half an hour).
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
     container:
       image: coqorg/coq:8.20.1
       options: --user root
@@ -926,7 +927,7 @@ jobs:
           coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
           make -f Makefile.coq Individual.vo Flip.vo
 
-      - name: Compile and check the seven proofs
+      - name: Compile and check the 131 proofs
         working-directory: BB7/holdouts/verify
         run: BUSYCOQ="$RUNNER_TEMP/busycoq/verify" python3 check.py
 
