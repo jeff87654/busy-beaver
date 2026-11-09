@@ -1,4 +1,4 @@
-# W2PR: a 25-state machine built on Racheline's B21, with five ω² phases instead of three
+# W2PR: a 25-state machine built on Racheline's B21, at level f_(ω²)^5
 
     0LI0LF_0RJ1RG_0RD1LC_1RH1RE_1LO0RH_1LA1LF_0LC1LA_1RB1RH_1RD0LF_1LP0RK_0LM1LL_0LL1LM_1LE1LN_0RQ0LM_0RP1LO_1LR0RH_1LF1RQ_1RZ0LS_1LH0LT_1LH1LU_0LE1LV_0LH0LW_1LH0LX_1LH1LY_0LE1LR
 
@@ -26,9 +26,9 @@ slots are used.
 | | |
 |---|---|
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB25_W2PR.halt`. It halts at the eighth refill. The halt is decided by a residue schedule (the refill accumulator mod 8, section 2), computed exactly in the proof. |
-| Score | Machine-checked: the halting tape holds N ones with Fh⁵(4↑↑341) < N, where Fh(n) = h_n(0) is the engine's level map at 0 (`sigma_lower_bound`; h_0(x) = x + 4, h_(m+1)(x) = h_m^(x+3)(1), as in B21). Fh is f_ω-class, so this is roughly f_ω^5(4↑↑341). The halt R0 = `1RZ` is read on a 0 and writes 1, so σ = N + 1. |
-| Level | **On paper only** (an argument, not a Coq lemma): about f_(ω²)^5(4↑↑340), two f_(ω²) phases above B21. |
-| Comparisons | Its proved bound is above B21's first published bound 4↑↑341, but below the proved bounds of R18a (BB(18)), J20 (BB(20)) and B21's ω² bound f_(ω²)^3(4↑↑341) (BB(21), `../BB21/verify_w2/`), so BB(25) ≥ BB(21) + 4 is the better proved bound for BB(25). W2PR's own ω² bound is not proved yet. On paper it is far above both, and above B21; the wiki's Champions table has no rows between BB(21) and BB(29) (checked 2026-11-08). Not yet reviewed by the bbchallenge community. |
+| Score | Machine-checked: the halting tape holds N ones with f_(ω²)^5(4↑↑341) < N (`BB25_W2PR_w2.sigma_lower_bound_wsq`, in [`verify_w2/`](verify_w2/)); first published with Fh⁵(4↑↑341) < N, where Fh(n) = h_n(0) is the engine's level map at 0 (`sigma_lower_bound`; h_0(x) = x + 4, h_(m+1)(x) = h_m^(x+3)(1), as in B21). The halt R0 = `1RZ` is read on a 0 and writes 1, so σ = N + 1. |
+| Level | Machine-checked, with the standard fast-growing hierarchy below ω³: five applications of f_(ω²), one per big phase, two more than B21's proved f_(ω²)^3(4↑↑341). |
+| Comparisons | **Machine-checked** (`beats_B21`): N is above B21's proved BB(21) bound f_(ω²)^3(4↑↑341), and so above every proved bound in the 2-symbol rows here below BB(29); through BB(25 + k) ≥ BB(25) + k it is also the best proved bound here for BB(26) to BB(28). That compares W2PR with B21's proved lower bound, not with an upper bound on B21's σ. The wiki's Champions table has no rows between BB(21) and BB(29) (checked 2026-11-08). Not yet reviewed by the bbchallenge community. |
 | Steps | Not computed. σ is at most the number of steps, so the bound on σ is a bound on the steps too. |
 
 ## 1. How it works
@@ -82,6 +82,12 @@ checks generated from the string) and the blank start configuration. It prints t
 confirms that `halt`, `sigma_lower_bound` and `BB25_W2PR_run.abstract_finalW` are closed under the global context. The
 proof also passes this project's `check.py` (extended to 25 states), 2026-11-08.
 
+[`verify_w2/`](verify_w2/) (added 2026-11-08): the ω² bound. All its files but `BB25_W2PR_bound.v` and
+`BB25_W2PR_w2.v` are byte-identical copies of `verify/`'s and of `../BB21/verify_w2/`'s (B21's proofs and ω² layer,
+J20's and R18a's proofs); its `share_check.sh` checks that. Built in CI (job `bb13-bb14`). Its probe re-checks the
+table (50 checks) and confirms that `halt`, `sigma_lower_bound`, `sigma_lower_bound_wsq` and `beats_B21` are closed
+under the global context. `check.py` PASS, 2026-11-08.
+
 [`tools/w2pr_writeup_chk.py`](tools/w2pr_writeup_chk.py) simulates the machine string (exactly, jumping only over
 same-state runs), without the Coq files (about 15 s). It checks:
 
@@ -96,21 +102,16 @@ same-state runs), without the Coq files (about 15 s). It checks:
 
 ## 4. Size and comparisons
 
-- **Proved:** Fh⁵(4↑↑341) < N, σ = N + 1, with Fh(n) = h_n(0) f_ω-class: roughly f_ω^5(4↑↑341). This is above B21's
-  first published bound 4↑↑341 (since Fh(n) ≥ n). By an easy argument (not a Coq lemma) it is far below R18a's proved
-  f_(ω·2)(f_ω(f_ω(f_10(2)))) and J20's proved f_(ω·2)(f_(ω+2)^2(f_10(2))): already f_(ω+1)(n) = f_ω^n(n) dominates
-  f_ω^5 for n ≥ 5. B21's proved f_(ω²)^3(4↑↑341) ([`../BB21/verify_w2/`](../BB21/verify_w2/)) is higher still, so
-  BB(25) ≥ BB(21) + 4 is the better proved bound for BB(25).
-- **On paper only** (an argument, not a Coq lemma): each big phase is an f_(ω²) step, as in B21 (see B21's write-up,
-  section 4), so five big phases give about f_(ω²)^5(4↑↑340). That is two f_(ω²) applications above B21's (on paper
-  about f_(ω²)^3(4↑↑340); the wiki's bound for B21 is f_(ω²)^2(4↑↑341)). If it is right, W2PR would fill the wiki's
-  empty rows BB(25) to BB(28). A formal version needs the same quantitative frontier-processing lemma as B21's f_(ω²)
-  bound; it is not done.
+- **Proved** ([`verify_w2/`](verify_w2/)): f_(ω²)^5(4↑↑341) < N, σ = N + 1 (`sigma_lower_bound_wsq`). It uses B21's
+  quantitative layer (`BB21_B21_qnt*.v`, see B21's write-up, section 4): each of phases 4 to 8 applies f_(ω²)
+  (`BB25_W2PR_bound.v`). In Coq it is above B21's proved f_(ω²)^3(4↑↑341) (`beats_B21`), and so above J20's and R18a's
+  proved bounds (B21's `beats_J20`). These compare proved lower bounds, not upper bounds on the other machines' σ.
+- The first published bound, Fh⁵(4↑↑341) < N (f_ω^5-sized, [`verify/`](verify/)), stays as it was.
 - Not yet reviewed by the bbchallenge community.
 
 ## Credit
 
 The ω² machinery is Racheline's (B21, the bbchallenge wiki's BB(21) champion). This project (the repository owner with
 Claude models (Anthropic) as agents) designed W2PR (the mod-8 refill: U1 = `1LV` and the copy V–Y of B21's refill
-cycle, 2026-11-07), wrote the Coq proof (2026-11-08) on top of this repository's B21 proof, the 25-state busycoq
-setup, the probe, the checker and this write-up.
+cycle, 2026-11-07), wrote the Coq proofs (2026-11-08: halting, then the ω² bound) on top of this repository's B21 proofs,
+the 25-state busycoq setup, the probe, the checker and this write-up.

@@ -17,7 +17,8 @@ the number of ones when R0 is read. Machine-checked, with no axioms:
     4↑↑341 < N                                            (sigma_lower_bound, the first published bound)
 
 with the standard fast-growing hierarchy below ω³ (f_(ω·(a+1))(n) = f_(ω·a+n)(n), f_(ω²)(n) = f_(ω·n)(n); 4↑↑0 = 1,
-4↑↑(n+1) = 4^(4↑↑n)). This is the largest proved bound in the 2-symbol rows here below BB(29). `beats_J20` compares
+4↑↑(n+1) = 4^(4↑↑n)). This is the best proved bound here for BB(21) to BB(24) (BB(21 + k) ≥ BB(21) + k); W2PR
+([`../BB25/`](../BB25/)) is above it. `beats_J20` compares
 with J20's proved lower bound, not with an upper bound on J20's σ; the ω² against ω·2 gap settles the real comparison
 on paper. Not yet reviewed by the bbchallenge community.
 
@@ -45,4 +46,4 @@ Machine by Racheline; analysis, Coq proofs (2026-11-08: halting, then the ω² b
 this project.
 
 W2PR ([`../BB25/`](../BB25/)) is B21 with a mod-8 refill (four more states): it halts after five big phases instead of
-three. Its proof reuses seven of the files in `verify/multifile/` unchanged.
+three, with proved bound f_(ω²)^5(4↑↑341), above B21's (`beats_B21`). Its proofs reuse the files here unchanged.

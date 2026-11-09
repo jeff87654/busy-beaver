@@ -14,7 +14,7 @@ are this project's. All 41 non-halting slots are used.
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB21_B21.halt`. It halts at the sixth refill. The halt is decided by a residue schedule (the refill accumulator mod 4, section 2), computed exactly in the proof. |
 | Score | Machine-checked: the halting tape holds N ones with f_(ω²)(f_(ω²)(f_(ω²)(4↑↑341))) < N (`BB21_B21_w2.sigma_lower_bound_wsq3`), and so with the wiki's f_(ω²)(f_(ω²)(4↑↑341)) < N, also stated in that form (`sigma_lower_bound_wsq`); first published with 4↑↑341 < N (`sigma_lower_bound`; 4↑↑0 = 1, 4↑↑(n+1) = 4^(4↑↑n)). The halt R0 = `1RZ` is read on a 0 and writes 1, so σ = N + 1. |
 | Level | Machine-checked, with the standard fast-growing hierarchy below ω³ (f_(ω·(a+1))(n) = f_(ω·a+n)(n), f_(ω²)(n) = f_(ω·n)(n)): f_(ω²)-class, with three applications of f_(ω²), one more than the wiki claims (section 4). |
-| Comparisons | **Machine-checked** (`beats_J20`): N is above J20's proved BB(20) bound f_(ω·2)(f_(ω+2)^2(f_10(2))), and so above R18a's (BB(18)) and every proved bound in the 2-symbol rows here below BB(29). That compares B21 with J20's proved lower bound; neither has a proved upper bound, and the real comparison (ω² against ω·2) is on paper. Not yet reviewed by the bbchallenge community. |
+| Comparisons | **Machine-checked** (`beats_J20`): N is above J20's proved BB(20) bound f_(ω·2)(f_(ω+2)^2(f_10(2))), and so above R18a's (BB(18)) and every proved bound in the 2-symbol rows here below BB(21); W2PR (BB(25)) has a higher one (`beats_B21`). That compares B21 with J20's proved lower bound; neither has a proved upper bound, and the real comparison (ω² against ω·2) is on paper. Not yet reviewed by the bbchallenge community. |
 | Steps | Not computed. σ is at most the number of steps, so the bound on σ is a bound on the steps too. |
 
 ## 1. How it works
@@ -129,8 +129,9 @@ context. `check.py` PASS, 2026-11-08.
   Phases 4, 5 and 6 each apply f_(ω²), starting from N_4 = J_3/4 ≥ 16·4↑↑341 blocks, and the factor-4 losses at the refills are
   absorbed (`fwsq_S`, `chain_step`, `chain_last`, `abstract_final_q`).
 - **In Coq** (`beats_J20`): N > J20's proved f_(ω·2)(f_(ω+2)^2(f_10(2))), using `J20_le` and the agreement of the
-  hierarchies (`f_w2_JZ`, `f_wk_JZ`). So B21's proved bound is the largest in the 2-symbol rows here below BB(29), above R18a's
-  (BB(18)) and J20's (BB(20)). This compares with J20's proved lower bound, not with an upper bound on J20's σ; the ω² against ω·2
+  hierarchies (`f_w2_JZ`, `f_wk_JZ`). So B21's proved bound is above every 2-symbol entry here with fewer states, including R18a's
+  (BB(18)) and J20's (BB(20)), and through BB(21 + k) ≥ BB(21) + k the best proved bound here for BB(22) to BB(24).
+  W2PR (BB(25), [`../BB25/`](../BB25/)) proves f_(ω²)^5(4↑↑341) and is above it in Coq (`beats_B21`). This compares with J20's proved lower bound, not with an upper bound on J20's σ; the ω² against ω·2
   gap settles the real comparison on paper.
 - The first published bound, 4↑↑341 < N (`../verify/`), stays as it was.
 - Not yet reviewed by the bbchallenge community.
