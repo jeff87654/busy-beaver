@@ -26,6 +26,9 @@ the BB(18) entries. No proved upper bound; not yet reviewed by the bbchallenge c
 
 In Coq, the 18-state R18a ([`../BB18/`](../BB18/), derived from Jacobzheng's J20) has a proved bound above J19's
 (`beats_J19`: f_(ω+7)(f_(ω+7)(5)) < σ(R18a)), so BB(19) ≥ BB(18) + 1 is the better proved bound for BB(19).
+Since 2026-11-08 the BB(18) entry is Argon's J18_w2_C, above R18a in Coq (`beats_R18a`), so BB(19) ≥ BB(18) + 1 >
+f_(ω·2)(2·f_ω^9(35)). Argon's 19-state J19_w2 (proved f_(ω·2)(2·f_ω(f_2(15))) < N) is below R18a's proved bound
+and is not listed.
 
 - [`1RQ1RL_0LI1RC..._1RZ1LS_0LE0LR.md`](1RQ1RL_0LI1RC_0LD1LF_0RA1LD_1RB1RE_1LH0LG_1LF1LG_1RE1RM_1LJ1LI_0LK1LI_1RL1RA_0RL0RE_0LN1RM_1LO0LO_1RE1LP_1LN1LN_1LR1RQ_1RZ1LS_0LE0LR.md):
   the write-up (the sweep, the two modes, the expansion, the outer rounds, the refill, the run, parity, the score,

@@ -1,0 +1,13 @@
+The Coq Proof Assistant, version 8.20.1
+== BB182.v ==
+   ok, 6 s
+== Individual182.v ==
+   ok, 6 s
+== BB18_J18_w2_C_tnf.v ==
+Closed under the global context
+Closed under the global context
+   ok, 24 s
+== BB18_J18_w2_C_tnf_cmp.v ==
+   ok, 9 s
+COMPILE DONE
+probe: 5 of 5 theorems closed under the global context

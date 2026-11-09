@@ -1,0 +1,14 @@
+The Coq Proof Assistant, version 8.20.1
+== BB162.v ==
+   ok, 6 s
+== Individual162.v ==
+   ok, 6 s
+== BB16_J16_w2.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 16 s
+== BB16_J16_w2_cmp.v ==
+   ok, 8 s
+COMPILE DONE
+probe: 7 of 7 theorems closed under the global context

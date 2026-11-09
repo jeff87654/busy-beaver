@@ -1,7 +1,7 @@
 name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/verify, BB8/verify_m8,
-# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB7/holdouts, BB11/verify (without the n1 comparison), BB12/verify_m12, BB13/, BB14/, BB16/, BB17/, BB18/, BB19/, BB20/, BB21/, BB25/, BB29/, BB31/, BB33/, BB43/, BB34/, BB44/, BB54/, PA/m238, PA/goldbach and ZF/. Not built here, because they take long
+# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB7/holdouts, BB11/verify (without the n1 comparison), BB12/verify_m12, BB13/, BB14/, BB15/, BB16/, BB17/, BB18/, BB19/, BB20/, BB21/, BB25/, BB29/, BB31/, BB33/, BB43/, BB34/, BB44/, BB54/, PA/m238, PA/goldbach and ZF/. Not built here, because they take long
 # (recorded local builds are in their directories): BB10/ (about 20 minutes), BB11/'s comparison with n1 (about 6 minutes), BB12/verify (about 3 hours) and stage 2 of
 # BB9/verify_fw2 (about 2 hours).
 #
@@ -73,8 +73,8 @@ jobs:
             bb8-m8:
               - '{BB8/**,BB9/verify_c04/**,BB9/verify_fw2/multifile/**}'
               - '!**/*.md'
-            bb13-bb14:                    # also builds BB11/verify (M11b), BB12/verify_m12 (M12), BB16/verify*, BB17/verify, BB18/verify*, BB19/verify*, BB20/verify, BB21/verify*, BB25/verify* and BB29/31/33/verify
-              - '{BB11/verify/**,BB12/verify_m12/**,BB13/**,BB14/**,BB16/verify*/**,BB17/verify/**,BB18/verify*/**,BB19/verify*/**,BB20/verify/**,BB21/verify*/**,BB25/verify*/**,BB29/verify/**,BB31/verify/**,BB33/verify/**}'
+            bb13-bb14:                    # also builds BB11/verify (M11b), BB12/verify_m12 (M12), BB15/verify, BB16/verify*, BB17/verify, BB18/verify*, BB19/verify*, BB20/verify, BB21/verify*, BB25/verify* and BB29/31/33/verify
+              - '{BB11/verify/**,BB12/verify_m12/**,BB13/**,BB14/**,BB15/verify/**,BB16/verify*/**,BB17/verify/**,BB18/verify*/**,BB19/verify*/**,BB20/verify/**,BB21/verify*/**,BB25/verify*/**,BB29/verify/**,BB31/verify/**,BB33/verify/**}'
               - '!**/*.md'
             bb9-fw2:
               - 'BB9/verify_fw2/**'
@@ -307,9 +307,10 @@ jobs:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb13-bb14 == 'true'
     # BB11/verify (M11b, f_(omega+1); its comparison with n1 is not built here), BB12/verify_m12, BB13/, BB14/: the 12-,
-    # 13- and 14-state f_(omega+2) machines M12, M13, M13b, M14, M14b and M14d_18, BB16/verify*, BB17/verify and
+    # 13- and 14-state f_(omega+2) machines M12, M13, M13b, M14, M14b, M14d_18 and M14_31, BB15/verify (Argon's 15-state
+    # f_(omega+13) machine J15_fw13), BB16/verify_j16 (Argon's 16-state f_(omega*2) machine J16_w2), BB16/verify*, BB17/verify and
     # BB18/verify* (the 16- to 18-state f_(omega+3) machines M16_B, M16_C, M17_B, BB18_fw3, M18_4round and M18_229round,
-    # and R18a, the 18-state f_(omega*2) machine derived from J20),
+    # and R18a, the 18-state f_(omega*2) machine derived from J20, and BB18/verify_j18c, Argon's 18-state f_(omega*2) machine J18_w2_C),
     # BB19/verify* (the 19-state f_(omega+4) machines M19_fw4 and M19_fw4_A, and Jacobzheng's f_(omega+7)^2 machine J19),
     # BB20/verify (Jacobzheng's 20-state f_(omega*2) machine J20), BB21/verify (Racheline's 21-state machine B21: halt and
     # 4^^341 < sigma, about 2 minutes; BB21/verify_w2: its omega^2 bound, with copies of the B21, J20 and R18a proofs,
@@ -324,9 +325,10 @@ jobs:
       matrix:
         dir: ['BB11/verify/multifile', 'BB12/verify_m12/multifile', 'BB13/verify/multifile', 'BB13/verify_m13b/multifile',
               'BB14/verify/multifile', 'BB14/verify_m14b/multifile', 'BB14/verify_m14d/multifile',
-              'BB16/verify/multifile', 'BB16/verify_m16c/multifile', 'BB17/verify/multifile',
+              'BB14/verify_m14_31/multifile', 'BB15/verify/multifile',
+              'BB16/verify/multifile', 'BB16/verify_m16c/multifile', 'BB16/verify_j16/multifile', 'BB17/verify/multifile',
               'BB18/verify/multifile', 'BB18/verify_m18r4/multifile', 'BB18/verify_m18r229/multifile',
-              'BB18/verify_r18a/multifile',
+              'BB18/verify_r18a/multifile', 'BB18/verify_j18c/multifile',
               'BB19/verify/multifile', 'BB19/verify_m19a/multifile', 'BB19/verify_jz19/multifile',
               'BB20/verify/multifile', 'BB21/verify/multifile', 'BB21/verify_w2/multifile',
               'BB25/verify/multifile', 'BB25/verify_w2/multifile',
@@ -363,7 +365,7 @@ jobs:
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
           # one 'Closed under the global context' per Print Assumptions line of probe.v (3 for M13b/M14b, 4 for
-          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, B21 and W2PR, 4 for W2PR's verify_w2, 5 for R18a and B21's verify_w2, 6 for M11b and M16_C)
+          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, B21 and W2PR, 4 for W2PR's verify_w2, 5 for R18a, B21's verify_w2, J15_fw13 and J18_w2_C, 6 for M11b, M16_C and M14_31, 7 for J16_w2)
           expected=$(grep -c '^Print Assumptions' probe.v)
           closed=$(grep -c 'Closed under the global context' probe.log || true)
           if grep -q 'Axioms:' probe.log || [ "$expected" -lt 3 ] || [ "$closed" -ne "$expected" ]; then

@@ -1,0 +1,6 @@
+-Q . BB8
+-Q ../../../busycoq/verify BusyCoq
+BB182.v
+Individual182.v
+BB18_J18_w2_C_tnf.v
+BB18_J18_w2_C_tnf_cmp.v

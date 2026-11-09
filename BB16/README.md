@@ -1,6 +1,42 @@
 # BB16/: 16 states, 2 symbols
 
-## Current entry: M16_C
+## Current entry: J16_w2 (Argon, on Jacobzheng's engine)
+
+    1LG1LA_0LI1RC_0LD1LG_0RE1LD_0RM1RL_1RB1RF_1LH0LA_1RF0RN_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LG0RN_0RP1RO_1RZ1RM_1LB1LI
+
+Halts from the blank tape; O0 (`1RZ` in the string) is the halt. It is read on a 0 and writes 1, so σ = N + 1, where
+N is the number of ones when O0 is read. Machine-checked, with the standard fast-growing hierarchy and no axioms:
+
+    f_(ω·2)(f_15(2)) < N,   σ = N + 1                                      (sigma_lower_bound)
+    f_(ω+2)(f_(ω+1)^114(f_(ω+2)^3(f_(ω+3)(9)))) < N                       (beats_M16_C: M16_C's proved bound, below)
+    f_(ω+2)^116(f_(ω+3)^3(9)) < N                                          (beats_M17_B: the BB(17) entry's)
+    f_(ω+13)(20) < N                                                       (beats_J15: the BB(15) entry's)
+    f_(ω+2)^30(f_(ω+1)(f_(ω+1)(3))) < N                                    (beats_M14_31: the BB(14) entry's)
+
+and the exact score N = 2j + 4 for the j given by the machine's recursion (`score_exact`; not evaluated).
+
+J16_w2 runs the 12-state core of Jacobzheng's J20 ([`../BB20/`](../BB20/)), renamed so that it starts in A, with the
+period-3 rewriter of J15_fw13 ([`../BB15/`](../BB15/)) and one more state, P: a merged block of length ≡ 0 (mod 3)
+now refills the outer list as [3, 2^k] instead of halting or giving [2^k], which lifts the level from f_(ω+13) to
+f_(ω·2). The halt comes after two refills, at a residue the proof computes mod 9. Argon also gives the machine in
+tree normal form, `1LB1LA_1LC0LA_..._0LP1LB_0RJ1LP`; that string is the same machine with the states renamed
+(checked here by comparing the two tables, not in Coq).
+
+So BB(16) and, by BB(17) ≥ BB(16) + 1, BB(17) have their best proved bounds here (`beats_M17_B`). The bbchallenge
+wiki's Champions table has no BB(16) row (checked 2026-11-08). The 18-state J18_w2_C ([`../BB18/`](../BB18/)) is
+above it in Coq. Not yet reviewed by the bbchallenge community.
+
+- [`1LG1LA_0LI1RC..._1RZ1RM_1LB1LI.md`](1LG1LA_0LI1RC_0LD1LG_0RE1LD_0RM1RL_1RB1RF_1LH0LA_1RF0RN_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LG0RN_0RP1RO_1RZ1RM_1LB1LI.md):
+  the write-up (the table, the expansion and the refill, the run, the mod-3 and mod-9 residues, the size,
+  verification, comparisons, credit).
+- [`verify_j16/`](verify_j16/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_lower_bound`, `beats_J15`, `beats_M14_31`, `beats_M16_C`, `beats_M17_B`. About 40 s to compile; built and
+  probed in CI (job `bb13-bb14`), which requires seven closed `Print Assumptions` reports.
+
+Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-08), by
+compressing Jacobzheng's J19/J20 architecture; re-checked here, with the comparison file.
+
+## Previous entry: M16_C
 
     1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_0RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_0RO0LO_1LP0LE_1RZ1LI
 
@@ -20,8 +56,8 @@ three f_(ω+2) applications more than M16_B, before M16_B's 114 Kd1 steps, final
 On paper (an argument, not a Coq lemma): the proved bound is above M16_B's f_(ω+2)(f_(ω+3)(9)) = f_(ω+2)^10(9), but
 **below the proved lower bound of the 14-state entry M14d_18** ([`../BB14/`](../BB14/)), f_(ω+2)^17(f_(ω+1)^2(3)):
 M16_C's bound is at most f_(ω+2)^14(9), because f_(ω+1)^114(y) ≤ f_(ω+2)(y) for y ≥ 114 and f_(ω+3)(9) = f_(ω+2)^9(9),
-while f_(ω+1)^2(3) > 9. Since BB(16) ≥ BB(14) + 2, M14d_18 gives a better proved lower bound for BB(16) than M16_C's
-own proved bound. This compares proved lower bounds only; M16_C's true score is not proved smaller. It is also below
+while f_(ω+1)^2(3) > 9. Since BB(16) ≥ BB(14) + 2, M14d_18 gave a better proved lower bound for BB(16) than M16_C's
+own proved bound (J16_w2, above, is far above both). This compares proved lower bounds only; M16_C's true score is not proved smaller. It is also below
 M17_B ([`../BB17/`](../BB17/)). The bbchallenge wiki's BB(16) row (checked 2026-11-04) is M16_B; M16_C is not yet
 reviewed by the bbchallenge community.
 
@@ -36,7 +72,7 @@ reviewed by the bbchallenge community.
 Found and proved by Argon, a Google Gemini model, run by the repository owner in Google's Antigravity (2026-11-03);
 re-checked here.
 
-## Previous entry: M16_B
+## Earlier entry: M16_B
 
     1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_0RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_0RO0LO_1LP1RM_1RZ1LI
 

@@ -1,5 +1,10 @@
 # BB17/: 17 states, 2 symbols
 
+**Better proved bound: BB(17) ≥ BB(16) + 1.** The 16-state J16_w2 ([`../BB16/`](../BB16/)) has the proved
+bound f_(ω·2)(f_15(2)) < N, and N is above M17_B's proved bound in Coq (`beats_M17_B`, 2026-11-08). So BB(17) ≥
+BB(16) + 1 > f_(ω·2)(f_15(2)) is the best proved bound here for BB(17). Argon's 17-state J17_w2 (same family, proved
+f_(ω·2)(f_13(2)) < N) is below that and is not listed. M17_B is kept below as the last 17-state entry.
+
 ## Current entry: M17_B
 
     1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_0RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_1RQ0LO_1LP1LN_0RB1LI_1RZ1LO
