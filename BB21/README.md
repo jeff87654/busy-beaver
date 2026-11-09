@@ -33,3 +33,6 @@ invariant `INV` and proved to be preserved by every transition.
   rules on concrete instances, the boot and the residue schedule.
 
 Machine by Racheline; analysis, Coq proof (2026-11-08), probe, write-up and packaging by this project.
+
+W2PR ([`../BB25/`](../BB25/)) is B21 with a mod-8 refill (four more states): it halts after five big phases instead of
+three. Its proof reuses seven of the files in `verify/multifile/` unchanged.
