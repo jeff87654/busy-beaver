@@ -1,8 +1,8 @@
-# BB7/holdouts: five BB(7) holdouts that never halt
+# BB7/holdouts: seven BB(7) holdouts that never halt
 
-Five 7-state machines from the bbchallenge BB(7) holdout list, each proved in Coq **never to halt** from the blank
+Seven 7-state machines from the bbchallenge BB(7) holdout list, each proved in Coq **never to halt** from the blank
 tape (`Theorem nonhalt : ~ halts tm c0`), with no axioms (`Print Assumptions` reports "Closed under the global
-context"). None of them is a record candidate; deciding them removes five machines from the holdout list.
+context"). None of them is a record candidate; deciding them removes seven machines from the holdout list.
 
 | machine | verdict | community status (2026-10-29) | proof |
 |---|---|---|---|
@@ -11,12 +11,14 @@ context"). None of them is a record candidate; deciding them removes five machin
 | `1RB1RE_1LC0RA_1RF0RD_1LC0LE_1LD0LC_1RG0RE_0RB---` (N2m) | never halts | holdout, undecided | [`BB7_N2m_1RB1RE.v`](verify/BB7_N2m_1RB1RE.v) |
 | `1RB1RE_1RC1RA_0LD1LE_1RE1LE_0RG0RF_---0LG_1LC1RA` (H1) | never halts | holdout, undecided | [`BB7_H1_1RB1RE.v`](verify/BB7_H1_1RB1RE.v) |
 | `1RB1RF_0LC1LD_1RD1LD_0RE0RG_1LB1RF_1RA1RD_---0LE` (H2) | never halts | holdout, undecided | [`BB7_H2_1RB1RF.v`](verify/BB7_H2_1RB1RF.v) |
+| `1RB---_0RC0RA_0RD1LG_0LE1RC_1RF0LF_1LE1LD_0LD0LB` (c01) | never halts | holdout, undecided (2026-11-08) | [`BB7_c01_1RB_0RC0RA.v`](verify/BB7_c01_1RB_0RC0RA.v) |
+| `1RB---_0RC0RA_0RD1LG_0LE1RC_1RF0LF_1LE1LD_0RD0LB` (c02) | never halts | holdout, undecided (2026-11-08) | [`BB7_c02_1RB_0RC0RA.v`](verify/BB7_c02_1RB_0RC0RA.v) |
 
-**Community status.** All five strings appear verbatim, in this form, in the latest public bbchallenge holdout list,
+**Community status.** All seven strings appear verbatim, in this form, in the latest public bbchallenge holdout list,
 `undecided_06.06.2026_16,949,557.txt.gz` (Phase 2 Stage 7, first step), lines 11,438,768 / 6,924,647 / 15,412,813 /
-15,678,661 / 15,774,786. None has a page on the bbchallenge wiki, and we found no other record of them being decided.
+15,678,661 / 15,774,786 / 286,167 / 286,168. None has a page on the bbchallenge wiki, and we found no other record of them being decided.
 The wiki lists one later step (Andrew Ducharme, FAR RWL_mod, 16,949,557 → 15,743,264) whose holdout list is not yet
-public, so we could not check that step; if it removed any of these machines, that decision came first. Our five resisted
+public, so we could not check that step; if it removed any of these machines, that decision came first. The first five resisted
 the generic deciders we tried (n-gram CPS, CTL variants); RWL_mod was not among them.
 
 ## The arguments
@@ -58,6 +60,21 @@ E→D, F→G, G→E) but a different start: it starts in H1's state B on a blank
 with digit list [1], which satisfies H1's invariant. The proof file is H1's proof with the renamed table and a new
 start lemma. H1's rules and invariant go through unchanged.
 
+**c01** `1RB---_0RC0RA_0RD1LG_0LE1RC_1RF0LF_1LE1LD_0LD0LB` and **c02** `1RB---_0RC0RA_0RD1LG_0LE1RC_1RF0LF_1LE1LD_0RD0LB` (they differ only in G0, `0LD` / `0RD`). At the right end of the tape in
+state C reading 0, the tape is a digit list: conf D = enc(D) C> 0^∞ with enc(d :: T) = (10)^d 0 enc(T). Three macro
+rules, proved for all parameter values, describe the run:
+
+- `R_dec`: [a+2, d+1, T] → [a+4, d, T] (the first digit grows while the next one counts down);
+- `R_borrow`: [k+m+3, 0^(k+1), d+1, T] → [2, 1^k, m+3, d, T] (a run of zero digits is refilled with 1s, and the rest
+  of the first digit moves on);
+- `R_end`: [m+1, 0^z] → [2, 1^(m+1)] (the list is used up and rebuilt).
+
+The halt (A1) could only be reached by a borrow whose first digit is too small for the run of zeros after it. The
+invariant `INV` says that the first digit is at least 2 and that every run of z ≥ 1 zero digits followed by a nonzero
+digit has z + 2 ≤ the sum of the digits before it; every rule keeps it (`step_inv`), so every borrow has room. The
+blank tape reaches conf [3] after 22 steps (`init_reach`). The machine builds very long lists (about 3,000 digits
+after 3.2·10^6 steps), which is why the generic deciders did not settle it.
+
 ## Checking
 
 The proofs use busycoq (commit `bd2e36f`, Coq 8.20.1) and the same 7-state setup as [`../verify/`](../verify/)
@@ -79,10 +96,13 @@ two minutes. CI job `bb7-holdouts` runs it.
 
 ## Credit
 
-The proofs are by Claude agents (Anthropic) working in this project, 2026-09 to 2026-10. They used this project's
+The proofs of the first five machines are by Claude agents (Anthropic) working in this project, 2026-09 to 2026-10. They used this project's
 symbolic-execution engine for the cell-level lemmas and hand-written Coq for the families, invariants and composition.
 The holdout list is the bbchallenge community's (Phase 1 enumeration by mxdys's enumerator
 [ccz181078/TM](https://github.com/ccz181078/TM) and contributors; Phase 2 stages as listed on the
 [wiki](https://wiki.bbchallenge.org/wiki/BB(7))). The machine 16582 was singled out by this project's
 growth ranking of a sample of Phase 1 holdouts. The pairs N2/N2m and H1/H2 came out of this project's scans of
-the June 2026 list. Not yet reviewed by the bbchallenge community.
+the June 2026 list. c01 and c02 were analysed and proved in Coq by Argon, a Google Gemini model run by the repository owner in Google's
+Antigravity (2026-11-07), with this project's symbolic-execution engine for the cell-level lemmas; the logical path
+in their `Require` line was changed from `BB8` to `BB7` here, and they were re-checked here. Not yet reviewed by the
+bbchallenge community.
