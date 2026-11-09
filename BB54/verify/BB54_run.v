@@ -2,9 +2,10 @@
     reaches the Ligocki configuration B(5,1,0) [3 1] 0^inf, and the score
     machinery for its sigma value.
 
-    This machine is the BB(5,4) champion of the Busy Beaver Challenge up to
-    the renaming of the states A <-> B and of the symbols 2 <-> 3; see
-    ../tools/explore.py, which checks the equivalence exhaustively.  Its
+    This machine is the BB(5,4) champion listed on the wiki's Champions
+    page (../tools/explore.py checks its equivalence, under the renaming of
+    the states A <-> B and of the symbols 2 <-> 3, with the string
+    1LD2RA3RB1LC_1LD2LA3RB---_2RA1LA3RC2LC_2RA---2LD2LE_------1RZ1LD).  Its
     runtime is claimed to be larger than [f_w^2 (10 ↑^4 10 ↑↑ 65533)] on the
     wiki's Champions page.
 

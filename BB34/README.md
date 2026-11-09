@@ -35,10 +35,10 @@ rewriting.  See [verify/coq_quirks.md](verify/coq_quirks.md) for the details.
 ## Build
 
     cd verify
-    BUSYCOQ=../busycoq/verify ./compile_clean.sh
+    BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh
 
-Needs Coq 8.20.1 and a busycoq checkout (commit `bd2e36f`); the seven busycoq `verify/`
-files needed are included in [busycoq/](busycoq/).  The whole build takes about 40 s on a
+Needs Coq 8.20.1 and a busycoq checkout (commit `bd2e36f`), whose seven needed
+`verify/` files must be compiled first.  The whole build takes about 40 s on a
 modern laptop.  See [verify/README.md](verify/README.md) for details.
 
 ## Layout
@@ -46,9 +46,10 @@ modern laptop.  See [verify/README.md](verify/README.md) for details.
     README.md                                       this file
     1RB3LB1RZ2RA_2LC3RB1LC2RA_3RB1LB3LC2RC.md      the mathematical write-up
     verify/                                         the Coq development
-    busycoq/                                        the busycoq files the proof depends on
-    tools/sim.py                                    a small Python simulator (cross-check)
-    tools/gen_start.py                              generator for verify/BB34_start.v
+
+The Python simulator (`tools/sim.py`) and the generator of `verify/BB34_start.v`
+(`tools/gen_start.py`) mentioned in the write-up and in the comments are not included in
+this repository; `BB34_start.v` is checked by Coq on its own, step by step.
 
 ## Status
 

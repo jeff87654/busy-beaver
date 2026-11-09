@@ -1,47 +1,28 @@
 # BB(5, 4)
 
-BB(5,4) champion **1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ**
-(the machine in `../bb54.txt`): an **axiom-free Coq proof that the machine
-halts**, together with the **exact value of its σ** and a machine-checked
-analysis of the structure of the run.
+BB(5,4) champion **1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ** (Jacobzheng, 2026; the machine the bbchallenge wiki's Champions page lists
+for BB(5,4)).  The Coq development here, by MiniMax (contributed by loader3229, PR #48), proves two things, axiom-free:
 
-This machine is the BB(5,4) champion of the Busy Beaver Challenge *up to the
-renaming of the states A↔B and of the symbols 2↔3*; `tools/explore.py` checks
-the equivalence exhaustively.  It is the machine the wiki's Champions page
-lists for BB(5,4).
+* **the machine halts from the blank tape** (`bb54_halts : halts tm c0`, `BB54_halt.v`);
+* **the exact value of its σ**, as a closed expression in Ligocki's `g` hierarchy (`bb54_halt_main`):
 
-## The two runtime bounds
+      σ = 2 M1 + 2 M0 + X + 5 ,   X = g_5(g_4(0)),  M0 = gchain (2X) 3 0,  M1 = gchain (2 M0) (X+2) 0 .
 
-The Champions page listed, for BB(5,4), the **runtime** bound
+**No comparison of σ with the wiki's bound is proved in Coq.**  The Champions page lists for BB(5,4) the
+runtime bound `> f_ω²(10 ↑^4 10 ↑↑ 65533)` (Jacobzheng, marked "not independently verified").
+[The size of σ](#the-size-of-σ) below is a hand calculation on the closed forms which places σ between two
+numbers:
 
-    > f_ω² (10 ↑^4 10 ↑↑ 65533) .
+    f_ω² (10 ↑^4 10 ↑↑ 65533)   <   σ   <   f_ω² (2 ↑^4 2 ↑^3 4)     (on paper, not in Coq).
 
-That number is **Jacobzheng's original lower bound** — Jacobzheng, 2026, the
-wiki marking it *"not independently verified"*.  It is the number that appears
-in the question this development answers, and it is the **smaller** of the
-two bounds below.
+The left inequality gives the wiki's bound on paper (the runtime is at least σ).  The right-hand number is an
+*upper* bound for σ, not a new lower bound.  What the hand calculation rests on is partly in Coq: the inner
+tower comparison `10 ↑↑ 65533 < 2 ↑^3 4` (`BB54_tower.v`) and the identity `2 ↑^4 2 ↑^3 4 = 2X + 4`
+(`X_inner` of `BB54_bound.v`).
 
-The bound that the structure of the machine itself gives — the one the wiki's
-entry is being corrected to — is
-
-    > f_ω² (2 ↑^4 2 ↑^3 4)   =   f_ω² (2X + 4)  ,
-
-where `X = g_5(g_4(0))` is the descent parameter of the main regime.  The
-identity `2 ↑^4 2 ↑^3 4 = 2X + 4` is **proved in Coq** (`X_inner` of
-`BB54_bound.v`): the inner argument of the refined bound is a number *of the
-machine itself* — it is exactly the number of twos that the first D/E phase
-of the main regime has to erase — and not a generic tower.
-
-The three numbers come out in the order
-
-    f_ω² (10 ↑^4 10 ↑↑ 65533)   <   σ   <   f_ω² (2 ↑^4 2 ↑^3 4)  ,
-
-so the inequality asked for, "σ > f_ω(f_ω(10 ↑^4 10 ↑↑ 65533))", **does
-hold**: Jacobzheng's bound is below the σ of the machine, and the refined
-bound is above it.  The comparison of the three is a hand calculation on the
-closed forms; the inner tower comparison `10 ↑↑ 65533 < 2 ↑^3 4` on which it
-rests is, however, **proved in Coq** (`BB54_tower.v`).  See
-[The size of σ](#the-size-of-σ).
+In this development `f_ω(n)` means `2 ↑^(n+1) (n+3)` (`f_omega` of `BB54_score.v`).  This is a Knuth-arrow
+function, not the fast-growing hierarchy's f_ω.  It is at least as large as the FGH f_ω, so on paper a lower
+bound written with it implies the same bound with the FGH f_ω.
 
 The write-up of the mathematics is in
 [1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ.md](1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ.md);
@@ -61,22 +42,23 @@ the Coq development is in [verify/](verify/).
 | `a3_step` | `BB54_rules.v` | the A3 sweep: `B(k,0,m, 3 1^b r) -->* B(k+1,b,m) r` |
 | `chain_step`, `chain` | `BB54_rules.v` | the long chain: `B(2,n,m) [3 r] -->* B(2,0, 2^n(m+2)-2) [3 r]` |
 | `reaches_score` | `BB54_run.v` | `c0 -->* c_score`, where `c_score = B(5,0,g_4(0)) [3 1] 0^inf` |
-| `sigma_eq` | `BB54_score.v` | `sigma = knuth 4 2 3 + 4`, i.e. **σ = (2 ↑^3 4) + 4 = 2^65536 + 4** at that point of the run |
-| `bb54_main` | `BB54_score.v` | all of the above in one statement |
+| `sigma_eq` | `BB54_score.v` | `sigma = knuth 4 2 3 + 4`: an *intermediate* count, the nonzero cells of `c_score`, (2 ↑^3 4) + 4 = (2 ↑↑ 65536) + 4; not the σ of the machine (that is `sigma_final`) |
+| `bb54_main` | `BB54_score.v` | `reaches_score` and `sigma_eq` in one statement (the intermediate configuration, not the halt) |
 | `D_phase_even`, `D_phase_odd` | `BB54_dphase.v` | the D/E phase for an **arbitrary** number of twos: an even number continues, an odd number halts the machine |
 | `bb54_dchain` | `BB54_dphase.v` | `B(5,0,g_4(0)) [3 1] 0^inf -->* B(2X+1,1,0) [3 1]^3 0^inf` with `X = g_5(g_4(0))` |
 | `level`, `level_gen` | `BB54_dphase.v` | a level of the main regime: `T` rounds (a B rule and an A3 sweep each) |
 | `reaches_d1` | `BB54_halt.v` | `c0 -->* B(2X+1,1,0) [3 1]^3 0^inf` |
 | `level0`, `level1` | `BB54_halt.v` | the two levels of the main regime |
+| **`bb54_halts`** | **`BB54_halt.v`** | **`halts tm c0` — the machine halts from the blank tape** (from `bb54_halt`, since `E3` is `None` in `tm`) |
 | **`bb54_halt`** | **`BB54_halt.v`** | **the machine halts**: `c0 -->* E;; (3^(2M1) E> 3 (1 3)^(M0+X/2+1) 1 0^inf)`, the head being on a 3 in state E, where `E3 = 1RZ` |
 | `sigma_final` | `BB54_halt.v` | the number of nonzero cells at halting: **σ = 2 M1 + 2 M0 + X + 5** |
-| `bb54_halt_main` | `BB54_halt.v` | the run and its σ in one statement |
+| **`bb54_halt_main`** | **`BB54_halt.v`** | the run to the halting configuration and its σ in one statement (the headline) |
 | `knuth_3_2_4` | `BB54_bound.v` | `2 ↑^3 4 = 2 ↑↑ 65536` — the shape of the third arrow |
 | `knuth_4_2_3` | `BB54_bound.v` | `2 ↑^4 3 = 2 ↑^3 4` |
 | `g4_zero_closed` | `BB54_bound.v` | `2 g_4(0) + 4 = 2 ↑^3 4` — the level-4 closed form |
 | **`X_inner`** | **`BB54_bound.v`** | **`2 ↑^4 2 ↑^3 4 = 2X + 4`** — the inner argument of the refined runtime bound is the descent parameter of the machine |
-| `target_is_jacobzheng` | `BB54_bound.v` | the wiki's entry is Jacobzheng's original bound: `target = f_ω²(10 ↑^4 10 ↑↑ 65533)` |
-| **`target_refined_eq`** | **`BB54_bound.v`** | **the refined runtime bound is `f_ω²(2 ↑^4 2 ↑^3 4) = f_ω²(2X + 4)`** |
+| `target_is_jacobzheng` | `BB54_bound.v` | `target` (a definition) unfolds to `f_ω²(10 ↑^4 10 ↑↑ 65533)`, the wiki's number written with this `f_omega` |
+| `target_refined_eq` | `BB54_bound.v` | `f_ω²(2 ↑^4 2 ↑^3 4) = f_ω²(2X + 4)` (the upper comparison number, rewritten) |
 | `tower10_inv` | `BB54_tower.v` | the invariant of the tower comparison: `4 · (10 ↑↑ n) + 4 ≤ 2 ↑↑ (n+3)` |
 | **`tower10_lt`** | **`BB54_tower.v`** | **`10 ↑↑ 65533 < 2 ↑↑ 65536`** — the inner tower of Jacobzheng's bound is *below* the inner tower of the refined one |
 | **`tower10_lt_tower3`** | **`BB54_tower.v`** | **`10 ↑↑ 65533 < 2 ↑^3 4`** — the same, in the form in which the two bounds write it |
@@ -178,19 +160,18 @@ and therefore
 
     f_ω² (10 ↑^4 10 ↑↑ 65533)   <   σ   <   f_ω² (2 ↑^4 2 ↑^3 4) .
 
-So the wiki's original entry (Jacobzheng's bound) is *below* the σ of the
-machine, and the bound derived from the machine is *above* it: the latter is
-the accurate one, and it is the one the wiki's runtime entry is being
-corrected to.
+So, on paper, the wiki's bound (Jacobzheng's) is *below* the σ of the
+machine, and `f_ω²(2 ↑^4 2 ↑^3 4)` is *above* it, i.e. it is an upper bound
+for σ.
 
 **This is a hand calculation on the closed forms, not a Coq proof.**  What
 *is* proved in Coq is the identification with the machine and the direction
 of the inner towers:
 
-* `target = f_ω²(10 ↑^4 10 ↑↑ 65533)` (`target_is_jacobzheng`) — the wiki's
-  entry is Jacobzheng's original bound;
-* `2 ↑^4 2 ↑^3 4 = 2X + 4` (`X_inner`) — the inner argument of the refined
-  bound is the descent parameter of the machine;
+* `target = f_ω²(10 ↑^4 10 ↑↑ 65533)` (`target_is_jacobzheng`, an unfolding:
+  the wiki's number, written with this `f_omega`);
+* `2 ↑^4 2 ↑^3 4 = 2X + 4` (`X_inner`) — the inner argument of the upper
+  comparison number is the descent parameter of the machine;
 * `f_ω²(2 ↑^4 2 ↑^3 4) = f_ω²(2X + 4)` (`target_refined_eq`);
 * `10 ↑↑ 65533 < 2 ↑^3 4` (`tower10_lt`, `tower10_lt_tower3`) — the
   inequality that decides the comparison of the two bounds, and whose
@@ -222,7 +203,7 @@ details.
 `Individual54.v`, `BB54_rules.v`, `BB54_start.v`, `BB54_run.v`,
 `BB54_score.v`, `BB54_dphase.v`, `BB54_halt.v`, `BB54_bound.v`,
 `BB54_tower.v` and `probe.v` all compile from scratch on Coq 8.20.1, and
-`probe.v` reports that all 79 of the theorems it checks are *closed under
+`probe.v` reports that all 80 of the theorems it checks are *closed under
 the global context* — that is, the proof uses no axioms at all.
 
 What is *not* proved in Coq is the comparison of the three numbers above: the

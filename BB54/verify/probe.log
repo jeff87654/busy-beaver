@@ -123,6 +123,8 @@ bb54_halt
        (E,
         ([3] ^^ (2 * M1) *> const 0, 3,
          3 >> pat13 (S (M0 + Xh)) (1 >> const 0)))
+bb54_halts
+     : halts tm c0
 sigma_final
      : nat
 final_cells_count
@@ -216,6 +218,7 @@ tower10_lt_tower3
                   (Decimal.D5
                      (Decimal.D5 (Decimal.D3 (Decimal.D3 Decimal.Nil))))))) <
        knuth 3 2 4
+Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context

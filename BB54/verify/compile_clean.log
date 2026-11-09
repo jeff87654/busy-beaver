@@ -1,114 +1,26 @@
+# From-scratch build of BB54/verify after the PR #48 follow-up (theorem bb54_halts added), 2026-11-08:
+# Coq 8.20.1 (Coq Platform 2025.01), Windows 11, shared machine (wall-clock times); busycoq bd2e36f, its 7 needed
+# files compiled.  Each file: coqc -Q <busycoq>/verify BusyCoq -Q . TM54 <file>, in the order of compile_clean.sh.
+# Only warnings were printed (deprecated app_length, large-number notation); they are left out here.
 == BB54.v ==
-   ok, 3 s
+   ok, 50 s
 == Individual54.v ==
-   ok, 3 s
+   ok, 34 s
 == BB54_rules.v ==
-   ok, 3 s
+   ok, 24 s
 == BB54_start.v ==
-   ok, 3 s
+   ok, 42 s
 == BB54_run.v ==
-File ".\BB54_run.v", line 124, characters 19-29:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_run.v", line 124, characters 19-29:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_run.v", line 124, characters 19-29:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_run.v", line 144, characters 11-21:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_run.v", line 144, characters 11-21:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_run.v", line 144, characters 11-21:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_run.v", line 144, characters 11-21:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_run.v", line 144, characters 11-21:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-   ok, 3 s
+   ok, 22 s
 == BB54_score.v ==
-File ".\BB54_score.v", line 164, characters 0-48:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-   ok, 2 s
+   ok, 16 s
 == BB54_dphase.v ==
-   ok, 2 s
+   ok, 17 s
 == BB54_halt.v ==
-File ".\BB54_halt.v", line 273, characters 11-21:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_halt.v", line 273, characters 11-21:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_halt.v", line 273, characters 11-21:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_halt.v", line 273, characters 11-21:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_halt.v", line 273, characters 11-21:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-File ".\BB54_halt.v", line 273, characters 11-21:
-Warning: Notation app_length is deprecated since 8.20.
-Use length_app instead.
-[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
-   ok, 3 s
+   ok, 10 s
 == BB54_bound.v ==
-File ".\BB54_bound.v", line 54, characters 0-50:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-File ".\BB54_bound.v", line 115, characters 0-81:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-   ok, 3 s
+   ok, 10 s
 == BB54_tower.v ==
-File ".\BB54_tower.v", line 187, characters 0-56:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-File ".\BB54_tower.v", line 187, characters 0-56:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-File ".\BB54_tower.v", line 189, characters 2-38:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-File ".\BB54_tower.v", line 189, characters 2-38:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-File ".\BB54_tower.v", line 190, characters 2-59:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-File ".\BB54_tower.v", line 190, characters 2-59:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-File ".\BB54_tower.v", line 190, characters 2-59:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-File ".\BB54_tower.v", line 190, characters 2-59:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-File ".\BB54_tower.v", line 198, characters 0-61:
-Warning: To avoid stack overflow, large numbers in nat are interpreted as
-applications of Init.Nat.of_num_uint. [abstract-large-number,numbers,default]
-   ok, 3 s
+   ok, 20 s
 COMPILE DONE
-probe: 79 theorems closed under the global context
+probe: 80 theorems closed under the global context

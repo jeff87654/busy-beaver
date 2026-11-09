@@ -20,11 +20,12 @@ i.e. the transition table
 `---` is an undefined transition; in busycoq it is modelled by `None`, which
 stops the machine.  The only halting entry is therefore `E3 = 1RZ`.
 
-The wiki's Champions page lists the BB(5,4) champion as
+The wiki's Champions page (checked 2026-11-08) lists exactly this string for
+BB(5,4).  The machine
 
     1LD2RA3RB1LC_1LD2LA3RB---_2RA1LA3RC2LC_2RA---2LD2LE_------1RZ1LD
 
-which is the same machine after the renaming of the states A↔B and of the
+is the same machine after the renaming of the states A↔B and of the
 symbols 2↔3.  `tools/explore.py` checks this exhaustively: it enumerates all
 state/symbol pairs of both machines and reports that they agree under the
 relabelling `state (0,1,3,2)` and `symbol (1,0,2,3,4)`.
@@ -160,9 +161,9 @@ The tape of the last configuration is
 
 so it carries `(2 g_4(0) + 1) + 5 + 2 = 2 g_4(0) + 8` nonzero symbols, and
 
-    2 g_4(0) + 4 = 2 ↑^3 4 = 2 ↑↑↑ 4 = 2^65536 ,
+    2 g_4(0) + 4 = 2 ↑^3 4 = 2 ↑↑↑ 4 = 2 ↑↑ 65536 ,
 
-so **σ ≥ 2^65536 + 4** at that point of the run.  The machine never writes a
+so the tape carries (2 ↑↑ 65536) + 4 nonzero symbols at that point of the run.  The machine never writes a
 blank over a non-blank cell (the only symbol it writes besides 1, 2, 3 is
 nothing), so the number of nonzero cells never decreases: the final σ of the
 machine is at least that.
@@ -238,43 +239,42 @@ of the wiki's bound does not occur in it.
 descent rule and the closed form of `g`, the D/E phase in both of its
 outcomes and for an arbitrary number of twos, the three macro steps, the
 chain, the fact that the machine reaches `B(5, 0, g_4(0)) [3 1] 0^inf` with
-`2^65536 + 4` nonzero symbols on the tape, **that the machine halts**, and
+`(2 ↑↑ 65536) + 4` nonzero symbols on the tape, **that the machine halts**
+(`bb54_halts : halts tm c0`), and
 **the exact value of its σ**, namely `2 M1 + 2 M0 + X + 5`.
 
-### The two runtime bounds
+**Not proved in Coq:** any comparison of σ with the wiki's bound (below).
+
+### The wiki's bound and an upper comparison number
 
 The wiki's Champions page lists, for BB(5,4), the **runtime** bound
 
-    > f_ω² (10 ↑^4 10 ↑↑ 65533) .
+    > f_ω² (10 ↑^4 10 ↑↑ 65533) ,
 
-That number is **Jacobzheng's original lower bound** — Jacobzheng, 2026, the
-wiki marking the entry *"not independently verified"*.  It is the number that
-the question this development answers refers to, and it is the **smaller** of
-the two bounds.
+Jacobzheng's bound (2026), which the wiki marks *"not independently verified"*.
+The hand calculation below shows that it lies below σ, and that
 
-The bound that the structure of the machine itself gives — the one the wiki's
-entry is being corrected to — is
+    f_ω² (2 ↑^4 2 ↑^3 4)  =  f_ω² (2X + 4)
 
-    > f_ω² (2 ↑^4 2 ↑^3 4)  =  f_ω² (2X + 4)  ,
-
-and this one is *proved* to be a number of the machine: `BB54_bound.v`
+lies above σ: it is an *upper* bound for σ, not a lower bound.  Here f_ω(n)
+is `2 ↑^(n+1)(n+3)` (`f_omega`), a Knuth-arrow function at least as large as
+the fast-growing hierarchy's f_ω.  The inner argument `2X + 4` is
+*proved* to be a number of the machine: `BB54_bound.v`
 establishes
 
     2 ↑^4 2 ↑^3 4  =  2X + 4         (X_inner)
 
 with `X = g_5(g_4(0))` the descent parameter of the main regime — the very
 number of twos that the first D/E phase of the main regime has to erase
-(`bb54_dchain`).  So the inner argument of the refined bound is the
-machine's own parameter and not a generic tower; that is what makes it the
-accurate one.
+(`bb54_dchain`).
 
 ### The comparison
 
 **Proved in Coq** are the identification of the two numbers with the machine
 and the direction of the inner towers:
 
-* `target = f_ω²(10 ↑^4 10 ↑↑ 65533)` (`target_is_jacobzheng`) — the wiki's
-  entry is Jacobzheng's original bound;
+* `target = f_ω²(10 ↑^4 10 ↑↑ 65533)` (`target_is_jacobzheng`, an unfolding
+  of the definition);
 * `2 ↑^4 2 ↑^3 4 = 2X + 4` (`X_inner`) and hence
   `f_ω²(2 ↑^4 2 ↑^3 4) = f_ω²(2X + 4)` (`target_refined_eq`);
 * `10 ↑↑ 65533 < 2 ↑^3 4` (`tower10_lt`, `tower10_lt_tower3` of
@@ -325,9 +325,8 @@ which gives the ordering
 
     f_ω² (10 ↑^4 10 ↑↑ 65533)   <   σ   <   f_ω² (2 ↑^4 2 ↑^3 4) .
 
-So the inequality asked for, "σ > f_ω²(10 ↑^4 10 ↑↑ 65533)", **does hold**:
-Jacobzheng's original bound lies below the σ of the machine, and the refined
-bound lies above it.  (The wiki's entry is a statement about the *runtime* of
+So, on paper, σ > f_ω²(10 ↑^4 10 ↑↑ 65533): Jacobzheng's bound lies below
+the σ of the machine, and f_ω²(2 ↑^4 2 ↑^3 4) lies above it.  (The wiki's entry is a statement about the *runtime* of
 the machine, which is at least σ; the comparison above locates σ itself
 between the two numbers.)
 

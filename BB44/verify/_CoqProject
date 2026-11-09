@@ -1,4 +1,4 @@
--Q D:/busycoq/verify BusyCoq
+-Q ../../busycoq/verify BusyCoq
 -Q . TM44
 BB44.v
 Individual44.v
