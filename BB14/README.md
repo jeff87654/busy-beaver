@@ -1,6 +1,37 @@
 # BB14/: 14 states, 2 symbols
 
-## Current entry: M14d_18
+## Current entry: M14_31
+
+    1RB1RA_1RI1RC_0LD1LG_0RE1LD_0RN1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_0LK0LH_1LM---
+
+Halts from the blank tape; N1 (`---`) is the halt. It is read on a 1, so σ = N, the number of ones when N1 is read.
+Machine-checked, with the standard fast-growing hierarchy and no axioms:
+
+    f_(ω+2)^30(f_(ω+1)(f_(ω+1)(3))) < N = σ        (sigma_bound_fw1)
+    f_(ω+2)^31(f_ω(f_ω(3))) < N                    (sigma_bound)
+    f_(ω+2)^17(f_(ω+1)(f_(ω+1)(3))) < N            (beats_M14d_18_fw1: M14d_18's proved bound, below)
+
+and the exact score N = p + a + 4 for the explicit pair (p, a) = `pa32` (`score_exact`; not evaluated).
+
+M14_31 runs the engine and counters of M13b and M14d_18 (below) with E0, L0, M0 and N changed. M0 no longer halts:
+the four slots keep a sentinel cell to the right of the counter, which a reload plants or erases, and the machine
+halts only when a round that M14d_18 would have ended in finds no sentinel. That gives 32 rounds, 31 of them
+f_(ω+2) rounds, against M14d_18's 18.
+
+In Coq (`beats_M14d_18`, `beats_M14d_18_fw1`): N is above both proved bounds of M14d_18. The 15- and 16-state
+entries ([`../BB15/`](../BB15/), [`../BB16/`](../BB16/)) are above M14_31 in Coq. Not yet reviewed by the bbchallenge
+community.
+
+- [`1RB1RA_1RI1RC..._0LK0LH_1LM---.md`](1RB1RA_1RI1RC_0LD1LG_0RE1LD_0RN1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_0LK0LH_1LM---.md):
+  the write-up (the table, the sentinel, the 32 rounds, verification, comparisons, credit).
+- [`verify_m14_31/`](verify_m14_31/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_bound`, `sigma_bound_fw1`, `beats_M14d_18`, `beats_M14d_18_fw1`. About 40 s to compile; built and probed
+  in CI (job `bb13-bb14`), which requires six closed `Print Assumptions` reports.
+
+Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-08);
+re-checked here, with the comparison file.
+
+## Previous entry: M14d_18
 
     1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LN1LK_1RZ0LH_0LG1LJ
 
@@ -32,7 +63,7 @@ f_(ω+3)-class bound. None of these has a proved upper bound. Not yet reviewed b
 Found and proved by Argon, a Google Gemini model, run by the repository owner in Google's Antigravity (2026-11-03);
 re-checked here.
 
-## Previous entry: M14b
+## Earlier entry: M14b
 
     1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LN0LL_0LH1LK_1RZ0LH_0RJ0LI
 

@@ -1,0 +1,15 @@
+The Coq Proof Assistant, version 8.20.1
+== BB152.v ==
+   ok, 6 s
+== Individual152.v ==
+   ok, 6 s
+== BB15_J15_fw13.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 11 s
+== BB15_J15_fw13_cmp.v ==
+   ok, 6 s
+COMPILE DONE
+probe: 5 of 5 theorems closed under the global context

@@ -1,6 +1,40 @@
 # BB18/: 18 states, 2 symbols
 
-## Current entry: R18a (derived from Jacobzheng's J20)
+## Current entry: J18_w2_C (Argon, on Jacobzheng's engine)
+
+    0LB1LF_0RC1LB_0RD1RM_1LE0RN_1LF1LE_1LG0LE_1RH1RP_1RI1RH_0LJ1RA_1LK1LJ_0LL1LJ_1RM1RC_0RM0RH_1LE1RO_1RZ1RD_0LF0RQ_0LH1RR_0LF1RP
+
+Halts from the blank tape; O0 (`1RZ` in the string) is the halt. It is read on a 0 and writes 1, so σ = N + 1, where
+N is the number of ones when O0 is read. Machine-checked, with the standard fast-growing hierarchy and no axioms:
+
+    f_(ω·2)(2·f_ω^9(35)) < N,   σ = N + 1         (sigma_lower_bound)
+    f_(ω·2)(f_ω(f_ω(f_10(2)))) < N                (beats_R18a: R18a's proved bound, below)
+    f_(ω·2)(f_15(2)) < N                          (beats_J16: the BB(16) entry's)
+
+and the exact score N = 2j + 2 for the j given by the machine's recursion (`score_exact`; not evaluated).
+
+J18_w2_C is written in tree normal form; under other names, its 12-state engine is Jacobzheng's J20 core
+([`../BB20/`](../BB20/)), as in R18a. The other six states are a three-state expansion whose level maps are
+x ↦ x + 1 (mod 3) for every residue (one residue is merged back in a single pass), and a three-state refill. As in
+J20 and R18a, the mod-3 invariant makes the third merged block land in the halting class: exactly two refills, then
+the halt, at level f_(ω·2). Its first refill comes later than R18a's, after G has been iterated G(10) + 1 times, so
+its argument to f_(ω·2) is f_ω^9(35)-sized instead of f_ω(f_ω(f_10(2))).
+
+In Coq (`beats_R18a`, `beats_J16`): N is above R18a's and J16_w2's proved bounds, so BB(18) and, by BB(19) ≥ BB(18) + 1,
+BB(19) have their best proved bounds here. J20 ([`../BB20/`](../BB20/)) has a higher proved bound. Not yet reviewed by
+the bbchallenge community.
+
+- [`0LB1LF_0RC1LB..._0LH1RR_0LF1RP.md`](0LB1LF_0RC1LB_0RD1RM_1LE0RN_1LF1LE_1LG0LE_1RH1RP_1RI1RH_0LJ1RA_1LK1LJ_0LL1LJ_1RM1RC_0RM0RH_1LE1RO_1RZ1RD_0LF0RQ_0LH1RR_0LF1RP.md):
+  the write-up (the table, the expansion and the refill, the run, the mod-3 invariant, the size, verification,
+  comparisons, credit).
+- [`verify_j18c/`](verify_j18c/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_lower_bound`, `beats_R18a`, `beats_J16`. About 45 s to compile; built and probed in CI (job `bb13-bb14`),
+  which requires five closed `Print Assumptions` reports.
+
+Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-08), by
+compressing Jacobzheng's J20 by two states; re-checked here, with the comparison file.
+
+## Previous entry: R18a (derived from Jacobzheng's J20)
 
     1LH0LG_0LI1RC_0LD1LA_0RE1LD_0RH1RL_1RB1RF_1LA1LG_1RF1RM_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LN1RM_0LQ0LO_1LR1LP_0LQ1LN_0RO1LB_0LL1RZ
 
@@ -36,7 +70,7 @@ a higher proved bound. Not yet reviewed by the bbchallenge community.
 This project's machine (2026-11-07), derived from Jacobzheng's J20: found by a search for a compression of J20,
 proved in Coq by adapting this repository's J20 proof.
 
-## Previous entry: M18_229round
+## Earlier entry: M18_229round
 
     1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_0RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_1RQ0LO_1LP1LR_0RB1LI_1RZ1RR_1RN0LO
 

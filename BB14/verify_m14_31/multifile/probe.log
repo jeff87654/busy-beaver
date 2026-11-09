@@ -1,0 +1,164 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB14_M14_31.tm (A, 0) = Some (1, R, B)
+     : BB14_M14_31.tm (A, 0) = Some (1, R, B)
+eq_refl : BB14_M14_31.tm (A, 1) = Some (1, R, A)
+     : BB14_M14_31.tm (A, 1) = Some (1, R, A)
+eq_refl : BB14_M14_31.tm (B, 0) = Some (1, R, I)
+     : BB14_M14_31.tm (B, 0) = Some (1, R, I)
+eq_refl : BB14_M14_31.tm (B, 1) = Some (1, R, C)
+     : BB14_M14_31.tm (B, 1) = Some (1, R, C)
+eq_refl : BB14_M14_31.tm (C, 0) = Some (0, TM.L, D)
+     : BB14_M14_31.tm (C, 0) = Some (0, TM.L, D)
+eq_refl : BB14_M14_31.tm (C, 1) = Some (1, TM.L, G)
+     : BB14_M14_31.tm (C, 1) = Some (1, TM.L, G)
+eq_refl : BB14_M14_31.tm (D, 0) = Some (0, R, E)
+     : BB14_M14_31.tm (D, 0) = Some (0, R, E)
+eq_refl : BB14_M14_31.tm (D, 1) = Some (1, TM.L, D)
+     : BB14_M14_31.tm (D, 1) = Some (1, TM.L, D)
+eq_refl : BB14_M14_31.tm (E, 0) = Some (0, R, N)
+     : BB14_M14_31.tm (E, 0) = Some (0, R, N)
+eq_refl : BB14_M14_31.tm (E, 1) = Some (1, R, F)
+     : BB14_M14_31.tm (E, 1) = Some (1, R, F)
+eq_refl : BB14_M14_31.tm (F, 0) = Some (1, R, M)
+     : BB14_M14_31.tm (F, 0) = Some (1, R, M)
+eq_refl : BB14_M14_31.tm (F, 1) = Some (0, R, A)
+     : BB14_M14_31.tm (F, 1) = Some (0, R, A)
+eq_refl : BB14_M14_31.tm (G, 0) = Some (1, R, A)
+     : BB14_M14_31.tm (G, 0) = Some (1, R, A)
+eq_refl : BB14_M14_31.tm (G, 1) = Some (0, TM.L, H)
+     : BB14_M14_31.tm (G, 1) = Some (0, TM.L, H)
+eq_refl : BB14_M14_31.tm (H, 0) = Some (1, TM.L, G)
+     : BB14_M14_31.tm (H, 0) = Some (1, TM.L, G)
+eq_refl : BB14_M14_31.tm (H, 1) = Some (1, TM.L, H)
+     : BB14_M14_31.tm (H, 1) = Some (1, TM.L, H)
+eq_refl : BB14_M14_31.tm (I, 0) = Some (1, R, E)
+     : BB14_M14_31.tm (I, 0) = Some (1, R, E)
+eq_refl : BB14_M14_31.tm (I, 1) = Some (0, TM.L, J)
+     : BB14_M14_31.tm (I, 1) = Some (0, TM.L, J)
+eq_refl : BB14_M14_31.tm (J, 0) = Some (1, TM.L, H)
+     : BB14_M14_31.tm (J, 0) = Some (1, TM.L, H)
+eq_refl : BB14_M14_31.tm (J, 1) = Some (1, TM.L, I)
+     : BB14_M14_31.tm (J, 1) = Some (1, TM.L, I)
+eq_refl : BB14_M14_31.tm (K, 0) = Some (0, TM.L, L)
+     : BB14_M14_31.tm (K, 0) = Some (0, TM.L, L)
+eq_refl : BB14_M14_31.tm (K, 1) = Some (0, TM.L, L)
+     : BB14_M14_31.tm (K, 1) = Some (0, TM.L, L)
+eq_refl : BB14_M14_31.tm (L, 0) = Some (0, TM.L, H)
+     : BB14_M14_31.tm (L, 0) = Some (0, TM.L, H)
+eq_refl : BB14_M14_31.tm (L, 1) = Some (1, TM.L, K)
+     : BB14_M14_31.tm (L, 1) = Some (1, TM.L, K)
+eq_refl : BB14_M14_31.tm (M, 0) = Some (0, TM.L, K)
+     : BB14_M14_31.tm (M, 0) = Some (0, TM.L, K)
+eq_refl : BB14_M14_31.tm (M, 1) = Some (0, TM.L, H)
+     : BB14_M14_31.tm (M, 1) = Some (0, TM.L, H)
+eq_refl : BB14_M14_31.tm (N, 0) = Some (1, TM.L, M)
+     : BB14_M14_31.tm (N, 0) = Some (1, TM.L, M)
+eq_refl : BB14_M14_31.tm (N, 1) = None
+     : BB14_M14_31.tm (N, 1) = None
+BB14_M14_31.iter =
+fix iter (X : Type) (n : nat) (g : X -> X) (x : X) {struct n} : X :=
+  match n with
+  | 0 => x
+  | S n' => g (iter X n' g x)
+  end
+     : forall {X : Type}, nat -> (X -> X) -> X -> X
+
+Arguments BB14_M14_31.iter {X}%type_scope n%nat_scope g%function_scope x
+BB14_M14_31.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB14_M14_31.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB14_M14_31.f (k _)%nat_scope
+BB14_M14_31.f_omega = fun n : nat => BB14_M14_31.f n n
+     : nat -> nat
+
+Arguments BB14_M14_31.f_omega n%nat_scope
+BB14_M14_31.f_omega1 =
+fun n : nat => BB14_M14_31.iter n BB14_M14_31.f_omega n
+     : nat -> nat
+
+Arguments BB14_M14_31.f_omega1 n%nat_scope
+BB14_M14_31.f_omega2 =
+fun n : nat => BB14_M14_31.iter n BB14_M14_31.f_omega1 n
+     : nat -> nat
+
+Arguments BB14_M14_31.f_omega2 n%nat_scope
+BB14_M14_31.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB14_M14_31.sym_val s%sym_scope
+BB14_M14_31.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB14_M14_31.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB14_M14_31.count1 xs%list_scope
+BB14_M14_31.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = BB14_M14_31.count1 L + BB14_M14_31.sym_val s + BB14_M14_31.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB14_M14_31.ones c N%nat_scope
+BB14_M14_31.halt
+     : halts BB14_M14_31.tm c0
+BB14_M14_31.score_exact
+     : exists c : Q * tape,
+         c0 -[ BB14_M14_31.tm ]->* c /\
+         halted BB14_M14_31.tm c /\
+         BB14_M14_31.ones c (fst BB14_M14_31.pa32 + snd BB14_M14_31.pa32 + 4)
+BB14_M14_31.sigma_bound
+     : exists (c : Q * tape) (n : nat),
+         c0 -[ BB14_M14_31.tm ]->* c /\
+         halted BB14_M14_31.tm c /\
+         BB14_M14_31.ones c n /\
+         n >
+         BB14_M14_31.iter 31 BB14_M14_31.f_omega2
+           (BB14_M14_31.iter 2 BB14_M14_31.f_omega 3)
+BB14_M14_31.sigma_bound_fw1
+     : exists (c : Q * tape) (n : nat),
+         c0 -[ BB14_M14_31.tm ]->* c /\
+         halted BB14_M14_31.tm c /\
+         BB14_M14_31.ones c n /\
+         n >
+         BB14_M14_31.iter 30 BB14_M14_31.f_omega2
+           (BB14_M14_31.iter 2 BB14_M14_31.f_omega1 3)
+BB14_M14_31_cmp.beats_M14d_18
+     : exists (c : Q * tape) (n : nat),
+         c0 -[ BB14_M14_31.tm ]->* c /\
+         halted BB14_M14_31.tm c /\
+         BB14_M14_31.ones c n /\
+         n >
+         BB14_M14_31.iter 18 BB14_M14_31.f_omega2
+           (BB14_M14_31.iter 2 BB14_M14_31.f_omega 3)
+BB14_M14_31_cmp.beats_M14d_18_fw1
+     : exists (c : Q * tape) (n : nat),
+         c0 -[ BB14_M14_31.tm ]->* c /\
+         halted BB14_M14_31.tm c /\
+         BB14_M14_31.ones c n /\
+         n >
+         BB14_M14_31.iter 17 BB14_M14_31.f_omega2
+           (BB14_M14_31.iter 2 BB14_M14_31.f_omega1 3)
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
