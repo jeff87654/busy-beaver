@@ -1,0 +1,34 @@
+-Q . BB8
+-Q ../../../busycoq/verify BusyCoq
+BB252.v
+Individual252.v
+BB21_B21_absdef.v
+BB21_B21_grow.v
+BB21_B21_steps.v
+BB21_B21_inv.v
+BB21_B21_proc.v
+BB21_B21_phase.v
+BB21_B21_run.v
+BB25_W2PR_tm.v
+BB25_W2PR_sim.v
+BB25_W2PR_run.v
+BB25_W2PR_score.v
+BB202.v
+Individual202.v
+BB20_JZ20.v
+BB182.v
+Individual182.v
+BB18_R18a.v
+BB_FGH_wa.v
+BB_FGH_wa2.v
+BB21_B21_qnt.v
+BB21_B21_qnt2.v
+BB21_B21_qnt3.v
+BB21_B21_qnt4.v
+BB212.v
+Individual212.v
+BB21_B21_tm.v
+BB21_B21_sim.v
+BB21_B21_score.v
+BB25_W2PR_bound.v
+BB25_W2PR_w2.v
