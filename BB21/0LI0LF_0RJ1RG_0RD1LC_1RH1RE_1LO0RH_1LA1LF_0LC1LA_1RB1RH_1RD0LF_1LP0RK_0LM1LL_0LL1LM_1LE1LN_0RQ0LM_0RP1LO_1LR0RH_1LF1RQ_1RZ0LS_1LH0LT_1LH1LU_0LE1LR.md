@@ -1,4 +1,4 @@
-# B21: Racheline's BB(21) champion, an ω²-class machine (halting proved)
+# B21: Racheline's BB(21) champion, at level f_(ω²)
 
     0LI0LF_0RJ1RG_0RD1LC_1RH1RE_1LO0RH_1LA1LF_0LC1LA_1RB1RH_1RD0LF_1LP0RK_0LM1LL_0LL1LM_1LE1LN_0RQ0LM_0RP1LO_1LR0RH_1LF1RQ_1RZ0LS_1LH0LT_1LH1LU_0LE1LR
 
@@ -12,9 +12,9 @@ are this project's. All 41 non-halting slots are used.
 | | |
 |---|---|
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB21_B21.halt`. It halts at the sixth refill. The halt is decided by a residue schedule (the refill accumulator mod 4, section 2), computed exactly in the proof. |
-| Score | Machine-checked: the halting tape holds N ones with 4↑↑341 < N (`sigma_lower_bound`; 4↑↑0 = 1, 4↑↑(n+1) = 4^(4↑↑n)). The halt R0 = `1RZ` is read on a 0 and writes 1, so σ = N + 1. |
-| Level | **Not proved here.** The wiki's bound f_(ω²)^2(4↑↑341) is not a theorem of this repository; only 4↑↑341 < N is. On paper (section 4, an argument, not a Coq lemma) the machine is f_(ω²)-class. |
-| Comparisons | Its *proved* bound is far below the proved bounds of R18a (BB(18)) and J20 (BB(20)), so BB(21) ≥ BB(20) + 1 is the better proved bound for BB(21). On paper it is far above both (ω² against ω·2). Not yet reviewed by the bbchallenge community. |
+| Score | Machine-checked: the halting tape holds N ones with f_(ω²)(f_(ω²)(f_(ω²)(4↑↑341))) < N (`BB21_B21_w2.sigma_lower_bound_wsq3`), and so with the wiki's f_(ω²)(f_(ω²)(4↑↑341)) < N, also stated in that form (`sigma_lower_bound_wsq`); first published with 4↑↑341 < N (`sigma_lower_bound`; 4↑↑0 = 1, 4↑↑(n+1) = 4^(4↑↑n)). The halt R0 = `1RZ` is read on a 0 and writes 1, so σ = N + 1. |
+| Level | Machine-checked, with the standard fast-growing hierarchy below ω³ (f_(ω·(a+1))(n) = f_(ω·a+n)(n), f_(ω²)(n) = f_(ω·n)(n)): f_(ω²)-class, with three applications of f_(ω²), one more than the wiki claims (section 4). |
+| Comparisons | **Machine-checked** (`beats_J20`): N is above J20's proved BB(20) bound f_(ω·2)(f_(ω+2)^2(f_10(2))), and so above R18a's (BB(18)) and every proved bound in the 2-symbol rows here below BB(29). That compares B21 with J20's proved lower bound; neither has a proved upper bound, and the real comparison (ω² against ω·2) is on paper. Not yet reviewed by the bbchallenge community. |
 | Steps | Not computed. σ is at most the number of steps, so the bound on σ is a bound on the steps too. |
 
 ## 1. How it works
@@ -87,7 +87,7 @@ The halt does not depend on a residue class the proof leaves open: the machine h
 **Score** (`BB21_B21_score.v`). The halting tape holds N ≥ J/2 ones, J ≥ (number of E blocks) ≥ J_3/2 − 10, and
 J_3 = h_3(h_1³(1)) + 3 = h_2^340(1) + 3 ≥ 64·4↑↑341 (`jacc_s3`, `J3_tet`; h_1(x) = 4x + 13, h_1³(1) = 337), so
 4↑↑341 < N (`sigma_lower_bound_tet`). An exact formula for N
-is built inside the proof but not exported; there is no closed form.
+is built inside the proof but not exported; there is no closed form. The ω² bound is in section 4.
 
 ## 3. Verification
 
@@ -111,17 +111,28 @@ same-state runs), without the Coq files (about 30 s). It checks:
 These checks cover the rules, not Lemma D; Lemma D holds only because the run's block lengths are astronomically
 separated, and it is proved in Coq, not by simulation.
 
+[`verify_w2/`](verify_w2/) (added 2026-11-08): the ω² bound. It contains B21's halting proof above (byte-identical
+copies, checked by its `share_check.sh`), J20's and R18a's proofs (also byte-identical; loaded only to compare
+hierarchies), and the new layer `BB_FGH_wa.v`, `BB_FGH_wa2.v`, `BB21_B21_qnt*.v`, `BB21_B21_bound.v` and
+`BB21_B21_w2.v`. Built in CI (job `bb13-bb14`). Its probe re-checks the table (42 checks) and confirms that `halt`,
+`sigma_lower_bound`, `sigma_lower_bound_wsq3`, `sigma_lower_bound_wsq` and `beats_J20` are closed under the global
+context. `check.py` PASS, 2026-11-08.
+
 ## 4. Size and comparisons
 
-- **Proved:** 4↑↑341 < N, σ = N + 1. This is far below R18a's proved f_(ω·2)(f_ω(f_ω(f_10(2)))) (BB(18),
-  [`../BB18/`](../BB18/)) and J20's proved f_(ω·2)(f_(ω+2)^2(f_10(2))) (BB(20), [`../BB20/`](../BB20/)), so for now
-  BB(21) ≥ BB(20) + 1 is the better proved bound for BB(21). It is even below BB(7)'s proved 3↑^20 3 (> 3↑↑↑3 > 4↑↑341).
-- **On paper only** (an argument, not a Coq lemma): a phase that starts with N lone [2] blocks has block ordinal about
-  ω^(ω·N); the rules follow the fundamental sequences, so the accumulator at the end of phase p is at least about
-  f_(ω·N_p)(N_p) = f_(ω²)(N_p), and N_(p+1) ≈ x_p/4. With three big phases this gives roughly f_(ω²)^3(4↑↑340), which
-  is above the wiki's f_(ω²)^2(4↑↑341). A formal version needs a quantitative form of `proc` and FGH transfer lemmas;
-  it is not done.
-- If that argument is right, B21 is far above R18a and J20 (ω² against ω·2), but no Coq lemma says so.
+- **Proved** (`verify_w2/`): f_(ω²)(f_(ω²)(f_(ω²)(4↑↑341))) < N, σ = N + 1 (`sigma_lower_bound_wsq3`), which contains
+  the wiki's claim f_(ω²)^2(4↑↑341) (`sigma_lower_bound_wsq`). The fast-growing hierarchy is the standard one
+  (`BB_FGH_wa.v`): f_(ω·a+b+1)(n) = f_(ω·a+b)^n(n), f_(ω·(a+1))(n) = f_(ω·a+n)(n), f_(ω²)(n) = f_(ω·n)(n).
+- How: every block above the frontier gets a potential at its depth, with f_(ω·j) ≤ Mq_j at depth j (`Mq_fgh`), which
+  never exceeds the future B0min, B0's guaranteed length, which never decreases (`proc_q`, the quantitative form of
+  `proc`). A phase that walks P through k lone 2s therefore ends with f_(ω²)(k) ≤ B0min (`phase_from_work_q`).
+  Phases 4, 5 and 6 each apply f_(ω²), starting from N_4 = J_3/4 ≥ 16·4↑↑341 blocks, and the factor-4 losses at the refills are
+  absorbed (`fwsq_S`, `chain_step`, `chain_last`, `abstract_final_q`).
+- **In Coq** (`beats_J20`): N > J20's proved f_(ω·2)(f_(ω+2)^2(f_10(2))), using `J20_le` and the agreement of the
+  hierarchies (`f_w2_JZ`, `f_wk_JZ`). So B21's proved bound is the largest in the 2-symbol rows here below BB(29), above R18a's
+  (BB(18)) and J20's (BB(20)). This compares with J20's proved lower bound, not with an upper bound on J20's σ; the ω² against ω·2
+  gap settles the real comparison on paper.
+- The first published bound, 4↑↑341 < N (`../verify/`), stays as it was.
 - Not yet reviewed by the bbchallenge community.
 
 ## Credit
@@ -130,5 +141,5 @@ Machine by Racheline, listed as the BB(21) champion on the bbchallenge wiki's Ch
 f_(ω²)^2(4↑↑341), "Not independently verified"). This project (the repository owner with Claude models (Anthropic)
 as agents) worked out the block rules and the residue schedule, found and closed the gap in the dominance argument
 (Lemma D, as the invariant `INV`), and wrote the Coq proof (2026-11-08), the 21-state busycoq setup, the probe, the
-checker and this write-up. The proof confirms that the machine halts, with σ > 4↑↑341; the wiki's f_(ω²) bound remains
-unverified.
+checker and this write-up, and then the quantitative ω² layer (2026-11-08). The proofs confirm the wiki's claim:
+the machine halts, with σ > f_(ω²)^2(4↑↑341), and in fact σ > f_(ω²)^3(4↑↑341).

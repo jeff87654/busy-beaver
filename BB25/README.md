@@ -18,8 +18,9 @@ W2PR is B21 ([`../BB21/`](../BB21/)) with U1 changed to `1LV` and a copy V, W, X
 refills #6 and #7, where B21 halts at #6, and halts at refill #8, after five big ω² phases instead of three.
 
 **On paper only** (an argument, not a Coq lemma): σ is about f_(ω²)^5(4↑↑340), two f_(ω²) phases above B21; the wiki's
-Champions table has no rows between BB(21) and BB(29). The *proved* bound is above B21's proved 4↑↑341 but below R18a's
-(BB(18)) and J20's (BB(20)), so BB(25) ≥ BB(20) + 5 is the better proved bound for BB(25). Not yet reviewed by the
+Champions table has no rows between BB(21) and BB(29). The *proved* bound is below B21's proved f_(ω²)^3(4↑↑341)
+([`../BB21/verify_w2/`](../BB21/verify_w2/)), so BB(25) ≥ BB(21) + 4 is the better proved bound for BB(25); W2PR's own
+ω² bound is not proved yet. Not yet reviewed by the
 bbchallenge community.
 
 - [`0LI0LF_0RJ1RG..._1LH1LY_0LE1LR.md`](0LI0LF_0RJ1RG_0RD1LC_1RH1RE_1LO0RH_1LA1LF_0LC1LA_1RB1RH_1RD0LF_1LP0RK_0LM1LL_0LL1LM_1LE1LN_0RQ0LM_0RP1LO_1LR0RH_1LF1RQ_1RZ0LS_1LH0LT_1LH1LU_0LE1LV_0LH0LW_1LH0LX_1LH1LY_0LE1LR.md):

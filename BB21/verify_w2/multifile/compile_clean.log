@@ -1,0 +1,63 @@
+18 of 18 shared files byte-identical to the published copies
+The Coq Proof Assistant, version 8.20.1
+== BB202.v ==
+   ok, 16 s
+== Individual202.v ==
+   ok, 7 s
+== BB20_JZ20.v ==
+Closed under the global context
+Closed under the global context
+   ok, 17 s
+== BB182.v ==
+   ok, 9 s
+== Individual182.v ==
+   ok, 9 s
+== BB18_R18a.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 23 s
+== BB212.v ==
+   ok, 9 s
+== Individual212.v ==
+   ok, 9 s
+== BB21_B21_absdef.v ==
+   ok, 9 s
+== BB21_B21_tm.v ==
+   ok, 23 s
+== BB21_B21_sim.v ==
+   ok, 11 s
+== BB21_B21_grow.v ==
+   ok, 9 s
+== BB21_B21_steps.v ==
+   ok, 12 s
+== BB21_B21_inv.v ==
+   ok, 16 s
+== BB21_B21_proc.v ==
+   ok, 12 s
+== BB21_B21_phase.v ==
+   ok, 11 s
+== BB21_B21_run.v ==
+   ok, 12 s
+== BB21_B21_score.v ==
+   ok, 9 s
+== BB_FGH_wa.v ==
+   ok, 9 s
+== BB_FGH_wa2.v ==
+   ok, 9 s
+== BB21_B21_qnt.v ==
+   ok, 14 s
+== BB21_B21_qnt2.v ==
+   ok, 8 s
+== BB21_B21_qnt3.v ==
+   ok, 6 s
+== BB21_B21_qnt4.v ==
+   ok, 6 s
+== BB21_B21_bound.v ==
+   ok, 13 s
+== BB21_B21_w2.v ==
+   ok, 9 s
+COMPILE DONE
+probe: 5 of 5 theorems closed under the global context
