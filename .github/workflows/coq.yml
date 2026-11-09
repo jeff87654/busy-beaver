@@ -1,7 +1,7 @@
 name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/verify, BB8/verify_m8,
-# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB7/holdouts, BB11/verify (without the n1 comparison), BB12/verify_m12, BB13/, BB14/, BB16/, BB17/, BB18/, BB19/, BB20/, BB21/, BB29/, BB31/, BB33/, BB43/, PA/m238, PA/goldbach and ZF/. Not built here, because they take long
+# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB7/holdouts, BB11/verify (without the n1 comparison), BB12/verify_m12, BB13/, BB14/, BB16/, BB17/, BB18/, BB19/, BB20/, BB21/, BB29/, BB31/, BB33/, BB43/, BB34/, BB44/, BB54/, PA/m238, PA/goldbach and ZF/. Not built here, because they take long
 # (recorded local builds are in their directories): BB10/ (about 20 minutes), BB11/'s comparison with n1 (about 6 minutes), BB12/verify (about 3 hours) and stage 2 of
 # BB9/verify_fw2 (about 2 hours).
 #
@@ -42,6 +42,9 @@ jobs:
       bb9-c7: ${{ steps.f.outputs.bb9-c7 }}
       bb9-h003: ${{ steps.f.outputs.bb9-h003 }}
       bb43: ${{ steps.f.outputs.bb43 }}
+      bb34: ${{ steps.f.outputs.bb34 }}
+      bb44: ${{ steps.f.outputs.bb44 }}
+      bb54: ${{ steps.f.outputs.bb54 }}
       bb7: ${{ steps.f.outputs.bb7 }}
       bb7-holdouts: ${{ steps.f.outputs.bb7-holdouts }}
       zf: ${{ steps.f.outputs.zf }}
@@ -90,6 +93,15 @@ jobs:
               - '!**/*.md'
             bb43:
               - 'BB43/**'
+              - '!**/*.md'
+            bb34:
+              - 'BB34/**'
+              - '!**/*.md'
+            bb44:
+              - 'BB44/**'
+              - '!**/*.md'
+            bb54:
+              - 'BB54/**'
               - '!**/*.md'
             bb7:
               - 'BB7/**'
@@ -691,6 +703,138 @@ jobs:
           closed=$(grep -c 'Closed under the global context' probe.log || true)
           if grep -q 'Axioms:' probe.log || [ "$closed" -ne 13 ]; then
             echo "::error::probe.v did not report thirteen axiom-free theorems"
+            exit 1
+          fi
+
+  bb34:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb34 == 'true'
+    # BB34/: the BB(3,4) champion 1RB3LB1RZ2RA_2LC3RB1LC2RA_3RB1LB3LC2RC (3 states, 4 symbols): halting and the exact
+    # score sigma = 2^(15 arrows) 5 + 14 (about two minutes).
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    env:
+      BUSYCOQ_COMMIT: bd2e36f6aa204eb011742d2ca6c8741102b2e59e
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v git >/dev/null || (apt-get update && apt-get install -y git)
+
+      - uses: actions/checkout@v4
+
+      - name: Build busycoq (pinned commit, only the files the proofs depend on)
+        run: |
+          git clone https://github.com/meithecatte/busycoq "$RUNNER_TEMP/busycoq"
+          cd "$RUNNER_TEMP/busycoq"
+          git checkout "$BUSYCOQ_COMMIT"
+          cd verify
+          coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
+          make -f Makefile.coq Individual.vo Flip.vo
+
+      - name: Compile BB34 and run the probe
+        working-directory: BB34/verify
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
+          closed=$(grep -c 'Closed under the global context' probe.log || true)
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 24 ]; then
+            echo "::error::probe.v did not report twenty-four axiom-free theorems"
+            exit 1
+          fi
+
+  bb44:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb44 == 'true'
+    # BB44/: the BB(4,4) champion 0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA (4 states, 4 symbols): halting and
+    # the exact score sigma = 2^(509 arrows) 3 + 510 (about two minutes).
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    env:
+      BUSYCOQ_COMMIT: bd2e36f6aa204eb011742d2ca6c8741102b2e59e
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v git >/dev/null || (apt-get update && apt-get install -y git)
+
+      - uses: actions/checkout@v4
+
+      - name: Build busycoq (pinned commit, only the files the proofs depend on)
+        run: |
+          git clone https://github.com/meithecatte/busycoq "$RUNNER_TEMP/busycoq"
+          cd "$RUNNER_TEMP/busycoq"
+          git checkout "$BUSYCOQ_COMMIT"
+          cd verify
+          coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
+          make -f Makefile.coq Individual.vo Flip.vo
+
+      - name: Compile BB44 and run the probe
+        working-directory: BB44/verify
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
+          closed=$(grep -c 'Closed under the global context' probe.log || true)
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 32 ]; then
+            echo "::error::probe.v did not report thirty-two axiom-free theorems"
+            exit 1
+          fi
+
+  bb54:
+    needs: changes
+    if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb54 == 'true'
+    # BB54/: the BB(5,4) champion 1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ (5 states, 4 symbols):
+    # halting (bb54_halts) and the exact score sigma = 2 M1 + 2 M0 + X + 5; the wiki's bound is not proved here (about two minutes).
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: coqorg/coq:8.20.1
+      options: --user root
+    env:
+      BUSYCOQ_COMMIT: bd2e36f6aa204eb011742d2ca6c8741102b2e59e
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Put the image's opam switch on PATH
+        run: |
+          if ! command -v coqc >/dev/null; then
+            dirname "$(ls -d /home/coq/.opam/*/bin/coqc | head -1)" >> "$GITHUB_PATH"
+          fi
+          command -v git >/dev/null || (apt-get update && apt-get install -y git)
+
+      - uses: actions/checkout@v4
+
+      - name: Build busycoq (pinned commit, only the files the proofs depend on)
+        run: |
+          git clone https://github.com/meithecatte/busycoq "$RUNNER_TEMP/busycoq"
+          cd "$RUNNER_TEMP/busycoq"
+          git checkout "$BUSYCOQ_COMMIT"
+          cd verify
+          coq_makefile -Q . BusyCoq -o Makefile.coq LibTactics.v Helper.v TM.v Compute.v Flip.v Permute.v Individual.v
+          make -f Makefile.coq Individual.vo Flip.vo
+
+      - name: Compile BB54 and run the probe
+        working-directory: BB54/verify
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
+          closed=$(grep -c 'Closed under the global context' probe.log || true)
+          if grep -q 'Axioms:' probe.log || [ "$closed" -ne 80 ]; then
+            echo "::error::probe.v did not report eighty axiom-free theorems"
             exit 1
           fi
 

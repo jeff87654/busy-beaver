@@ -1,0 +1,12 @@
+-Q . TM54
+-Q ../../busycoq/verify BusyCoq
+BB54.v
+Individual54.v
+BB54_rules.v
+BB54_start.v
+BB54_run.v
+BB54_score.v
+BB54_dphase.v
+BB54_halt.v
+BB54_bound.v
+BB54_tower.v

@@ -31,15 +31,20 @@ notebook: only what is proved here counts.
 | **BB(21)** | [`0LI0LF_0RJ1RG_0RD1LC_1RH1RE_1LO0RH_1LA1LF_0LC1LA_1RB1RH_1RD0LF_1LP0RK_0LM1LL_0LL1LM_1LE1LN_0RQ0LM_0RP1LO_1LR0RH_1LF1RQ_1RZ0LS_1LH0LT_1LH1LU_0LE1LR`](BB21/0LI0LF_0RJ1RG_0RD1LC_1RH1RE_1LO0RH_1LA1LF_0LC1LA_1RB1RH_1RD0LF_1LP0RK_0LM1LL_0LL1LM_1LE1LN_0RQ0LM_0RP1LO_1LR0RH_1LF1RQ_1RZ0LS_1LH0LT_1LH1LU_0LE1LR.md) (B21) | halts; 4↑↑341 < N, σ = N + 1 (halts at the sixth refill, by a residue schedule mod 4 and a dominance invariant). The wiki's claimed bound f_(ω²)^2(4↑↑341) is **not** proved here: on paper (an argument, not a Coq lemma) the machine is f_(ω²)-class, but its proved bound is below J20's and R18a's, so BB(21) ≥ BB(20) + 1 is the better proved bound for BB(21) | `halt`, `sigma_lower_bound` | CI `bb13-bb14` | Racheline (the bbchallenge wiki's BB(21) champion, listed as not independently verified); analysis and Coq proof here | 2026-11-08 |
 | **BB(29)** | [`0LP1LD_---0LC_1LR0LB_1RF1LE_0LD1LD_0R[1RG_1RN0RK_0RI1RJ_1LZ1RH_0RH1RH_0RL1RM_1L\1RK_0RK1RK_0RO1RO_0L\1RN_1R[1LA_0RV0RV_0LT1LS_0R[1LT_0RY1LU_0LR1L\_0RW1RX_0RN1RV_0LC1RV_0LA1LZ_0LY1LY_0RQ0RH_1L]1LR_1LH1LZ`](BB29/hydra29.md) (hydra machine) | f_(ω^ω)(3) < N, with N = T₄(S)(1) + 1 exactly | `halt`, `score_exact`, `sigma_lower_bound` | CI `bb13-bb14` | mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here | 2026-10-27 |
 | **BB(31)** | [`0RK1RK_---0LC_1LQ0LB_1RF1LE_0LD1LD_0R\1RG_1RM0RK_0RI1RJ_1L[1RH_0RH1RH_0RL1RA_1L]1RK_0RN1RN_0L]1RM_1R\1L^_0RW0RW_0LU1LR_0R\1LS_0L]1LT_0LQ1LU_0RZ1LV_0LS1L]_0RX1RY_0RM1RW_0LC1RW_0L^1L[_0LZ1LZ_0RP0RH_1L_1LQ_0LO1LD_1LH1L[`](BB31/hydra31.md) (hydra machine) | f_(ω^ω^ω^ω)(4) ≤ N + 2, so f_(ω^ω^ω^ω)(3) < N | `halt`, `hardy_score`, `sigma_lower_bound_w4` | CI `bb13-bb14` | mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here | 2026-10-27 |
-| **BB(33)** | [`1LH1L^_---0LC_1LR0LB_1RF1LE_0LD1LD_0R_1RG_1RN0RK_0RI1RJ_1L^1RH_0RH1RH_0RL1RM_1L`1RK_0RK1RK_0RO1RO_0L`1RN_1R_1La_0RZ0RZ_0LX1LS_0R_1LT_0L`1LU_0LR1LV_0LS1LW_0LT1LX_0R]1LY_0LV1L`_0R[1R\_0RN1RZ_0LC1RZ_0La1L^_0L]1L]_0RQ0RH_1LA1LR_0LP1LD`](BB33/hydra33.md) (hydra machine) | f_(ω^ω^ω^ω^ω^3)(4) ≤ N + 2, so f_(ω↑↑6)(3) < N | `halt`, `hardy_score`, `sigma_lower_bound_w6` | CI `bb13-bb14` | mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here | 2026-10-27 |
+| **BB(33)** | [``1LH1L^_---0LC_1LR0LB_1RF1LE_0LD1LD_0R_1RG_1RN0RK_0RI1RJ_1L^1RH_0RH1RH_0RL1RM_1L`1RK_0RK1RK_0RO1RO_0L`1RN_1R_1La_0RZ0RZ_0LX1LS_0R_1LT_0L`1LU_0LR1LV_0LS1LW_0LT1LX_0R]1LY_0LV1L`_0R[1R\_0RN1RZ_0LC1RZ_0La1L^_0L]1L]_0RQ0RH_1LA1LR_0LP1LD``](BB33/hydra33.md) (hydra machine) | f_(ω^ω^ω^ω^ω^3)(4) ≤ N + 2, so f_(ω↑↑6)(3) < N | `halt`, `hardy_score`, `sigma_lower_bound_w6` | CI `bb13-bb14` | mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here | 2026-10-27 |
 | **BB(4,3)** | [`1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD`](BB43/1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD.md) | σ = 4·e₄ + 18 exactly, 2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < e₄ ≤ 2↑↑↑2↑↑↑2↑↑↑(2^96 + 6) | `bb43_halts`, `bb43_main`, `e4_bounds`, `wiki_bracket` | CI `bb43` | Kropitz (machine), Polygon (analysis); Coq proof here | 2026-10-17 (#22, #23) |
+| **BB(3,4)** | [`1RB3LB1RZ2RA_2LC3RB1LC2RA_3RB1LB3LC2RC`](BB34/1RB3LB1RZ2RA_2LC3RB1LC2RA_3RB1LB3LC2RC.md) | σ = 2↑^15 5 + 14 exactly (the wiki's champion, listed as > 2↑^15 5) | `bb34_halts`, `bb34_main`, `sigma_eq` | CI `bb34` | Pavel Kropitz (machine, 2024), Shawn Ligocki (analysis); Coq proof by MiniMax, contributed by loader3229; reviewed and packaged here | 2026-11-08 (#48) |
+| **BB(4,4)** | [`0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA`](BB44/0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA.md) | σ = 2↑^509 3 + 510 exactly (the wiki's champion, listed as > 2↑^509 3 and as not independently verified) | `bb44_halts`, `bb44_main`, `sigma_eq` | CI `bb44` | loader3229 (machine, 2026); Coq proof by MiniMax, contributed by loader3229; reviewed and packaged here | 2026-11-08 (#48) |
+| **BB(5,4)** | [`1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ`](BB54/1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ.md) | halts, with σ = 2·M1 + 2·M0 + X + 5 exactly, for X = g_5(g_4(0)) and nested `g` chains M0, M1 (Ligocki's `g` hierarchy; see [BB54/README.md](BB54/README.md)). Only halting and this exact formula are proved: the wiki's bound f_ω²(10↑^4 10↑↑65533) is on paper only, a hand calculation in the README | `bb54_halts`, `bb54_halt_main` | CI `bb54` | Jacobzheng (machine, 2026; the wiki's champion, listed as not independently verified); Coq proof by MiniMax, contributed by loader3229; reviewed and packaged here | 2026-11-08 (#48) |
 
 - σ is the score: the number of ones on the tape after the halting transition. Where the halting transition is read
   on a 1 (champ_231/232: C1 undefined; M8 and h003: H1 undefined), σ = N, the ones count of the
   halted configuration; where it is `1RZ` read on a 0 (n1, M11b, M12, M13b, M14d_18, M16_C, M17_B, J19, J20, B21, and the previous entries M13, M14, M14b, M16_B, M18_229round, BB18_fw3 and M19_fw4), σ = N + 1; R18a (R1), the earlier BB(19) entry M19_fw4_A (S1) and the previous BB(18) entry M18_4round (R1) halt on
   `1RZ` read on a 1, so σ = N. The hydra machines BB29, BB31
   and BB33 halt on B0 = `---` read on a 0, so σ = N or N + 1 by convention; their bounds are on N, so they hold for σ
-  either way. Each write-up's "Main facts" table says which.
+  either way. Each write-up's "Main facts" table says which. For the 4-symbol entries BB(3,4), BB(4,4) and BB(5,4),
+  σ is the number of nonzero symbols after the halting transition `1RZ` (read on a 2 for BB(3,4) and BB(4,4), on a 3
+  for BB(5,4)), counted from the explicit final tape, as for BB(4,3).
 - Fast-growing hierarchy, as defined in the Coq files: f_0(n) = n + 1, f_(k+1)(n) = f_k^n(n), f_ω(n) = f_n(n),
   f_(ω+1)(n) = f_ω^n(n), f_(ω+2)(n) = f_(ω+1)^n(n), f_(ω+3)(n) = f_(ω+2)^n(n), f_(ω+4)(n) = f_(ω+3)^n(n), and in general f_(ω+k+1)(n) = f_(ω+k)^n(n) (`f_wk` in J19's and J20's files) and
   f_(ω·2)(n) = f_(ω+n)(n) (`f_w2`; R18a's file uses the same definitions); for BB29–BB33, f_α for all α < ε₀ with the standard fundamental
@@ -80,11 +85,15 @@ notebook: only what is proved here counts.
   BB(20) champions; the analysis and the Coq proofs that confirm the wiki's bounds were done here. R18a is this
   project's machine, derived from Jacobzheng's J20. B21 was found by Racheline and is listed on the wiki's Champions
   page as the BB(21) champion; the analysis and the Coq proof of its halting were done here (the wiki's f_(ω²) bound
-  is not proved here).
+  is not proved here). The Coq proofs of
+  the 4-symbol entries BB(3,4), BB(4,4) and BB(5,4) were written by MiniMax (an AI model) and contributed by loader3229
+  (#48); they were reviewed, re-built and packaged here (CI jobs, `bb54_halts`). Their machines are by Pavel Kropitz
+  (analysed by Shawn Ligocki), loader3229 and Jacobzheng, all listed on the bbchallenge wiki's Champions page.
 - Each directory has a README with the entry's files, its full list of theorems and how to build it:
   [BB7](BB7/README.md), [BB8](BB8/README.md), [BB9](BB9/README.md), [BB10](BB10/README.md),
   [BB11](BB11/README.md), [BB12](BB12/README.md), [BB13](BB13/README.md), [BB14](BB14/README.md), [BB16](BB16/README.md), [BB17](BB17/README.md), [BB18](BB18/README.md), [BB19](BB19/README.md), [BB20](BB20/README.md), [BB21](BB21/README.md), [BB29](BB29/README.md),
-  [BB31](BB31/README.md), [BB33](BB33/README.md), [BB43](BB43/README.md), [PA](PA/README.md), [ZF](ZF/README.md).
+  [BB31](BB31/README.md), [BB33](BB33/README.md), [BB43](BB43/README.md), [BB34](BB34/README.md), [BB44](BB44/README.md),
+  [BB54](BB54/README.md), [PA](PA/README.md), [ZF](ZF/README.md).
 
 ## Consistency machines
 
@@ -129,7 +138,7 @@ elsewhere point at these paths.
 
 ## Layout and CI
 
-- `BBn/`: one directory per number of states (`BB43/`: 4 states, 3 symbols). In each: the write-ups
+- `BBn/`: one directory per number of states (`BB43/`: 4 states, 3 symbols; `BB34/`, `BB44/`, `BB54/`: 3, 4 and 5 states, 4 symbols). In each: the write-ups
   (`<machine string>.md`, older ones `.txt`), `verify*/` (Coq, on [busycoq](https://github.com/meithecatte/busycoq)
   at commit `bd2e36f` with Coq 8.20.1, unless the README says otherwise), `tools/` (independent simulators that
   re-check the write-ups' rules), and a `README.md` index.

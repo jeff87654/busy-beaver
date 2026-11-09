@@ -1,0 +1,70 @@
+bb44_halts
+     : halts tm c0
+reaches_final
+     : c0 -->* c_final
+final_halted
+     : halted tm c_final
+sigma_eq
+     : sigma = knuth 509 2 3 + 510
+bb44_main
+     : halts tm c0 /\
+       c0 -->* c_final /\ halted tm c_final /\ sigma = knuth 509 2 3 + 510
+B_rule
+     : forall (k n m : nat) (r : Stream sym),
+       Bcfg (S k) n m r -->* Bcfg (S k) 0 (PeanoNat.Nat.iter n (g k) m) r
+g_closed
+     : forall k m : nat, 2 * g (S k) m + 4 = knuth k 2 (2 * m + 4)
+g_iter_closed
+     : forall k n : nat,
+       2 * PeanoNat.Nat.iter n (g k) 0 + 4 = knuth k 2 (n + 2)
+g509_closed
+     : 2 * g509 + 4 = knuth 509 2 3
+start
+     : c0 -->* Bcfg 510 1 0 (2 >> 1 >> 3 >> const 0)
+sigma
+     : nat
+c_final
+     : Q * tape
+B_phase
+     : forall m : nat,
+       Bcfg 2 0 m (const 0) -->* Bcfg 1 (2 * m + 2) 0 (const 0)
+D_phase
+     : forall m : nat,
+       Bcfg 1 0 m (const 0) -->*
+       Bcfg (S (2 * m + 1)) 1 0 (2 >> 1 >> 3 >> const 0)
+D_phase_p
+     : forall p : nat,
+       [2] *> [3] ^^ p *> const 0 {{A}}> const 0 -->*
+       [2] ^^ S p *> [3] *> const 0 {{A}}> [1] *> 2 >> 1 >> 3 >> const 0
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

@@ -1,0 +1,26 @@
+# From-scratch build of BB54/verify after the PR #48 follow-up (theorem bb54_halts added), 2026-11-08:
+# Coq 8.20.1 (Coq Platform 2025.01), Windows 11, shared machine (wall-clock times); busycoq bd2e36f, its 7 needed
+# files compiled.  Each file: coqc -Q <busycoq>/verify BusyCoq -Q . TM54 <file>, in the order of compile_clean.sh.
+# Only warnings were printed (deprecated app_length, large-number notation); they are left out here.
+== BB54.v ==
+   ok, 50 s
+== Individual54.v ==
+   ok, 34 s
+== BB54_rules.v ==
+   ok, 24 s
+== BB54_start.v ==
+   ok, 42 s
+== BB54_run.v ==
+   ok, 22 s
+== BB54_score.v ==
+   ok, 16 s
+== BB54_dphase.v ==
+   ok, 17 s
+== BB54_halt.v ==
+   ok, 10 s
+== BB54_bound.v ==
+   ok, 10 s
+== BB54_tower.v ==
+   ok, 20 s
+COMPILE DONE
+probe: 80 theorems closed under the global context

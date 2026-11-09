@@ -1,0 +1,27 @@
+From BusyCoq Require Export Individual.
+From TM44 Require Export BB44.
+
+Module Individual44 := Individual BB44.
+Export Individual44.
+
+Declare Scope sym_scope.
+Bind Scope sym_scope with Sym.
+Delimit Scope sym_scope with sym.
+Open Scope sym.
+
+Notation "0" := S0 : sym_scope.
+Notation "1" := S1 : sym_scope.
+Notation "2" := S2 : sym_scope.
+Notation "3" := S3 : sym_scope.
+
+(* Make sure that [{{A}}>] still refers to the state, even if we shadowed
+   [A] itself with something else. *)
+Notation "l '{{A}}>'  r" := (l {{A}}> r) (at level 30).
+Notation "l '{{B}}>'  r" := (l {{B}}> r) (at level 30).
+Notation "l '{{C}}>'  r" := (l {{C}}> r) (at level 30).
+Notation "l '{{D}}>'  r" := (l {{D}}> r) (at level 30).
+
+Notation "l '<{{A}}' r" := (l <{{A}} r) (at level 30).
+Notation "l '<{{B}}' r" := (l <{{B}} r) (at level 30).
+Notation "l '<{{C}}' r" := (l <{{C}} r) (at level 30).
+Notation "l '<{{D}}' r" := (l <{{D}} r) (at level 30).
