@@ -1,0 +1,227 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB21_B21_w2.tm (A, 0) = Some (0, TM.L, I)
+     : BB21_B21_w2.tm (A, 0) = Some (0, TM.L, I)
+eq_refl : BB21_B21_w2.tm (A, 1) = Some (0, TM.L, F)
+     : BB21_B21_w2.tm (A, 1) = Some (0, TM.L, F)
+eq_refl : BB21_B21_w2.tm (B, 0) = Some (0, R, J)
+     : BB21_B21_w2.tm (B, 0) = Some (0, R, J)
+eq_refl : BB21_B21_w2.tm (B, 1) = Some (1, R, G)
+     : BB21_B21_w2.tm (B, 1) = Some (1, R, G)
+eq_refl : BB21_B21_w2.tm (C, 0) = Some (0, R, D)
+     : BB21_B21_w2.tm (C, 0) = Some (0, R, D)
+eq_refl : BB21_B21_w2.tm (C, 1) = Some (1, TM.L, C)
+     : BB21_B21_w2.tm (C, 1) = Some (1, TM.L, C)
+eq_refl : BB21_B21_w2.tm (D, 0) = Some (1, R, H)
+     : BB21_B21_w2.tm (D, 0) = Some (1, R, H)
+eq_refl : BB21_B21_w2.tm (D, 1) = Some (1, R, E)
+     : BB21_B21_w2.tm (D, 1) = Some (1, R, E)
+eq_refl : BB21_B21_w2.tm (E, 0) = Some (1, TM.L, O)
+     : BB21_B21_w2.tm (E, 0) = Some (1, TM.L, O)
+eq_refl : BB21_B21_w2.tm (E, 1) = Some (0, R, H)
+     : BB21_B21_w2.tm (E, 1) = Some (0, R, H)
+eq_refl : BB21_B21_w2.tm (F, 0) = Some (1, TM.L, A)
+     : BB21_B21_w2.tm (F, 0) = Some (1, TM.L, A)
+eq_refl : BB21_B21_w2.tm (F, 1) = Some (1, TM.L, F)
+     : BB21_B21_w2.tm (F, 1) = Some (1, TM.L, F)
+eq_refl : BB21_B21_w2.tm (G, 0) = Some (0, TM.L, C)
+     : BB21_B21_w2.tm (G, 0) = Some (0, TM.L, C)
+eq_refl : BB21_B21_w2.tm (G, 1) = Some (1, TM.L, A)
+     : BB21_B21_w2.tm (G, 1) = Some (1, TM.L, A)
+eq_refl : BB21_B21_w2.tm (H, 0) = Some (1, R, B)
+     : BB21_B21_w2.tm (H, 0) = Some (1, R, B)
+eq_refl : BB21_B21_w2.tm (H, 1) = Some (1, R, H)
+     : BB21_B21_w2.tm (H, 1) = Some (1, R, H)
+eq_refl : BB21_B21_w2.tm (I, 0) = Some (1, R, D)
+     : BB21_B21_w2.tm (I, 0) = Some (1, R, D)
+eq_refl : BB21_B21_w2.tm (I, 1) = Some (0, TM.L, F)
+     : BB21_B21_w2.tm (I, 1) = Some (0, TM.L, F)
+eq_refl : BB21_B21_w2.tm (J, 0) = Some (1, TM.L, P)
+     : BB21_B21_w2.tm (J, 0) = Some (1, TM.L, P)
+eq_refl : BB21_B21_w2.tm (J, 1) = Some (0, R, K)
+     : BB21_B21_w2.tm (J, 1) = Some (0, R, K)
+eq_refl : BB21_B21_w2.tm (K, 0) = Some (0, TM.L, M)
+     : BB21_B21_w2.tm (K, 0) = Some (0, TM.L, M)
+eq_refl : BB21_B21_w2.tm (K, 1) = Some (1, TM.L, L)
+     : BB21_B21_w2.tm (K, 1) = Some (1, TM.L, L)
+eq_refl : BB21_B21_w2.tm (L, 0) = Some (0, TM.L, L)
+     : BB21_B21_w2.tm (L, 0) = Some (0, TM.L, L)
+eq_refl : BB21_B21_w2.tm (L, 1) = Some (1, TM.L, M)
+     : BB21_B21_w2.tm (L, 1) = Some (1, TM.L, M)
+eq_refl : BB21_B21_w2.tm (M, 0) = Some (1, TM.L, E)
+     : BB21_B21_w2.tm (M, 0) = Some (1, TM.L, E)
+eq_refl : BB21_B21_w2.tm (M, 1) = Some (1, TM.L, N)
+     : BB21_B21_w2.tm (M, 1) = Some (1, TM.L, N)
+eq_refl : BB21_B21_w2.tm (N, 0) = Some (0, R, QQ)
+     : BB21_B21_w2.tm (N, 0) = Some (0, R, QQ)
+eq_refl : BB21_B21_w2.tm (N, 1) = Some (0, TM.L, M)
+     : BB21_B21_w2.tm (N, 1) = Some (0, TM.L, M)
+eq_refl : BB21_B21_w2.tm (O, 0) = Some (0, R, P)
+     : BB21_B21_w2.tm (O, 0) = Some (0, R, P)
+eq_refl : BB21_B21_w2.tm (O, 1) = Some (1, TM.L, O)
+     : BB21_B21_w2.tm (O, 1) = Some (1, TM.L, O)
+eq_refl : BB21_B21_w2.tm (P, 0) = Some (1, TM.L, RR)
+     : BB21_B21_w2.tm (P, 0) = Some (1, TM.L, RR)
+eq_refl : BB21_B21_w2.tm (P, 1) = Some (0, R, H)
+     : BB21_B21_w2.tm (P, 1) = Some (0, R, H)
+eq_refl : BB21_B21_w2.tm (QQ, 0) = Some (1, TM.L, F)
+     : BB21_B21_w2.tm (QQ, 0) = Some (1, TM.L, F)
+eq_refl : BB21_B21_w2.tm (QQ, 1) = Some (1, R, QQ)
+     : BB21_B21_w2.tm (QQ, 1) = Some (1, R, QQ)
+eq_refl : BB21_B21_w2.tm (RR, 0) = None
+     : BB21_B21_w2.tm (RR, 0) = None
+eq_refl : BB21_B21_w2.tm (RR, 1) = Some (0, TM.L, SS)
+     : BB21_B21_w2.tm (RR, 1) = Some (0, TM.L, SS)
+eq_refl : BB21_B21_w2.tm (SS, 0) = Some (1, TM.L, H)
+     : BB21_B21_w2.tm (SS, 0) = Some (1, TM.L, H)
+eq_refl : BB21_B21_w2.tm (SS, 1) = Some (0, TM.L, TT)
+     : BB21_B21_w2.tm (SS, 1) = Some (0, TM.L, TT)
+eq_refl : BB21_B21_w2.tm (TT, 0) = Some (1, TM.L, H)
+     : BB21_B21_w2.tm (TT, 0) = Some (1, TM.L, H)
+eq_refl : BB21_B21_w2.tm (TT, 1) = Some (1, TM.L, UU)
+     : BB21_B21_w2.tm (TT, 1) = Some (1, TM.L, UU)
+eq_refl : BB21_B21_w2.tm (UU, 0) = Some (0, TM.L, E)
+     : BB21_B21_w2.tm (UU, 0) = Some (0, TM.L, E)
+eq_refl : BB21_B21_w2.tm (UU, 1) = Some (1, TM.L, RR)
+     : BB21_B21_w2.tm (UU, 1) = Some (1, TM.L, RR)
+BB_FGH_wa.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB21_B21_absdef.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB_FGH_wa.f (k _)%nat_scope
+BB_FGH_wa.f_wa =
+fix f_wa (a : nat) : nat -> nat -> nat :=
+  match a with
+  | 0 => fun b : nat => BB_FGH_wa.f b
+  | S a' =>
+      fix fb (b : nat) : nat -> nat :=
+        match b with
+        | 0 => fun n : nat => f_wa a' n n
+        | S b' => fun n : nat => BB21_B21_absdef.iter n (fb b') n
+        end
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB_FGH_wa.f_wa (a _ _)%nat_scope
+BB_FGH_wa.f_wsq = fun n : nat => BB_FGH_wa.f_wa n 0 n
+     : nat -> nat
+
+Arguments BB_FGH_wa.f_wsq n%nat_scope
+BB21_B21_absdef.iter =
+fix iter (X : Type) (n : nat) (g : X -> X) (x : X) {struct n} : X :=
+  match n with
+  | 0 => x
+  | S n' => g (iter X n' g x)
+  end
+     : forall {X : Type}, nat -> (X -> X) -> X -> X
+
+Arguments BB21_B21_absdef.iter {X}%type_scope n%nat_scope g%function_scope x
+BB21_B21_score.tet =
+fix tet (n : nat) : nat := match n with
+                           | 0 => 1
+                           | S n' => 4 ^ tet n'
+                           end
+     : nat -> nat
+
+Arguments BB21_B21_score.tet n%nat_scope
+BB21_B21_score.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB21_B21_score.sym_val s%sym_scope
+BB21_B21_score.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB21_B21_score.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB21_B21_score.count1 xs%list_scope
+BB21_B21_score.onesN =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB21_B21_score.count1 L + BB21_B21_score.sym_val s +
+  BB21_B21_score.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB21_B21_score.onesN c N%nat_scope
+BB20_JZ20.iter =
+fix iter (X : Type) (n : nat) (g : X -> X) (x : X) {struct n} : X :=
+  match n with
+  | 0 => x
+  | S n' => g (iter X n' g x)
+  end
+     : forall {X : Type}, nat -> (X -> X) -> X -> X
+
+Arguments BB20_JZ20.iter {X}%type_scope n%nat_scope g%function_scope x
+BB20_JZ20.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB20_JZ20.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB20_JZ20.f (k _)%nat_scope
+BB20_JZ20.f_omega = fun n : nat => BB20_JZ20.f n n
+     : nat -> nat
+
+Arguments BB20_JZ20.f_omega n%nat_scope
+BB20_JZ20.f_wk =
+fix f_wk (k : nat) : nat -> nat :=
+  match k with
+  | 0 => BB20_JZ20.f_omega
+  | S k' => fun n : nat => BB20_JZ20.iter n (f_wk k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB20_JZ20.f_wk (k _)%nat_scope
+BB20_JZ20.f_w2 = fun n : nat => BB20_JZ20.f_wk n n
+     : nat -> nat
+
+Arguments BB20_JZ20.f_w2 n%nat_scope
+BB21_B21_w2.halt
+     : halts BB21_B21_w2.tm c0
+BB21_B21_w2.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB21_B21_w2.tm ]->* c /\
+         halted BB21_B21_w2.tm c /\
+         BB21_B21_score.onesN c N /\ BB21_B21_score.tet 341 < N
+BB21_B21_w2.sigma_lower_bound_wsq3
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB21_B21_w2.tm ]->* c /\
+         halted BB21_B21_w2.tm c /\
+         BB21_B21_score.onesN c N /\
+         BB21_B21_absdef.iter 3 BB_FGH_wa.f_wsq (BB21_B21_score.tet 341) < N
+BB21_B21_w2.sigma_lower_bound_wsq
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB21_B21_w2.tm ]->* c /\
+         halted BB21_B21_w2.tm c /\
+         BB21_B21_score.onesN c N /\
+         BB_FGH_wa.f_wsq (BB_FGH_wa.f_wsq (BB21_B21_score.tet 341)) < N
+BB21_B21_w2.beats_J20
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB21_B21_w2.tm ]->* c /\
+         halted BB21_B21_w2.tm c /\
+         BB21_B21_score.onesN c N /\
+         BB20_JZ20.f_w2
+           (BB20_JZ20.f_wk 2 (BB20_JZ20.f_wk 2 (BB20_JZ20.f 10 2))) < N
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

@@ -28,7 +28,7 @@ slots are used.
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB25_W2PR.halt`. It halts at the eighth refill. The halt is decided by a residue schedule (the refill accumulator mod 8, section 2), computed exactly in the proof. |
 | Score | Machine-checked: the halting tape holds N ones with Fh⁵(4↑↑341) < N, where Fh(n) = h_n(0) is the engine's level map at 0 (`sigma_lower_bound`; h_0(x) = x + 4, h_(m+1)(x) = h_m^(x+3)(1), as in B21). Fh is f_ω-class, so this is roughly f_ω^5(4↑↑341). The halt R0 = `1RZ` is read on a 0 and writes 1, so σ = N + 1. |
 | Level | **On paper only** (an argument, not a Coq lemma): about f_(ω²)^5(4↑↑340), two f_(ω²) phases above B21. |
-| Comparisons | Its proved bound is above B21's proved 4↑↑341. It is below the proved bounds of R18a (BB(18)) and J20 (BB(20)), so BB(25) ≥ BB(20) + 5 is the better proved bound for BB(25). On paper it is far above both, and above B21; the wiki's Champions table has no rows between BB(21) and BB(29) (checked 2026-11-08). Not yet reviewed by the bbchallenge community. |
+| Comparisons | Its proved bound is above B21's first published bound 4↑↑341, but below the proved bounds of R18a (BB(18)), J20 (BB(20)) and B21's ω² bound f_(ω²)^3(4↑↑341) (BB(21), `../BB21/verify_w2/`), so BB(25) ≥ BB(21) + 4 is the better proved bound for BB(25). W2PR's own ω² bound is not proved yet. On paper it is far above both, and above B21; the wiki's Champions table has no rows between BB(21) and BB(29) (checked 2026-11-08). Not yet reviewed by the bbchallenge community. |
 | Steps | Not computed. σ is at most the number of steps, so the bound on σ is a bound on the steps too. |
 
 ## 1. How it works
@@ -97,9 +97,10 @@ same-state runs), without the Coq files (about 15 s). It checks:
 ## 4. Size and comparisons
 
 - **Proved:** Fh⁵(4↑↑341) < N, σ = N + 1, with Fh(n) = h_n(0) f_ω-class: roughly f_ω^5(4↑↑341). This is above B21's
-  proved 4↑↑341 (since Fh(n) ≥ n). By an easy argument (not a Coq lemma) it is far below R18a's proved
+  first published bound 4↑↑341 (since Fh(n) ≥ n). By an easy argument (not a Coq lemma) it is far below R18a's proved
   f_(ω·2)(f_ω(f_ω(f_10(2)))) and J20's proved f_(ω·2)(f_(ω+2)^2(f_10(2))): already f_(ω+1)(n) = f_ω^n(n) dominates
-  f_ω^5 for n ≥ 5. So BB(25) ≥ BB(20) + 5 is the better proved bound for BB(25).
+  f_ω^5 for n ≥ 5. B21's proved f_(ω²)^3(4↑↑341) ([`../BB21/verify_w2/`](../BB21/verify_w2/)) is higher still, so
+  BB(25) ≥ BB(21) + 4 is the better proved bound for BB(25).
 - **On paper only** (an argument, not a Coq lemma): each big phase is an f_(ω²) step, as in B21 (see B21's write-up,
   section 4), so five big phases give about f_(ω²)^5(4↑↑340). That is two f_(ω²) applications above B21's (on paper
   about f_(ω²)^3(4↑↑340); the wiki's bound for B21 is f_(ω²)^2(4↑↑341)). If it is right, W2PR would fill the wiki's
