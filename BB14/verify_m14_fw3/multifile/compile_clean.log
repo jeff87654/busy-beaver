@@ -1,0 +1,25 @@
+3 of 3 shared files byte-identical to ../../verify_m14_31/multifile's
+The Coq Proof Assistant, version 8.20.1
+== BB142.v ==
+   ok, 12 s
+== Individual142.v ==
+   ok, 10 s
+== BB14_M14_31.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 32 s
+== BB14_M14_fw3.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 28 s
+== BB14_M14_fw3_cmp.v ==
+Closed under the global context
+Closed under the global context
+   ok, 17 s
+COMPILE DONE
+probe: 9 of 9 theorems closed under the global context
