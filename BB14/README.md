@@ -1,6 +1,41 @@
 # BB14/: 14 states, 2 symbols
 
-## Current entry: M14_31
+## Current entry: M14_fw3
+
+    1RB1RA_1RI1RC_0LD1LG_0RE1LD_0LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_1LN1LK_1RK0LH_1LD0RK
+
+Halts from the blank tape; K0 (`1RZ` in the string) is the halt, so σ = N + 1, where N is the number of ones when K0
+is read. Machine-checked, with the standard fast-growing hierarchy and no axioms:
+
+    f_(ω+3)(f_ω(3)) < N,   σ = N + 1        (sigma_bound; f_(ω+3)(n) = f_(ω+2)^n(n))
+
+the exact score N = p + a + 6 for the explicit pair (p, a) = `pa_final` (`score_exact`; not evaluated), and, against
+the exact score of the previous entry M14_31 (below): M14_31's halting tape holds exactly p + a + 4 ones for
+(p, a) = `pa32`, and that number is below N (`beats_M14_31_exact`, `beats_M14_31_score`; the comparison file proves
+p + a + 4 < f_(ω+2)^64(f_ω(3)) ≤ f_(ω+3)(f_ω(3)) from the definitions of M14_31's maps). M14_31 halts reading a 1
+(σ = N there), so M14_fw3's σ is the larger.
+
+M14_fw3 runs M12's engine and counters (as M14_31 does) with E0, K0, L0, M0 and N changed. They keep a unary counter
+E on the right of the tape, set from the opening to E₀ = W_3(3)/2 − 3 ≥ f_ω(3); each decrement of E costs two
+f_(ω+2) rounds, and the machine halts when E reaches 0. That is f_(ω+3)-level growth at 14 states; the earlier entries
+were f_(ω+2)^k for fixed k.
+
+The 15- and 16-state entries are unchanged: J15_fw13's proved f_(ω+13)(20) ([`../BB15/`](../BB15/)) and J16_w2's
+f_(ω·2)(f_15(2)) ([`../BB16/`](../BB16/)) are far above M14_fw3's proved f_(ω+3)(f_ω(3)). M14_fw3 has no proved
+upper bound; on paper its score is of level f_(ω+3), far below f_(ω+13)(20), so BB(14) + 1 does not improve the
+BB(15) row. Not yet reviewed by the bbchallenge community.
+
+- [`1RB1RA_1RI1RC..._1LN1LK_1RK0LH_1LD0RK.md`](1RB1RA_1RI1RC_0LD1LG_0RE1LD_0LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_1LN1LK_1RK0LH_1LD0RK.md):
+  the write-up (the table, the counter E, the run, verification, comparisons, credit).
+- [`verify_m14_fw3/`](verify_m14_fw3/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_bound`, `beats_M14_31` (against M14_31's proved lower bound), the `_tnf` versions for the relabelled table,
+  and `beats_M14_31_exact`, `beats_M14_31_score` (against M14_31's exact score). Built and probed in CI (job
+  `bb13-bb14`), which requires nine closed `Print Assumptions` reports.
+
+Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-09);
+re-checked here, with the comparison file.
+
+## Previous entry: M14_31
 
     1RB1RA_1RI1RC_0LD1LG_0RE1LD_0RN1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_0LK0LH_1LM---
 
@@ -26,12 +61,13 @@ community.
   the write-up (the table, the sentinel, the 32 rounds, verification, comparisons, credit).
 - [`verify_m14_31/`](verify_m14_31/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
   `sigma_bound`, `sigma_bound_fw1`, `beats_M14d_18`, `beats_M14d_18_fw1`. About 40 s to compile; built and probed
-  in CI (job `bb13-bb14`), which requires six closed `Print Assumptions` reports.
+  in CI (job `bb13-bb14`), which requires six closed `Print Assumptions` reports. M14_fw3's comparison loads
+  `BB14_M14_31.v` (a byte-identical copy in `verify_m14_fw3/multifile/`, checked by its `share_check.sh`).
 
 Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-08);
 re-checked here, with the comparison file.
 
-## Previous entry: M14d_18
+## Earlier entry: M14d_18
 
     1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LN1LK_1RZ0LH_0LG1LJ
 
@@ -89,7 +125,7 @@ bounds published when it was added; M14d_18's (above) exceeds it.
 Found and proved by Argon, a Google Gemini model, run by the repository owner in Google's Antigravity (2026-10-28);
 re-checked here.
 
-## Older entry: M14
+## Earlier entry: M14
 
     1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LN1RF_1LJ0RA_1RA0LH_1LG1LH_1RK0LM_1RZ0LE_0LE0RJ_1LH1LM_0LH0LL_0LG1LN
 
