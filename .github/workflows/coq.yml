@@ -73,8 +73,8 @@ jobs:
             bb8-m8:
               - '{BB8/**,BB9/verify_c04/**,BB9/verify_fw2/multifile/**}'
               - '!**/*.md'
-            bb13-bb14:                    # also builds BB11/verify (M11b), BB12/verify_m12 (M12), BB15/verify, BB16/verify*, BB17/verify, BB18/verify*, BB19/verify*, BB20/verify, BB21/verify*, BB25/verify* and BB29/31/33/verify
-              - '{BB11/verify/**,BB12/verify_m12/**,BB13/**,BB14/**,BB15/verify/**,BB16/verify*/**,BB17/verify/**,BB18/verify*/**,BB19/verify*/**,BB20/verify/**,BB21/verify*/**,BB25/verify*/**,BB29/verify/**,BB31/verify/**,BB33/verify/**}'
+            bb13-bb14:                    # also builds BB11/verify* (M11b, C4), BB12/verify_m12 (M12), BB15/verify, BB16/verify*, BB17/verify, BB18/verify*, BB19/verify*, BB20/verify, BB21/verify*, BB25/verify* and BB29/31/33/verify
+              - '{BB11/verify*/**,BB12/verify_m12/**,BB13/**,BB14/**,BB15/verify/**,BB16/verify*/**,BB17/verify/**,BB18/verify*/**,BB19/verify*/**,BB20/verify/**,BB21/verify*/**,BB25/verify*/**,BB29/verify/**,BB31/verify/**,BB33/verify/**}'
               - '!**/*.md'
             bb9-fw2:
               - 'BB9/verify_fw2/**'
@@ -306,7 +306,8 @@ jobs:
   bb13-bb14:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb13-bb14 == 'true'
-    # BB11/verify (M11b, f_(omega+1); its comparison with n1 is not built here), BB12/verify_m12, BB13/, BB14/: the 12-,
+    # BB11/verify (M11b, f_(omega+1); its comparison with n1 is not built here), BB11/verify_c4 (C4, the 11-state
+    # f_(omega+2)^2 machine, with copies of M11b's proofs for its comparison), BB12/verify_m12, BB13/, BB14/: the 12-,
     # 13- and 14-state f_(omega+2) machines M12, M13, M13b, M13_19, M14, M14b, M14d_18 and M14_31 and the 14-state
     # f_(omega+3) machine M14_fw3 (verify_m13_19 and verify_m14_fw3 also compare with M13b's and M14_31's exact
     # scores, loading byte-identical copies of their proofs), BB15/verify (Argon's 15-state
@@ -325,7 +326,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        dir: ['BB11/verify/multifile', 'BB12/verify_m12/multifile', 'BB13/verify/multifile', 'BB13/verify_m13b/multifile',
+        dir: ['BB11/verify/multifile', 'BB11/verify_c4/multifile', 'BB12/verify_m12/multifile', 'BB13/verify/multifile', 'BB13/verify_m13b/multifile',
               'BB13/verify_m13_19/multifile',
               'BB14/verify/multifile', 'BB14/verify_m14b/multifile', 'BB14/verify_m14d/multifile',
               'BB14/verify_m14_31/multifile', 'BB14/verify_m14_fw3/multifile', 'BB15/verify/multifile',
@@ -368,7 +369,7 @@ jobs:
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
           # one 'Closed under the global context' per Print Assumptions line of probe.v (3 for M13b/M14b, 4 for
-          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, B21 and W2PR, 4 for W2PR's verify_w2, 5 for R18a, B21's verify_w2, J15_fw13 and J18_w2_C, 6 for M11b, M16_C and M14_31, 7 for J16_w2, 9 for M13_19 and M14_fw3)
+          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, B21 and W2PR, 4 for W2PR's verify_w2, 5 for R18a, B21's verify_w2, J15_fw13 and J18_w2_C, 6 for M11b, M16_C and M14_31, 7 for C4 and J16_w2, 9 for M13_19 and M14_fw3)
           expected=$(grep -c '^Print Assumptions' probe.v)
           closed=$(grep -c 'Closed under the global context' probe.log || true)
           if grep -q 'Axioms:' probe.log || [ "$expected" -lt 3 ] || [ "$closed" -ne "$expected" ]; then

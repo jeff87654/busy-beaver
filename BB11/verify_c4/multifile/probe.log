@@ -1,0 +1,266 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB11_C4.tm (A, 0) = Some (1, R, B)
+     : BB11_C4.tm (A, 0) = Some (1, R, B)
+eq_refl : BB11_C4.tm (A, 1) = Some (1, R, H)
+     : BB11_C4.tm (A, 1) = Some (1, R, H)
+eq_refl : BB11_C4.tm (B, 0) = Some (1, R, C)
+     : BB11_C4.tm (B, 0) = Some (1, R, C)
+eq_refl : BB11_C4.tm (B, 1) = Some (0, L, D)
+     : BB11_C4.tm (B, 1) = Some (0, L, D)
+eq_refl : BB11_C4.tm (C, 0) = Some (1, L, D)
+     : BB11_C4.tm (C, 0) = Some (1, L, D)
+eq_refl : BB11_C4.tm (C, 1) = Some (1, R, J)
+     : BB11_C4.tm (C, 1) = Some (1, R, J)
+eq_refl : BB11_C4.tm (D, 0) = Some (1, L, E)
+     : BB11_C4.tm (D, 0) = Some (1, L, E)
+eq_refl : BB11_C4.tm (D, 1) = Some (1, L, B)
+     : BB11_C4.tm (D, 1) = Some (1, L, B)
+eq_refl : BB11_C4.tm (E, 0) = Some (1, L, F)
+     : BB11_C4.tm (E, 0) = Some (1, L, F)
+eq_refl : BB11_C4.tm (E, 1) = Some (1, L, E)
+     : BB11_C4.tm (E, 1) = Some (1, L, E)
+eq_refl : BB11_C4.tm (F, 0) = Some (1, R, G)
+     : BB11_C4.tm (F, 0) = Some (1, R, G)
+eq_refl : BB11_C4.tm (F, 1) = Some (0, L, E)
+     : BB11_C4.tm (F, 1) = Some (0, L, E)
+eq_refl : BB11_C4.tm (G, 0) = Some (1, R, A)
+     : BB11_C4.tm (G, 0) = Some (1, R, A)
+eq_refl : BB11_C4.tm (G, 1) = Some (1, R, G)
+     : BB11_C4.tm (G, 1) = Some (1, R, G)
+eq_refl : BB11_C4.tm (H, 0) = Some (0, L, I)
+     : BB11_C4.tm (H, 0) = Some (0, L, I)
+eq_refl : BB11_C4.tm (H, 1) = Some (1, L, F)
+     : BB11_C4.tm (H, 1) = Some (1, L, F)
+eq_refl : BB11_C4.tm (I, 0) = Some (0, R, C)
+     : BB11_C4.tm (I, 0) = Some (0, R, C)
+eq_refl : BB11_C4.tm (I, 1) = Some (1, L, I)
+     : BB11_C4.tm (I, 1) = Some (1, L, I)
+eq_refl : BB11_C4.tm (J, 0) = Some (1, R, K)
+     : BB11_C4.tm (J, 0) = Some (1, R, K)
+eq_refl : BB11_C4.tm (J, 1) = Some (0, R, G)
+     : BB11_C4.tm (J, 1) = Some (0, R, G)
+eq_refl : BB11_C4.tm (K, 0) = None
+     : BB11_C4.tm (K, 0) = None
+eq_refl : BB11_C4.tm (K, 1) = Some (0, L, B)
+     : BB11_C4.tm (K, 1) = Some (0, L, B)
+BB11_C4.iter =
+fix iter (X : Type) (n : nat) (g : X -> X) (x : X) {struct n} : X :=
+  match n with
+  | 0 => x
+  | S n' => g (iter X n' g x)
+  end
+     : forall {X : Type}, nat -> (X -> X) -> X -> X
+
+Arguments BB11_C4.iter {X}%type_scope n%nat_scope g%function_scope x
+BB11_C4.W =
+fix W (j b : nat) {struct j} : nat :=
+  match j with
+  | 0 => b + 3
+  | S j' => BB11_C4.iter (S b) (W j') 2
+  end
+     : nat -> nat -> nat
+
+Arguments BB11_C4.W (j b)%nat_scope
+BB11_C4_bound.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB11_C4.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB11_C4_bound.f (k _)%nat_scope
+BB11_C4_bound.f_omega = fun n : nat => BB11_C4_bound.f n n
+     : nat -> nat
+
+Arguments BB11_C4_bound.f_omega n%nat_scope
+BB11_C4_bound.f_omega1 =
+fun n : nat => BB11_C4.iter n BB11_C4_bound.f_omega n
+     : nat -> nat
+
+Arguments BB11_C4_bound.f_omega1 n%nat_scope
+BB11_C4_bound.f_omega2 =
+fun n : nat => BB11_C4.iter n BB11_C4_bound.f_omega1 n
+     : nat -> nat
+
+Arguments BB11_C4_bound.f_omega2 n%nat_scope
+BB11_C4.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB11_C4.sym_val s%sym_scope
+BB11_C4.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB11_C4.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB11_C4.count1 xs%list_scope
+BB11_C4.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = BB11_C4.count1 L + BB11_C4.sym_val s + BB11_C4.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB11_C4.ones c N%nat_scope
+BB11_M11b_fgh.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB11_M11b_fgh.count1 L + BB11_M11b_fgh.sym_val s + BB11_M11b_fgh.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB11_M11b_fgh.ones c N%nat_scope
+BB11_C4.halt
+     : halts BB11_C4.tm c0
+BB11_C4.score_exact
+     : exists c : Q * tape,
+         c0 -[ BB11_C4.tm ]->* c /\
+         halted BB11_C4.tm c /\
+         BB11_C4.ones c
+           (snd
+              (BB11_C4.iter
+                 (snd
+                    (BB11_C4.iter
+                       (fst
+                          (BB11_C4.iter (BB11_C4.W 5 (BB11_C4.W 2 4) / 4)
+                             BB11_C4.Rnd
+                             (fst (BB11_C4.iter 3 BB11_C4.Zs (1, 3)),
+                              snd (BB11_C4.iter 3 BB11_C4.Zs (1, 3)) + 2)) /
+                        2 + 1) BB11_C4.Zs (1, 3)) / 4) BB11_C4.Rnd
+                 (fst
+                    (BB11_C4.iter
+                       ((fst
+                           (BB11_C4.iter
+                              (fst
+                                 (BB11_C4.iter
+                                    (BB11_C4.W 5 (BB11_C4.W 2 4) / 4)
+                                    BB11_C4.Rnd
+                                    (fst (BB11_C4.iter 3 BB11_C4.Zs (1, 3)),
+                                     snd (BB11_C4.iter 3 BB11_C4.Zs (1, 3)) +
+                                     2)) / 2 + 1) BB11_C4.Zs (
+                              1, 3)) +
+                         snd
+                           (BB11_C4.iter (BB11_C4.W 5 (BB11_C4.W 2 4) / 4)
+                              BB11_C4.Rnd
+                              (fst (BB11_C4.iter 3 BB11_C4.Zs (1, 3)),
+                               snd (BB11_C4.iter 3 BB11_C4.Zs (1, 3)) + 2)) /
+                         2 + 1) / 2) BB11_C4.Zs (1, 3)),
+                  snd
+                    (BB11_C4.iter
+                       ((fst
+                           (BB11_C4.iter
+                              (fst
+                                 (BB11_C4.iter
+                                    (BB11_C4.W 5 (BB11_C4.W 2 4) / 4)
+                                    BB11_C4.Rnd
+                                    (fst (BB11_C4.iter 3 BB11_C4.Zs (1, 3)),
+                                     snd (BB11_C4.iter 3 BB11_C4.Zs (1, 3)) +
+                                     2)) / 2 + 1) BB11_C4.Zs (
+                              1, 3)) +
+                         snd
+                           (BB11_C4.iter (BB11_C4.W 5 (BB11_C4.W 2 4) / 4)
+                              BB11_C4.Rnd
+                              (fst (BB11_C4.iter 3 BB11_C4.Zs (1, 3)),
+                               snd (BB11_C4.iter 3 BB11_C4.Zs (1, 3)) + 2)) /
+                         2 + 1) / 2) BB11_C4.Zs (1, 3)) + 2)) + 3 +
+            fst
+              (BB11_C4.iter
+                 (snd
+                    (BB11_C4.iter
+                       (fst
+                          (BB11_C4.iter (BB11_C4.W 5 (BB11_C4.W 2 4) / 4)
+                             BB11_C4.Rnd
+                             (fst (BB11_C4.iter 3 BB11_C4.Zs (1, 3)),
+                              snd (BB11_C4.iter 3 BB11_C4.Zs (1, 3)) + 2)) /
+                        2 + 1) BB11_C4.Zs (1, 3)) / 4) BB11_C4.Rnd
+                 (fst
+                    (BB11_C4.iter
+                       ((fst
+                           (BB11_C4.iter
+                              (fst
+                                 (BB11_C4.iter
+                                    (BB11_C4.W 5 (BB11_C4.W 2 4) / 4)
+                                    BB11_C4.Rnd
+                                    (fst (BB11_C4.iter 3 BB11_C4.Zs (1, 3)),
+                                     snd (BB11_C4.iter 3 BB11_C4.Zs (1, 3)) +
+                                     2)) / 2 + 1) BB11_C4.Zs (
+                              1, 3)) +
+                         snd
+                           (BB11_C4.iter (BB11_C4.W 5 (BB11_C4.W 2 4) / 4)
+                              BB11_C4.Rnd
+                              (fst (BB11_C4.iter 3 BB11_C4.Zs (1, 3)),
+                               snd (BB11_C4.iter 3 BB11_C4.Zs (1, 3)) + 2)) /
+                         2 + 1) / 2) BB11_C4.Zs (1, 3)),
+                  snd
+                    (BB11_C4.iter
+                       ((fst
+                           (BB11_C4.iter
+                              (fst
+                                 (BB11_C4.iter
+                                    (BB11_C4.W 5 (BB11_C4.W 2 4) / 4)
+                                    BB11_C4.Rnd
+                                    (fst (BB11_C4.iter 3 BB11_C4.Zs (1, 3)),
+                                     snd (BB11_C4.iter 3 BB11_C4.Zs (1, 3)) +
+                                     2)) / 2 + 1) BB11_C4.Zs (
+                              1, 3)) +
+                         snd
+                           (BB11_C4.iter (BB11_C4.W 5 (BB11_C4.W 2 4) / 4)
+                              BB11_C4.Rnd
+                              (fst (BB11_C4.iter 3 BB11_C4.Zs (1, 3)),
+                               snd (BB11_C4.iter 3 BB11_C4.Zs (1, 3)) + 2)) /
+                         2 + 1) / 2) BB11_C4.Zs (1, 3)) + 2)))
+BB11_C4_bound.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB11_C4.tm ]->* c /\
+         halted BB11_C4.tm c /\
+         BB11_C4.ones c N /\
+         BB11_C4_bound.f_omega2
+           (BB11_C4_bound.f_omega2 (BB11_C4_bound.f 5 34)) < N
+BB11_C4_bound.sigma_lower_bound_34
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB11_C4.tm ]->* c /\
+         halted BB11_C4.tm c /\
+         BB11_C4.ones c N /\
+         BB11_C4_bound.f_omega2 (BB11_C4_bound.f_omega2 34) < N
+BB11_C4_bound.beats_M11b
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB11_C4.tm ]->* c /\
+         halted BB11_C4.tm c /\
+         BB11_C4.ones c N /\
+         BB11_C4_bound.f_omega1
+           (BB11_C4_bound.f_omega (BB11_C4_bound.f_omega 6)) < N
+BB11_C4_bound.beats_M12_lower
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB11_C4.tm ]->* c /\
+         halted BB11_C4.tm c /\
+         BB11_C4.ones c N /\
+         BB11_C4_bound.f_omega2
+           (BB11_C4_bound.f_omega1 (BB11_C4_bound.f_omega1 3)) < N
+BB11_C4_cmp.beats_M11b_score
+     : exists NM : nat,
+         (exists c : Q * tape,
+            c0 -[ BB11_M11b.tm ]->* c /\
+            halted BB11_M11b.tm c /\ BB11_M11b_fgh.ones c NM) /\
+         (exists (c : Q * tape) (n : nat),
+            c0 -[ BB11_C4.tm ]->* c /\
+            halted BB11_C4.tm c /\ BB11_C4.ones c n /\ NM + 1 < n)
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
