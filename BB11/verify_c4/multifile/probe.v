@@ -7,7 +7,7 @@
     transition, K0, is None), and the start configuration is the blank tape in state A; (2) the main theorems have
     the stated types; (3) they use no axioms.  It also prints the definitions the statements use. *)
 
-From BB8 Require BB11_C4 BB11_C4_bound BB11_M11b BB11_M11b_fgh BB11_C4_cmp.
+From BB8 Require BB11_C4 BB11_C4_bound BB11_M11b BB11_M11b_fgh BB11_C4_cmp BB12_M12 BB12_M12_bound BB11_C4_vs_M12.
 From BB8 Require Import Individual112.
 From Coq Require Import PeanoNat.
 Local Open Scope sym_scope.
@@ -36,6 +36,7 @@ Print BB11_C4.sym_val.
 Print BB11_C4.count1.
 Print BB11_C4.ones.
 Print BB11_M11b_fgh.ones.
+Print BB12_M12_bound.ones.
 
 Check BB11_C4.halt.
 Check BB11_C4.score_exact.
@@ -44,6 +45,8 @@ Check BB11_C4_bound.sigma_lower_bound_34.
 Check BB11_C4_bound.beats_M11b.
 Check BB11_C4_bound.beats_M12_lower.
 Check BB11_C4_cmp.beats_M11b_score.
+Check BB11_C4_vs_M12.beats_M12_exact.
+Check BB11_C4_vs_M12.beats_M12_score.
 
 Print Assumptions BB11_C4.halt.
 Print Assumptions BB11_C4.score_exact.
@@ -52,3 +55,5 @@ Print Assumptions BB11_C4_bound.sigma_lower_bound_34.
 Print Assumptions BB11_C4_bound.beats_M11b.
 Print Assumptions BB11_C4_bound.beats_M12_lower.
 Print Assumptions BB11_C4_cmp.beats_M11b_score.
+Print Assumptions BB11_C4_vs_M12.beats_M12_exact.
+Print Assumptions BB11_C4_vs_M12.beats_M12_score.
