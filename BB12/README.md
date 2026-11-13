@@ -18,7 +18,12 @@ proved upper bound).
   `sigma_lower_bound_strong`, `sigma_lower_bound_m12`. Built in CI (job `bb13-bb14`, about a minute).
 
 M12 shares its A–D, G and H rows with M14 and is the base of M13b and M14b ([`../BB13/`](../BB13/),
-[`../BB14/`](../BB14/)). Found and proved by Argon (a Google Gemini
+[`../BB14/`](../BB14/)).
+
+BB(12) ≥ BB(11) + 1: the 11-state C4 ([`../BB11/`](../BB11/), M12 with state L removed) gives a larger proved lower
+bound for BB(12), f_(ω+2)(f_(ω+2)(f_5(34))) + 1, than M12's proved f_(ω+2)(f_(ω+1)(f_(ω+1)(3))) (`beats_M12_lower`, in
+Coq). That compares proved lower bounds only: C4 has not been compared with M12's exact score, since no upper bound
+on M12 is proved yet, so M12 stays the entry here. Found and proved by Argon (a Google Gemini
 model run by the repository owner), 2026-10-26; the Coq files were re-checked here.
 
 ## Previous entry: T12a

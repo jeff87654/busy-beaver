@@ -1,0 +1,10 @@
+-Q . BB8
+-Q ../../../busycoq/verify BusyCoq
+BB112.v
+Individual112.v
+BB11_M11b.v
+BB11_M11b_fgh.v
+BB11_M11b_upper.v
+BB11_C4.v
+BB11_C4_bound.v
+BB11_C4_cmp.v
