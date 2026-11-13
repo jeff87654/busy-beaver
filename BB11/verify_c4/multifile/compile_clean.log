@@ -1,26 +1,36 @@
-5 of 5 shared files byte-identical to ../../verify/multifile's
+9 of 9 shared files byte-identical to ../../verify/multifile's and ../../../BB12/verify_m12/multifile's
 The Coq Proof Assistant, version 8.20.1
 == BB112.v ==
-   ok, 10 s
+   ok, 13 s
 == Individual112.v ==
    ok, 10 s
 == BB11_M11b.v ==
-   ok, 18 s
+   ok, 17 s
 == BB11_M11b_fgh.v ==
 Closed under the global context
 Closed under the global context
 Closed under the global context
-   ok, 14 s
+   ok, 18 s
 == BB11_M11b_upper.v ==
 Closed under the global context
 Closed under the global context
    ok, 17 s
 == BB11_C4.v ==
-   ok, 49 s
+   ok, 21 s
 == BB11_C4_bound.v ==
-   ok, 163 s
+   ok, 13 s
 == BB11_C4_cmp.v ==
 Closed under the global context
-   ok, 22 s
+   ok, 9 s
+== BB122.v ==
+   ok, 10 s
+== Individual122.v ==
+   ok, 10 s
+== BB12_M12.v ==
+   ok, 16 s
+== BB12_M12_bound.v ==
+   ok, 13 s
+== BB11_C4_vs_M12.v ==
+   ok, 8 s
 COMPILE DONE
-probe: 7 of 7 theorems closed under the global context
+probe: 9 of 9 theorems closed under the global context

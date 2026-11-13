@@ -20,15 +20,16 @@ changed); the string above is the start-A relabelling the proof is about. A roun
 of zeros that is the counter of an f_(ω+1) loop; two stocks give two f_(ω+2) loops, and the halt hinges on two
 parities settled by W mod 4. Not yet reviewed by the bbchallenge community.
 
-BB(12) ≥ BB(11) + 1, so C4 also gives the best proved lower bound here for BB(12): f_(ω+2)(f_(ω+2)(f_5(34))) against
-M12's proved f_(ω+2)(f_(ω+1)(f_(ω+1)(3))) (`beats_M12_lower`, in Coq). That compares proved lower bounds: C4 has not
-been compared with M12's exact score, for which no upper bound is proved yet.
+C4 is also above the exact score of M12, the 12-state entry, in Coq: M12's exact count is at most
+f_(ω+2)(4·f_(ω+1)^6(12)) + 3, proved from M12's own definitions (`beats_M12_exact`, `beats_M12_score`). So
+BB(12) ≥ BB(11) + 1 beats M12 itself.
 
 - [`1RB1RH_1RC0LD..._1RK0RG_1RZ0LB.md`](1RB1RH_1RC0LD_1LD1RJ_1LE1LB_1LF1LE_1RG0LE_1RA1RG_0LI1LF_0RC1LI_1RK0RG_1RZ0LB.md): the write-up (the table and the M12 naming, the stocks and rounds,
   the run, verification, comparisons, credit).
 - [`verify_c4/`](verify_c4/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
-  `sigma_lower_bound`, `sigma_lower_bound_34`, `beats_M11b`, `beats_M12_lower`, `beats_M11b_score`. Built and probed
-  in CI (job `bb13-bb14`), which requires seven closed `Print Assumptions` reports.
+  `sigma_lower_bound`, `sigma_lower_bound_34`, `beats_M11b`, `beats_M12_lower`, `beats_M11b_score`,
+  `beats_M12_exact`, `beats_M12_score`. Built and probed in CI (job `bb13-bb14`), which requires nine closed
+  `Print Assumptions` reports.
 
 Found and proved by this project (agents of the repository owner, 2026-11-12/13), by an exact macro enumeration of
 M12's 10-state core plus one state; M12 is Argon's machine.

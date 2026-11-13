@@ -30,7 +30,7 @@ start-A table. The halting transition K0 is undefined in the Coq table (`---`); 
 | Exact score | Machine-checked formula: N = u + 3 + p ones when K0 is read, where (p, u) = `nFIN` is given by the recursion of section 2 (`score_exact`). K0 is read on a 0 and the halting transition writes a 1, so σ = N + 1. Not evaluated as a number. |
 | Level | Machine-checked, with the standard fast-growing hierarchy: f_(ω+2)(f_(ω+2)(f_5(34))) < N (`sigma_lower_bound`), and f_(ω+2)(f_(ω+2)(34)) < N (`sigma_lower_bound_34`). |
 | M11b (previous BB(11) entry) | **In Coq, against its exact score**: M11b's proved upper bound N_M11b + 1 < f_(ω+1)(f_ω(f_ω(6))) (`sigma_bracket_m11`, with σ(M11b) = N_M11b + 1) is below C4's N (`beats_M11b`); `beats_M11b_score` (`BB11_C4_cmp.v`) joins the two statements, loading M11b's proof files: NM + 1 < N for the numbers of ones on the two halting tapes. |
-| M12 (BB(12) entry) | C4's proved lower bound is above M12's proved LOWER bound f_(ω+2)(f_(ω+1)(f_(ω+1)(3))) (`beats_M12_lower`). C4 has **not** been compared with M12's exact score: there is no proved upper bound for M12 yet. |
+| M12 (BB(12) entry) | **In Coq, against its exact score** (`BB11_C4_vs_M12.v`): M12's halting tape holds exactly fst pb2 + snd pb2/2 + 3 ones (M12's `score_exact`), proved here to be at most f_(ω+2)(4·f_(ω+1)^6(12)) + 3, below C4's N (`beats_M12_exact`, `beats_M12_score`). Both halt reading a 0, so σ(C4) > σ(M12) and BB(12) ≥ BB(11) + 1 > σ(M12). `beats_M12_lower` compares with M12's proved lower bound only. |
 | Steps | Not computed. |
 
 ## 1. How it works
@@ -76,13 +76,16 @@ f_(ω+2)(a1) and the second stock, longer than f_(ω+2)(a1), gives f_(ω+2)(f_(�
 [`verify_c4/`](verify_c4/): busycoq `bd2e36f`, Coq 8.20.1, built in CI (job `bb13-bb14`). `probe.v` re-checks the
 transition table entry by entry against the string above (22 checks generated from the string) and the blank start
 configuration, prints the definitions the statements use, and confirms that `halt`, `score_exact`,
-`sigma_lower_bound`, `sigma_lower_bound_34`, `beats_M11b`, `beats_M12_lower` and `beats_M11b_score` are closed under
+`sigma_lower_bound`, `sigma_lower_bound_34`, `beats_M11b`, `beats_M12_lower`, `beats_M11b_score`, `beats_M12_exact` and
+`beats_M12_score` are closed under
 the global context. The main proof also passes this project's `check.py` (the statement `halts tm c0` read from the
 file, the table compared with the machine string, `Print Assumptions halt` closed), 2026-11-13.
 
 `BB11_C4.v` and `BB11_C4_bound.v` are this project's files, unchanged except for line endings. `BB11_C4_cmp.v` (the
 joined comparison with M11b) was written for this entry; it loads M11b's three proof files, byte-identical copies of
-[`verify/multifile/`](verify/multifile/).
+[`verify/multifile/`](verify/multifile/). `BB11_C4_vs_M12.v` (the comparison with M12, written as `BB11_C4_cmp.v` in
+the project's notes; first comment line changed for the new name) loads byte-identical copies of M12's files from
+[`../BB12/verify_m12/multifile/`](../BB12/verify_m12/multifile/).
 
 There is no independent simulator for this write-up in the repository; the finder's exact macro simulator and
 literal checks are described in the working notes, and every rule cited here is a lemma of the Coq file.
@@ -90,14 +93,16 @@ literal checks are described in the working notes, and every rule cited here is 
 ## 4. Comparisons
 
 - **M11b (BB(11))**: above its exact score, in Coq (above).
-- **M12 (BB(12))**: BB(12) ≥ BB(11) + 1 (redirect the halt into one new state that writes a 1), so C4 gives
-  BB(12) > f_(ω+2)(f_(ω+2)(f_5(34))), which is above M12's proved lower bound f_(ω+2)(f_(ω+1)(f_(ω+1)(3))) in Coq
-  (`beats_M12_lower`). That compares proved lower bounds only: M12's exact score has not been bounded from above, so
-  it is not shown that C4 + 1 beats M12 itself. M12's row stays.
+- **M12 (BB(12)), in Coq against its exact score** (`BB11_C4_vs_M12.v`, which loads M12's proof files): from the
+  definitions of M12's maps (the same W, Kc, Kc_full, Kd_step, Kd_iter and D_reload as in M13b; the argument is that of
+  the BB(13) comparison file), M12's exact count is at most f_(ω+2)(4·f_(ω+1)^6(12)) + 3, below C4's lower bound
+  (`beats_M12_exact`, `beats_M12_score`). With BB(12) ≥ BB(11) + 1 (redirect the halt into one new state that writes a
+  1), C4 gives a 12-state score above M12's. M12's row is kept as the 12-state machine of record here, with a note,
+  as for BB(17).
 - Not yet reviewed by the bbchallenge community.
 
 ## Credit
 
 Found and proved in Coq by this project (the repository owner's work with Claude models as agents), 2026-11-12/13:
 an exact macro enumeration of M12's 10-state core plus one state (about 2.07 million nodes) found C4, and a separate
-agent wrote the Coq proof. C4 is built on M12, Argon's 12-state machine.
+agent wrote the Coq proof and the comparison with M12. C4 is built on M12, Argon's 12-state machine.

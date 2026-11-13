@@ -8,3 +8,8 @@ BB11_M11b_upper.v
 BB11_C4.v
 BB11_C4_bound.v
 BB11_C4_cmp.v
+BB122.v
+Individual122.v
+BB12_M12.v
+BB12_M12_bound.v
+BB11_C4_vs_M12.v

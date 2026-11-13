@@ -123,6 +123,23 @@ exists (q : Q) (L R : list Sym) (s : Sym),
      : Q * tape -> nat -> Prop
 
 Arguments BB11_M11b_fgh.ones c N%nat_scope
+BB12_M12_bound.ones =
+fun
+  (c : BB122.BB122.Q *
+       (Stream BB122.BB122.Sym * BB122.BB122.Sym * Stream BB122.BB122.Sym))
+  (N : nat) =>
+exists
+  (q : BB122.BB122.Q) (L R : list BB122.BB122.Sym) 
+(s : BB122.BB122.Sym),
+  c = (q, (L *> const BB122.S0, s, R *> const BB122.S0)) /\
+  N =
+  BB12_M12_bound.count1 L + BB12_M12_bound.sym_val s +
+  BB12_M12_bound.count1 R
+     : BB122.BB122.Q *
+       (Stream BB122.BB122.Sym * BB122.BB122.Sym * Stream BB122.BB122.Sym) ->
+       nat -> Prop
+
+Arguments BB12_M12_bound.ones c N%nat_scope
 BB11_C4.halt
      : halts BB11_C4.tm c0
 BB11_C4.score_exact
@@ -257,6 +274,27 @@ BB11_C4_cmp.beats_M11b_score
          (exists (c : Q * tape) (n : nat),
             c0 -[ BB11_C4.tm ]->* c /\
             halted BB11_C4.tm c /\ BB11_C4.ones c n /\ NM + 1 < n)
+BB11_C4_vs_M12.beats_M12_exact
+     : exists (c : Q * tape) (n : nat),
+         c0 -[ BB11_C4.tm ]->* c /\
+         halted BB11_C4.tm c /\
+         BB11_C4.ones c n /\ fst BB12_M12.pb2 + snd BB12_M12.pb2 / 2 + 3 < n
+BB11_C4_vs_M12.beats_M12_score
+     : exists NM : nat,
+         (exists
+            c : BB122.BB122.Q *
+                (Stream BB122.BB122.Sym * BB122.BB122.Sym *
+                 Stream BB122.BB122.Sym),
+            Individual122.Individual122.Permute.Flip.Compute.TM.evstep
+              BB12_M12.tm
+              Individual122.Individual122.Permute.Flip.Compute.TM.c0 c /\
+            Individual122.Individual122.Permute.Flip.Compute.TM.halted
+              BB12_M12.tm c /\ BB12_M12_bound.ones c NM) /\
+         (exists (c : Q * tape) (n : nat),
+            c0 -[ BB11_C4.tm ]->* c /\
+            halted BB11_C4.tm c /\ BB11_C4.ones c n /\ NM < n)
+Closed under the global context
+Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context

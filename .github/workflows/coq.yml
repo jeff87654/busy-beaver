@@ -307,7 +307,7 @@ jobs:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb13-bb14 == 'true'
     # BB11/verify (M11b, f_(omega+1); its comparison with n1 is not built here), BB11/verify_c4 (C4, the 11-state
-    # f_(omega+2)^2 machine, with copies of M11b's proofs for its comparison), BB12/verify_m12, BB13/, BB14/: the 12-,
+    # f_(omega+2)^2 machine, with copies of M11b's and M12's proofs for its comparisons), BB12/verify_m12, BB13/, BB14/: the 12-,
     # 13- and 14-state f_(omega+2) machines M12, M13, M13b, M13_19, M14, M14b, M14d_18 and M14_31 and the 14-state
     # f_(omega+3) machine M14_fw3 (verify_m13_19 and verify_m14_fw3 also compare with M13b's and M14_31's exact
     # scores, loading byte-identical copies of their proofs), BB15/verify (Argon's 15-state
@@ -369,7 +369,7 @@ jobs:
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
           # one 'Closed under the global context' per Print Assumptions line of probe.v (3 for M13b/M14b, 4 for
-          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, B21 and W2PR, 4 for W2PR's verify_w2, 5 for R18a, B21's verify_w2, J15_fw13 and J18_w2_C, 6 for M11b, M16_C and M14_31, 7 for C4 and J16_w2, 9 for M13_19 and M14_fw3)
+          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, B21 and W2PR, 4 for W2PR's verify_w2, 5 for R18a, B21's verify_w2, J15_fw13 and J18_w2_C, 6 for M11b, M16_C and M14_31, 7 for J16_w2, 9 for C4, M13_19 and M14_fw3)
           expected=$(grep -c '^Print Assumptions' probe.v)
           closed=$(grep -c 'Closed under the global context' probe.log || true)
           if grep -q 'Axioms:' probe.log || [ "$expected" -lt 3 ] || [ "$closed" -ne "$expected" ]; then
