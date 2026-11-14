@@ -1,0 +1,101 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : tm (A, 0) = Some (1, R, B)
+     : tm (A, 0) = Some (1, R, B)
+eq_refl : tm (A, 1) = Some (1, L, C)
+     : tm (A, 1) = Some (1, L, C)
+eq_refl : tm (A, 2) = Some (1, R, A)
+     : tm (A, 2) = Some (1, R, A)
+eq_refl : tm (B, 0) = Some (1, L, A)
+     : tm (B, 0) = Some (1, L, A)
+eq_refl : tm (B, 1) = Some (2, L, C)
+     : tm (B, 1) = Some (2, L, C)
+eq_refl : tm (B, 2) = Some (1, R, B)
+     : tm (B, 2) = Some (1, R, B)
+eq_refl : tm (C, 0) = Some (1, L, B)
+     : tm (C, 0) = Some (1, L, B)
+eq_refl : tm (C, 1) = Some (1, L, D)
+     : tm (C, 1) = Some (1, L, D)
+eq_refl : tm (C, 2) = Some (2, L, C)
+     : tm (C, 2) = Some (2, L, C)
+eq_refl : tm (D, 0) = Some (2, R, E)
+     : tm (D, 0) = Some (2, R, E)
+eq_refl : tm (D, 1) = Some (2, L, D)
+     : tm (D, 1) = Some (2, L, D)
+eq_refl : tm (D, 2) = Some (1, R, A)
+     : tm (D, 2) = Some (1, R, A)
+eq_refl : tm (E, 0) = None
+     : tm (E, 0) = None
+eq_refl : tm (E, 1) = Some (2, R, E)
+     : tm (E, 1) = Some (2, R, E)
+eq_refl : tm (E, 2) = Some (1, R, B)
+     : tm (E, 2) = Some (1, R, B)
+knuth =
+fix knuth (n a b : nat) {struct n} : nat :=
+  match n with
+  | 0 => a * b
+  | S n' => PeanoNat.Nat.iter b (knuth n' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments knuth (n a b)%nat_scope
+f_omega = fun n : nat => knuth n 2 n
+     : nat -> nat
+
+Arguments f_omega n%nat_scope
+sigma = 2 * M53_final + 6
+     : nat
+final_cells = ([2] ^^ (2 * M53_final + 5) ++ [1])%list
+     : list sym
+c_final = [2] ^^ (2 * M53_final + 5) *> const 0 {{E}}> const 0
+     : Q * tape
+Bcfg =
+fun (k n m : nat) (r : Stream sym) =>
+[1] ^^ k *> [2] ^^ (2 * m + 1) *> const 0 {{B}}> [1] ^^ n *> r
+     : nat -> nat -> nat -> Stream sym -> Q * tape
+
+Arguments Bcfg (k n m)%nat_scope r
+g =
+fix g (k m : nat) {struct k} : nat :=
+  match k with
+  | 0 => S m
+  | S k' => PeanoNat.Nat.iter (2 * m + 2) (g k') 0
+  end
+     : nat -> nat -> nat
+
+Arguments g (k m)%nat_scope
+bb53_halts
+     : halts tm c0
+reaches_final
+     : c0 -->* c_final
+final_halted
+     : halted tm c_final
+final_cells_count
+     : length final_cells = sigma
+final_cells_all_nonblank
+     : forall y : sym, List.In y final_cells -> y <> 0
+sigma_exceeds_f_omega2
+     : f_omega (knuth 8 2 3) < sigma /\ f_omega (f_omega 7) < sigma
+sigma_beats_official_bb43
+     : knuth 3 2 (knuth 3 2 (knuth 3 2 (PeanoNat.Nat.pow 2 96))) < sigma
+bb53_new_champion_main
+     : halts tm c0 /\
+       c0 -->* c_final /\
+       halted tm c_final /\
+       length final_cells = sigma /\
+       (forall y : sym, List.In y final_cells -> y <> 0) /\
+       f_omega (knuth 8 2 3) < sigma /\
+       f_omega (f_omega 7) < sigma /\
+       knuth 3 2 (knuth 3 2 (knuth 3 2 (PeanoNat.Nat.pow 2 96))) < sigma
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
