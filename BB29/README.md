@@ -9,7 +9,7 @@ Machine-checked, with the standard fast-growing hierarchy and no axioms:
 
     f_{ω^ω}(3) < N                (sigma_lower_bound)
 
-The exact count is N = T₄(S)(1) + 1 (`score_exact`, T an explicit recursion). The posted claim was BB(29) > f_{ω^ω}(3). No upper bound is proved.
+The exact count is N = T₄(S)(1) + 1 (`score_exact`, T an explicit recursion). The posted claim was BB(29) > f_{ω^ω}(3). Upper bound, machine-checked in [`../BB30/verify_vs29/`](../BB30/verify_vs29/): every halting run leaves exactly T₄(S)(1) + 1 ones (`halts_with_exact`) and T₄(S)(1) ≤ f_{ω^3·7}(26) (`T4_upper`).
 
 - [`hydra29.md`](hydra29.md): the write-up (the hydra game, the run, the proof, verification, credit).
 - [`verify/`](verify/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1), built in CI (job `bb13-bb14`).

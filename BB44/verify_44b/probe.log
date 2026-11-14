@@ -1,0 +1,159 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB44B_rules.tm (A, 0) = Some (1, R, B)
+     : BB44B_rules.tm (A, 0) = Some (1, R, B)
+eq_refl : BB44B_rules.tm (A, 1) = Some (2, L, C)
+     : BB44B_rules.tm (A, 1) = Some (2, L, C)
+eq_refl : BB44B_rules.tm (A, 2) = Some (3, R, A)
+     : BB44B_rules.tm (A, 2) = Some (3, R, A)
+eq_refl : BB44B_rules.tm (A, 3) = None
+     : BB44B_rules.tm (A, 3) = None
+eq_refl : BB44B_rules.tm (B, 0) = Some (2, R, C)
+     : BB44B_rules.tm (B, 0) = Some (2, R, C)
+eq_refl : BB44B_rules.tm (B, 1) = Some (3, L, B)
+     : BB44B_rules.tm (B, 1) = Some (3, L, B)
+eq_refl : BB44B_rules.tm (B, 2) = Some (2, L, B)
+     : BB44B_rules.tm (B, 2) = Some (2, L, B)
+eq_refl : BB44B_rules.tm (B, 3) = Some (0, L, C)
+     : BB44B_rules.tm (B, 3) = Some (0, L, C)
+eq_refl : BB44B_rules.tm (C, 0) = Some (1, L, B)
+     : BB44B_rules.tm (C, 0) = Some (1, L, B)
+eq_refl : BB44B_rules.tm (C, 1) = Some (2, R, C)
+     : BB44B_rules.tm (C, 1) = Some (2, R, C)
+eq_refl : BB44B_rules.tm (C, 2) = Some (3, R, A)
+     : BB44B_rules.tm (C, 2) = Some (3, R, A)
+eq_refl : BB44B_rules.tm (C, 3) = Some (1, L, D)
+     : BB44B_rules.tm (C, 3) = Some (1, L, D)
+eq_refl : BB44B_rules.tm (D, 0) = Some (2, R, C)
+     : BB44B_rules.tm (D, 0) = Some (2, R, C)
+eq_refl : BB44B_rules.tm (D, 1) = Some (1, L, C)
+     : BB44B_rules.tm (D, 1) = Some (1, L, C)
+eq_refl : BB44B_rules.tm (D, 2) = Some (3, R, D)
+     : BB44B_rules.tm (D, 2) = Some (3, R, D)
+eq_refl : BB44B_rules.tm (D, 3) = Some (2, L, D)
+     : BB44B_rules.tm (D, 3) = Some (2, L, D)
+eq_refl : BB44A_rules.tm (A, 0) = Some (1, L, B)
+     : BB44A_rules.tm (A, 0) = Some (1, L, B)
+eq_refl : BB44A_rules.tm (A, 1) = Some (2, L, C)
+     : BB44A_rules.tm (A, 1) = Some (2, L, C)
+eq_refl : BB44A_rules.tm (A, 2) = Some (3, R, A)
+     : BB44A_rules.tm (A, 2) = Some (3, R, A)
+eq_refl : BB44A_rules.tm (A, 3) = Some (0, R, B)
+     : BB44A_rules.tm (A, 3) = Some (0, R, B)
+eq_refl : BB44A_rules.tm (B, 0) = Some (2, R, C)
+     : BB44A_rules.tm (B, 0) = Some (2, R, C)
+eq_refl : BB44A_rules.tm (B, 1) = None
+     : BB44A_rules.tm (B, 1) = None
+eq_refl : BB44A_rules.tm (B, 2) = Some (2, L, B)
+     : BB44A_rules.tm (B, 2) = Some (2, L, B)
+eq_refl : BB44A_rules.tm (B, 3) = Some (3, L, B)
+     : BB44A_rules.tm (B, 3) = Some (3, L, B)
+eq_refl : BB44A_rules.tm (C, 0) = Some (1, L, B)
+     : BB44A_rules.tm (C, 0) = Some (1, L, B)
+eq_refl : BB44A_rules.tm (C, 1) = Some (2, R, C)
+     : BB44A_rules.tm (C, 1) = Some (2, R, C)
+eq_refl : BB44A_rules.tm (C, 2) = Some (3, R, A)
+     : BB44A_rules.tm (C, 2) = Some (3, R, A)
+eq_refl : BB44A_rules.tm (C, 3) = Some (1, L, D)
+     : BB44A_rules.tm (C, 3) = Some (1, L, D)
+eq_refl : BB44A_rules.tm (D, 0) = Some (2, R, C)
+     : BB44A_rules.tm (D, 0) = Some (2, R, C)
+eq_refl : BB44A_rules.tm (D, 1) = Some (1, L, C)
+     : BB44A_rules.tm (D, 1) = Some (1, L, C)
+eq_refl : BB44A_rules.tm (D, 2) = Some (3, R, D)
+     : BB44A_rules.tm (D, 2) = Some (3, R, D)
+eq_refl : BB44A_rules.tm (D, 3) = Some (2, L, D)
+     : BB44A_rules.tm (D, 3) = Some (2, L, D)
+BB44B_run.sigma = 2 * BB44B_run.cB + 2 * BB44B_run.dB + 9
+     : nat
+BB44B_run.nonzero_cells =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list sym) (s : sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = BB44B_run.cnt L + BB44B_run.nzv s + BB44B_run.cnt R
+     : Q * tape -> nat -> Prop
+
+Arguments BB44B_run.nonzero_cells c N%nat_scope
+BB44A_run.sigma = 2 * BB44A_run.M3 + 2 * BB44A_run.M1 + 3
+     : nat
+BB44_run.sigma = 2 * BB44_run.M44_final + 2 * BB44_run.g30 + 4
+     : nat
+BB44B_cmp.f_omega =
+fun n : nat => BB44_bound.knuth (S n) 2 (n + 3)
+     : nat -> nat
+
+Arguments BB44B_cmp.f_omega n%nat_scope
+BB44_bound.knuth =
+fix knuth (n a b : nat) {struct n} : nat :=
+  match n with
+  | 0 => a * b
+  | S n' => PeanoNat.Nat.iter b (knuth n' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB44_bound.knuth (n a b)%nat_scope
+BB44A_run.bb44A_halts
+     : halts BB44A_rules.tm c0
+BB44A_run.reaches_final
+     : c0 -[ BB44A_rules.tm ]->* BB44A_run.c_final
+BB44A_run.final_halted
+     : halted BB44A_rules.tm BB44A_run.c_final
+BB44A_run.c_final_nonzero
+     : BB44A_run.nonzero_cells BB44A_run.c_final BB44A_run.sigma
+BB44A_run.c_final_head
+     : exists l r : side,
+         BB44A_run.c_final = (B, (l, 1, r)) /\ BB44A_rules.tm (B, 1) = None
+BB44A_cmp.sigma_A_closed
+     : 2 * BB44A_run.M3 + 4 =
+       BB44_bound.knuth (2 * BB44A_run.M1) 2 (2 * BB44A_run.M2 + 5) /\
+       2 * BB44A_run.M1 + 4 = BB44_bound.knuth 4 2 6
+BB44A_cmp.BB44A_beats_C
+     : BB44_run.sigma < BB44A_run.sigma
+BB44A_cmp.BB44A_beats_official
+     : BB44_bound.knuth 509 2 3 + 510 < BB44A_run.sigma
+BB44B_run.bb44B_halts
+     : halts BB44B_rules.tm c0
+BB44B_run.reaches_final
+     : c0 -[ BB44B_rules.tm ]->* BB44B_run.c_final
+BB44B_run.final_halted
+     : halted BB44B_rules.tm BB44B_run.c_final
+BB44B_run.c_final_nonzero
+     : BB44B_run.nonzero_cells BB44B_run.c_final BB44B_run.sigma
+BB44B_run.c_final_head
+     : exists l r : side,
+         BB44B_run.c_final = (A, (l, 3, r)) /\ BB44B_rules.tm (A, 3) = None
+BB44B_cmp.sigma_B_closed
+     : 2 * BB44B_run.dB + 4 = BB44_bound.knuth (S (2 * BB44B_run.cB + 1)) 2 3 /\
+       2 * BB44B_run.cB + 4 = BB44_bound.knuth 1 2 (2 * BB44B_run.bB + 4) /\
+       2 * BB44B_run.bB + 4 = BB44_bound.knuth 3 2 (2 * BB44B_run.a6 + 4) /\
+       2 * BB44B_run.a6 + 4 = BB44_bound.knuth 4 2 (2 * BB44B_run.a5 + 4)
+BB44B_cmp.BB44B_beats_A
+     : BB44A_run.sigma < BB44B_run.sigma
+BB44B_cmp.BB44B_beats_C
+     : BB44_run.sigma < BB44B_run.sigma
+BB44B_cmp.BB44B_beats_official
+     : BB44_bound.knuth 509 2 3 + 510 < BB44B_run.sigma
+BB44B_cmp.sigma_B_f_omega
+     : BB44B_cmp.f_omega (BB44_bound.knuth 5 2 3) < BB44B_run.sigma
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

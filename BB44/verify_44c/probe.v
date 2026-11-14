@@ -10,7 +10,7 @@
 
 From Local Require Import Individual44 BB44_rules BB44_run BB44_bound.
 (* the comparison with the previous entry loads ../verify (logical path TM44) too: compile with -Q ../verify TM44 *)
-From Local Require BB44C_vs_loader3229.
+From Local Require BB44C_vs_loader3229 BB44_sigma_cfg.
 
 Print c0.
 Check (eq_refl : q0 = A).  Check (eq_refl : s0 = S0).
@@ -49,3 +49,13 @@ Print Assumptions BB44_bound.bb44_new_champion_main.
 Print Assumptions BB44C_vs_loader3229.knuth_same.
 Print Assumptions BB44C_vs_loader3229.beats_loader3229_exact.
 Print Assumptions BB44C_vs_loader3229.beats_loader3229_score.
+
+Print BB44_sigma_cfg.nonzero_cells.
+Check BB44_sigma_cfg.c_final_nonzero.
+Check BB44_sigma_cfg.nonzero_cells_unique.
+Check BB44_sigma_cfg.c_final_head.
+Check BB44_sigma_cfg.sigma_is_score.
+Print Assumptions BB44_sigma_cfg.c_final_nonzero.
+Print Assumptions BB44_sigma_cfg.nonzero_cells_unique.
+Print Assumptions BB44_sigma_cfg.c_final_head.
+Print Assumptions BB44_sigma_cfg.sigma_is_score.

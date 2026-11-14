@@ -50,7 +50,7 @@ spreadsheet-column name.
 |---|---|
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB31_halt.halt`. |
 | Level | Machine-checked, with the standard fast-growing hierarchy: f_{ω^ω^ω^ω}(4) ≤ N + 2 (`hardy_score`), hence f_{ω^ω^ω^ω}(3) < N (`sigma_lower_bound_w4`), the posted claim. N is the number of ones at the halt; the halt is B reading 0 (B0 = `---`), so σ = N, or N + 1 if the halting transition is taken to write a 1. |
-| Exact score | Not computed (no closed form). |
+| Exact score | Not computed (no closed form). Upper bound, machine-checked: N + 2 ≤ f_{ω^ω^ω^4}(6) for every halting configuration (`BB31_upper.upper_bound`, in [`../BB32/verify_vs31/`](../BB32/verify_vs31/)). |
 | Steps | Not computed. |
 
 ## How it works

@@ -1,0 +1,7 @@
+-Q ../../busycoq/verify BusyCoq
+-Q ../verify Local
+-Q ../../BB43/verify TM43
+-Q . BB8
+Ord.v
+BB53_vs_BB43.v
+BB53_fgh.v

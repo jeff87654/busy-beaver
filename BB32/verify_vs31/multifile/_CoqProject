@@ -1,0 +1,25 @@
+-Q . BB8
+-Q ../../../busycoq/verify BusyCoq
+BB312.v
+Individual312.v
+BB322.v
+Individual322.v
+BB31_tm.v
+BB31_rules.v
+BB32_tm.v
+BB32_rules.v
+Ord.v
+Hardy.v
+HydraOrd.v
+BB31_scan.v
+BB31_round.v
+BB31_game.v
+BB31_halt.v
+BB32_scan.v
+BB32_round.v
+BB32_game.v
+BB32_halt.v
+BB32_bound.v
+HydraUpper.v
+BB31_upper.v
+BB32_vs_BB31.v

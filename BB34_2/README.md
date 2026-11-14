@@ -17,7 +17,7 @@ Machine-checked, with the standard fast-growing hierarchy and no axioms:
 
     f_{ω^ω^ω^ω^ω^4}(5) ≤ N + 2,  hence  f_{ω↑↑6}(4) < N        (hardy_score, sigma_lower_bound_w6_4)
 
-No upper bound is proved.
+No upper bound for hydra34 is proved. hydra34 is above the exact score of hydra33 (BB(33)) in Coq: [`verify_vs33/`](verify_vs33/) proves an upper bound for hydra33's score and `BB34_beats_BB33` (N ≥ N(hydra33) + 3).
 
 - [`hydra34.md`](hydra34.md): the write-up (the machine, the run, the proof, verification, credit).
 - [`verify/`](verify/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1), built in CI (job `bb13-bb14`).

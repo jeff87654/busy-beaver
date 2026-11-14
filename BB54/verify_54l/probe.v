@@ -1,5 +1,5 @@
 (** Independent probe for the 54-L (BB(5,4)) proof (run after compile_clean.sh, in this directory:
-      coqc -Q $BUSYCOQ BusyCoq -Q . Local probe.v).
+      coqc -Q $BUSYCOQ BusyCoq -Q ../verify TM54 -Q . Local probe.v).
 
     Coq confirms here, by conversion, that (1) the compiled transition table [tm] is the machine
     1RB3LC1LD2RA_2RC1RZ2LB2LB_1LD3RC1LE2RA_3RC0LB1LD3LD_3RC1LC3LE2RE
@@ -9,6 +9,9 @@
     axioms.  It also prints the definitions the statements use. *)
 
 From Local Require Import Individual54 BB54_rules BB54_run BB54_bound.
+(* the comparison with the previous entry loads ../verify (logical path TM54) too *)
+From Local Require BB54_J_upper.
+From TM54 Require BB54_halt.
 
 Print c0.
 Check (eq_refl : q0 = A).  Check (eq_refl : s0 = S0).
@@ -45,3 +48,11 @@ Print Assumptions BB54_run.final_cells_all_nonblank.
 Print Assumptions BB54_bound.sigma_beats_official_bb54.
 Print Assumptions BB54_bound.sigma_beats_f_omega1_65536.
 Print Assumptions BB54_bound.bb54_new_champion_main.
+
+Print TM54.BB54_halt.sigma_final.
+Check BB54_J_upper.bound_gen.
+Check BB54_J_upper.sigma_final_upper.
+Check BB54_J_upper.new_beats_jacobzheng.
+Print Assumptions BB54_J_upper.bound_gen.
+Print Assumptions BB54_J_upper.sigma_final_upper.
+Print Assumptions BB54_J_upper.new_beats_jacobzheng.

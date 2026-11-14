@@ -1,3 +1,4 @@
+-Q ../verify TM54
 -Q ../../busycoq/verify BusyCoq
 -Q . Local
 BB54.v
@@ -5,3 +6,4 @@ Individual54.v
 BB54_rules.v
 BB54_run.v
 BB54_bound.v
+BB54_J_upper.v

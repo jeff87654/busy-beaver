@@ -1,0 +1,65 @@
+share_check: 22 identical, 0 different
+== BB292.v ==
+   ok, 14 s
+== Individual292.v ==
+   ok, 14 s
+== BB29_tm.v ==
+   ok, 14 s
+== BB29_rules.v ==
+   ok, 15 s
+== BB29_scan.v ==
+   ok, 15 s
+== BB29_round.v ==
+   ok, 15 s
+== BB29_hydra.v ==
+   ok, 17 s
+== BB29_halt.v ==
+Closed under the global context
+   ok, 26 s
+== Ord.v ==
+   ok, 14 s
+== Ufun.v ==
+   ok, 14 s
+== BB29_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 14 s
+== BB302.v ==
+   ok, 14 s
+== Individual302.v ==
+   ok, 10 s
+== BB30_tm.v ==
+   ok, 11 s
+== BB30_rules.v ==
+   ok, 14 s
+== Hardy.v ==
+   ok, 14 s
+== HydraOrd.v ==
+   ok, 14 s
+== BB30_scan.v ==
+   ok, 18 s
+== BB30_round.v ==
+   ok, 18 s
+== BB30_game.v ==
+   ok, 15 s
+== BB30_halt.v ==
+Closed under the global context
+   ok, 64 s
+== BB30_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 12 s
+== BB29_upper.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 13 s
+== BB30_vs_BB29.v ==
+Closed under the global context
+   ok, 10 s
+COMPILE DONE
+probe: 5 of 5 theorems closed under the global context

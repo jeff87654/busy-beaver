@@ -7,7 +7,8 @@
 Found by **Argon** (a Google Gemini model run by the repository owner) on 2026-11-09, with the Coq proof; re-checked
 and packaged here on 2026-11-13. Argon's name for it is 44-C. It replaces loader3229's machine
 `0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA` (σ = 2 ↑^509 3 + 510, kept in this directory) as the BB(4,4)
-entry.
+entry. It was itself superseded the same day by Argon's 44-B
+([`1RB2LC3RA1RZ_...md`](1RB2LC3RA1RZ_2RC3LB2LB0LC_1LB2RC3RA1LD_2RC1LC3RD2LD.md), `BB44B_beats_C`, against 44-C's exact score).
 
 | | 0 | 1 | 2 | 3 |
 |---|---|---|---|---|
@@ -67,17 +68,20 @@ in one statement). The big numbers are sealed (`g30`, `M44_final` behind a `sig`
     beats_loader3229_exact : TM44.BB44_run.sigma < Local.BB44_run.sigma
     beats_loader3229_score : length TM44.BB44_run.final_cells < length Local.BB44_run.final_cells
 
-Score convention: as for the other multi-symbol entries, σ counts the nonzero cells of the explicit tape after the
-halting write; `final_cells` is that tape read off `c_final` (A reading the 2 of `3^(2M+1) 2^65533 2 1`, writing a 1),
-and this reading is not itself a Coq lemma (as in loader3229's development).
+Score convention: σ counts the nonzero cells of the tape after the halting write. `BB44_sigma_cfg.v` (written here)
+proves that σ is exactly the number of nonzero cells of the halting configuration `c_final` (`c_final_nonzero`,
+`nonzero_cells_unique`, `sigma_is_score`), and that its head is on a 2 with `tm (A, 2) = None` (`c_final_head`), so
+the halting write (a 1 over that 2) does not change the count. loader3229's development has the same convention,
+read off by inspection.
 
 ## Verification
 
 - [`verify_44c/`](verify_44c/): busycoq `bd2e36f`, Coq 8.20.1. `probe.v` checks the 16 transitions against the
   string above (generated from the string, not from the Coq file), prints the definitions and runs `Print Assumptions`
-  on 11 theorems (`bb44_halts`, `reaches_final`, `final_halted`, `final_cells_count`, `final_cells_all_nonblank`,
+  on 15 theorems (`bb44_halts`, `reaches_final`, `final_halted`, `final_cells_count`, `final_cells_all_nonblank`,
   `sigma_exact_closed_form`, `sigma_beats_official_bb44`, `bb44_new_champion_main`, `knuth_same`,
-  `beats_loader3229_exact`, `beats_loader3229_score`): all closed under the global context. CI job `bb44` builds
+  `beats_loader3229_exact`, `beats_loader3229_score`, `c_final_nonzero`, `nonzero_cells_unique`, `c_final_head`,
+  `sigma_is_score`): all closed under the global context. CI job `bb44` builds
   `verify/` and then `verify_44c/`.
 - Literal runs (argon-scout-2, outside this repository): from the blank tape the machine reaches B(4,1,0) at step 22,
   B(4,0,32766) at step 5,726,230,204 and B(65533,4,0) 2 1 0^inf at step 5,726,361,279, the configurations of the proof

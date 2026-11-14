@@ -24,7 +24,7 @@ the comparison with it rests on a paper upper bound (below).
 | Halts | **Yes**, machine-checked (Coq, no axioms): `bb54_halts`. The halting transition is B1 = `1RZ`. |
 | Score | σ = 2·M + K + 5 nonzero cells after the halting write, for (K, M) the result of iterating `step_pair` 2·g_4(0) + 5 times from (0, 1) (`final_cells_count`; not evaluated). |
 | Bounds | Machine-checked, with **F(n) = 2 ↑^(n+1) (n + 3)** (`f_omega` in the files, the Knuth-arrow function of the previous entry's `BB54_score.v`; not the fast-growing hierarchy's f_ω): F^65536(65536) < σ (`sigma_beats_f_omega1_65536`, `f_omega1 (2 ^ 16) < sigma` with `f_omega1 n = Nat.iter n f_omega n`) and F(F(2 ↑^4 2 ↑^3 4)) < σ (`sigma_beats_official_bb54`). F(n) ≥ f_ω(n) for the FGH, so on paper f_(ω+1)(65536) < σ. |
-| Compared with the previous entry | Jacobzheng's machine has σ = 2·M1 + 2·M0 + X + 5 exactly (Coq), and a hand calculation in [`README.md`](README.md#the-size-of-σ) (on paper) puts it below F(F(2 ↑^4 2 ↑^3 4)), which is below 54-L's σ in Coq. So 54-L is above the previous entry modulo that paper upper bound. |
+| Compared with the previous entry | Machine-checked: Jacobzheng's machine has σ = 2·M1 + 2·M0 + X + 5 exactly, at most F(F(2 ↑^4 2 ↑^3 4)) (`sigma_final_upper`, `verify_54l/BB54_J_upper.v`, formerly a hand calculation in [`README.md`](README.md#the-size-of-σ)), which is below 54-L's σ, so `new_beats_jacobzheng`: σ(Jacobzheng) < σ(54-L). |
 | Steps | Not computed. |
 
 ## How it works
@@ -58,7 +58,10 @@ states and 4 symbols; `BB54.v` byte-identical to `verify/BB54.v` of the previous
 `turnaround`, `B_rule`, the 25-step start, `B_sweep`, `D_step`, `D_chain`), `BB54_run.v` (`reaches_final`,
 `final_halted`, `bb54_halts`, the final tape and its count), `BB54_bound.v` (Knuth arrows, `F`, the two bounds and
 `bb54_new_champion_main`, everything in one statement). The theorem named `sigma_beats_official_bb54` proves
-F(F(2 ↑^4 2 ↑^3 4)) < σ; that this number is above Jacobzheng's σ is the paper part.
+F(F(2 ↑^4 2 ↑^3 4)) < σ. `BB54_J_upper.v` (written here) loads the published development of Jacobzheng's machine
+(`../verify`, logical root `TM54`) and this one (`Local`), proves `sigma_final_upper` for that machine's exact σ from
+its closed forms (every bound for variables, then instantiated with the sealed terms), bridges the two identical
+definitions of the Knuth arrows, and concludes `new_beats_jacobzheng`.
 
 Score convention: σ counts the nonzero cells of the explicit tape after the halting write; `final_cells` is that tape
 read off `c_final`, and this reading is not itself a Coq lemma (as in the other multi-symbol entries).
@@ -67,8 +70,9 @@ read off `c_final`, and this reading is not itself a Coq lemma (as in the other 
 
 - [`verify_54l/`](verify_54l/): busycoq `bd2e36f`, Coq 8.20.1. `probe.v` checks the 20 transitions against the
   string above (generated from the string, not from the Coq file), prints the definitions (`knuth`, `f_omega`,
-  `f_omega2`, `f_omega1`, `sigma`, `final_cells`, `c_final`, `Bcfg`, `g`) and runs `Print Assumptions` on 8 theorems:
-  all closed under the global context. CI job `bb54` builds `verify/` and `verify_54l/`.
+  `f_omega2`, `f_omega1`, `sigma`, `final_cells`, `c_final`, `Bcfg`, `g`) and runs `Print Assumptions` on 11 theorems
+  (with `bound_gen`, `sigma_final_upper`, `new_beats_jacobzheng`): all closed under the global context. CI job `bb54`
+  builds `verify/` and then `verify_54l/`.
 - Literal checks (argon-scout-2, outside this repository): the machine reaches B(5,1,0) at step 25; `B_rule`,
   `B_sweep` and `D_step` were checked against the literal machine on small parameters.
 

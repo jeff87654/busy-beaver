@@ -56,7 +56,7 @@ constructor q + its spreadsheet-column name.
 | Level | Machine-checked, with the standard fast-growing hierarchy of `Ord.v`: f_{ω^ω^(ω^8·3)}(4) ≤ N + 2 (`hardy_score`), hence f_{ω↑↑4}(8) < N (`sigma_lower_bound_w4_8`). N is the number of ones at the halt; the halt is B reading 0 (B0 = `---`), so σ = N, or N + 1 if the halting transition is taken to write a 1. |
 | Exact score | Not computed (no closed form). |
 | Steps | Not computed. |
-| Compared with BB(31) | On paper (an argument, not a Coq lemma) above hydra31 (the BB(31) entry), so above BB(31) + 1. In Coq only above hydra31's proved lower bound. |
+| Compared with BB(31) | Machine-checked: above the exact score of hydra31 (the BB(31) entry) by at least 6, against an upper bound proved on hydra31's published files (`BB31_upper.upper_bound`, `BB32_beats_BB31`), so above BB(31) + 1. |
 
 ## How it works
 
@@ -85,9 +85,15 @@ m + 1 ones. From C(1) this gives N + 2 ≥ H_{ω^ω^ω^(ω^8·3)}(4) (`hardy_bou
 
 ## Comparison with BB(31)
 
-hydra31 is the BB(31) entry; its proved bound is f_{ω^ω^ω^ω}(4) ≤ N + 2, so f_{ω↑↑4}(3) < N; no upper bound for it is proved. In Coq, hydra32's bound f_{ω↑↑4}(8) < N is above that proved lower
-bound. That hydra32 is above hydra31 itself, and so above BB(31) + 1, is an argument on paper: at the same Hardy argument 4 the initial hydras are ω^ω^ω^(ω^8·3) (hydra32) and ω^ω^ω^ω^4 (hydra31); the third exponent ω^8·3 is far above 4, and both games end within the usual slack of H_x0(4).
-A Coq lemma that would close it: an upper bound for hydra31's N (none is proved), for example N(hydra31) < f_{ω^ω^(ω^5)}(4).
+hydra31 is the BB(31) entry. Its published proof gives the lower bound f_{ω^ω^ω^ω}(4) ≤ N + 2. An **upper** bound for its
+score is proved in [`verify_vs31/`](verify_vs31/) (`BB31_upper.upper_bound`): for every halting configuration
+reachable from the blank tape, N + 2 ≤ f_{ω^ω^ω^4}(6) (Coq: `FGH (powtower 3 (ofin 4)) 6`). The proof (`HydraUpper.v`) shows that on the
+hydras these machines visit, a chop moves the hydra ordinal x exactly to x[n] or x[n+1] (`chop_exact`), and that
+H_x(n+2) never increases along a round. With f_{ω^ω^ω^4}(6) + 6 ≤ f_{ω^ω^(ω^8·3)}(4) (`cmp_31_32`), `BB32_beats_BB31` proves that hydra32 halts with N
+ones where N ≥ N(hydra31) + 6 for any number N(hydra31) of ones with which hydra31 halts. Both machines halt on
+B0 = `---`, so the convention for σ is the same, and hydra32 is above BB(31) + 1 in Coq. The machine files in
+`verify_vs31/multifile` are byte-identical copies of `verify/multifile` and of the published hydra31 files
+(`share_check.sh`).
 
 ## Verification
 

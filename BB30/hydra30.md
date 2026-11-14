@@ -54,7 +54,7 @@ constructor q + its spreadsheet-column name.
 | Level | Machine-checked, with the standard fast-growing hierarchy of `Ord.v`: f_{ω^9}(10) ≤ N + 2 (`hardy_score`), hence f_{ω^ω}(9) < N (`sigma_lower_bound_w2_9`). N is the number of ones at the halt; the halt is B reading 0 (B0 = `---`), so σ = N, or N + 1 if the halting transition is taken to write a 1. |
 | Exact score | Not computed (no closed form). |
 | Steps | Not computed. |
-| Compared with BB(29) | On paper (an argument, not a Coq lemma) above hydra29 (the BB(29) entry), so above BB(29) + 1. In Coq only above hydra29's proved lower bound. |
+| Compared with BB(29) | Machine-checked: above the exact score of hydra29 (the BB(29) entry) by at least 22, against an upper bound proved on hydra29's published files (`BB29_upper.T4_upper`, `halts_with_exact`, `BB30_beats_BB29`), so above BB(29) + 1. |
 
 ## How it works
 
@@ -83,9 +83,14 @@ m + 1 ones. From C(7) this gives N + 2 ≥ H_{ω^ω^9}(10) (`hardy_bound`). H_{�
 
 ## Comparison with BB(29)
 
-hydra29 is the BB(29) entry; its exact count N = T₄(S)(1) + 1 exactly (`score_exact`), which its write-up places informally at about f_{ω^ω}(4) = f_{ω^4}(4), and its proved bound is f_{ω^ω}(3) < N. In Coq, hydra30's bound f_{ω^ω}(9) < N is above that proved lower
-bound. That hydra30 is above hydra29 itself, and so above BB(29) + 1, is an argument on paper: hydra29 starts its game from the ordinal ω^ω^4 with counter 1, hydra30 from ω^ω^9 with counter 7; hydra29's exact count T₄(S)(1) + 1 is an f_{ω^4}-level number at a small argument (its write-up: about f_{ω^4}(4)), far below f_{ω^9}(10).
-A Coq lemma that would close it: an upper bound such as T₄(S)(1) + 2 < f_{ω^9}(10), in the FGH of `Ord.v` (from hydra29's `score_exact` and its U-hierarchy lemmas).
+hydra29 is the BB(29) entry. Its published proof gives its exact count, N = T₄(S)(1) + 1 (`score_exact`), and the
+lower bound f_{ω^ω}(3) < N. An **upper** bound is proved in [`verify_vs29/`](verify_vs29/) on the published hydra29
+files: every halting run of hydra29 from the blank tape leaves exactly T₄(S)(1) + 1 ones (`halts_with_exact`), and
+T₄(S)(1) ≤ f_{ω^3·7}(26) (`T4_upper`), so T₄(S)(1) + 25 ≤ f_{ω^9}(10) (`T4_lt_w9`). With hydra30's
+f_{ω^9}(10) ≤ N + 2, `BB30_beats_BB29` proves that hydra30 halts with N ones where N ≥ N(hydra29) + 22. Both machines
+halt on B0 = `---`, so the convention for σ is the same, and hydra30 is above BB(29) + 1 in Coq. The machine files in
+`verify_vs29/multifile` are byte-identical copies of `verify/multifile` and of the published hydra29 files
+(`share_check.sh`).
 
 ## Verification
 

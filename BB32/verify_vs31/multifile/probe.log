@@ -1,0 +1,74 @@
+BB31_upper.halts_with =
+fun NB : nat =>
+exists
+  c : BB312.BB312.Q *
+      (Streams.Stream BB312.BB312.Sym * BB312.BB312.Sym *
+       Streams.Stream BB312.BB312.Sym),
+  Individual312.Individual312.Permute.Flip.Compute.TM.evstep BB31_tm.tm
+    Individual312.Individual312.Permute.Flip.Compute.TM.c0 c /\
+  Individual312.Individual312.Permute.Flip.Compute.TM.halted BB31_tm.tm c /\
+  BB31_game.ones c NB
+     : nat -> Prop
+
+Arguments BB31_upper.halts_with NB%nat_scope
+HydraUpper.chop_exact
+     : forall (sp0 : list (list HydraOrd.tree)) (L L' : list HydraOrd.tree)
+         (n : nat),
+       1 <= n ->
+       HydraUpper.good
+         (HydraOrd.node
+            (HydraOrd.plug sp0
+               (L ++ HydraOrd.node (L' ++ HydraOrd.leaf :: nil) :: nil))) ->
+       HydraOrd.olist
+         (HydraOrd.plug sp0 (L ++ List.repeat (HydraOrd.node L') n)) =
+       Ord.fs
+         (HydraOrd.olist
+            (HydraOrd.plug sp0
+               (L ++ HydraOrd.node (L' ++ HydraOrd.leaf :: nil) :: nil))) n \/
+       HydraOrd.olist
+         (HydraOrd.plug sp0 (L ++ List.repeat (HydraOrd.node L') n)) =
+       Ord.fs
+         (HydraOrd.olist
+            (HydraOrd.plug sp0
+               (L ++ HydraOrd.node (L' ++ HydraOrd.leaf :: nil) :: nil)))
+         (S n)
+BB31_upper.upper_bound
+     : forall
+         (c : BB312.BB312.Q *
+              (Streams.Stream BB312.BB312.Sym * BB312.BB312.Sym *
+               Streams.Stream BB312.BB312.Sym)) (N : nat),
+       Individual312.Individual312.Permute.Flip.Compute.TM.evstep BB31_tm.tm
+         Individual312.Individual312.Permute.Flip.Compute.TM.c0 c ->
+       Individual312.Individual312.Permute.Flip.Compute.TM.halted BB31_tm.tm
+         c ->
+       BB31_game.ones c N -> N + 2 <= Ord.FGH (Ord.powtower 3 (Ord.ofin 4)) 6
+BB31_upper.halts_with_upper
+     : forall NB : nat,
+       BB31_upper.halts_with NB ->
+       NB + 2 <= Ord.FGH (Ord.powtower 3 (Ord.ofin 4)) 6
+BB31_upper.score_window
+     : exists N : nat,
+         BB31_upper.halts_with N /\
+         Ord.FGH (Ord.powtower 3 (Ord.ofin 4)) 4 <= 
+         N + 2 <= Ord.FGH (Ord.powtower 3 (Ord.ofin 4)) 6
+BB32_vs_BB31.cmp_31_32
+     : Ord.FGH (Ord.powtower 3 (Ord.ofin 4)) 6 + 6 <=
+       Ord.FGH BB32_bound.a32 4
+BB32_vs_BB31.BB32_beats_BB31
+     : exists
+         (c : BB322.BB322.Q *
+              (Streams.Stream BB322.BB322.Sym * BB322.BB322.Sym *
+               Streams.Stream BB322.BB322.Sym)) (N : nat),
+         Individual322.Individual322.Permute.Flip.Compute.TM.evstep
+           BB32_tm.tm Individual322.Individual322.Permute.Flip.Compute.TM.c0
+           c /\
+         Individual322.Individual322.Permute.Flip.Compute.TM.halted
+           BB32_tm.tm c /\
+         BB32_game.ones c N /\
+         (forall NB : nat, BB31_upper.halts_with NB -> NB + 6 <= N)
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

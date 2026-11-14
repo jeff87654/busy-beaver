@@ -1,0 +1,51 @@
+Ord.FGH =
+fun (x : Ord.ord) (n : nat) =>
+match Ord.nf_dec x with
+| left H => proj1_sig (Ord.fgh_total x H n)
+| right _ => 0
+end
+     : Ord.ord -> nat -> nat
+
+Arguments Ord.FGH x n%nat_scope
+Ord.fin_fgh =
+fix fin_fgh (k n : nat) {struct k} : nat :=
+  match k with
+  | 0 => S n
+  | S k' => PeanoNat.Nat.iter n (fin_fgh k') n
+  end
+     : nat -> nat -> nat
+
+Arguments Ord.fin_fgh (k n)%nat_scope
+BB53_bound.f_omega = fun n : nat => BB53_bound.knuth n 2 n
+     : nat -> nat
+
+Arguments BB53_bound.f_omega n%nat_scope
+BB43_score.sigma_bounds
+     : 4 *
+       BB43_score.knuth 3 2
+         (BB43_score.knuth 3 2
+            (BB43_score.knuth 3 2 (PeanoNat.Nat.pow 2 96 - 1))) + 18 <
+       BB43_run.sigma <=
+       4 *
+       BB43_score.knuth 3 2
+         (BB43_score.knuth 3 2
+            (BB43_score.knuth 3 2 (PeanoNat.Nat.pow 2 96 + 6))) + 18
+BB53_vs_BB43.knuth_same
+     : forall n a b : nat,
+       BB53_vs_BB43.L.knuth n a b = BB43_score.knuth n a b
+BB53_vs_BB43.BB53_beats_BB43
+     : BB43_run.sigma + 1 < BB53_run.sigma
+BB53_fgh.fin_fgh_le_knuth
+     : forall k x : nat,
+       1 <= k ->
+       4 <= x -> Ord.fin_fgh (S k) x <= BB53_fgh.L.knuth k 2 (3 * x)
+BB53_fgh.FGH_omega_le_home
+     : forall n : nat, 4 <= n -> Ord.FGH Ord.omega n <= BB53_fgh.L.f_omega n
+BB53_fgh.sigma_exceeds_FGH
+     : Ord.FGH Ord.omega (BB53_fgh.L.knuth 8 2 3) < BB53_run.sigma /\
+       Ord.FGH Ord.omega (Ord.FGH Ord.omega 7) < BB53_run.sigma
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

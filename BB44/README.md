@@ -1,6 +1,40 @@
 # BB(4, 4)
 
-## Current entry: 44-C (Argon)
+## Current entry: 44-B (Argon's machine, Coq proof here)
+
+```
+1RB2LC3RA1RZ_2RC3LB2LB0LC_1LB2RC3RA1LD_2RC1LC3RD2LD
+```
+
+Halts from the blank tape (A3 = `1RZ`, written over a 3, so the count of nonzero cells is unchanged). Machine-checked,
+axiom-free:
+
+    σ = 2c + 2d + 9,  2d + 4 = 2 ↑^(2c+2) 3,  2c + 4 = 2^(2b+4),  2b + 4 = 2 ↑↑↑ (2a₆ + 4),  2a₆ + 4 = 2 ↑^4 (2a₅ + 4)
+                                                       (c_final_nonzero, sigma_B_closed)
+    F(2 ↑^5 3) < σ,   F(n) = 2 ↑^(n+1) (n + 3)          (sigma_B_f_omega; the Knuth-arrow function of BB54_score.v)
+
+σ is the number of nonzero cells of the halting configuration, by a theorem (`c_final_nonzero`, `c_final_head`). In
+Coq, against exact scores, 44-B is above 44-A (`BB44B_beats_A`), above 44-C, the previous entry (`BB44B_beats_C`),
+and above loader3229's machine, the wiki's BB(4,4) champion (`BB44B_beats_official`). Not yet reviewed by the
+bbchallenge community.
+
+**Also proved: 44-A** `1LB2LC3RA0RB_2RC1RZ2LB3LB_1LB2RC3RA1LD_2RC1LC3RD2LD` (Argon's machine, halt B1 = `1RZ`):
+`bb44A_halts`, σ = 2·M₃ + 2·M₁ + 3 with 2·M₃ + 4 = 2 ↑^(2·M₁) (2·M₂ + 5) and 2·M₁ + 4 = 2 ↑^4 6 (`sigma_A_closed`),
+above 44-C (`BB44A_beats_C`). It lies between 44-C and 44-B and is not an entry; its files are part of 44-B's build.
+
+- [`1RB2LC3RA1RZ_2RC3LB2LB0LC_1LB2RC3RA1LD_2RC1LC3RD2LD.md`](1RB2LC3RA1RZ_2RC3LB2LB0LC_1LB2RC3RA1LD_2RC1LC3RD2LD.md):
+  the write-up (table, the run, 44-A, the proof, verification, credit).
+- [`verify_44b/`](verify_44b/): the Coq proofs of 44-B and 44-A (busycoq `bd2e36f`, Coq 8.20.1), on byte-identical
+  copies of `verify_44c/`'s five files. Built and probed in CI (job `bb44`), which requires 18 closed
+  `Print Assumptions` reports.
+
+Machines and macro analysis by **Argon** (a Google Gemini model run by the repository owner), 2026-11-09, without Coq;
+Coq proofs of 44-B and 44-A by this project (agent claims-prover), 2026-11-13, on Kropitz's engine.
+
+## Previous entry: 44-C (Argon), 2026-11-13
+
+Superseded by 44-B on the same day (`BB44B_beats_C`, against its exact score). Its files stay: 44-B's proof uses copies
+of them.
 
 ```
 1RB3LB1RZ2RA_1LC3RB1LD2RA_3RB2LC1LC3LC_3RB1LB3LD2RD
@@ -23,13 +57,14 @@ the 3-stack of one descent, 2·g_3(0) + 1 = 65533 cells, becomes the arrow level
 - [`verify_44c/`](verify_44c/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `bb44_halts`, `reaches_final`,
   `final_halted`, `final_cells_count`, `final_cells_all_nonblank`, `sigma_exact_closed_form`,
   `sigma_beats_official_bb44`, `bb44_new_champion_main`, and the comparison `knuth_same`, `beats_loader3229_exact`,
-  `beats_loader3229_score`. Built and probed in CI (job `bb44`, after `verify/`), which requires 11 closed
+  `beats_loader3229_score`, and `sigma_is_score` (σ read off the halting configuration). Built and probed in CI
+  (job `bb44`, after `verify/`), which requires 15 closed
   `Print Assumptions` reports.
 
 Found and proved by **Argon** (a Google Gemini model run by the repository owner), 2026-11-09. Re-checked, compared
 with the previous entry and packaged here, 2026-11-13.
 
-## Previous entry: loader3229's machine (2026-11-08 to 2026-11-13)
+## Earlier entry: loader3229's machine (2026-11-08 to 2026-11-13)
 
 The BB(4,4) machine **0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA** (loader3229, 2026; the bbchallenge wiki's BB(4,4)
 champion, Champions page read 2026-11-13): a full
