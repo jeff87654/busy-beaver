@@ -19,8 +19,10 @@ the number of ones when R0 is read. Machine-checked, with no axioms:
 with the standard fast-growing hierarchy below ω³ (f_(ω·(a+1))(n) = f_(ω·a+n)(n), f_(ω²)(n) = f_(ω·n)(n); 4↑↑0 = 1,
 4↑↑(n+1) = 4^(4↑↑n)). This is the best proved bound here for BB(21) to BB(24) (BB(21 + k) ≥ BB(21) + k); W2PR
 ([`../BB25/`](../BB25/)) is above it. `beats_J20` compares
-with J20's proved lower bound, not with an upper bound on J20's σ; the ω² against ω·2 gap settles the real comparison
-on paper. Not yet reviewed by the bbchallenge community.
+with J20's proved lower bound, not with an upper bound on J20's σ. Against the current BB(20) entry J20_cube the
+comparison is with its exact score: `B21_beats_J20cube_exact` and `B21_beats_J20cube_score` (in `verify_w2/`, by an
+upper bound on J20_cube's score from its own definitions and `JZ_UB.v`) give σ(B21) > σ(J20_cube) + 1. Not yet reviewed
+by the bbchallenge community.
 
 The machine keeps a list of blocks of digits. A level-1 engine runs the first block, and a sweep state carries the
 result rightwards, where it decrements, expands or engine-steps the first block that is not all 1s. A marker P walks

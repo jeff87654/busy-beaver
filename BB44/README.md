@@ -13,6 +13,10 @@ axiom-free:
                                                        (c_final_nonzero, sigma_B_closed)
     F(2 ↑^5 3) < σ,   F(n) = 2 ↑^(n+1) (n + 3)          (sigma_B_f_omega; the Knuth-arrow function of BB54_score.v)
 
+In the fast-growing hierarchy (standard `Ord.v`, [`../FGH/`](../FGH/README.md), `bb44B_fgh`):
+f_ω(f_2(f_4(f_5(f_4(f_3(64)))))) < σ < f_ω(f_2(f_4(f_5(f_4(f_3(256)))))). For 44-A, f_ω(2↑^4 6 − 3) < σ < f_ω(2↑^4 6 − 2)
+(`bb44A_fgh`), and for 44-C, f_ω(65532) < σ < f_ω(65533) (`bb44C_fgh`).
+
 σ is the number of nonzero cells of the halting configuration, by a theorem (`c_final_nonzero`, `c_final_head`). In
 Coq, against exact scores, 44-B is above 44-A (`BB44B_beats_A`), above 44-C, the previous entry (`BB44B_beats_C`),
 and above loader3229's machine, the wiki's BB(4,4) champion (`BB44B_beats_official`). Not yet reviewed by the
