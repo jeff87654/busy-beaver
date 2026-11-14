@@ -321,7 +321,8 @@ jobs:
     # BB19/verify* (the 19-state f_(omega+4) machines M19_fw4 and M19_fw4_A, and Jacobzheng's f_(omega+7)^2 machine J19),
     # BB20/verify (Jacobzheng's 20-state f_(omega*2) machine J20), BB17/verify_j17, BB18/verify_r18c, BB19/verify_j19sq and
     # BB20/verify_j20cube (J17_champ, R18c, J19_sq and J20_cube: 17- to 20-state machines at f_(omega*2), f_(omega*2)^2
-    # and f_(omega*2)^3 on Jacobzheng's engine, Coq proofs by Argon), BB21/verify (Racheline's 21-state machine B21: halt and
+    # and f_(omega*2)^3 on Jacobzheng's engine, Coq proofs by Argon; each also compares with the exact scores of the
+    # machines it replaces, loading byte-identical copies of their proofs and the generic bounds JZ_UB.v), BB21/verify (Racheline's 21-state machine B21: halt and
     # 4^^341 < sigma, about 2 minutes; BB21/verify_w2: its omega^2 bound, with copies of the B21, J20 and R18a proofs,
     # about 5 minutes), BB25/verify (W2PR, B21 with a mod-8 refill; seven files shared with BB21/verify,
     # checked by its share_check.sh; about 3 minutes; BB25/verify_w2: its omega^2 bound, with copies of
@@ -378,7 +379,7 @@ jobs:
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
           # one 'Closed under the global context' per Print Assumptions line of probe.v (3 for M13b/M14b, 4 for
-          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, J19_sq, J20_cube, B21 and W2PR, 4 for W2PR's verify_w2, 5 for R18a, B21's verify_w2, J15_fw13, J18_w2_C, J17_champ and R18c, 6 for M11b, M16_C and M14_31, 7 for J16_w2, 9 for C4, M13_19 and M14_fw3)
+          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, B21 and W2PR, 4 for W2PR's verify_w2, 5 for R18a, B21's verify_w2, J15_fw13, J18_w2_C and J20_cube, 6 for M11b, M16_C and M14_31, 7 for J16_w2, J17_champ and J19_sq, 9 for C4, M13_19, M14_fw3 and R18c)
           expected=$(grep -c '^Print Assumptions' probe.v)
           closed=$(grep -c 'Closed under the global context' probe.log || true)
           if grep -q 'Axioms:' probe.log || [ "$expected" -lt 3 ] || [ "$closed" -ne "$expected" ]; then

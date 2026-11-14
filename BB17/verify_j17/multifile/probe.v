@@ -8,11 +8,11 @@
     1LB1RD_1LC1LB_1LD0LB_1RE0RM_1RF1RE_0LG1RP_1LH1LG_0LI1LG_1RJ1RK_0RJ0RE_0RL1RJ_0LC0RA_1RZ1RN_0LC0RO_0LC1RM_0LQ1LC_0RK1LQ
     (these 68 checks were generated from the two strings, not from the Coq file; the halting transition,
     O0 in tm and M0 in tm_tnf, is None; the states after P are the constructors QQ),
-    and the start configuration is the blank tape in state A; (2) the main theorems have the stated types; (3) they
+    and the start configuration is the blank tape in state A; (2) the main theorems (and the comparisons with J16_w2's exact score, BB17_J17_cmp.v) have the stated types; (3) they
     use no axioms.  It also prints the definitions the statements use.  The setup names states L and O, so directions
     are written TM.L / TM.R. *)
 
-From BB8 Require BB17_J17_w2_champ.
+From BB8 Require BB17_J17_w2_champ BB17_J17_cmp.
 From BB8 Require Import Individual172.
 From Coq Require Import PeanoNat.
 Local Open Scope sym_scope.
@@ -75,8 +75,13 @@ Check BB17_J17_w2_champ.sigma_lower_bound.
 Check BB17_J17_w2_champ.halt_tnf.
 Check BB17_J17_w2_champ.sigma_lower_bound_tnf.
 
+Check BB17_J17_cmp.beats_J16_exact.
+Check BB17_J17_cmp.beats_J16_score.
+
 Print Assumptions BB17_J17_w2_champ.halt.
 Print Assumptions BB17_J17_w2_champ.score_exact.
 Print Assumptions BB17_J17_w2_champ.sigma_lower_bound.
 Print Assumptions BB17_J17_w2_champ.halt_tnf.
 Print Assumptions BB17_J17_w2_champ.sigma_lower_bound_tnf.
+Print Assumptions BB17_J17_cmp.beats_J16_exact.
+Print Assumptions BB17_J17_cmp.beats_J16_score.

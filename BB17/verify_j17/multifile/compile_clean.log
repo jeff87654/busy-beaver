@@ -1,15 +1,28 @@
-2 of 2 shared files byte-identical to ../../verify/multifile's
+6 of 6 shared files byte-identical to their originals
 The Coq Proof Assistant, version 8.20.1
 == BB172.v ==
-   ok, 22 s
+   ok, 11 s
 == Individual172.v ==
-   ok, 35 s
+   ok, 12 s
 == BB17_J17_w2_champ.v ==
 Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
-   ok, 74 s
+   ok, 24 s
+== JZ_UB.v ==
+   ok, 17 s
+== BB162.v ==
+   ok, 12 s
+== Individual162.v ==
+   ok, 12 s
+== BB16_J16_w2.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 28 s
+== BB17_J17_cmp.v ==
+   ok, 11 s
 COMPILE DONE
-probe: 5 of 5 theorems closed under the global context
+probe: 7 of 7 theorems closed under the global context

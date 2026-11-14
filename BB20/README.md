@@ -17,15 +17,17 @@ sentinel to two cells instead of taking it in, so the third refill leaves one mo
 rounds at level f_(ω·2); J19_sq has two such rounds and J20 (below) one.
 
 Its proved bound is above J20's (stated in the same theorem with the same definitions), so BB(20) has its best
-proved bound here. Comparisons with the exact scores of J20 and of J19_sq (BB(19) + 1): on paper only (the write-up,
-section 4). B21 ([`../BB21/`](../BB21/)) stays far above. Not yet reviewed by the bbchallenge community.
+proved bound here. In Coq it is also above BB(19) + 1 against J19_sq's exact score, σ(J20_cube) > σ(J19_sq) + 1
+(`beats_J19sq_exact`, `beats_J19sq_score`), and J19_sq is above J20's exact score in Coq (`beats_J20_exact` in
+[`../BB19/verify_j19sq/`](../BB19/verify_j19sq/)), so J20_cube is above J20's exact score too. B21 ([`../BB21/`](../BB21/)) stays far above. Not yet reviewed by the bbchallenge community.
 
 - [`1LB0LM_1RC1RN..._0LA0LA_1RZ1LK.md`](1LB0LM_1RC1RN_1RD1RC_0LE1RQ_1LF1LE_0LG1LE_1RH1RI_0RH0RC_0RJ1RH_0RT0RK_1LS1RL_1LM1RJ_1LA1LM_0LA0RO_0LC1RP_0LA1RN_0LR1LA_0RI1LR_0LA0LA_1RZ1LK.md):
   the write-up (the table, the two-cell sentinel, the run, the mod-3 invariant, the size, verification, comparisons,
   credit).
 - [`verify_j20cube/`](verify_j20cube/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
-  `sigma_lower_bound`. About a minute to compile; built and probed in CI (job `bb13-bb14`), which requires three
-  closed `Print Assumptions` reports.
+  `sigma_lower_bound`, and the exact-score comparison `beats_J19sq_exact`, `beats_J19sq_score` (`BB20_J20cube_cmp.v`,
+  with copies of J19_sq's proof). A few minutes to compile; built and probed in CI (job `bb13-bb14`), which requires
+  five closed `Print Assumptions` reports.
 
 Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-09), on
 Jacobzheng's J19/J20 architecture; re-checked here.

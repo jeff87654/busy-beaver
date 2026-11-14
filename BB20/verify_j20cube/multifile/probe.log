@@ -231,6 +231,37 @@ BB20_J20_w2_cube.sigma_lower_bound
          BB20_J20_w2_cube.f_w2
            (BB20_J20_w2_cube.f_wk 2
               (BB20_J20_w2_cube.f_wk 2 (BB20_J20_w2_cube.f 10 2))) < N
+BB20_J20cube_cmp.beats_J19sq_exact
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB20_J20cube_cmp.C.tm ]->* c /\
+         halted BB20_J20cube_cmp.C.tm c /\
+         BB20_J20cube_cmp.C.ones c N /\
+         (forall k1 a2 k2 a3 j : nat,
+          BB20_J20cube_cmp.Q.iter 2 (BB20_J20cube_cmp.Q.ho 0) 10 + 4 =
+          3 * S (S k1) + 1 ->
+          a2 = BB20_J20cube_cmp.Q.hoc 0 (S k1) 10 ->
+          a2 + 2 * S k1 + 2 = 3 * S (S k2) ->
+          a3 =
+          BB20_J20cube_cmp.Q.iter 4 (BB20_J20cube_cmp.Q.ho k2)
+            (BB20_J20cube_cmp.Q.hoc 0 k2 10) ->
+          a3 + 2 * S k2 + 2 = 3 * S j -> 2 * S j + 1 + 1 < N)
+BB20_J20cube_cmp.beats_J19sq_score
+     : exists NQ : nat,
+         (exists
+            c : BB192.BB192.Q *
+                (Stream BB192.BB192.Sym * BB192.BB192.Sym *
+                 Stream BB192.BB192.Sym),
+            Individual192.Individual192.Permute.Flip.Compute.TM.evstep
+              BB20_J20cube_cmp.Q.tm
+              Individual192.Individual192.Permute.Flip.Compute.TM.c0 c /\
+            Individual192.Individual192.Permute.Flip.Compute.TM.halted
+              BB20_J20cube_cmp.Q.tm c /\ BB20_J20cube_cmp.Q.ones c NQ) /\
+         (exists (c : Q * tape) (N : nat),
+            c0 -[ BB20_J20cube_cmp.C.tm ]->* c /\
+            halted BB20_J20cube_cmp.C.tm c /\
+            BB20_J20cube_cmp.C.ones c N /\ NQ + 1 < N)
+Closed under the global context
+Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context

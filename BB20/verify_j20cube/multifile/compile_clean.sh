@@ -8,9 +8,9 @@ if [ -z "$BUSYCOQ" ]; then
   exit 2
 fi
 set -e
-if [ -d ../../verify/multifile ]; then bash ./share_check.sh; fi
+if [ -d ../../../BB20/verify/multifile ]; then bash ./share_check.sh; fi
 "$COQC" --version | head -1
-for f in BB202 Individual202 BB20_J20_w2_cube; do
+for f in BB202 Individual202 BB20_J20_w2_cube JZ_UB BB192 Individual192 BB19_J19_w2_sq BB20_J20cube_cmp; do
   echo "== $f.v =="
   start=$(date +%s)
   "$COQC" -Q "$BUSYCOQ" BusyCoq -Q . BB8 "$f.v"
@@ -18,4 +18,4 @@ for f in BB202 Individual202 BB20_J20_w2_cube; do
 done
 echo "COMPILE DONE"
 "$COQC" -Q "$BUSYCOQ" BusyCoq -Q . BB8 probe.v > probe.log
-echo "probe: $(grep -c 'Closed under the global context' probe.log) of 3 theorems closed under the global context"
+echo "probe: $(grep -c 'Closed under the global context' probe.log) of 5 theorems closed under the global context"

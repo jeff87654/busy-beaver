@@ -5,11 +5,11 @@
     1LB0LM_1RC1RN_1RD1RC_0LE1RQ_1LF1LE_0LG1LE_1RH1RI_0RH0RC_0RJ1RH_0RS0RK_1LN1RL_1LM1RJ_1LA1LM_0LA0RO_0LC1RP_0LA1RN_0LR1LA_0RI1LR_1RZ1LL
     entry by entry (these 38 checks were generated from the machine string, not from the Coq file; the
     halting transition, S0, is None; the states after P are the constructors QQ, RR, SS),
-    and the start configuration is the blank tape in state A; (2) the main theorems have the stated types; (3) they
+    and the start configuration is the blank tape in state A; (2) the main theorems (and the comparisons with R18c's and J20's exact scores, BB19_J19sq_cmp.v) have the stated types; (3) they
     use no axioms.  It also prints the definitions the statements use.  The setup names states L and O, so directions
     are written TM.L / TM.R. *)
 
-From BB8 Require BB19_J19_w2_sq.
+From BB8 Require BB19_J19_w2_sq BB19_J19sq_cmp.
 From BB8 Require Import Individual192.
 From Coq Require Import PeanoNat.
 Local Open Scope sym_scope.
@@ -56,6 +56,15 @@ Check BB19_J19_w2_sq.halt.
 Check BB19_J19_w2_sq.score_exact.
 Check BB19_J19_w2_sq.sigma_lower_bound.
 
+Check BB19_J19sq_cmp.beats_R18c_exact.
+Check BB19_J19sq_cmp.beats_R18c_score.
+Check BB19_J19sq_cmp.beats_J20_exact.
+Check BB19_J19sq_cmp.beats_J20_score.
+
 Print Assumptions BB19_J19_w2_sq.halt.
 Print Assumptions BB19_J19_w2_sq.score_exact.
 Print Assumptions BB19_J19_w2_sq.sigma_lower_bound.
+Print Assumptions BB19_J19sq_cmp.beats_R18c_exact.
+Print Assumptions BB19_J19sq_cmp.beats_R18c_score.
+Print Assumptions BB19_J19sq_cmp.beats_J20_exact.
+Print Assumptions BB19_J19sq_cmp.beats_J20_score.

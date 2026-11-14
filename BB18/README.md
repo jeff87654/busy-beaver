@@ -20,15 +20,19 @@ level f_(ω·2)). The new exits give a different expansion head map and a longer
 an outer level of order f_(ω+1)(f_4(2)), where J18_w2_C's runs at one of order f_ω^15 (paper estimate).
 
 Its proved bound is above J18_w2_C's (stated in the same theorem with the same definitions), so BB(18) has its best
-proved bound here. Comparison with J18_w2_C's exact score: on paper only (the write-up, section 4). The 19-state
+proved bound here. In Coq it is also above J18_w2_C's exact score, σ(R18c) = N > σ(J18_w2_C) (`beats_J18C_exact`,
+`beats_J18C_score`), and above BB(17) + 1 against J17_champ's exact score, N > σ(J17_champ) + 1 (`beats_J17_exact`,
+`beats_J17_score`). The 19-state
 J19_sq ([`../BB19/`](../BB19/)) has a higher proved bound. Not yet reviewed by the bbchallenge community.
 
 - [`1LH0LG_0LI1RC..._1LF0LM_0RC1RZ.md`](1LH0LG_0LI1RC_0LD1LA_0RE1LD_0RH1RL_1RB1RF_1LA1LG_1RF1RM_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LN1RM_1LQ0LO_0LR1LP_1LQ1LN_1LF0LM_0RC1RZ.md):
   the write-up (the table, the changes to R18a, the rules, the refill, the run, the mod-3 invariant, the size,
   verification, comparisons, credit).
 - [`verify_r18c/`](verify_r18c/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
-  `sigma_lower_bound`, `halt_tnf`, `sigma_lower_bound_tnf`. About a minute to compile; built and probed in CI (job
-  `bb13-bb14`), which requires five closed `Print Assumptions` reports.
+  `sigma_lower_bound`, `halt_tnf`, `sigma_lower_bound_tnf`, and the exact-score comparisons `beats_J18C_exact`,
+  `beats_J18C_score`, `beats_J17_exact`, `beats_J17_score` (`BB18_R18c_cmp.v`, with copies of J18_w2_C's and J17_champ's
+  proofs, and `JZ_UB.v`, the generic upper bounds used by all four comparison files). A few minutes to compile; built
+  and probed in CI (job `bb13-bb14`), which requires nine closed `Print Assumptions` reports.
 
 This project's machine: found on 2026-11-07 by the search for compressions of Jacobzheng's J20 that produced R18a
 (then listed as an unproved variant); Coq proof by Argon, a Google Gemini model run by the repository owner in

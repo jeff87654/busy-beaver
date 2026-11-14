@@ -22,15 +22,17 @@ entries have one.
 
 Its proved bound is above BB(18) + 1's (R18c's f_(ω·2)(f_(ω+1)(f_4(2))): on paper; J18_w2_C's: in Coq, the
 same theorem), so BB(19) has its own best proved bound again, and it is also above the proved bound of Jacobzheng's
-20-state J20. Comparisons with the exact scores of R18c and J20: on paper only (the write-up, section 4). The
+20-state J20. In Coq it is also above both exact scores: σ(J19_sq) = N + 1 > σ(R18c) + 1 (`beats_R18c_exact`,
+`beats_R18c_score`) and σ(J19_sq) > σ(J20) (`beats_J20_exact`, `beats_J20_score`). The
 20-state J20_cube ([`../BB20/`](../BB20/)) has a higher proved bound. Not yet reviewed by the bbchallenge community.
 
 - [`1LB0LM_1RC1RN..._0RI1LR_1RZ1LL.md`](1LB0LM_1RC1RN_1RD1RC_0LE1RQ_1LF1LE_0LG1LE_1RH1RI_0RH0RC_0RJ1RH_0RS0RK_1LN1RL_1LM1RJ_1LA1LM_0LA0RO_0LC1RP_0LA1RN_0LR1LA_0RI1LR_1RZ1LL.md):
   the write-up (the table, the rules, the sentinel refill, the run, the mod-3 invariant, the size, verification,
   comparisons, credit).
 - [`verify_j19sq/`](verify_j19sq/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
-  `sigma_lower_bound`. About a minute to compile; built and probed in CI (job `bb13-bb14`), which requires three
-  closed `Print Assumptions` reports.
+  `sigma_lower_bound`, and the exact-score comparisons `beats_R18c_exact`, `beats_R18c_score`, `beats_J20_exact`,
+  `beats_J20_score` (`BB19_J19sq_cmp.v`, with copies of R18c's and J20's proofs). A few minutes to compile; built and
+  probed in CI (job `bb13-bb14`), which requires seven closed `Print Assumptions` reports.
 
 Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-09), on
 Jacobzheng's J19/J20 architecture; re-checked here.

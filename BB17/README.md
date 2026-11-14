@@ -20,16 +20,17 @@ of two, so the last round runs at outer level ≈ f_ω^3(f_14(2)) instead of ≈
 depends on G^5(4) mod 9, which the proof computes exactly through tables of the inner level maps mod 486.
 
 Its proved bound is above BB(16) + 1's proved bound (J16_w2's f_(ω·2)(f_15(2)), stated in the same theorem with
-the same definitions), so BB(17) has its best proved bound here again. Comparison with J16_w2's exact score + 1: on
-paper only (the write-up, section 4). The 18-state R18c ([`../BB18/`](../BB18/)) has a higher proved bound. Not yet
+the same definitions), so BB(17) has its best proved bound here again. In Coq it is also above J16_w2's exact score:
+σ(J17_champ) = N + 1 > σ(J16_w2) + 1 (`beats_J16_exact`, `beats_J16_score`, against J16_w2's `score_exact`). The 18-state R18c ([`../BB18/`](../BB18/)) has a higher proved bound. Not yet
 reviewed by the bbchallenge community.
 
 - [`1LG1RH_0LI1RC..._0LQ0RA_1LH0LG.md`](1LG1RH_0LI1RC_0LD1LQ_0RE1LD_0RP1RL_1RB1RF_1LQ1LG_1RF0RO_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LQ0RN_0LQ1RO_1RZ1RM_0LQ0RA_1LH0LG.md):
   the write-up (the table, the rules, the refill, the run, the mod-3 and mod-9 residues, the size, verification,
   comparisons, credit).
 - [`verify_j17/`](verify_j17/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
-  `sigma_lower_bound`, `halt_tnf`, `sigma_lower_bound_tnf`. About a minute to compile; built and probed in CI (job
-  `bb13-bb14`), which requires five closed `Print Assumptions` reports.
+  `sigma_lower_bound`, `halt_tnf`, `sigma_lower_bound_tnf`, and the exact-score comparison `beats_J16_exact`,
+  `beats_J16_score` (`BB17_J17_cmp.v`, with copies of J16_w2's proof). A few minutes to compile; built and probed in CI
+  (job `bb13-bb14`), which requires seven closed `Print Assumptions` reports.
 
 Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-09), on
 Jacobzheng's J19/J20 architecture; re-checked here.

@@ -8,11 +8,11 @@
     1LB0LP_1RC1RJ_1RD1RC_0LE1RO_1LF1LE_0LG1LE_1RH1RI_0RH0RC_0RB1RH_0LK1RJ_1LN0LL_0LR1LM_1LN1LK_1LC0LJ_0LQ1LA_1LA1LP_0RI1LQ_0RO1RZ
     (these 72 checks were generated from the two strings, not from the Coq file; the halting transition,
     R1 in tm and R1 in tm_tnf, is None; the states after P are the constructors QQ, RR),
-    and the start configuration is the blank tape in state A; (2) the main theorems have the stated types; (3) they
+    and the start configuration is the blank tape in state A; (2) the main theorems (and the comparisons with J18_w2_C's and J17_champ's exact scores, BB18_R18c_cmp.v) have the stated types; (3) they
     use no axioms.  It also prints the definitions the statements use.  The setup names states L and O, so directions
     are written TM.L / TM.R. *)
 
-From BB8 Require BB18_R18c.
+From BB8 Require BB18_R18c BB18_R18c_cmp.
 From BB8 Require Import Individual182.
 From Coq Require Import PeanoNat.
 Local Open Scope sym_scope.
@@ -77,8 +77,17 @@ Check BB18_R18c.sigma_lower_bound.
 Check BB18_R18c.halt_tnf.
 Check BB18_R18c.sigma_lower_bound_tnf.
 
+Check BB18_R18c_cmp.beats_J18C_exact.
+Check BB18_R18c_cmp.beats_J18C_score.
+Check BB18_R18c_cmp.beats_J17_exact.
+Check BB18_R18c_cmp.beats_J17_score.
+
 Print Assumptions BB18_R18c.halt.
 Print Assumptions BB18_R18c.score_exact.
 Print Assumptions BB18_R18c.sigma_lower_bound.
 Print Assumptions BB18_R18c.halt_tnf.
 Print Assumptions BB18_R18c.sigma_lower_bound_tnf.
+Print Assumptions BB18_R18c_cmp.beats_J18C_exact.
+Print Assumptions BB18_R18c_cmp.beats_J18C_score.
+Print Assumptions BB18_R18c_cmp.beats_J17_exact.
+Print Assumptions BB18_R18c_cmp.beats_J17_score.

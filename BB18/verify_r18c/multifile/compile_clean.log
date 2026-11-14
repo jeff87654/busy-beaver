@@ -1,15 +1,34 @@
-2 of 2 shared files byte-identical to ../../verify_r18a/multifile's
+6 of 6 shared files byte-identical to their originals
 The Coq Proof Assistant, version 8.20.1
 == BB182.v ==
-   ok, 22 s
+   ok, 15 s
 == Individual182.v ==
-   ok, 50 s
+   ok, 14 s
 == BB18_R18c.v ==
 Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
-   ok, 432 s
+   ok, 30 s
+== JZ_UB.v ==
+   ok, 14 s
+== BB18_J18_w2_C_tnf.v ==
+Closed under the global context
+Closed under the global context
+   ok, 47 s
+== BB172.v ==
+   ok, 15 s
+== Individual172.v ==
+   ok, 11 s
+== BB17_J17_w2_champ.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 28 s
+== BB18_R18c_cmp.v ==
+   ok, 16 s
 COMPILE DONE
-probe: 5 of 5 theorems closed under the global context
+probe: 9 of 9 theorems closed under the global context
