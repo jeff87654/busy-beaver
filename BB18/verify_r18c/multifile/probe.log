@@ -288,6 +288,55 @@ BB18_R18c.sigma_lower_bound_tnf
          BB18_R18c.ones c N /\
          BB18_R18c.f_w2 (2 * BB18_R18c.iter 9 BB18_R18c.f_omega 35) < N /\
          BB18_R18c.f_w2 (BB18_R18c.f_wk 1 (BB18_R18c.f 4 2)) < N
+BB18_R18c_cmp.beats_J18C_exact
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB18_R18c_cmp.R.tm ]->* c /\
+         halted BB18_R18c_cmp.R.tm c /\
+         BB18_R18c_cmp.R.ones c N /\
+         (forall k a2 j : nat,
+          BB18_R18c_cmp.J.hoc 0 2 10 + 6 = 3 * S (S k) ->
+          a2 =
+          BB18_R18c_cmp.J.iter 3 (BB18_R18c_cmp.J.ho k)
+            (BB18_R18c_cmp.J.hoc 0 k 10) ->
+          a2 + 2 * S k + 2 = 3 * j + 2 -> 2 * j + 2 + 1 < N)
+BB18_R18c_cmp.beats_J18C_score
+     : exists NJ : nat,
+         (exists c : Q * tape,
+            c0 -[ BB18_R18c_cmp.J.tm ]->* c /\
+            halted BB18_R18c_cmp.J.tm c /\ BB18_R18c_cmp.J.ones c NJ) /\
+         (exists (c : Q * tape) (N : nat),
+            c0 -[ BB18_R18c_cmp.R.tm ]->* c /\
+            halted BB18_R18c_cmp.R.tm c /\
+            BB18_R18c_cmp.R.ones c N /\ NJ + 1 < N)
+BB18_R18c_cmp.beats_J17_exact
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB18_R18c_cmp.R.tm ]->* c /\
+         halted BB18_R18c_cmp.R.tm c /\
+         BB18_R18c_cmp.R.ones c N /\
+         (forall q1 k1 a2 j : nat,
+          BB18_R18c_cmp.K.iter 5 BB18_R18c_cmp.K.G 4 + 6 = 9 * S q1 + 1 ->
+          k1 = 3 * q1 + 1 ->
+          a2 = BB18_R18c_cmp.K.hoc 1 (S k1) 4 ->
+          a2 + 2 * (3 * S q1) + 2 = 3 * S (S j) -> 2 * j + 4 + 2 < N)
+BB18_R18c_cmp.beats_J17_score
+     : exists NK : nat,
+         (exists
+            c : BB172.BB172.Q *
+                (Stream BB172.BB172.Sym * BB172.BB172.Sym *
+                 Stream BB172.BB172.Sym),
+            Individual172.Individual172.Permute.Flip.Compute.TM.evstep
+              BB18_R18c_cmp.K.tm
+              Individual172.Individual172.Permute.Flip.Compute.TM.c0 c /\
+            Individual172.Individual172.Permute.Flip.Compute.TM.halted
+              BB18_R18c_cmp.K.tm c /\ BB18_R18c_cmp.K.ones c NK) /\
+         (exists (c : Q * tape) (N : nat),
+            c0 -[ BB18_R18c_cmp.R.tm ]->* c /\
+            halted BB18_R18c_cmp.R.tm c /\
+            BB18_R18c_cmp.R.ones c N /\ NK + 2 < N)
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context

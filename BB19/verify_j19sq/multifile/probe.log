@@ -223,6 +223,63 @@ BB19_J19_w2_sq.sigma_lower_bound
               (BB19_J19_w2_sq.f_wk 2 (BB19_J19_w2_sq.f 10 2))) < N /\
          BB19_J19_w2_sq.f_w2
            (2 * BB19_J19_w2_sq.iter 9 BB19_J19_w2_sq.f_omega 35) < N
+BB19_J19sq_cmp.beats_R18c_exact
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB19_J19sq_cmp.Q.tm ]->* c /\
+         halted BB19_J19sq_cmp.Q.tm c /\
+         BB19_J19sq_cmp.Q.ones c N /\
+         (forall a1 k1 b0 a2 j : nat,
+          a1 = BB19_J19sq_cmp.R.hoc 0 2 7 ->
+          a1 + 6 = 3 * S (S k1) ->
+          b0 = BB19_J19sq_cmp.R.iter 2 (BB19_J19sq_cmp.R.ho 0) 7 ->
+          a2 = BB19_J19sq_cmp.R.hoc 1 (S k1) b0 ->
+          a2 + 2 * (1 + S k1) + 2 = 3 * S j + 1 -> 2 * S j + 1 < N)
+BB19_J19sq_cmp.beats_R18c_score
+     : exists NR : nat,
+         (exists
+            c : BB182.BB182.Q *
+                (Stream BB182.BB182.Sym * BB182.BB182.Sym *
+                 Stream BB182.BB182.Sym),
+            Individual182.Individual182.Permute.Flip.Compute.TM.evstep
+              BB19_J19sq_cmp.R.tm
+              Individual182.Individual182.Permute.Flip.Compute.TM.c0 c /\
+            Individual182.Individual182.Permute.Flip.Compute.TM.halted
+              BB19_J19sq_cmp.R.tm c /\ BB19_J19sq_cmp.R.ones c NR) /\
+         (exists (c : Q * tape) (N : nat),
+            c0 -[ BB19_J19sq_cmp.Q.tm ]->* c /\
+            halted BB19_J19sq_cmp.Q.tm c /\
+            BB19_J19sq_cmp.Q.ones c N /\ NR < N)
+BB19_J19sq_cmp.beats_J20_exact
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB19_J19sq_cmp.Q.tm ]->* c /\
+         halted BB19_J19sq_cmp.Q.tm c /\
+         BB19_J19sq_cmp.Q.ones c N /\
+         (forall k a2 j : nat,
+          BB19_J19sq_cmp.Z.iter 2 (BB19_J19sq_cmp.Z.ho 2)
+            (BB19_J19sq_cmp.Z.ho 1 1) + 10 = 3 * k + 2 ->
+          a2 =
+          BB19_J19sq_cmp.Z.iter 2 (BB19_J19sq_cmp.Z.ho k)
+            (BB19_J19sq_cmp.Z.hoc 0 k 1) ->
+          a2 + 2 * S k + 4 = 3 * j -> 2 * j + 1 < N)
+BB19_J19sq_cmp.beats_J20_score
+     : exists NZ : nat,
+         (exists
+            c : BB202.BB202.Q *
+                (Stream BB202.BB202.Sym * BB202.BB202.Sym *
+                 Stream BB202.BB202.Sym),
+            Individual202.Individual202.Permute.Flip.Compute.TM.evstep
+              BB19_J19sq_cmp.Z.tm
+              Individual202.Individual202.Permute.Flip.Compute.TM.c0 c /\
+            Individual202.Individual202.Permute.Flip.Compute.TM.halted
+              BB19_J19sq_cmp.Z.tm c /\ BB19_J19sq_cmp.Z.ones c NZ) /\
+         (exists (c : Q * tape) (N : nat),
+            c0 -[ BB19_J19sq_cmp.Q.tm ]->* c /\
+            halted BB19_J19sq_cmp.Q.tm c /\
+            BB19_J19sq_cmp.Q.ones c N /\ NZ < N)
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context

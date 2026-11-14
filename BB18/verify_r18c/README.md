@@ -11,6 +11,9 @@ proves:
 - `BB18_R18c.halt_tnf`, `sigma_lower_bound_tnf`: the same for `tm_tnf`, the machine in tree normal form
   `1LB0LP_1RC1RJ_1RD1RC_0LE1RO_1LF1LE_0LG1LE_1RH1RI_0RH0RC_0RB1RH_0LK1RJ_1LN0LL_0LR1LM_1LN1LK_1LC0LJ_0LQ1LA_1LA1LP_0RI1LQ_0RO1RZ`
   (the file proves that the renaming `perm_tnf` maps every transition of `tm` to one of `tm_tnf`).
+- `BB18_R18c_cmp.beats_J18C_exact`, `beats_J18C_score`: N > σ(J18_w2_C), against J18_w2_C's exact score; and
+  `beats_J17_exact`, `beats_J17_score`: N > σ(J17_champ) + 1, against J17_champ's exact score (both loaded from
+  byte-identical copies of their published files).
 
 As published:
 
@@ -29,6 +32,15 @@ As published:
       exists c N, c0 -[ tm_tnf ]->* c /\ halted tm_tnf c /\ ones c N /\
         f_w2 (2 * iter 9 f_omega 35) < N /\ f_w2 (f_wk 1 (f 4 2)) < N.
     Theorem halt_tnf : halts tm_tnf c0.
+    Theorem beats_J18C_exact : exists c N, c0 -[ R.tm ]->* c /\ halted R.tm c /\ R.ones c N /\
+      forall k a2 j, J.hoc 0 2 10 + 6 = 3 * S (S k) -> a2 = J.iter 3 (J.ho k) (J.hoc 0 k 10) ->
+        a2 + 2 * S k + 2 = 3 * j + 2 -> 2 * j + 2 + 1 < N.
+    Theorem beats_J17_exact : exists c N, c0 -[ R.tm ]->* c /\ halted R.tm c /\ R.ones c N /\
+      forall q1 k1 a2 j, K.iter 5 K.G 4 + 6 = 9 * S q1 + 1 -> k1 = 3 * q1 + 1 -> a2 = K.hoc 1 (S k1) 4 ->
+        a2 + 2 * (3 * S q1) + 2 = 3 * S (S j) -> 2 * j + 4 + 2 < N.
+    (beats_J18C_score / beats_J17_score: exists NX, (X halts from the blank tape with NX ones) /\
+       exists c N, ... R.ones c N /\ NX + 1 < N   resp.   NX + 2 < N)
+  (R = BB18_R18c, J = BB18_J18_w2_C_tnf, K = BB17_J17_w2_champ)
 
 Since the machine is deterministic, the halted configuration reached from `c0` is unique, so the theorems describe
 one tape. The fast-growing hierarchy is the standard one, defined in `BB18_R18c.v`: `f 0 n = n+1`,
@@ -44,8 +56,12 @@ same text, so f_(ω·2)(2·f_ω^9(35)) < N is J18_w2_C's proved bound exactly.
 |---|---|
 | `BB182.v`, `Individual182.v` | busycoq instantiated for 18 states (byte-identical to `../../verify_r18a/multifile/`). The 17th and 18th states are `QQ` and `RR`; the states `L` and `O` shadow busycoq's direction `L` and `Datatypes.O`, so tables write `TM.L` / `TM.R`. |
 | `BB18_R18c.v` | Argon's proof. Unchanged except for line 1 `(* machine: ... *)`, added here (the string above, the file's table `tm`) for `check.py`. Content: walk and zig-zag lemmas, the period-3 rewriter `triNOP`, digit lists, the sweep `SW`, `CI`, `CO`, `EX`, the refill (`RF_halt`, `RF_2`, `RF_0`), the expansion (`EXP_zero`, `EXP_0s`, `EXP_1`, `EXP_2`, `R0`), `OEX`, `R1`, the level lemmas, the mod-3 invariant (`G_P1`, `ho_P1`, `hoc_P1`), the run (`boot1`, `boot`, `run_gen`, `run`, `halt`), the score and the bound (`G7_bound`, `a1_bound`, `bound_gen`, `beat_J18_inner`), the renamed table and its theorems |
+| `BB18_J18_w2_C_tnf.v` | byte-identical copy of `../../verify_j18c/multifile/`'s (J18_w2_C's proof) |
+| `BB172.v`, `Individual172.v`, `BB17_J17_w2_champ.v` | byte-identical copies of `../../../BB17/verify_j17/multifile/`'s (17-state setup and J17_champ's proof) |
+| `JZ_UB.v` | generic upper bounds for the engine's level maps (written here; this is its home, the other directories hold copies) |
+| `BB18_R18c_cmp.v` | written here: J18_w2_C's and J17_champ's maps satisfy JZ_UB's hypotheses, their exact counts are bounded above, the four theorems |
 | `probe.v` | the independent probe (below) |
-| `compile_clean.sh`, `_CoqProject`, `share_check.sh` | build script, project file, check that the busycoq setup files are byte-identical to `../../verify_r18a/multifile/` |
+| `compile_clean.sh`, `_CoqProject`, `share_check.sh` | build script, project file, check that the shared files (busycoq setup, the loaded proofs, `JZ_UB.v`) are byte-identical to their originals; the busycoq setup files come from `../../verify_r18a/multifile/` |
 | `compile_clean.log`, `probe.log`, `sha256.txt` | logs of a from-scratch build and of the probe, hashes of the source files |
 
 ## Check it
@@ -57,7 +73,7 @@ same text, so f_(ω·2)(2·f_ω^9(35)) < N is J18_w2_C's proved bound exactly.
 and `Flip.vo` built. `compile_clean.sh` first runs `share_check.sh` when the other directory is present. `probe.v`
 checks both compiled transition tables against the two machine strings entry by entry (72 checks generated from the
 strings, not from the Coq file) and the blank start configuration. It prints the definitions the statements use and
-runs `Print Assumptions` on the five theorems above: all five are closed under the global context. CI job
+runs `Print Assumptions` on the nine theorems above: all nine are closed under the global context. CI job
 `bb13-bb14` runs the same script.
 
 The main proof was also checked with this project's `check.py` (the statement `halts tm c0` read from the file, the

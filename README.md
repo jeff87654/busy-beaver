@@ -201,8 +201,8 @@ above it.
 1LG1RH_0LI1RC_0LD1LQ_0RE1LD_0RP1RL_1RB1RF_1LQ1LG_1RF0RO_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LQ0RN_0LQ1RO_1RZ1RM_0LQ0RA_1LH0LG
 ```
 
-- **Proved (Coq):** f_(ω·2)(f_ω^3(f_14(2))) < N and f_(ω·2)(f_15(2)) < N, σ = N + 1, with N = 2j + 4 exactly for the machine's recursion (halts after two refills, by residues mod 3 and mod 9, computed through tables of the inner level maps mod 486); the second bound is J16_w2's proved bound (BB(16)), so the proved bound is above BB(16) + 1's; comparison with J16_w2's exact score: on paper only (not yet reviewed by the bbchallenge community)
-- **Main theorems:** `halt`, `score_exact`, `sigma_lower_bound` (and `halt_tnf`, `sigma_lower_bound_tnf` for the machine in tree normal form)
+- **Proved (Coq):** f_(ω·2)(f_ω^3(f_14(2))) < N and f_(ω·2)(f_15(2)) < N, σ = N + 1, with N = 2j + 4 exactly for the machine's recursion (halts after two refills, by residues mod 3 and mod 9, computed through tables of the inner level maps mod 486); the second bound is J16_w2's proved bound (BB(16)), so the proved bound is above BB(16) + 1's; in Coq, also above J16_w2's exact score: σ = N + 1 > σ(J16_w2) + 1 (`beats_J16_exact`: an upper bound on J16_w2's count from its own definitions) (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `halt`, `score_exact`, `sigma_lower_bound`, `beats_J16_exact`, `beats_J16_score` (and `halt_tnf`, `sigma_lower_bound_tnf` for the machine in tree normal form)
 - **Checked:** CI `bb13-bb14`
 - **Found by:** Argon (machine and Coq proof, on Jacobzheng's J19/J20 architecture, extending J16_w2); probe and packaging here
 - **Added:** 2026-11-13
@@ -215,8 +215,8 @@ above it.
 1LH0LG_0LI1RC_0LD1LA_0RE1LD_0RH1RL_1RB1RF_1LA1LG_1RF1RM_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LN1RM_1LQ0LO_0LR1LP_1LQ1LN_1LF0LM_0RC1RZ
 ```
 
-- **Proved (Coq):** f_(ω·2)(f_(ω+1)(f_4(2))) < N = σ and f_(ω·2)(2·f_ω^9(35)) < N, with N = 2(j + 1) + 1 exactly for the machine's recursion (halts after exactly two refills, by a mod-3 invariant; the halt R1 is read on a 1); the second bound is J18_w2_C's proved bound (the previous entry); comparison with J18_w2_C's exact score: on paper only (not yet reviewed by the bbchallenge community)
-- **Main theorems:** `halt`, `score_exact`, `sigma_lower_bound` (and `halt_tnf`, `sigma_lower_bound_tnf` for the machine in tree normal form)
+- **Proved (Coq):** f_(ω·2)(f_(ω+1)(f_4(2))) < N = σ and f_(ω·2)(2·f_ω^9(35)) < N, with N = 2(j + 1) + 1 exactly for the machine's recursion (halts after exactly two refills, by a mod-3 invariant; the halt R1 is read on a 1); the second bound is J18_w2_C's proved bound (the previous entry); in Coq, above J18_w2_C's exact score (σ = N > σ(J18_w2_C), `beats_J18C_exact`) and above BB(17) + 1 against J17_champ's exact score (N > σ(J17_champ) + 1, `beats_J17_exact`) (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `halt`, `score_exact`, `sigma_lower_bound`, `beats_J18C_exact`, `beats_J18C_score`, `beats_J17_exact`, `beats_J17_score` (and `halt_tnf`, `sigma_lower_bound_tnf` for the machine in tree normal form)
 - **Checked:** CI `bb13-bb14`
 - **Found by:** this project (2026-11-07, in the search for compressions of Jacobzheng's J20 that produced R18a); Coq proof by Argon (2026-11-09); probe and packaging here
 - **Added:** 2026-11-13
@@ -229,8 +229,8 @@ above it.
 1LB0LM_1RC1RN_1RD1RC_0LE1RQ_1LF1LE_0LG1LE_1RH1RI_0RH0RC_0RJ1RH_0RS0RK_1LN1RL_1LM1RJ_1LA1LM_0LA0RO_0LC1RP_0LA1RN_0LR1LA_0RI1LR_1RZ1LL
 ```
 
-- **Proved (Coq):** f_(ω·2)(f_(ω·2)(f_5(2))) < N, σ = N + 1, with N = 2(j + 1) + 1 exactly for the machine's recursion (halts after three refills: a parked sentinel cell tells the second and the third exhaustion apart, residues mod 3 computed exactly); also f_(ω·2)(2·f_ω^9(35)) < N (J18_w2_C's proved bound) and f_(ω·2)(f_(ω+2)(f_(ω+2)(f_10(2)))) < N (J20's proved bound, BB(20)); above R18c's proved bound + 1 (BB(18) + 1) on paper, as an inequality between the two bounds; comparisons with the exact scores of R18c and J20: on paper only (not yet reviewed by the bbchallenge community)
-- **Main theorems:** `halt`, `score_exact`, `sigma_lower_bound`
+- **Proved (Coq):** f_(ω·2)(f_(ω·2)(f_5(2))) < N, σ = N + 1, with N = 2(j + 1) + 1 exactly for the machine's recursion (halts after three refills: a parked sentinel cell tells the second and the third exhaustion apart, residues mod 3 computed exactly); also f_(ω·2)(2·f_ω^9(35)) < N (J18_w2_C's proved bound) and f_(ω·2)(f_(ω+2)(f_(ω+2)(f_10(2)))) < N (J20's proved bound, BB(20)); in Coq, above BB(18) + 1 against R18c's exact score (σ = N + 1 > σ(R18c) + 1, `beats_R18c_exact`) and above J20's exact score (σ > σ(J20), `beats_J20_exact`) (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `halt`, `score_exact`, `sigma_lower_bound`, `beats_R18c_exact`, `beats_R18c_score`, `beats_J20_exact`, `beats_J20_score`
 - **Checked:** CI `bb13-bb14`
 - **Found by:** Argon (machine and Coq proof, on Jacobzheng's J19/J20 architecture with J18_w2_C's expansion); probe and packaging here
 - **Added:** 2026-11-13
@@ -243,8 +243,8 @@ above it.
 1LB0LM_1RC1RN_1RD1RC_0LE1RQ_1LF1LE_0LG1LE_1RH1RI_0RH0RC_0RJ1RH_0RT0RK_1LS1RL_1LM1RJ_1LA1LM_0LA0RO_0LC1RP_0LA1RN_0LR1LA_0RI1LR_0LA0LA_1RZ1LK
 ```
 
-- **Proved (Coq):** f_(ω·2)^3(f_5(2)) < N and f_(ω·2)(f_(ω+2)(f_(ω+2)(f_10(2)))) < N, σ = N + 1, with N = 2(j + 1) + 1 exactly for the machine's recursion (halts after four refills, with a two-cell sentinel); the second bound is J20's proved bound (the previous entry); comparisons with the exact scores of J20 and J19_sq: on paper only (not yet reviewed by the bbchallenge community)
-- **Main theorems:** `halt`, `score_exact`, `sigma_lower_bound`
+- **Proved (Coq):** f_(ω·2)^3(f_5(2)) < N and f_(ω·2)(f_(ω+2)(f_(ω+2)(f_10(2)))) < N, σ = N + 1, with N = 2(j + 1) + 1 exactly for the machine's recursion (halts after four refills, with a two-cell sentinel); the second bound is J20's proved bound (the previous entry); in Coq, above BB(19) + 1 against J19_sq's exact score (σ > σ(J19_sq) + 1, `beats_J19sq_exact`), and so above J20's exact score too (J19_sq's `beats_J20_exact`) (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `halt`, `score_exact`, `sigma_lower_bound`, `beats_J19sq_exact`, `beats_J19sq_score`
 - **Checked:** CI `bb13-bb14`
 - **Found by:** Argon (machine and Coq proof, on Jacobzheng's J19/J20 architecture, extending J19_sq); probe and packaging here
 - **Added:** 2026-11-13
@@ -455,7 +455,7 @@ BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB
   sequences (`Ord.v` in their `verify/` directories), and ω↑↑k = ω^ω^…^ω (k omegas). a ↑^k b is Knuth's up-arrow.
 - Comparisons, in Coq: champ_231 and champ_232 are above the BB(7) champion's score 3·(2↑^13 3) + 22 (our analysis
   of that machine, on paper) and the wiki's lower bound 2↑^11 (2↑^11 3); M8 beats champ35's and fw2's exact scores;
-  h003 is above M8's Coq upper bound; n1 beats Racheline's 2024 BB(10) champion against that machine's Coq-proved exact score; M11b is above n1's Coq upper bound; C4 is above M11b's exact score (`beats_M11b`, `beats_M11b_score`: M11b's Coq upper bound) and above M12's exact score (`beats_M12_exact`, `beats_M12_score`: an upper bound on M12 from its own definitions); M13_19 is above M13b's exact score and M14_fw3 above M14_31's (`beats_M13b_exact`, `beats_M14_31_exact`: Coq upper bounds on those scores, proved from the older machines' own definitions); T12a (the previous BB(12) entry, kept in `BB12/`) beats n1's exact score; R18a's proved bound is above J19's and M18_229round's proved bounds (`beats_J19`, `beats_M18_229`); M14_31's is above M14d_18's (`beats_M14d_18`), J15_fw13's above M14_31's (`beats_M14_31`), J16_w2's above J15_fw13's, M14_31's, M16_C's and M17_B's (`beats_J15`, `beats_M14_31`, `beats_M16_C`, `beats_M17_B`), and J18_w2_C's above R18a's and J16_w2's (`beats_R18a`, `beats_J16`); besides its own bound, J17_champ's `sigma_lower_bound` states J16_w2's proved bound, R18c's states J18_w2_C's, J19_sq's states J18_w2_C's and J20's, and J20_cube's states J20's (with the same definitions), so each is above the proved bound of the entry it replaces (for J19_sq against R18c's proved bound + 1, on paper); these compare proved lower bounds; 44-C (BB(4,4)) is above the exact score of loader3229's machine
+  h003 is above M8's Coq upper bound; n1 beats Racheline's 2024 BB(10) champion against that machine's Coq-proved exact score; M11b is above n1's Coq upper bound; C4 is above M11b's exact score (`beats_M11b`, `beats_M11b_score`: M11b's Coq upper bound) and above M12's exact score (`beats_M12_exact`, `beats_M12_score`: an upper bound on M12 from its own definitions); M13_19 is above M13b's exact score and M14_fw3 above M14_31's (`beats_M13b_exact`, `beats_M14_31_exact`: Coq upper bounds on those scores, proved from the older machines' own definitions); T12a (the previous BB(12) entry, kept in `BB12/`) beats n1's exact score; R18a's proved bound is above J19's and M18_229round's proved bounds (`beats_J19`, `beats_M18_229`); M14_31's is above M14d_18's (`beats_M14d_18`), J15_fw13's above M14_31's (`beats_M14_31`), J16_w2's above J15_fw13's, M14_31's, M16_C's and M17_B's (`beats_J15`, `beats_M14_31`, `beats_M16_C`, `beats_M17_B`), and J18_w2_C's above R18a's and J16_w2's (`beats_R18a`, `beats_J16`); J17_champ, R18c, J19_sq and J20_cube are above the exact scores of the machines they replace (`beats_J16_exact`: BB(16) + 1 = J16_w2 + 1; `beats_J18C_exact` and `beats_J17_exact`: J18_w2_C and BB(17) + 1; `beats_R18c_exact` and `beats_J20_exact`: BB(18) + 1 and J20; `beats_J19sq_exact`: BB(19) + 1), by upper bounds on those scores proved from the older machines' own definitions with the generic bounds of `JZ_UB.v`; besides its own bound, each one's `sigma_lower_bound` also states the replaced entry's proved bound; the following compare proved lower bounds; 44-C (BB(4,4)) is above the exact score of loader3229's machine
   (`beats_loader3229_exact`: both exact, in one Coq file); B21's proved bound is above J20's (`beats_J20`), and W2PR's above B21's (`beats_B21`). `beats_J20` and `beats_B21` compare proved lower bounds, not upper bounds on the other machine's σ. **On
   paper only:** 54-L's proved F(F(2↑^4 2↑^3 4)) < σ (F(n) = 2↑^(n+1)(n+3)) is above Jacobzheng's BB(5,4) machine's σ by
   the hand calculation in `BB54/README.md`; 53-Main's proved 2↑^x x < σ (x = 2↑^7 7) is far above the BB(4,3) entry's
@@ -479,9 +479,7 @@ BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB
   f_(ω·2)(n) ≥ f_(ω+8)(n) = f_(ω+7)^n(n) for n ≥ 8; J20's proved bound is above R18a's f_(ω·2)(f_ω(f_ω(f_10(2)))), since
   f_(ω+2)(n) ≥ f_ω(n). It is also above J18_w2_C's f_(ω·2)(2·f_ω^9(35)), since for x ≥ 35,
   f_(ω+2)(x) ≥ f_(ω+1)(x) = f_ω^x(x) ≥ f_ω^10(35) ≥ 2·f_ω^9(35). B21's proved f_(ω²)^3(4↑↑341) and W2PR's proved f_(ω²)^5(4↑↑341)
-  are compared with J20's and B21's in Coq (above). J17_champ's, R18c's, J19_sq's and J20_cube's runs are compared
-  with the exact scores of the machines they replace (J16_w2 + 1, J18_w2_C, R18c + 1 and J20, J20 and J19_sq + 1) in
-  their write-ups, section 4, by the sizes of the levels their last rounds run at. hydra30's proved
+  are compared with J20's and B21's in Coq (above). hydra30's proved
   f_(ω^9)(10) ≤ N + 2 is above hydra29's exact N = T₄(S)(1) + 1 (an f_(ω^4)-level number at a small argument);
   hydra32 and hydra34 start their games from larger ordinals than hydra31 and hydra33 (ω^ω^ω^(ω^8·3) against
   ω^ω^ω^ω^4, both at argument 4; ω^ω^ω^ω^ω^ω^4 at argument 5 against ω^ω^ω^ω^ω^ω^3 at argument 4), and a hydra game
@@ -565,6 +563,8 @@ elsewhere point at these paths.
 | BB(11) | [`1RG0LH_..._1LH1LI_1LJ1RE`](BB11/1RG0LH_1RK1RC_0LD1LA_0RE1LD_0LI1RF_1RZ0RG_1RB1RG_1LA1LH_0LK0LJ_1LH1LI_1LJ1RE.md) (M11b, by Argon), f_(ω+1)(f_ω(f_ω(5))) < N, σ = N + 1 < f_(ω+1)(f_ω(f_ω(6))) | 2026-10-26 to 2026-11-13 | C4 (`beats_M11b_score`, against its exact score) | C4's comparison loads its Coq files; its comparison with n1 stays ([`BB11/verify/`](BB11/verify/), CI `bb13-bb14`) |
 | BB(13) | [`1RB1RA_..._0LH1LK_1RZ0LH`](BB13/1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_1RZ0LH.md) (M13b), f_(ω+2)^6(f_(ω+1)(f_(ω+1)(3))) < σ | 2026-10-28 to 2026-11-12 | M13_19 (`beats_M13b_exact`, against its exact score) | M13_19's comparison loads its Coq files ([`BB13/verify_m13b/`](BB13/verify_m13b/), CI `bb13-bb14`) |
 | BB(14) | [`1RB1RA_..._0LK0LH_1LM---`](BB14/1RB1RA_1RI1RC_0LD1LG_0RE1LD_0RN1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_0LK0LH_1LM---.md) (M14_31), f_(ω+2)^30(f_(ω+1)(f_(ω+1)(3))) < σ | 2026-11-08 to 2026-11-12 | M14_fw3 (`beats_M14_31_exact`, against its exact score) | M14_fw3's comparison loads its Coq file ([`BB14/verify_m14_31/`](BB14/verify_m14_31/), CI `bb13-bb14`) |
+| BB(18) | [`0LB1LF_..._0LH1RR_0LF1RP`](BB18/0LB1LF_0RC1LB_0RD1RM_1LE0RN_1LF1LE_1LG0LE_1RH1RP_1RI1RH_0LJ1RA_1LK1LJ_0LL1LJ_1RM1RC_0RM0RH_1LE1RO_1RZ1RD_0LF0RQ_0LH1RR_0LF1RP.md) (J18_w2_C, by Argon), f_(ω·2)(2·f_ω^9(35)) < N, σ = N + 1 | 2026-11-08 to 2026-11-13 | R18c (`beats_J18C_exact`, against its exact score) | R18c's comparison loads its Coq file ([`BB18/verify_j18c/`](BB18/verify_j18c/), CI `bb13-bb14`) |
+| BB(20) | [`1LH0LG_..._0LF1LT_0LF0LR`](BB20/1LH0LG_0LI1RC_0LD1LA_0RE1LD_1RQ1RL_1RB1RF_1LA1LG_1RF1RM_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LN1RM_0RF0LO_0RF1LP_0RF1LN_1LR1RQ_1RZ1LS_0LF1LT_0LF0LR.md) (J20, by Jacobzheng), f_(ω·2)(f_(ω+2)(f_(ω+2)(f_10(2)))) < N, σ = N + 1 | 2026-11-07 to 2026-11-13 | J20_cube (via J19_sq: `beats_J19sq_exact` and `beats_J20_exact`, against exact scores) | J19_sq's comparison loads its Coq file ([`BB20/verify/`](BB20/verify/), CI `bb13-bb14`) |
 | BB(4,4) | [`0LB3LB1RZ2RA_..._0RD2RC2LB0RA`](BB44/0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA.md) (loader3229; Coq proof by MiniMax), σ = 2↑^509 3 + 510 exactly | 2026-11-08 to 2026-11-13 | 44-C (`beats_loader3229_exact`, against its exact score) | 44-C's comparison loads its Coq files ([`BB44/verify/`](BB44/verify/), CI `bb44`) |
 | BB(5,4) | [`1LD3LB---2RA_..._------1LD1RZ`](BB54/1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ.md) (Jacobzheng; Coq proof by MiniMax), halts, σ = 2·M1 + 2·M0 + X + 5 exactly | 2026-11-08 to 2026-11-13 | 54-L (on paper: its σ is below F(F(2↑^4 2↑^3 4)), which 54-L's proved bound exceeds) | kept as published ([`BB54/verify/`](BB54/verify/), CI `bb54`) |
 

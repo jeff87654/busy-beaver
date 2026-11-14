@@ -39,7 +39,7 @@ refill much later than J16_w2's: after five applications of the outer head map G
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB17_J17_w2_champ.halt` (and `halt_tnf` for the table above). The halt is decided by residues mod 3 and mod 9, which the proof computes exactly. |
 | Exact score | Machine-checked formula: the halting tape holds 2j + 4 ones, where G^5(4) + 6 = 9(q₁ + 1) + 1, k₁ = 3q₁ + 1, a₂ = hoc_1^(k₁+1)(4) and a₂ + 6(q₁ + 1) + 2 = 3(j + 2) (section 1; `score_exact`). The halt O0 = `1RZ` is read on a 0, so σ = N + 1 = 2j + 5. Not evaluated as a number. |
 | Level | Machine-checked, with the standard fast-growing hierarchy: f_(ω·2)(f_ω^3(f_14(2))) < N and f_(ω·2)(f_15(2)) < N (`sigma_lower_bound`). |
-| Comparisons | **In Coq**: the second bound is exactly the proved bound of J16_w2 (BB(16)), so N is above it; with σ = N + 1 that puts this machine above BB(16) + 1's proved bound. Comparison with J16_w2's exact score (+ 1): on paper only (section 4). |
+| Comparisons | **In Coq**, against the exact score: N > N(J16_w2) + 1, i.e. σ(J17_champ) = N + 1 > σ(J16_w2) + 1, so this machine beats BB(16) + 1 (`BB17_J17_cmp.beats_J16_exact`, `beats_J16_score`; section 4). The second bound is also J16_w2's proved lower bound. |
 | Steps | Not computed. |
 
 ## 1. How it works
@@ -107,7 +107,11 @@ independent simulator for this write-up; every rule cited is a lemma of the Coq 
 - **In Coq**: f_(ω·2)(f_15(2)) < N, and f_(ω·2)(f_15(2)) is J16_w2's proved bound (`BB16_J16_w2.sigma_lower_bound`,
   the same definitions). So J17_champ's proved bound is above BB(16) + 1's. J16_w2 has no proved upper bound, so
   that compares proved lower bounds.
-- **On paper**: J16_w2 runs the same kind of second round, but its level k₁ comes from G(G(5)) = G(44), an
+- **In Coq, against the exact score** (`BB17_J17_cmp.v`, written here): `beats_J16_exact` states that for the k₁, q₁, a₂, j
+  of J16_w2's `score_exact` (its count N(J16_w2) = 2j + 4), 2j + 4 + 1 < N; `beats_J16_score` combines this with J16_w2's
+  halting tape. The proof bounds J16_w2's count from above, N(J16_w2) + 1 ≤ f_(ω·2)(k₁ + G(44) + 20), and
+  k₁ + G(44) + 20 ≤ f_ω^3(f_14(2)). The upper bounds come from `JZ_UB.v` (written here): for any maps satisfying the engine's equations, h_m(y) + 4 ≤ f_(m+1)(y + 4), hc_m^n(x) + 4 ≤ f_ω(m + n + x + 5), ho_m(a) + 20 ≤ f_(ω+m)(a + 20) and hoc_m^n(a) + 20 ≤ f_(ω+m+n+1)(n + a + 20), given G(a) + 20 ≤ f_ω(a + 20), which the comparison file proves for the older machine's own head map.
+- **Why**: J16_w2 runs the same kind of second round, but its level k₁ comes from G(G(5)) = G(44), an
   f_15(2)-sized number, while here it comes from G^5(4), f_ω^3(f_14(2))-sized. So J16_w2's exact score is below
   f_(ω·2)(f_ω(f_15(2))), far below this machine's N.
 - M17_B (the previous BB(17) entry) was already below J16_w2's proved bound in Coq (`beats_M17_B` in

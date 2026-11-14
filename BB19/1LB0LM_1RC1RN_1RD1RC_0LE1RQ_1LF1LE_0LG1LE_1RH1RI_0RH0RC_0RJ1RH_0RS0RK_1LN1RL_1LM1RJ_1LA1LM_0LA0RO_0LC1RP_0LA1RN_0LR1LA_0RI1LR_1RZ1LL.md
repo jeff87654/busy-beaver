@@ -43,7 +43,7 @@ f_(ω·2) instead of one.
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB19_J19_w2_sq.halt`. The halt is decided by residues mod 3 and the sentinel, which the proof follows exactly: every level map is x ↦ x + 1 (mod 3), for every residue of x. |
 | Exact score | Machine-checked formula: the halting tape holds 2(j + 1) + 1 ones, where ho_0^2(10) + 4 = 3(k₁ + 2) + 1, a₂ = hoc_0^(k₁+1)(10), a₂ + 2(k₁ + 1) + 2 = 3(k₂ + 2), a₃ = ho_(k₂)^4(hoc_0^(k₂)(10)) and a₃ + 2(k₂ + 1) + 2 = 3(j + 1) (section 1; `score_exact`). The halt S0 = `1RZ` is read on a 0, so σ = N + 1 = 2j + 4. Not evaluated as a number. |
 | Level | Machine-checked, with the standard fast-growing hierarchy: f_(ω·2)(f_(ω·2)(f_5(2))) < N (`sigma_lower_bound`, which also states f_(ω·2)(f_(ω+2)(f_(ω+2)(f_10(2)))) < N and f_(ω·2)(2·f_ω^9(35)) < N). |
-| Comparisons | **In Coq**: N is above J18_w2_C's and J20's proved bounds (the second and third forms are exactly those bounds). Comparisons with the exact scores of R18c (BB(18) + 1, the bound this replaces) and of J20: on paper only (section 4). |
+| Comparisons | **In Coq**, against the exact scores: N > N(R18c) = σ(R18c), so σ(J19_sq) = N + 1 > σ(R18c) + 1 = BB(18) + 1 (`BB19_J19sq_cmp.beats_R18c_exact`, `beats_R18c_score`), and N > N(J20), so σ(J19_sq) > σ(J20), Jacobzheng's 20-state machine (`beats_J20_exact`, `beats_J20_score`; section 4). |
 | Steps | Not computed. |
 
 ## 1. How it works
@@ -113,7 +113,12 @@ independent simulator for this write-up; every rule cited is a lemma of the Coq 
 - **In Coq**: f_(ω·2)(2·f_ω^9(35)) < N and f_(ω·2)(f_(ω+2)(f_(ω+2)(f_10(2)))) < N, the proved bounds of J18_w2_C
   (BB(18) until R18c) and of Jacobzheng's 20-state J20 (the previous BB(20) entry). Those compare proved lower
   bounds.
-- **On paper**: R18c, J18_w2_C and J20 halt after two refills, with one round at level f_(ω·2) whose level comes from
+- **In Coq, against the exact scores** (`BB19_J19sq_cmp.v`, written here): `beats_R18c_exact` states that for the a₁, k₁, b₀,
+  a₂, j of R18c's `score_exact` (count 2(j + 1) + 1 = σ(R18c)), 2(j + 1) + 1 < N; `beats_J20_exact` states that for
+  the k, a₂, j of J20's `score_exact` (count 2j + 1, σ = 2j + 2), 2j + 1 < N. Both via upper bounds
+  N(R18c), N(J20) ≤ f_(ω·2)(Z) with Z ≤ f_(ω·2)(f_5(2)). The `_score` versions combine these with the other machines'
+  halting tapes. The upper bounds come from `JZ_UB.v` (written here): for any maps satisfying the engine's equations, h_m(y) + 4 ≤ f_(m+1)(y + 4), hc_m^n(x) + 4 ≤ f_ω(m + n + x + 5), ho_m(a) + 20 ≤ f_(ω+m)(a + 20) and hoc_m^n(a) + 20 ≤ f_(ω+m+n+1)(n + a + 20), given G(a) + 20 ≤ f_ω(a + 20), which the comparison file proves for the older machine's own head map.
+- **Why**: R18c, J18_w2_C and J20 halt after two refills, with one round at level f_(ω·2) whose level comes from
   an f_(ω+1)-sized number (R18c), an f_ω^15-sized one (J18_w2_C) or an f_(ω+2)^2(f_10(2))-sized one (J20). Here the
   second refill already gives an f_(ω·2)(f_5(2))-sized k₂, and round 3 runs at that level, so J19_sq's N is far
   above the exact scores of R18c (+ 1), J18_w2_C (+ 1) and J20.

@@ -282,6 +282,33 @@ BB17_J17_w2_champ.sigma_lower_bound_tnf
          BB17_J17_w2_champ.f_w2
            (BB17_J17_w2_champ.iter 3 BB17_J17_w2_champ.f_omega
               (BB17_J17_w2_champ.f 14 2)) < N
+BB17_J17_cmp.beats_J16_exact
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB17_J17_cmp.K.tm ]->* c /\
+         halted BB17_J17_cmp.K.tm c /\
+         BB17_J17_cmp.K.ones c N /\
+         (forall k1 q1 a2 j : nat,
+          BB17_J17_cmp.J.G 44 + 4 = 3 * (k1 + 3) ->
+          k1 = 3 * q1 + 2 ->
+          a2 = BB17_J17_cmp.J.hoc 1 k1 (BB17_J17_cmp.J.G 44) ->
+          a2 + 2 * S k1 + 2 = 3 * S j + 1 -> 2 * j + 4 + 1 < N)
+BB17_J17_cmp.beats_J16_score
+     : exists NJ : nat,
+         (exists
+            c : BB162.BB162.Q *
+                (Stream BB162.BB162.Sym * BB162.BB162.Sym *
+                 Stream BB162.BB162.Sym),
+            Individual162.Individual162.Permute.Flip.Compute.TM.evstep
+              BB17_J17_cmp.J.tm
+              Individual162.Individual162.Permute.Flip.Compute.TM.c0 c /\
+            Individual162.Individual162.Permute.Flip.Compute.TM.halted
+              BB17_J17_cmp.J.tm c /\ BB17_J17_cmp.J.ones c NJ) /\
+         (exists (c : Q * tape) (N : nat),
+            c0 -[ BB17_J17_cmp.K.tm ]->* c /\
+            halted BB17_J17_cmp.K.tm c /\
+            BB17_J17_cmp.K.ones c N /\ NJ + 1 < N)
+Closed under the global context
+Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context

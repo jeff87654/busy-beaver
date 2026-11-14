@@ -42,7 +42,7 @@ one more refill for later. Four refills, three rounds at level f_(ω·2).
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB20_J20_w2_cube.halt`. The halt is decided by residues mod 3 and the sentinel, which the proof follows exactly: every level map is x ↦ x + 1 (mod 3), for every residue of x. |
 | Exact score | Machine-checked formula: the halting tape holds 2(j + 1) + 1 ones, where ho_0^2(10) + 4 = 3(k₁ + 2) + 1, a₂ = hoc_0^(k₁+1)(10), a₂ + 2(k₁ + 1) + 2 = 3(k₂ + 2), a₃ = hoc_0^(k₂)(10), a₃ + 2(k₂ + 1) + 2 = 3(k₃ + 1) + 2, a₄ = ho_(k₃)^4(hoc_0^(k₃)(10)) and a₄ + 2(k₃ + 1) + 2 = 3(j + 1) (section 1; `score_exact`). The halt T0 = `1RZ` is read on a 0, so σ = N + 1 = 2j + 4. Not evaluated as a number. |
 | Level | Machine-checked, with the standard fast-growing hierarchy: f_(ω·2)^3(f_5(2)) < N (`sigma_lower_bound`, which also states f_(ω·2)(f_(ω+2)(f_(ω+2)(f_10(2)))) < N). |
-| Comparisons | **In Coq**: the second form is exactly J20's proved bound (the previous BB(20) entry), so N is above it. Comparisons with the exact scores of J20 and of J19_sq (BB(19) + 1): on paper only (section 4). |
+| Comparisons | **In Coq**, against the exact score: N > N(J19_sq) + 1, i.e. σ(J20_cube) > σ(J19_sq) + 1 = BB(19) + 1 (`BB20_J20cube_cmp.beats_J19sq_exact`, `beats_J19sq_score`); with J19_sq's `beats_J20_exact` ([`../BB19/verify_j19sq/`](../BB19/verify_j19sq/)) this is also above J20's exact score (section 4). |
 | Steps | Not computed. |
 
 ## 1. How it works
@@ -106,7 +106,11 @@ independent simulator for this write-up; every rule cited is a lemma of the Coq 
 
 - **In Coq**: f_(ω·2)(f_(ω+2)(f_(ω+2)(f_10(2)))) < N, the proved bound of Jacobzheng's J20 (the previous BB(20)
   entry, the bbchallenge wiki's BB(20) champion). That compares proved lower bounds; J20 has no proved upper bound.
-- **On paper**: J20 halts after two refills, with one round at level f_(ω·2), at a level of order
+- **In Coq, against the exact score** (`BB20_J20cube_cmp.v`, written here): `beats_J19sq_exact` states that for the k₁, a₂,
+  k₂, a₃, j of J19_sq's `score_exact` (count 2(j + 1) + 1, σ = 2(j + 1) + 2), 2(j + 1) + 1 + 1 < N, via
+  N(J19_sq) + 1 ≤ f_(ω·2)(k₂ + 30) and k₂ + 30 ≤ f_(ω·2)(f_(ω·2)(f_5(2))). With J19_sq's `beats_J20_exact`, J20_cube's N is
+  above J20's exact count too. The upper bounds come from `JZ_UB.v` (written here): for any maps satisfying the engine's equations, h_m(y) + 4 ≤ f_(m+1)(y + 4), hc_m^n(x) + 4 ≤ f_ω(m + n + x + 5), ho_m(a) + 20 ≤ f_(ω+m)(a + 20) and hoc_m^n(a) + 20 ≤ f_(ω+m+n+1)(n + a + 20), given G(a) + 20 ≤ f_ω(a + 20), which the comparison file proves for the older machine's own head map.
+- **Why**: J20 halts after two refills, with one round at level f_(ω·2), at a level of order
   f_(ω+2)^2(f_10(2)); here there are three such rounds. And J20_cube's first two refills and rounds are exactly
   J19_sq's, after which it runs a further round at level k₂ and a fourth refill, so its N is far above J19_sq's exact
   score + 1.

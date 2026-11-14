@@ -41,7 +41,7 @@ is [2, 2] instead of R18a's [1, 1, 2], so the second refill happens after an f_(
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB18_R18c.halt` (and `halt_tnf` for the table above). The halt is decided by a residue mod 3, which the proof computes exactly: every level map is x ↦ x + 1 (mod 3), for every residue of x. |
 | Exact score | Machine-checked formula: the halting tape holds 2(j + 1) + 1 ones, where a₁ = hoc_0^2(7), a₁ + 6 = 3(k₁ + 2), b₀ = G(G(7)), a₂ = hoc_1^(k₁+1)(b₀) and a₂ + 2(k₁ + 2) + 2 = 3(j + 1) + 1 (section 1; `score_exact`). The halt R1 = `1RZ` is read on a 1 and writes 1, so σ = N = 2j + 3. Not evaluated as a number. |
 | Level | Machine-checked, with the standard fast-growing hierarchy: f_(ω·2)(f_(ω+1)(f_4(2))) < N = σ (`sigma_lower_bound`, which also states f_(ω·2)(2·f_ω^9(35)) < N). |
-| Comparisons | **In Coq**: the second bound is exactly the proved bound of J18_w2_C (the previous BB(18) entry), so N is above it. Comparison with J18_w2_C's exact score: on paper only (section 4). |
+| Comparisons | **In Coq**, against the exact scores: N > N(J18_w2_C) + 1 = σ(J18_w2_C) (`BB18_R18c_cmp.beats_J18C_exact`, `beats_J18C_score`) and N > N(J17_champ) + 2 = σ(J17_champ) + 1, so R18c also beats BB(17) + 1 (`beats_J17_exact`, `beats_J17_score`; section 4). |
 | Steps | Not computed. |
 
 ## 1. How it works
@@ -109,11 +109,17 @@ independent simulator for this write-up; every rule cited is a lemma of the Coq 
 - **In Coq**: f_(ω·2)(2·f_ω^9(35)) < N, and f_(ω·2)(2·f_ω^9(35)) is J18_w2_C's proved bound
   (`BB18_J18_w2_C_tnf.sigma_lower_bound`, the same definitions). J18_w2_C has no proved upper bound, so that
   compares proved lower bounds.
-- **On paper**: J18_w2_C's second-round level k comes from hoc_0^2(10) = ho_1(G(10)), with its G(10) = 14 (the
+- **In Coq, against the exact scores** (`BB18_R18c_cmp.v`, written here): `beats_J18C_exact` states that for the k, a₂, j of
+  J18_w2_C's `score_exact` (count 2j + 2, halting on a 0, so σ = 2j + 3), 2j + 2 + 1 < N = σ(R18c), via
+  N(J18_w2_C) + 1 ≤ f_(ω·2)(k + 30) and k + 30 ≤ f_(ω+1)(f_4(2)). `beats_J17_exact`: for the q₁, k₁, a₂, j of J17_champ's
+  `score_exact` (count 2j + 4, σ = 2j + 5), 2j + 4 + 2 < N, so σ(R18c) > σ(J17_champ) + 1, via N(J17_champ) + 2 ≤
+  f_(ω·2)(k₁ + 25) and k₁ + 25 ≤ f_(ω+1)(f_4(2)). The `_score` versions combine these with the other machines' halting
+  tapes. The upper bounds come from `JZ_UB.v` (written here): for any maps satisfying the engine's equations, h_m(y) + 4 ≤ f_(m+1)(y + 4), hc_m^n(x) + 4 ≤ f_ω(m + n + x + 5), ho_m(a) + 20 ≤ f_(ω+m)(a + 20) and hoc_m^n(a) + 20 ≤ f_(ω+m+n+1)(n + a + 20), given G(a) + 20 ≤ f_ω(a + 20), which the comparison file proves for the older machine's own head map.
+- **Why**: J18_w2_C's second-round level k comes from hoc_0^2(10) = ho_1(G(10)), with its G(10) = 14 (the
   linear branch of its head map), an f_ω^15-sized number; here k₁ comes from ho_1(G(7)) with G(7) ≥ 6·f_4(2), an
   f_(ω+1)(f_4(2))-sized number. So J18_w2_C's exact score is far below this machine's N.
-- R18c is also above BB(17) + 1 (J17_champ, f_(ω·2)(f_ω^3(f_14(2))) < N there) on paper: f_ω^3(f_14(2)) is far below
-  f_(ω+1)(f_4(2)).
+- R18c is also above BB(17) + 1 (J17_champ), in Coq against J17_champ's exact score (above): its last round runs at
+  an f_ω^3(f_14(2))-sized level, far below f_(ω+1)(f_4(2)).
 - The 19-state J19_sq ([`../BB19/`](../BB19/)) has a higher proved bound. Not yet reviewed by the bbchallenge
   community.
 

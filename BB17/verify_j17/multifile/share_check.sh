@@ -1,11 +1,15 @@
 #!/usr/bin/bash
-# BB172.v, Individual172.v in this directory are byte-identical copies of ../../verify/multifile's
-# (busycoq instantiated for 17 states).  This script checks that.   ./share_check.sh   (OTHER=... to override)
+# The files listed below are byte-identical copies of the other entries' files (busycoq instantiated for
+# each number of states, the proofs that the comparison file loads, and the generic upper bounds JZ_UB.v,
+# whose home is BB18/verify_r18c/multifile).  This script checks that.   ./share_check.sh
 cd "$(dirname "$0")" || exit 2
-OTHER=${OTHER:-../../verify/multifile}
 fail=0; n=0
-for f in BB172 Individual172; do
-  if cmp -s "$f.v" "$OTHER/$f.v"; then n=$((n + 1)); else echo "$f.v differs from $OTHER/$f.v"; fail=1; fi
-done
-echo "$n of 2 shared files byte-identical to $OTHER's"
+chk() { if cmp -s "$1.v" "$2/$1.v"; then n=$((n + 1)); else echo "$1.v differs from $2/$1.v"; fail=1; fi; }
+chk BB172 ../../../BB17/verify/multifile
+chk Individual172 ../../../BB17/verify/multifile
+chk BB162 ../../../BB16/verify_j16/multifile
+chk Individual162 ../../../BB16/verify_j16/multifile
+chk BB16_J16_w2 ../../../BB16/verify_j16/multifile
+chk JZ_UB ../../../BB18/verify_r18c/multifile
+echo "$n of 6 shared files byte-identical to their originals"
 exit $fail

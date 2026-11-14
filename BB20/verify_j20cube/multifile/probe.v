@@ -5,11 +5,11 @@
     1LB0LM_1RC1RN_1RD1RC_0LE1RQ_1LF1LE_0LG1LE_1RH1RI_0RH0RC_0RJ1RH_0RT0RK_1LS1RL_1LM1RJ_1LA1LM_0LA0RO_0LC1RP_0LA1RN_0LR1LA_0RI1LR_0LA0LA_1RZ1LK
     entry by entry (these 40 checks were generated from the machine string, not from the Coq file; the
     halting transition, T0, is None; the states after P are the constructors QQ, RR, SS, TT),
-    and the start configuration is the blank tape in state A; (2) the main theorems have the stated types; (3) they
+    and the start configuration is the blank tape in state A; (2) the main theorems (and the comparisons with J19_sq's exact score, BB20_J20cube_cmp.v) have the stated types; (3) they
     use no axioms.  It also prints the definitions the statements use.  The setup names states L and O, so directions
     are written TM.L / TM.R. *)
 
-From BB8 Require BB20_J20_w2_cube.
+From BB8 Require BB20_J20_w2_cube BB20_J20cube_cmp.
 From BB8 Require Import Individual202.
 From Coq Require Import PeanoNat.
 Local Open Scope sym_scope.
@@ -57,6 +57,11 @@ Check BB20_J20_w2_cube.halt.
 Check BB20_J20_w2_cube.score_exact.
 Check BB20_J20_w2_cube.sigma_lower_bound.
 
+Check BB20_J20cube_cmp.beats_J19sq_exact.
+Check BB20_J20cube_cmp.beats_J19sq_score.
+
 Print Assumptions BB20_J20_w2_cube.halt.
 Print Assumptions BB20_J20_w2_cube.score_exact.
 Print Assumptions BB20_J20_w2_cube.sigma_lower_bound.
+Print Assumptions BB20_J20cube_cmp.beats_J19sq_exact.
+Print Assumptions BB20_J20cube_cmp.beats_J19sq_score.
