@@ -11,7 +11,8 @@ is a single block of σ = 4·e₄ + 18 ones, where e₄ is an explicit recursion
 
     2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < e₄ ≤ 2↑↑↑2↑↑↑2↑↑↑(2^96 + 6)        (e4_bounds)
 
-which implies the bbchallenge wiki's bracket 2↑↑↑2↑↑↑2↑↑↑(7.92·10²⁸) < e₄ < 2↑↑↑2↑↑↑2↑↑↑(7.93·10²⁸) (`wiki_bracket`).
+which implies the bbchallenge wiki's bracket 2↑↑↑2↑↑↑2↑↑↑(7.92·10²⁸) < e₄ < 2↑↑↑2↑↑↑2↑↑↑(7.93·10²⁸) (`wiki_bracket`). In the fast-growing hierarchy (standard `Ord.v`):
+f_4^3(2^94) < σ < f_4^3(2^96 + 6) (`bb43_fgh`, in [`../FGH/`](../FGH/README.md)).
 
 - [`1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD.md`](1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD.md): the write-up
   (notation, the rules, the run, the exact score, the bound and the wiki's, verification status, credit).

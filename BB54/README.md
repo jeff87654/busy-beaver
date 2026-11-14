@@ -13,8 +13,8 @@ halting write:
     F(F(2 ↑^4 2 ↑^3 4)) < σ            (sigma_beats_official_bb54: f_omega2 (knuth 4 2 (knuth 3 2 4)) < sigma)
 
 where **F(n) = 2 ↑^(n+1) (n + 3)** is `f_omega` of the files (the Knuth-arrow function of the previous entry's
-`BB54_score.v`, not the fast-growing hierarchy's f_ω; it is at least as large, so on paper
-f_(ω+1)(65536) < σ for the FGH). The exact σ is 2·M + K + 5 for (K, M) = `step_pair` iterated 2·g_4(0) + 5 times
+`BB54_score.v`, not the fast-growing hierarchy's f_ω; it is at least as large; in the FGH,
+f_(ω+1)(65536) < σ is a theorem, `bb54_fgh` in [`../FGH/`](../FGH/README.md)). The exact σ is 2·M + K + 5 for (K, M) = `step_pair` iterated 2·g_4(0) + 5 times
 from (0, 1) (not evaluated).
 
 **Comparison with the previous entry (below), in Coq.** Jacobzheng's machine has an exact σ in Coq, and

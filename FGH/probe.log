@@ -1,0 +1,109 @@
+Ord.FGH =
+fun (x : Ord.ord) (n : nat) =>
+match Ord.nf_dec x with
+| left H => proj1_sig (Ord.fgh_total x H n)
+| right _ => 0
+end
+     : Ord.ord -> nat -> nat
+
+Arguments Ord.FGH x n%nat_scope
+Ord.fin_fgh =
+fix fin_fgh (k n : nat) {struct k} : nat :=
+  match k with
+  | 0 => S n
+  | S k' => PeanoNat.Nat.iter n (fin_fgh k') n
+  end
+     : nat -> nat -> nat
+
+Arguments Ord.fin_fgh (k n)%nat_scope
+KnuthFGH.kn =
+fix kn (n a b : nat) {struct n} : nat :=
+  match n with
+  | 0 => a * b
+  | S n' => PeanoNat.Nat.iter b (kn n' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments KnuthFGH.kn (n a b)%nat_scope
+BB34_run.sigma = 2 * BB34_run.g15 + 18
+     : nat
+KnuthFGH.fin_lower
+     : forall k x : nat, 1 <= x -> KnuthFGH.kn k 2 x <= Ord.fin_fgh (S k) x
+KnuthFGH.fin_upper
+     : forall k x : nat,
+       1 <= k -> 4 <= x -> Ord.fin_fgh (S k) x <= KnuthFGH.kn k 2 (3 * x)
+KnuthFGH.fw_le_F
+     : forall n : nat,
+       4 <= n -> Ord.FGH Ord.omega n <= KnuthFGH.kn (S n) 2 (n + 3)
+KnuthFGH.window_kn6
+     : forall L : nat,
+       4 <= L ->
+       Ord.FGH Ord.omega L < KnuthFGH.kn L 2 6 + L < Ord.FGH Ord.omega (S L)
+BB34_score.sigma_eq
+     : BB34_run.sigma = BB34_score.knuth 15 2 5 + 14
+FGH_BB34.bb34_fgh
+     : Ord.FGH (Ord.ofin 16) 2 < BB34_run.sigma < Ord.FGH (Ord.ofin 16) 3
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+BB43_run.sigma = 4 * BB43_run.e4 + 18
+     : nat
+BB43_score.sigma_bounds
+     : 4 *
+       BB43_score.knuth 3 2
+         (BB43_score.knuth 3 2
+            (BB43_score.knuth 3 2 (PeanoNat.Nat.pow 2 96 - 1))) + 18 <
+       BB43_run.sigma <=
+       4 *
+       BB43_score.knuth 3 2
+         (BB43_score.knuth 3 2
+            (BB43_score.knuth 3 2 (PeanoNat.Nat.pow 2 96 + 6))) + 18
+FGH_BB43.bb43_fgh
+     : PeanoNat.Nat.iter 3 (Ord.FGH (Ord.ofin 4)) (PeanoNat.Nat.pow 2 94) <
+       BB43_run.sigma <
+       PeanoNat.Nat.iter 3 (Ord.FGH (Ord.ofin 4)) (PeanoNat.Nat.pow 2 96 + 6)
+Closed under the global context
+Closed under the global context
+BB44B_run.sigma = 2 * BB44B_run.cB + 2 * BB44B_run.dB + 9
+     : nat
+BB44A_run.sigma = 2 * BB44A_run.M3 + 2 * BB44A_run.M1 + 3
+     : nat
+BB44_run.sigma = 2 * BB44_run.M44_final + 2 * BB44_run.g30 + 4
+     : nat
+FGH_BB44.bb44B_fgh
+     : Ord.FGH Ord.omega
+         (Ord.FGH (Ord.ofin 2)
+            (Ord.FGH (Ord.ofin 4)
+               (Ord.FGH (Ord.ofin 5)
+                  (Ord.FGH (Ord.ofin 4) (Ord.FGH (Ord.ofin 3) 64))))) <
+       BB44B_run.sigma <
+       Ord.FGH Ord.omega
+         (Ord.FGH (Ord.ofin 2)
+            (Ord.FGH (Ord.ofin 4)
+               (Ord.FGH (Ord.ofin 5)
+                  (Ord.FGH (Ord.ofin 4) (Ord.FGH (Ord.ofin 3) 256)))))
+FGH_BB44.bb44A_fgh
+     : Ord.FGH Ord.omega (2 * BB44A_run.M1 + 1) < BB44A_run.sigma /\
+       BB44A_run.sigma < Ord.FGH Ord.omega (2 * BB44A_run.M1 + 2) /\
+       Ord.FGH Ord.omega (2 * BB44A_run.M1 + 2) <=
+       Ord.FGH Ord.omega (Ord.FGH (Ord.ofin 5) 4) /\
+       2 * BB44A_run.M1 + 4 = KnuthFGH.kn 4 2 6
+FGH_BB44.bb44C_fgh
+     : Ord.FGH Ord.omega (PeanoNat.Nat.pow 2 16 - 4) < BB44_run.sigma <
+       Ord.FGH Ord.omega (PeanoNat.Nat.pow 2 16 - 3)
+Closed under the global context
+Closed under the global context
+Closed under the global context
+BB54_run.sigma = 2 * BB54_run.M_final + BB54_run.K_final + 5
+     : nat
+BB54_bound.f_omega1 =
+fun n : nat => PeanoNat.Nat.iter n BB54_bound.f_omega n
+     : nat -> nat
+
+Arguments BB54_bound.f_omega1 n%nat_scope
+FGH_BB54.bb54_fgh
+     : Ord.FGH (Ord.osucc Ord.omega) (PeanoNat.Nat.pow 2 16) < BB54_run.sigma
+Closed under the global context

@@ -9,7 +9,8 @@ proof** that it halts from the blank tape with
 nonblank symbols on the tape (fifteen Knuth up-arrows).  The write-up of the
 mathematics is in
 [1RB3LB1RZ2RA_2LC3RB1LC2RA_3RB1LB3LC2RC.md](1RB3LB1RZ2RA_2LC3RB1LC2RA_3RB1LB3LC2RC.md);
-the Coq development is in [verify/](verify/).
+the Coq development is in [verify/](verify/). In the fast-growing hierarchy (standard `Ord.v`):
+f_16(2) < σ < f_16(3) (`bb34_fgh`, in [`../FGH/`](../FGH/README.md)).
 
 ## The main results
 
