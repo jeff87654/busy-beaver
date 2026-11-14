@@ -22,9 +22,11 @@ f_(ω·2). The halt comes after two refills, at a residue the proof computes mod
 tree normal form, `1LB1LA_1LC0LA_..._0LP1LB_0RJ1LP`; that string is the same machine with the states renamed
 (checked here by comparing the two tables, not in Coq).
 
-So BB(16) and, by BB(17) ≥ BB(16) + 1, BB(17) have their best proved bounds here (`beats_M17_B`). The bbchallenge
-wiki's Champions table has no BB(16) row (checked 2026-11-08). The 18-state J18_w2_C ([`../BB18/`](../BB18/)) is
-above it in Coq. Not yet reviewed by the bbchallenge community.
+So BB(16) has its best proved bound here. From 2026-11-08 to 2026-11-13 this was also the best proved bound for
+BB(17), by BB(17) ≥ BB(16) + 1 (`beats_M17_B`); since then BB(17) has its own entry, Argon's J17_champ
+([`../BB17/`](../BB17/)), whose proved bound states f_(ω·2)(f_15(2)) < N as well and adds f_(ω·2)(f_ω^3(f_14(2))) < N.
+The bbchallenge wiki's Champions table has no BB(16) row (checked 2026-11-08). Not yet reviewed by the bbchallenge
+community.
 
 - [`1LG1LA_0LI1RC..._1RZ1RM_1LB1LI.md`](1LG1LA_0LI1RC_0LD1LG_0RE1LD_0RM1RL_1RB1RF_1LH0LA_1RF0RN_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LG0RN_0RP1RO_1RZ1RM_1LB1LI.md):
   the write-up (the table, the expansion and the refill, the run, the mod-3 and mod-9 residues, the size,

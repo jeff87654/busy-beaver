@@ -1,0 +1,295 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB18_R18c.tm (A, 0) = Some (1, TM.L, H)
+     : BB18_R18c.tm (A, 0) = Some (1, TM.L, H)
+eq_refl : BB18_R18c.tm (A, 1) = Some (0, TM.L, G)
+     : BB18_R18c.tm (A, 1) = Some (0, TM.L, G)
+eq_refl : BB18_R18c.tm (B, 0) = Some (0, TM.L, I)
+     : BB18_R18c.tm (B, 0) = Some (0, TM.L, I)
+eq_refl : BB18_R18c.tm (B, 1) = Some (1, R, C)
+     : BB18_R18c.tm (B, 1) = Some (1, R, C)
+eq_refl : BB18_R18c.tm (C, 0) = Some (0, TM.L, D)
+     : BB18_R18c.tm (C, 0) = Some (0, TM.L, D)
+eq_refl : BB18_R18c.tm (C, 1) = Some (1, TM.L, A)
+     : BB18_R18c.tm (C, 1) = Some (1, TM.L, A)
+eq_refl : BB18_R18c.tm (D, 0) = Some (0, R, E)
+     : BB18_R18c.tm (D, 0) = Some (0, R, E)
+eq_refl : BB18_R18c.tm (D, 1) = Some (1, TM.L, D)
+     : BB18_R18c.tm (D, 1) = Some (1, TM.L, D)
+eq_refl : BB18_R18c.tm (E, 0) = Some (0, R, H)
+     : BB18_R18c.tm (E, 0) = Some (0, R, H)
+eq_refl : BB18_R18c.tm (E, 1) = Some (1, R, L)
+     : BB18_R18c.tm (E, 1) = Some (1, R, L)
+eq_refl : BB18_R18c.tm (F, 0) = Some (1, R, B)
+     : BB18_R18c.tm (F, 0) = Some (1, R, B)
+eq_refl : BB18_R18c.tm (F, 1) = Some (1, R, F)
+     : BB18_R18c.tm (F, 1) = Some (1, R, F)
+eq_refl : BB18_R18c.tm (G, 0) = Some (1, TM.L, A)
+     : BB18_R18c.tm (G, 0) = Some (1, TM.L, A)
+eq_refl : BB18_R18c.tm (G, 1) = Some (1, TM.L, G)
+     : BB18_R18c.tm (G, 1) = Some (1, TM.L, G)
+eq_refl : BB18_R18c.tm (H, 0) = Some (1, R, F)
+     : BB18_R18c.tm (H, 0) = Some (1, R, F)
+eq_refl : BB18_R18c.tm (H, 1) = Some (1, R, M)
+     : BB18_R18c.tm (H, 1) = Some (1, R, M)
+eq_refl : BB18_R18c.tm (I, 0) = Some (1, TM.L, J)
+     : BB18_R18c.tm (I, 0) = Some (1, TM.L, J)
+eq_refl : BB18_R18c.tm (I, 1) = Some (1, TM.L, I)
+     : BB18_R18c.tm (I, 1) = Some (1, TM.L, I)
+eq_refl : BB18_R18c.tm (J, 0) = Some (0, TM.L, K)
+     : BB18_R18c.tm (J, 0) = Some (0, TM.L, K)
+eq_refl : BB18_R18c.tm (J, 1) = Some (1, TM.L, I)
+     : BB18_R18c.tm (J, 1) = Some (1, TM.L, I)
+eq_refl : BB18_R18c.tm (K, 0) = Some (1, R, L)
+     : BB18_R18c.tm (K, 0) = Some (1, R, L)
+eq_refl : BB18_R18c.tm (K, 1) = Some (1, R, E)
+     : BB18_R18c.tm (K, 1) = Some (1, R, E)
+eq_refl : BB18_R18c.tm (L, 0) = Some (0, R, L)
+     : BB18_R18c.tm (L, 0) = Some (0, R, L)
+eq_refl : BB18_R18c.tm (L, 1) = Some (0, R, F)
+     : BB18_R18c.tm (L, 1) = Some (0, R, F)
+eq_refl : BB18_R18c.tm (M, 0) = Some (0, TM.L, N)
+     : BB18_R18c.tm (M, 0) = Some (0, TM.L, N)
+eq_refl : BB18_R18c.tm (M, 1) = Some (1, R, M)
+     : BB18_R18c.tm (M, 1) = Some (1, R, M)
+eq_refl : BB18_R18c.tm (N, 0) = Some (1, TM.L, QQ)
+     : BB18_R18c.tm (N, 0) = Some (1, TM.L, QQ)
+eq_refl : BB18_R18c.tm (N, 1) = Some (0, TM.L, O)
+     : BB18_R18c.tm (N, 1) = Some (0, TM.L, O)
+eq_refl : BB18_R18c.tm (O, 0) = Some (0, TM.L, RR)
+     : BB18_R18c.tm (O, 0) = Some (0, TM.L, RR)
+eq_refl : BB18_R18c.tm (O, 1) = Some (1, TM.L, P)
+     : BB18_R18c.tm (O, 1) = Some (1, TM.L, P)
+eq_refl : BB18_R18c.tm (P, 0) = Some (1, TM.L, QQ)
+     : BB18_R18c.tm (P, 0) = Some (1, TM.L, QQ)
+eq_refl : BB18_R18c.tm (P, 1) = Some (1, TM.L, N)
+     : BB18_R18c.tm (P, 1) = Some (1, TM.L, N)
+eq_refl : BB18_R18c.tm (QQ, 0) = Some (1, TM.L, F)
+     : BB18_R18c.tm (QQ, 0) = Some (1, TM.L, F)
+eq_refl : BB18_R18c.tm (QQ, 1) = Some (0, TM.L, M)
+     : BB18_R18c.tm (QQ, 1) = Some (0, TM.L, M)
+eq_refl : BB18_R18c.tm (RR, 0) = Some (0, R, C)
+     : BB18_R18c.tm (RR, 0) = Some (0, R, C)
+eq_refl : BB18_R18c.tm (RR, 1) = None
+     : BB18_R18c.tm (RR, 1) = None
+eq_refl : BB18_R18c.tm_tnf (A, 0) = Some (1, TM.L, B)
+     : BB18_R18c.tm_tnf (A, 0) = Some (1, TM.L, B)
+eq_refl : BB18_R18c.tm_tnf (A, 1) = Some (0, TM.L, P)
+     : BB18_R18c.tm_tnf (A, 1) = Some (0, TM.L, P)
+eq_refl : BB18_R18c.tm_tnf (B, 0) = Some (1, R, C)
+     : BB18_R18c.tm_tnf (B, 0) = Some (1, R, C)
+eq_refl : BB18_R18c.tm_tnf (B, 1) = Some (1, R, J)
+     : BB18_R18c.tm_tnf (B, 1) = Some (1, R, J)
+eq_refl : BB18_R18c.tm_tnf (C, 0) = Some (1, R, D)
+     : BB18_R18c.tm_tnf (C, 0) = Some (1, R, D)
+eq_refl : BB18_R18c.tm_tnf (C, 1) = Some (1, R, C)
+     : BB18_R18c.tm_tnf (C, 1) = Some (1, R, C)
+eq_refl : BB18_R18c.tm_tnf (D, 0) = Some (0, TM.L, E)
+     : BB18_R18c.tm_tnf (D, 0) = Some (0, TM.L, E)
+eq_refl : BB18_R18c.tm_tnf (D, 1) = Some (1, R, O)
+     : BB18_R18c.tm_tnf (D, 1) = Some (1, R, O)
+eq_refl : BB18_R18c.tm_tnf (E, 0) = Some (1, TM.L, F)
+     : BB18_R18c.tm_tnf (E, 0) = Some (1, TM.L, F)
+eq_refl : BB18_R18c.tm_tnf (E, 1) = Some (1, TM.L, E)
+     : BB18_R18c.tm_tnf (E, 1) = Some (1, TM.L, E)
+eq_refl : BB18_R18c.tm_tnf (F, 0) = Some (0, TM.L, G)
+     : BB18_R18c.tm_tnf (F, 0) = Some (0, TM.L, G)
+eq_refl : BB18_R18c.tm_tnf (F, 1) = Some (1, TM.L, E)
+     : BB18_R18c.tm_tnf (F, 1) = Some (1, TM.L, E)
+eq_refl : BB18_R18c.tm_tnf (G, 0) = Some (1, R, H)
+     : BB18_R18c.tm_tnf (G, 0) = Some (1, R, H)
+eq_refl : BB18_R18c.tm_tnf (G, 1) = Some (1, R, I)
+     : BB18_R18c.tm_tnf (G, 1) = Some (1, R, I)
+eq_refl : BB18_R18c.tm_tnf (H, 0) = Some (0, R, H)
+     : BB18_R18c.tm_tnf (H, 0) = Some (0, R, H)
+eq_refl : BB18_R18c.tm_tnf (H, 1) = Some (0, R, C)
+     : BB18_R18c.tm_tnf (H, 1) = Some (0, R, C)
+eq_refl : BB18_R18c.tm_tnf (I, 0) = Some (0, R, B)
+     : BB18_R18c.tm_tnf (I, 0) = Some (0, R, B)
+eq_refl : BB18_R18c.tm_tnf (I, 1) = Some (1, R, H)
+     : BB18_R18c.tm_tnf (I, 1) = Some (1, R, H)
+eq_refl : BB18_R18c.tm_tnf (J, 0) = Some (0, TM.L, K)
+     : BB18_R18c.tm_tnf (J, 0) = Some (0, TM.L, K)
+eq_refl : BB18_R18c.tm_tnf (J, 1) = Some (1, R, J)
+     : BB18_R18c.tm_tnf (J, 1) = Some (1, R, J)
+eq_refl : BB18_R18c.tm_tnf (K, 0) = Some (1, TM.L, N)
+     : BB18_R18c.tm_tnf (K, 0) = Some (1, TM.L, N)
+eq_refl : BB18_R18c.tm_tnf (K, 1) = Some (0, TM.L, L)
+     : BB18_R18c.tm_tnf (K, 1) = Some (0, TM.L, L)
+eq_refl : BB18_R18c.tm_tnf (L, 0) = Some (0, TM.L, RR)
+     : BB18_R18c.tm_tnf (L, 0) = Some (0, TM.L, RR)
+eq_refl : BB18_R18c.tm_tnf (L, 1) = Some (1, TM.L, M)
+     : BB18_R18c.tm_tnf (L, 1) = Some (1, TM.L, M)
+eq_refl : BB18_R18c.tm_tnf (M, 0) = Some (1, TM.L, N)
+     : BB18_R18c.tm_tnf (M, 0) = Some (1, TM.L, N)
+eq_refl : BB18_R18c.tm_tnf (M, 1) = Some (1, TM.L, K)
+     : BB18_R18c.tm_tnf (M, 1) = Some (1, TM.L, K)
+eq_refl : BB18_R18c.tm_tnf (N, 0) = Some (1, TM.L, C)
+     : BB18_R18c.tm_tnf (N, 0) = Some (1, TM.L, C)
+eq_refl : BB18_R18c.tm_tnf (N, 1) = Some (0, TM.L, J)
+     : BB18_R18c.tm_tnf (N, 1) = Some (0, TM.L, J)
+eq_refl : BB18_R18c.tm_tnf (O, 0) = Some (0, TM.L, QQ)
+     : BB18_R18c.tm_tnf (O, 0) = Some (0, TM.L, QQ)
+eq_refl : BB18_R18c.tm_tnf (O, 1) = Some (1, TM.L, A)
+     : BB18_R18c.tm_tnf (O, 1) = Some (1, TM.L, A)
+eq_refl : BB18_R18c.tm_tnf (P, 0) = Some (1, TM.L, A)
+     : BB18_R18c.tm_tnf (P, 0) = Some (1, TM.L, A)
+eq_refl : BB18_R18c.tm_tnf (P, 1) = Some (1, TM.L, P)
+     : BB18_R18c.tm_tnf (P, 1) = Some (1, TM.L, P)
+eq_refl : BB18_R18c.tm_tnf (QQ, 0) = Some (0, R, I)
+     : BB18_R18c.tm_tnf (QQ, 0) = Some (0, R, I)
+eq_refl : BB18_R18c.tm_tnf (QQ, 1) = Some (1, TM.L, QQ)
+     : BB18_R18c.tm_tnf (QQ, 1) = Some (1, TM.L, QQ)
+eq_refl : BB18_R18c.tm_tnf (RR, 0) = Some (0, R, O)
+     : BB18_R18c.tm_tnf (RR, 0) = Some (0, R, O)
+eq_refl : BB18_R18c.tm_tnf (RR, 1) = None
+     : BB18_R18c.tm_tnf (RR, 1) = None
+BB18_R18c.iter =
+fix iter (X : Type) (n : nat) (g : X -> X) (x : X) {struct n} : X :=
+  match n with
+  | 0 => x
+  | S n' => g (iter X n' g x)
+  end
+     : forall {X : Type}, nat -> (X -> X) -> X -> X
+
+Arguments BB18_R18c.iter {X}%type_scope n%nat_scope g%function_scope x
+BB18_R18c.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB18_R18c.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB18_R18c.f (k _)%nat_scope
+BB18_R18c.f_omega = fun n : nat => BB18_R18c.f n n
+     : nat -> nat
+
+Arguments BB18_R18c.f_omega n%nat_scope
+BB18_R18c.f_wk =
+fix f_wk (k : nat) : nat -> nat :=
+  match k with
+  | 0 => BB18_R18c.f_omega
+  | S k' => fun n : nat => BB18_R18c.iter n (f_wk k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB18_R18c.f_wk (k _)%nat_scope
+BB18_R18c.f_w2 = fun n : nat => BB18_R18c.f_wk n n
+     : nat -> nat
+
+Arguments BB18_R18c.f_w2 n%nat_scope
+BB18_R18c.h =
+fix h (m x : nat) {struct m} : nat :=
+  match m with
+  | 0 => x + 4
+  | S m' => BB18_R18c.iter (x + 2) (h m') 2
+  end
+     : nat -> nat -> nat
+
+Arguments BB18_R18c.h (m x)%nat_scope
+BB18_R18c.hc =
+fix hc (m n x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => hc (S m) n' (BB18_R18c.h m x)
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB18_R18c.hc (m n x)%nat_scope
+BB18_R18c.Gcy =
+fun c y : nat =>
+match y with
+| 0 => match c with
+       | 0 => 4
+       | S c' => BB18_R18c.hc 1 c' 6 + 2 * c' + 4
+       end
+| 1 => BB18_R18c.hc 1 (S c) 7 + 2 * S c + 4
+| S (S _) => BB18_R18c.hc 1 (S c) 11 + 2 * S c + 4
+end
+     : nat -> nat -> nat
+
+Arguments BB18_R18c.Gcy (c y)%nat_scope
+BB18_R18c.G = fun a : nat => BB18_R18c.Gcy (a / 3) (a mod 3)
+     : nat -> nat
+
+Arguments BB18_R18c.G a%nat_scope
+BB18_R18c.ho =
+fix ho (m a : nat) {struct m} : nat :=
+  match m with
+  | 0 => BB18_R18c.G a
+  | S m' => BB18_R18c.iter (a + 1) (ho m') 15
+  end
+     : nat -> nat -> nat
+
+Arguments BB18_R18c.ho (m a)%nat_scope
+BB18_R18c.hoc =
+fix hoc (m n a : nat) {struct n} : nat :=
+  match n with
+  | 0 => a
+  | S n' => hoc (S m) n' (BB18_R18c.ho m a)
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB18_R18c.hoc (m n a)%nat_scope
+BB18_R18c.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB18_R18c.sym_val s%sym_scope
+BB18_R18c.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB18_R18c.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB18_R18c.count1 xs%list_scope
+BB18_R18c.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = BB18_R18c.count1 L + BB18_R18c.sym_val s + BB18_R18c.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB18_R18c.ones c N%nat_scope
+BB18_R18c.halt
+     : halts BB18_R18c.tm c0
+BB18_R18c.score_exact
+     : exists (a1 k1 b0 a2 j : nat) (c : Q * tape),
+         a1 = BB18_R18c.hoc 0 2 7 /\
+         a1 + 6 = 3 * S (S k1) /\
+         b0 = BB18_R18c.iter 2 (BB18_R18c.ho 0) 7 /\
+         a2 = BB18_R18c.hoc 1 (S k1) b0 /\
+         a2 + 2 * (1 + S k1) + 2 = 3 * S j + 1 /\
+         c0 -[ BB18_R18c.tm ]->* c /\
+         halted BB18_R18c.tm c /\ BB18_R18c.ones c (2 * S j + 1)
+BB18_R18c.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB18_R18c.tm ]->* c /\
+         halted BB18_R18c.tm c /\
+         BB18_R18c.ones c N /\
+         BB18_R18c.f_w2 (2 * BB18_R18c.iter 9 BB18_R18c.f_omega 35) < N /\
+         BB18_R18c.f_w2 (BB18_R18c.f_wk 1 (BB18_R18c.f 4 2)) < N
+BB18_R18c.halt_tnf
+     : halts BB18_R18c.tm_tnf c0
+BB18_R18c.sigma_lower_bound_tnf
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB18_R18c.tm_tnf ]->* c /\
+         halted BB18_R18c.tm_tnf c /\
+         BB18_R18c.ones c N /\
+         BB18_R18c.f_w2 (2 * BB18_R18c.iter 9 BB18_R18c.f_omega 35) < N /\
+         BB18_R18c.f_w2 (BB18_R18c.f_wk 1 (BB18_R18c.f 4 2)) < N
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

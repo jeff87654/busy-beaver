@@ -1,0 +1,5 @@
+-Q . BB8
+-Q ../../../busycoq/verify BusyCoq
+BB172.v
+Individual172.v
+BB17_J17_w2_champ.v

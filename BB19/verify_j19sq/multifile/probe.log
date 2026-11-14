@@ -1,0 +1,228 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB19_J19_w2_sq.tm (A, 0) = Some (1, TM.L, B)
+     : BB19_J19_w2_sq.tm (A, 0) = Some (1, TM.L, B)
+eq_refl : BB19_J19_w2_sq.tm (A, 1) = Some (0, TM.L, M)
+     : BB19_J19_w2_sq.tm (A, 1) = Some (0, TM.L, M)
+eq_refl : BB19_J19_w2_sq.tm (B, 0) = Some (1, R, C)
+     : BB19_J19_w2_sq.tm (B, 0) = Some (1, R, C)
+eq_refl : BB19_J19_w2_sq.tm (B, 1) = Some (1, R, N)
+     : BB19_J19_w2_sq.tm (B, 1) = Some (1, R, N)
+eq_refl : BB19_J19_w2_sq.tm (C, 0) = Some (1, R, D)
+     : BB19_J19_w2_sq.tm (C, 0) = Some (1, R, D)
+eq_refl : BB19_J19_w2_sq.tm (C, 1) = Some (1, R, C)
+     : BB19_J19_w2_sq.tm (C, 1) = Some (1, R, C)
+eq_refl : BB19_J19_w2_sq.tm (D, 0) = Some (0, TM.L, E)
+     : BB19_J19_w2_sq.tm (D, 0) = Some (0, TM.L, E)
+eq_refl : BB19_J19_w2_sq.tm (D, 1) = Some (1, R, QQ)
+     : BB19_J19_w2_sq.tm (D, 1) = Some (1, R, QQ)
+eq_refl : BB19_J19_w2_sq.tm (E, 0) = Some (1, TM.L, F)
+     : BB19_J19_w2_sq.tm (E, 0) = Some (1, TM.L, F)
+eq_refl : BB19_J19_w2_sq.tm (E, 1) = Some (1, TM.L, E)
+     : BB19_J19_w2_sq.tm (E, 1) = Some (1, TM.L, E)
+eq_refl : BB19_J19_w2_sq.tm (F, 0) = Some (0, TM.L, G)
+     : BB19_J19_w2_sq.tm (F, 0) = Some (0, TM.L, G)
+eq_refl : BB19_J19_w2_sq.tm (F, 1) = Some (1, TM.L, E)
+     : BB19_J19_w2_sq.tm (F, 1) = Some (1, TM.L, E)
+eq_refl : BB19_J19_w2_sq.tm (G, 0) = Some (1, R, H)
+     : BB19_J19_w2_sq.tm (G, 0) = Some (1, R, H)
+eq_refl : BB19_J19_w2_sq.tm (G, 1) = Some (1, R, I)
+     : BB19_J19_w2_sq.tm (G, 1) = Some (1, R, I)
+eq_refl : BB19_J19_w2_sq.tm (H, 0) = Some (0, R, H)
+     : BB19_J19_w2_sq.tm (H, 0) = Some (0, R, H)
+eq_refl : BB19_J19_w2_sq.tm (H, 1) = Some (0, R, C)
+     : BB19_J19_w2_sq.tm (H, 1) = Some (0, R, C)
+eq_refl : BB19_J19_w2_sq.tm (I, 0) = Some (0, R, J)
+     : BB19_J19_w2_sq.tm (I, 0) = Some (0, R, J)
+eq_refl : BB19_J19_w2_sq.tm (I, 1) = Some (1, R, H)
+     : BB19_J19_w2_sq.tm (I, 1) = Some (1, R, H)
+eq_refl : BB19_J19_w2_sq.tm (J, 0) = Some (0, R, SS)
+     : BB19_J19_w2_sq.tm (J, 0) = Some (0, R, SS)
+eq_refl : BB19_J19_w2_sq.tm (J, 1) = Some (0, R, K)
+     : BB19_J19_w2_sq.tm (J, 1) = Some (0, R, K)
+eq_refl : BB19_J19_w2_sq.tm (K, 0) = Some (1, TM.L, N)
+     : BB19_J19_w2_sq.tm (K, 0) = Some (1, TM.L, N)
+eq_refl : BB19_J19_w2_sq.tm (K, 1) = Some (1, R, L)
+     : BB19_J19_w2_sq.tm (K, 1) = Some (1, R, L)
+eq_refl : BB19_J19_w2_sq.tm (L, 0) = Some (1, TM.L, M)
+     : BB19_J19_w2_sq.tm (L, 0) = Some (1, TM.L, M)
+eq_refl : BB19_J19_w2_sq.tm (L, 1) = Some (1, R, J)
+     : BB19_J19_w2_sq.tm (L, 1) = Some (1, R, J)
+eq_refl : BB19_J19_w2_sq.tm (M, 0) = Some (1, TM.L, A)
+     : BB19_J19_w2_sq.tm (M, 0) = Some (1, TM.L, A)
+eq_refl : BB19_J19_w2_sq.tm (M, 1) = Some (1, TM.L, M)
+     : BB19_J19_w2_sq.tm (M, 1) = Some (1, TM.L, M)
+eq_refl : BB19_J19_w2_sq.tm (N, 0) = Some (0, TM.L, A)
+     : BB19_J19_w2_sq.tm (N, 0) = Some (0, TM.L, A)
+eq_refl : BB19_J19_w2_sq.tm (N, 1) = Some (0, R, O)
+     : BB19_J19_w2_sq.tm (N, 1) = Some (0, R, O)
+eq_refl : BB19_J19_w2_sq.tm (O, 0) = Some (0, TM.L, C)
+     : BB19_J19_w2_sq.tm (O, 0) = Some (0, TM.L, C)
+eq_refl : BB19_J19_w2_sq.tm (O, 1) = Some (1, R, P)
+     : BB19_J19_w2_sq.tm (O, 1) = Some (1, R, P)
+eq_refl : BB19_J19_w2_sq.tm (P, 0) = Some (0, TM.L, A)
+     : BB19_J19_w2_sq.tm (P, 0) = Some (0, TM.L, A)
+eq_refl : BB19_J19_w2_sq.tm (P, 1) = Some (1, R, N)
+     : BB19_J19_w2_sq.tm (P, 1) = Some (1, R, N)
+eq_refl : BB19_J19_w2_sq.tm (QQ, 0) = Some (0, TM.L, RR)
+     : BB19_J19_w2_sq.tm (QQ, 0) = Some (0, TM.L, RR)
+eq_refl : BB19_J19_w2_sq.tm (QQ, 1) = Some (1, TM.L, A)
+     : BB19_J19_w2_sq.tm (QQ, 1) = Some (1, TM.L, A)
+eq_refl : BB19_J19_w2_sq.tm (RR, 0) = Some (0, R, I)
+     : BB19_J19_w2_sq.tm (RR, 0) = Some (0, R, I)
+eq_refl : BB19_J19_w2_sq.tm (RR, 1) = Some (1, TM.L, RR)
+     : BB19_J19_w2_sq.tm (RR, 1) = Some (1, TM.L, RR)
+eq_refl : BB19_J19_w2_sq.tm (SS, 0) = None
+     : BB19_J19_w2_sq.tm (SS, 0) = None
+eq_refl : BB19_J19_w2_sq.tm (SS, 1) = Some (1, TM.L, L)
+     : BB19_J19_w2_sq.tm (SS, 1) = Some (1, TM.L, L)
+BB19_J19_w2_sq.iter =
+fix iter (X : Type) (n : nat) (g : X -> X) (x : X) {struct n} : X :=
+  match n with
+  | 0 => x
+  | S n' => g (iter X n' g x)
+  end
+     : forall {X : Type}, nat -> (X -> X) -> X -> X
+
+Arguments BB19_J19_w2_sq.iter {X}%type_scope n%nat_scope g%function_scope x
+BB19_J19_w2_sq.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB19_J19_w2_sq.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB19_J19_w2_sq.f (k _)%nat_scope
+BB19_J19_w2_sq.f_omega = fun n : nat => BB19_J19_w2_sq.f n n
+     : nat -> nat
+
+Arguments BB19_J19_w2_sq.f_omega n%nat_scope
+BB19_J19_w2_sq.f_wk =
+fix f_wk (k : nat) : nat -> nat :=
+  match k with
+  | 0 => BB19_J19_w2_sq.f_omega
+  | S k' => fun n : nat => BB19_J19_w2_sq.iter n (f_wk k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB19_J19_w2_sq.f_wk (k _)%nat_scope
+BB19_J19_w2_sq.f_w2 = fun n : nat => BB19_J19_w2_sq.f_wk n n
+     : nat -> nat
+
+Arguments BB19_J19_w2_sq.f_w2 n%nat_scope
+BB19_J19_w2_sq.h =
+fix h (m x : nat) {struct m} : nat :=
+  match m with
+  | 0 => x + 4
+  | S m' => BB19_J19_w2_sq.iter (x + 2) (h m') 2
+  end
+     : nat -> nat -> nat
+
+Arguments BB19_J19_w2_sq.h (m x)%nat_scope
+BB19_J19_w2_sq.hc =
+fix hc (m n x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => hc (S m) n' (BB19_J19_w2_sq.h m x)
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB19_J19_w2_sq.hc (m n x)%nat_scope
+BB19_J19_w2_sq.G0 =
+fun c : nat => BB19_J19_w2_sq.hc 1 c 6 + 2 * c + 4
+     : nat -> nat
+
+Arguments BB19_J19_w2_sq.G0 c%nat_scope
+BB19_J19_w2_sq.Gcy =
+fun c y : nat =>
+match y with
+| 0 => BB19_J19_w2_sq.G0 c
+| 1 => 3 * c + 5
+| S (S _) => BB19_J19_w2_sq.G0 c + 2
+end
+     : nat -> nat -> nat
+
+Arguments BB19_J19_w2_sq.Gcy (c y)%nat_scope
+BB19_J19_w2_sq.G =
+fun a : nat => BB19_J19_w2_sq.Gcy (a / 3) (a mod 3)
+     : nat -> nat
+
+Arguments BB19_J19_w2_sq.G a%nat_scope
+BB19_J19_w2_sq.ho =
+fix ho (m a : nat) {struct m} : nat :=
+  match m with
+  | 0 => BB19_J19_w2_sq.G a
+  | S m' => BB19_J19_w2_sq.iter (a + 1) (ho m') 6
+  end
+     : nat -> nat -> nat
+
+Arguments BB19_J19_w2_sq.ho (m a)%nat_scope
+BB19_J19_w2_sq.hoc =
+fix hoc (m n a : nat) {struct n} : nat :=
+  match n with
+  | 0 => a
+  | S n' => hoc (S m) n' (BB19_J19_w2_sq.ho m a)
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB19_J19_w2_sq.hoc (m n a)%nat_scope
+BB19_J19_w2_sq.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB19_J19_w2_sq.sym_val s%sym_scope
+BB19_J19_w2_sq.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB19_J19_w2_sq.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB19_J19_w2_sq.count1 xs%list_scope
+BB19_J19_w2_sq.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB19_J19_w2_sq.count1 L + BB19_J19_w2_sq.sym_val s +
+  BB19_J19_w2_sq.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB19_J19_w2_sq.ones c N%nat_scope
+BB19_J19_w2_sq.halt
+     : halts BB19_J19_w2_sq.tm c0
+BB19_J19_w2_sq.score_exact
+     : exists (k1 a2 k2 a3 j : nat) (c : Q * tape),
+         BB19_J19_w2_sq.iter 2 (BB19_J19_w2_sq.ho 0) 10 + 4 =
+         3 * S (S k1) + 1 /\
+         a2 = BB19_J19_w2_sq.hoc 0 (S k1) 10 /\
+         a2 + 2 * S k1 + 2 = 3 * S (S k2) /\
+         a3 =
+         BB19_J19_w2_sq.iter 4 (BB19_J19_w2_sq.ho k2)
+           (BB19_J19_w2_sq.hoc 0 k2 10) /\
+         a3 + 2 * S k2 + 2 = 3 * S j /\
+         c0 -[ BB19_J19_w2_sq.tm ]->* c /\
+         halted BB19_J19_w2_sq.tm c /\ BB19_J19_w2_sq.ones c (2 * S j + 1)
+BB19_J19_w2_sq.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB19_J19_w2_sq.tm ]->* c /\
+         halted BB19_J19_w2_sq.tm c /\
+         BB19_J19_w2_sq.ones c N /\
+         BB19_J19_w2_sq.iter 2 BB19_J19_w2_sq.f_w2 (BB19_J19_w2_sq.f 5 2) < N /\
+         BB19_J19_w2_sq.f_w2
+           (BB19_J19_w2_sq.f_wk 2
+              (BB19_J19_w2_sq.f_wk 2 (BB19_J19_w2_sq.f 10 2))) < N /\
+         BB19_J19_w2_sq.f_w2
+           (2 * BB19_J19_w2_sq.iter 9 BB19_J19_w2_sq.f_omega 35) < N
+Closed under the global context
+Closed under the global context
+Closed under the global context

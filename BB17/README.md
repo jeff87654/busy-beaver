@@ -1,11 +1,44 @@
 # BB17/: 17 states, 2 symbols
 
-**Better proved bound: BB(17) ≥ BB(16) + 1.** The 16-state J16_w2 ([`../BB16/`](../BB16/)) has the proved
-bound f_(ω·2)(f_15(2)) < N, and N is above M17_B's proved bound in Coq (`beats_M17_B`, 2026-11-08). So BB(17) ≥
-BB(16) + 1 > f_(ω·2)(f_15(2)) is the best proved bound here for BB(17). Argon's 17-state J17_w2 (same family, proved
-f_(ω·2)(f_13(2)) < N) is below that and is not listed. M17_B is kept below as the last 17-state entry.
+## Current entry: J17_champ (Argon, on Jacobzheng's engine)
 
-## Current entry: M17_B
+    1LG1RH_0LI1RC_0LD1LQ_0RE1LD_0RP1RL_1RB1RF_1LQ1LG_1RF0RO_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LQ0RN_0LQ1RO_1RZ1RM_0LQ0RA_1LH0LG
+
+Halts from the blank tape; O0 (`1RZ` in the string) is the halt. It is read on a 0 and writes 1, so σ = N + 1, where
+N is the number of ones when O0 is read. Machine-checked, with the standard fast-growing hierarchy and no axioms:
+
+    f_(ω·2)(f_ω^3(f_14(2))) < N,   σ = N + 1        (sigma_lower_bound)
+    f_(ω·2)(f_15(2)) < N                            (sigma_lower_bound: J16_w2's proved BB(16) bound)
+
+and the exact score N = 2j + 4 for the j given by the machine's recursion (`score_exact`; not evaluated). Both are
+also proved for the same machine in tree normal form (`halt_tnf`, `sigma_lower_bound_tnf`).
+
+J17_champ is Argon's J16_w2 ([`../BB16/`](../BB16/)) with three entries changed and its one-state refill exit
+replaced by a two-state refill: Jacobzheng's J20 sweep engine and two lists, the period-3 rewriter, and an outer
+accumulator that stays ≡ 1 (mod 3). The second refill comes after five applications of the outer head map instead
+of two, so the last round runs at outer level ≈ f_ω^3(f_14(2)) instead of ≈ f_15(2). The halt after two refills
+depends on G^5(4) mod 9, which the proof computes exactly through tables of the inner level maps mod 486.
+
+Its proved bound is above BB(16) + 1's proved bound (J16_w2's f_(ω·2)(f_15(2)), stated in the same theorem with
+the same definitions), so BB(17) has its best proved bound here again. Comparison with J16_w2's exact score + 1: on
+paper only (the write-up, section 4). The 18-state R18c ([`../BB18/`](../BB18/)) has a higher proved bound. Not yet
+reviewed by the bbchallenge community.
+
+- [`1LG1RH_0LI1RC..._0LQ0RA_1LH0LG.md`](1LG1RH_0LI1RC_0LD1LQ_0RE1LD_0RP1RL_1RB1RF_1LQ1LG_1RF0RO_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LQ0RN_0LQ1RO_1RZ1RM_0LQ0RA_1LH0LG.md):
+  the write-up (the table, the rules, the refill, the run, the mod-3 and mod-9 residues, the size, verification,
+  comparisons, credit).
+- [`verify_j17/`](verify_j17/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_lower_bound`, `halt_tnf`, `sigma_lower_bound_tnf`. About a minute to compile; built and probed in CI (job
+  `bb13-bb14`), which requires five closed `Print Assumptions` reports.
+
+Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-09), on
+Jacobzheng's J19/J20 architecture; re-checked here.
+
+## Previous entry: M17_B
+
+From 2026-11-08 to 2026-11-13 BB(17) ≥ BB(16) + 1 (J16_w2, above M17_B's proved bound in Coq, `beats_M17_B`) was the
+better proved bound for BB(17); M17_B stayed listed as the last 17-state entry. Argon's 17-state J17_w2 (proved
+f_(ω·2)(f_13(2)) < N) is below J16_w2 and was not listed.
 
     1LB1LA_1RC0LA_1RD1RC_1RE1RK_1RF0LJ_1LG1RI_1RM0LM_1LG0RC_0RN0LE_1LA1LE_0LL1LB_0RM1LL_1LF1RH_1RQ0LO_1LP1LN_0RB1LI_1RZ1LO
 

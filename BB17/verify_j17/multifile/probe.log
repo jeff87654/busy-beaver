@@ -1,0 +1,289 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB17_J17_w2_champ.tm (A, 0) = Some (1, TM.L, G)
+     : BB17_J17_w2_champ.tm (A, 0) = Some (1, TM.L, G)
+eq_refl : BB17_J17_w2_champ.tm (A, 1) = Some (1, R, H)
+     : BB17_J17_w2_champ.tm (A, 1) = Some (1, R, H)
+eq_refl : BB17_J17_w2_champ.tm (B, 0) = Some (0, TM.L, I)
+     : BB17_J17_w2_champ.tm (B, 0) = Some (0, TM.L, I)
+eq_refl : BB17_J17_w2_champ.tm (B, 1) = Some (1, R, C)
+     : BB17_J17_w2_champ.tm (B, 1) = Some (1, R, C)
+eq_refl : BB17_J17_w2_champ.tm (C, 0) = Some (0, TM.L, D)
+     : BB17_J17_w2_champ.tm (C, 0) = Some (0, TM.L, D)
+eq_refl : BB17_J17_w2_champ.tm (C, 1) = Some (1, TM.L, QQ)
+     : BB17_J17_w2_champ.tm (C, 1) = Some (1, TM.L, QQ)
+eq_refl : BB17_J17_w2_champ.tm (D, 0) = Some (0, R, E)
+     : BB17_J17_w2_champ.tm (D, 0) = Some (0, R, E)
+eq_refl : BB17_J17_w2_champ.tm (D, 1) = Some (1, TM.L, D)
+     : BB17_J17_w2_champ.tm (D, 1) = Some (1, TM.L, D)
+eq_refl : BB17_J17_w2_champ.tm (E, 0) = Some (0, R, P)
+     : BB17_J17_w2_champ.tm (E, 0) = Some (0, R, P)
+eq_refl : BB17_J17_w2_champ.tm (E, 1) = Some (1, R, L)
+     : BB17_J17_w2_champ.tm (E, 1) = Some (1, R, L)
+eq_refl : BB17_J17_w2_champ.tm (F, 0) = Some (1, R, B)
+     : BB17_J17_w2_champ.tm (F, 0) = Some (1, R, B)
+eq_refl : BB17_J17_w2_champ.tm (F, 1) = Some (1, R, F)
+     : BB17_J17_w2_champ.tm (F, 1) = Some (1, R, F)
+eq_refl : BB17_J17_w2_champ.tm (G, 0) = Some (1, TM.L, QQ)
+     : BB17_J17_w2_champ.tm (G, 0) = Some (1, TM.L, QQ)
+eq_refl : BB17_J17_w2_champ.tm (G, 1) = Some (1, TM.L, G)
+     : BB17_J17_w2_champ.tm (G, 1) = Some (1, TM.L, G)
+eq_refl : BB17_J17_w2_champ.tm (H, 0) = Some (1, R, F)
+     : BB17_J17_w2_champ.tm (H, 0) = Some (1, R, F)
+eq_refl : BB17_J17_w2_champ.tm (H, 1) = Some (0, R, O)
+     : BB17_J17_w2_champ.tm (H, 1) = Some (0, R, O)
+eq_refl : BB17_J17_w2_champ.tm (I, 0) = Some (1, TM.L, J)
+     : BB17_J17_w2_champ.tm (I, 0) = Some (1, TM.L, J)
+eq_refl : BB17_J17_w2_champ.tm (I, 1) = Some (1, TM.L, I)
+     : BB17_J17_w2_champ.tm (I, 1) = Some (1, TM.L, I)
+eq_refl : BB17_J17_w2_champ.tm (J, 0) = Some (0, TM.L, K)
+     : BB17_J17_w2_champ.tm (J, 0) = Some (0, TM.L, K)
+eq_refl : BB17_J17_w2_champ.tm (J, 1) = Some (1, TM.L, I)
+     : BB17_J17_w2_champ.tm (J, 1) = Some (1, TM.L, I)
+eq_refl : BB17_J17_w2_champ.tm (K, 0) = Some (1, R, L)
+     : BB17_J17_w2_champ.tm (K, 0) = Some (1, R, L)
+eq_refl : BB17_J17_w2_champ.tm (K, 1) = Some (1, R, E)
+     : BB17_J17_w2_champ.tm (K, 1) = Some (1, R, E)
+eq_refl : BB17_J17_w2_champ.tm (L, 0) = Some (0, R, L)
+     : BB17_J17_w2_champ.tm (L, 0) = Some (0, R, L)
+eq_refl : BB17_J17_w2_champ.tm (L, 1) = Some (0, R, F)
+     : BB17_J17_w2_champ.tm (L, 1) = Some (0, R, F)
+eq_refl : BB17_J17_w2_champ.tm (M, 0) = Some (0, TM.L, QQ)
+     : BB17_J17_w2_champ.tm (M, 0) = Some (0, TM.L, QQ)
+eq_refl : BB17_J17_w2_champ.tm (M, 1) = Some (0, R, N)
+     : BB17_J17_w2_champ.tm (M, 1) = Some (0, R, N)
+eq_refl : BB17_J17_w2_champ.tm (N, 0) = Some (0, TM.L, QQ)
+     : BB17_J17_w2_champ.tm (N, 0) = Some (0, TM.L, QQ)
+eq_refl : BB17_J17_w2_champ.tm (N, 1) = Some (1, R, O)
+     : BB17_J17_w2_champ.tm (N, 1) = Some (1, R, O)
+eq_refl : BB17_J17_w2_champ.tm (O, 0) = None
+     : BB17_J17_w2_champ.tm (O, 0) = None
+eq_refl : BB17_J17_w2_champ.tm (O, 1) = Some (1, R, M)
+     : BB17_J17_w2_champ.tm (O, 1) = Some (1, R, M)
+eq_refl : BB17_J17_w2_champ.tm (P, 0) = Some (0, TM.L, QQ)
+     : BB17_J17_w2_champ.tm (P, 0) = Some (0, TM.L, QQ)
+eq_refl : BB17_J17_w2_champ.tm (P, 1) = Some (0, R, A)
+     : BB17_J17_w2_champ.tm (P, 1) = Some (0, R, A)
+eq_refl : BB17_J17_w2_champ.tm (QQ, 0) = Some (1, TM.L, H)
+     : BB17_J17_w2_champ.tm (QQ, 0) = Some (1, TM.L, H)
+eq_refl : BB17_J17_w2_champ.tm (QQ, 1) = Some (0, TM.L, G)
+     : BB17_J17_w2_champ.tm (QQ, 1) = Some (0, TM.L, G)
+eq_refl : BB17_J17_w2_champ.tm_tnf (A, 0) = Some (1, TM.L, B)
+     : BB17_J17_w2_champ.tm_tnf (A, 0) = Some (1, TM.L, B)
+eq_refl : BB17_J17_w2_champ.tm_tnf (A, 1) = Some (1, R, D)
+     : BB17_J17_w2_champ.tm_tnf (A, 1) = Some (1, R, D)
+eq_refl : BB17_J17_w2_champ.tm_tnf (B, 0) = Some (1, TM.L, C)
+     : BB17_J17_w2_champ.tm_tnf (B, 0) = Some (1, TM.L, C)
+eq_refl : BB17_J17_w2_champ.tm_tnf (B, 1) = Some (1, TM.L, B)
+     : BB17_J17_w2_champ.tm_tnf (B, 1) = Some (1, TM.L, B)
+eq_refl : BB17_J17_w2_champ.tm_tnf (C, 0) = Some (1, TM.L, D)
+     : BB17_J17_w2_champ.tm_tnf (C, 0) = Some (1, TM.L, D)
+eq_refl : BB17_J17_w2_champ.tm_tnf (C, 1) = Some (0, TM.L, B)
+     : BB17_J17_w2_champ.tm_tnf (C, 1) = Some (0, TM.L, B)
+eq_refl : BB17_J17_w2_champ.tm_tnf (D, 0) = Some (1, R, E)
+     : BB17_J17_w2_champ.tm_tnf (D, 0) = Some (1, R, E)
+eq_refl : BB17_J17_w2_champ.tm_tnf (D, 1) = Some (0, R, M)
+     : BB17_J17_w2_champ.tm_tnf (D, 1) = Some (0, R, M)
+eq_refl : BB17_J17_w2_champ.tm_tnf (E, 0) = Some (1, R, F)
+     : BB17_J17_w2_champ.tm_tnf (E, 0) = Some (1, R, F)
+eq_refl : BB17_J17_w2_champ.tm_tnf (E, 1) = Some (1, R, E)
+     : BB17_J17_w2_champ.tm_tnf (E, 1) = Some (1, R, E)
+eq_refl : BB17_J17_w2_champ.tm_tnf (F, 0) = Some (0, TM.L, G)
+     : BB17_J17_w2_champ.tm_tnf (F, 0) = Some (0, TM.L, G)
+eq_refl : BB17_J17_w2_champ.tm_tnf (F, 1) = Some (1, R, P)
+     : BB17_J17_w2_champ.tm_tnf (F, 1) = Some (1, R, P)
+eq_refl : BB17_J17_w2_champ.tm_tnf (G, 0) = Some (1, TM.L, H)
+     : BB17_J17_w2_champ.tm_tnf (G, 0) = Some (1, TM.L, H)
+eq_refl : BB17_J17_w2_champ.tm_tnf (G, 1) = Some (1, TM.L, G)
+     : BB17_J17_w2_champ.tm_tnf (G, 1) = Some (1, TM.L, G)
+eq_refl : BB17_J17_w2_champ.tm_tnf (H, 0) = Some (0, TM.L, I)
+     : BB17_J17_w2_champ.tm_tnf (H, 0) = Some (0, TM.L, I)
+eq_refl : BB17_J17_w2_champ.tm_tnf (H, 1) = Some (1, TM.L, G)
+     : BB17_J17_w2_champ.tm_tnf (H, 1) = Some (1, TM.L, G)
+eq_refl : BB17_J17_w2_champ.tm_tnf (I, 0) = Some (1, R, J)
+     : BB17_J17_w2_champ.tm_tnf (I, 0) = Some (1, R, J)
+eq_refl : BB17_J17_w2_champ.tm_tnf (I, 1) = Some (1, R, K)
+     : BB17_J17_w2_champ.tm_tnf (I, 1) = Some (1, R, K)
+eq_refl : BB17_J17_w2_champ.tm_tnf (J, 0) = Some (0, R, J)
+     : BB17_J17_w2_champ.tm_tnf (J, 0) = Some (0, R, J)
+eq_refl : BB17_J17_w2_champ.tm_tnf (J, 1) = Some (0, R, E)
+     : BB17_J17_w2_champ.tm_tnf (J, 1) = Some (0, R, E)
+eq_refl : BB17_J17_w2_champ.tm_tnf (K, 0) = Some (0, R, L)
+     : BB17_J17_w2_champ.tm_tnf (K, 0) = Some (0, R, L)
+eq_refl : BB17_J17_w2_champ.tm_tnf (K, 1) = Some (1, R, J)
+     : BB17_J17_w2_champ.tm_tnf (K, 1) = Some (1, R, J)
+eq_refl : BB17_J17_w2_champ.tm_tnf (L, 0) = Some (0, TM.L, C)
+     : BB17_J17_w2_champ.tm_tnf (L, 0) = Some (0, TM.L, C)
+eq_refl : BB17_J17_w2_champ.tm_tnf (L, 1) = Some (0, R, A)
+     : BB17_J17_w2_champ.tm_tnf (L, 1) = Some (0, R, A)
+eq_refl : BB17_J17_w2_champ.tm_tnf (M, 0) = None
+     : BB17_J17_w2_champ.tm_tnf (M, 0) = None
+eq_refl : BB17_J17_w2_champ.tm_tnf (M, 1) = Some (1, R, N)
+     : BB17_J17_w2_champ.tm_tnf (M, 1) = Some (1, R, N)
+eq_refl : BB17_J17_w2_champ.tm_tnf (N, 0) = Some (0, TM.L, C)
+     : BB17_J17_w2_champ.tm_tnf (N, 0) = Some (0, TM.L, C)
+eq_refl : BB17_J17_w2_champ.tm_tnf (N, 1) = Some (0, R, O)
+     : BB17_J17_w2_champ.tm_tnf (N, 1) = Some (0, R, O)
+eq_refl : BB17_J17_w2_champ.tm_tnf (O, 0) = Some (0, TM.L, C)
+     : BB17_J17_w2_champ.tm_tnf (O, 0) = Some (0, TM.L, C)
+eq_refl : BB17_J17_w2_champ.tm_tnf (O, 1) = Some (1, R, M)
+     : BB17_J17_w2_champ.tm_tnf (O, 1) = Some (1, R, M)
+eq_refl : BB17_J17_w2_champ.tm_tnf (P, 0) = Some (0, TM.L, QQ)
+     : BB17_J17_w2_champ.tm_tnf (P, 0) = Some (0, TM.L, QQ)
+eq_refl : BB17_J17_w2_champ.tm_tnf (P, 1) = Some (1, TM.L, C)
+     : BB17_J17_w2_champ.tm_tnf (P, 1) = Some (1, TM.L, C)
+eq_refl : BB17_J17_w2_champ.tm_tnf (QQ, 0) = Some (0, R, K)
+     : BB17_J17_w2_champ.tm_tnf (QQ, 0) = Some (0, R, K)
+eq_refl : BB17_J17_w2_champ.tm_tnf (QQ, 1) = Some (1, TM.L, QQ)
+     : BB17_J17_w2_champ.tm_tnf (QQ, 1) = Some (1, TM.L, QQ)
+BB17_J17_w2_champ.iter =
+fix iter (X : Type) (n : nat) (g : X -> X) (x : X) {struct n} : X :=
+  match n with
+  | 0 => x
+  | S n' => g (iter X n' g x)
+  end
+     : forall {X : Type}, nat -> (X -> X) -> X -> X
+
+Arguments BB17_J17_w2_champ.iter {X}%type_scope n%nat_scope 
+  g%function_scope x
+BB17_J17_w2_champ.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB17_J17_w2_champ.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB17_J17_w2_champ.f (k _)%nat_scope
+BB17_J17_w2_champ.f_omega =
+fun n : nat => BB17_J17_w2_champ.f n n
+     : nat -> nat
+
+Arguments BB17_J17_w2_champ.f_omega n%nat_scope
+BB17_J17_w2_champ.f_wk =
+fix f_wk (k : nat) : nat -> nat :=
+  match k with
+  | 0 => BB17_J17_w2_champ.f_omega
+  | S k' => fun n : nat => BB17_J17_w2_champ.iter n (f_wk k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB17_J17_w2_champ.f_wk (k _)%nat_scope
+BB17_J17_w2_champ.f_w2 =
+fun n : nat => BB17_J17_w2_champ.f_wk n n
+     : nat -> nat
+
+Arguments BB17_J17_w2_champ.f_w2 n%nat_scope
+BB17_J17_w2_champ.h =
+fix h (m x : nat) {struct m} : nat :=
+  match m with
+  | 0 => x + 4
+  | S m' => BB17_J17_w2_champ.iter (x + 2) (h m') 2
+  end
+     : nat -> nat -> nat
+
+Arguments BB17_J17_w2_champ.h (m x)%nat_scope
+BB17_J17_w2_champ.hc =
+fix hc (m n x : nat) {struct n} : nat :=
+  match n with
+  | 0 => x
+  | S n' => hc (S m) n' (BB17_J17_w2_champ.h m x)
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB17_J17_w2_champ.hc (m n x)%nat_scope
+BB17_J17_w2_champ.Gk =
+fun k : nat => BB17_J17_w2_champ.hc 0 (S k) 2 + 2 * S k + 2
+     : nat -> nat
+
+Arguments BB17_J17_w2_champ.Gk k%nat_scope
+BB17_J17_w2_champ.G =
+fun a : nat => BB17_J17_w2_champ.Gk (a / 3)
+     : nat -> nat
+
+Arguments BB17_J17_w2_champ.G a%nat_scope
+BB17_J17_w2_champ.ho =
+fix ho (m a : nat) {struct m} : nat :=
+  match m with
+  | 0 => BB17_J17_w2_champ.G a
+  | S m' => BB17_J17_w2_champ.iter (a + 1) (ho m') 4
+  end
+     : nat -> nat -> nat
+
+Arguments BB17_J17_w2_champ.ho (m a)%nat_scope
+BB17_J17_w2_champ.hoc =
+fix hoc (m n a : nat) {struct n} : nat :=
+  match n with
+  | 0 => a
+  | S n' => hoc (S m) n' (BB17_J17_w2_champ.ho m a)
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments BB17_J17_w2_champ.hoc (m n a)%nat_scope
+BB17_J17_w2_champ.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB17_J17_w2_champ.sym_val s%sym_scope
+BB17_J17_w2_champ.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB17_J17_w2_champ.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB17_J17_w2_champ.count1 xs%list_scope
+BB17_J17_w2_champ.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB17_J17_w2_champ.count1 L + BB17_J17_w2_champ.sym_val s +
+  BB17_J17_w2_champ.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB17_J17_w2_champ.ones c N%nat_scope
+BB17_J17_w2_champ.halt
+     : halts BB17_J17_w2_champ.tm c0
+BB17_J17_w2_champ.score_exact
+     : exists (q1 k1 a2 j : nat) (c : Q * tape),
+         BB17_J17_w2_champ.iter 5 BB17_J17_w2_champ.G 4 + 6 = 9 * S q1 + 1 /\
+         k1 = 3 * q1 + 1 /\
+         a2 = BB17_J17_w2_champ.hoc 1 (S k1) 4 /\
+         a2 + 2 * (3 * S q1) + 2 = 3 * S (S j) /\
+         c0 -[ BB17_J17_w2_champ.tm ]->* c /\
+         halted BB17_J17_w2_champ.tm c /\
+         BB17_J17_w2_champ.ones c (2 * j + 4)
+BB17_J17_w2_champ.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB17_J17_w2_champ.tm ]->* c /\
+         halted BB17_J17_w2_champ.tm c /\
+         BB17_J17_w2_champ.ones c N /\
+         BB17_J17_w2_champ.f_w2 (BB17_J17_w2_champ.f 15 2) < N /\
+         BB17_J17_w2_champ.f_w2
+           (BB17_J17_w2_champ.iter 3 BB17_J17_w2_champ.f_omega
+              (BB17_J17_w2_champ.f 14 2)) < N
+BB17_J17_w2_champ.halt_tnf
+     : halts BB17_J17_w2_champ.tm_tnf c0
+BB17_J17_w2_champ.sigma_lower_bound_tnf
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB17_J17_w2_champ.tm_tnf ]->* c /\
+         halted BB17_J17_w2_champ.tm_tnf c /\
+         BB17_J17_w2_champ.ones c N /\
+         BB17_J17_w2_champ.f_w2 (BB17_J17_w2_champ.f 15 2) < N /\
+         BB17_J17_w2_champ.f_w2
+           (BB17_J17_w2_champ.iter 3 BB17_J17_w2_champ.f_omega
+              (BB17_J17_w2_champ.f 14 2)) < N
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
