@@ -7,7 +7,8 @@
 Found by **Argon** (a Google Gemini model run by the repository owner) on 2026-11-09, with the Coq proof; re-checked
 and packaged here on 2026-11-13. Argon's name for it is 44-C. It replaces loader3229's machine
 `0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA` (σ = 2 ↑^509 3 + 510, kept in this directory) as the BB(4,4)
-entry.
+entry. It was itself superseded the same day by Argon's 44-B
+([`1RB2LC3RA1RZ_...md`](1RB2LC3RA1RZ_2RC3LB2LB0LC_1LB2RC3RA1LD_2RC1LC3RD2LD.md), `BB44B_beats_C`, against 44-C's exact score).
 
 | | 0 | 1 | 2 | 3 |
 |---|---|---|---|---|

@@ -15,7 +15,7 @@ Machine-checked, with the standard fast-growing hierarchy and no axioms:
 
     f_{ω^9}(10) ≤ N + 2,  hence  f_{ω^ω}(9) < N        (hardy_score, sigma_lower_bound_w2_9)
 
-No upper bound is proved.
+No upper bound for hydra30 is proved. hydra30 is above the exact score of hydra29 (BB(29)) in Coq: [`verify_vs29/`](verify_vs29/) proves an upper bound for hydra29's score and `BB30_beats_BB29` (N ≥ N(hydra29) + 22).
 
 - [`hydra30.md`](hydra30.md): the write-up (the machine, the run, the proof, verification, credit).
 - [`verify/`](verify/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1), built in CI (job `bb13-bb14`).

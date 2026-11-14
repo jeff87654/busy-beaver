@@ -9,7 +9,7 @@ Machine-checked, with the standard fast-growing hierarchy and no axioms:
 
     f_{ω^ω^ω^ω}(4) ≤ N + 2,  hence  f_{ω^ω^ω^ω}(3) < N        (sigma_lower_bound_w4)
 
-The posted claim was BB(31) > f_{ω^ω^ω^ω}(3). No upper bound is proved.
+The posted claim was BB(31) > f_{ω^ω^ω^ω}(3). Upper bound, machine-checked in [`../BB32/verify_vs31/`](../BB32/verify_vs31/): N + 2 ≤ f_{ω^ω^ω^4}(6) for every halting configuration (`BB31_upper.upper_bound`).
 
 - [`hydra31.md`](hydra31.md): the write-up (the hydra game, the run, the proof, verification, credit).
 - [`verify/`](verify/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1), built in CI (job `bb13-bb14`).

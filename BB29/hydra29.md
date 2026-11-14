@@ -46,7 +46,7 @@ States after Z are the next ASCII characters (`[ \ ]`), so the string is read in
 | | |
 |---|---|
 | Halts | **Yes**, machine-checked (Coq, no axioms): `BB29_halt.halt`. |
-| Exact score | Machine-checked: N = T₄(S)(1) + 1 ones at the halt (`score_exact`), with T the recursion of section 3. The halt is B reading 0 (B0 = `---`), so σ = N, or N + 1 if the halting transition is taken to write a 1. Not evaluated as a number. |
+| Exact score | Machine-checked: N = T₄(S)(1) + 1 ones at the halt (`score_exact`), with T the recursion of section 3. The halt is B reading 0 (B0 = `---`), so σ = N, or N + 1 if the halting transition is taken to write a 1. Not evaluated as a number. Upper bound, machine-checked: T₄(S)(1) ≤ f_{ω^3·7}(26) (`BB29_upper.T4_upper`, with `halts_with_exact`, in [`../BB30/verify_vs29/`](../BB30/verify_vs29/)). |
 | Level | Machine-checked, with the standard fast-growing hierarchy: f_{ω^ω}(3) < N (`sigma_lower_bound`), the posted claim. Informally σ ≈ f_{ω^ω}(4). |
 | Steps | Not computed. |
 

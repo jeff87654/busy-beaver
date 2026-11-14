@@ -1,0 +1,39 @@
+share_check: 5 identical, 0 different
+== BB44.v ==
+   ok, 10 s
+== Individual44.v ==
+   ok, 10 s
+== BB44_rules.v ==
+   ok, 45 s
+== BB44_run.v ==
+   ok, 10 s
+== BB44_bound.v ==
+   ok, 13 s
+== BB44A_rules.v ==
+   ok, 14 s
+== BB44A_run.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 200 s
+== BB44A_cmp.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 49 s
+== BB44B_rules.v ==
+   ok, 14 s
+== BB44B_run.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 13 s
+== BB44B_cmp.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 13 s
+COMPILE DONE
+probe: 18 of 18 theorems closed under the global context

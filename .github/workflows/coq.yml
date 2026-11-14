@@ -75,7 +75,7 @@ jobs:
               - '{BB8/**,BB9/verify_c04/**,BB9/verify_fw2/multifile/**}'
               - '!**/*.md'
             bb13-bb14:                    # also builds BB11/verify* (M11b, C4), BB12/verify_m12 (M12), BB15/verify, BB16/verify*, BB17/verify*, BB18/verify*, BB19/verify*, BB20/verify*, BB21/verify*, BB25/verify* and BB29/30/31/32/33/verify, BB34_2/verify
-              - '{BB11/verify*/**,BB12/verify_m12/**,BB13/**,BB14/**,BB15/verify/**,BB16/verify*/**,BB17/verify*/**,BB18/verify*/**,BB19/verify*/**,BB20/verify*/**,BB21/verify*/**,BB25/verify*/**,BB29/verify/**,BB30/verify/**,BB31/verify/**,BB32/verify*/**,BB33/verify/**,BB34_2/verify*/**}'
+              - '{BB11/verify*/**,BB12/verify_m12/**,BB13/**,BB14/**,BB15/verify/**,BB16/verify*/**,BB17/verify*/**,BB18/verify*/**,BB19/verify*/**,BB20/verify*/**,BB21/verify*/**,BB25/verify*/**,BB29/verify/**,BB30/verify*/**,BB31/verify/**,BB32/verify*/**,BB33/verify/**,BB34_2/verify*/**}'
               - '!**/*.md'
             bb9-fw2:
               - 'BB9/verify_fw2/**'
@@ -328,8 +328,8 @@ jobs:
     # checked by its share_check.sh; about 3 minutes; BB25/verify_w2: its omega^2 bound, with copies of
     # verify/ and BB21/verify_w2, about 5 minutes), and BB29/31/33/verify (mxdys's hydra machines, below epsilon_0) and
     # BB30/32/verify, BB34_2/verify (Argon's 30-, 32- and 34-state hydra machines; BB34_2 because BB34/ is BB(3,4)) (about
-    # a minute each), and BB32/verify_vs31, BB34_2/verify_vs33 (upper bounds for hydra31's and hydra33's scores and the
-    # comparisons with hydra32 and hydra34, on byte-identical copies of both machines' files). The job id is historical.
+    # a minute each), and BB30/verify_vs29, BB32/verify_vs31, BB34_2/verify_vs33 (upper bounds for hydra29's, hydra31's and
+    # hydra33's scores and the comparisons with hydra30, hydra32 and hydra34, on byte-identical copies of both machines' files). The job id is historical.
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
@@ -348,7 +348,7 @@ jobs:
               'BB25/verify/multifile', 'BB25/verify_w2/multifile',
               'BB29/verify/multifile', 'BB30/verify/multifile', 'BB31/verify/multifile', 'BB32/verify/multifile',
               'BB33/verify/multifile', 'BB34_2/verify/multifile', 'BB32/verify_vs31/multifile',
-              'BB34_2/verify_vs33/multifile']
+              'BB34_2/verify_vs33/multifile', 'BB30/verify_vs29/multifile']
     container:
       image: coqorg/coq:8.20.1
       options: --user root
@@ -779,6 +779,8 @@ jobs:
     # previous entry): halting and the exact score sigma = 2^(509 arrows) 3 + 510 (about two minutes); BB44/verify_44c:
     # Argon's 44-C 1RB3LB1RZ2RA_1LC3RB1LD2RA_3RB2LC1LC3LC_3RB1LB3LD2RD, halting and sigma = 2^(65532 arrows) 6 + 65532,
     # and its comparison with the previous entry, which loads BB44/verify's compiled files (so it runs second).
+    # BB44/verify_44b: 44-B 1RB2LC3RA1RZ_2RC3LB2LB0LC_1LB2RC3RA1LD_2RC1LC3RD2LD (the entry) and 44-A, Argon's machines with
+    # Coq proofs by this project, on byte-identical copies of BB44/verify_44c's files.
     runs-on: ubuntu-latest
     timeout-minutes: 60
     container:
@@ -826,6 +828,17 @@ jobs:
           closed=$(grep -c 'Closed under the global context' probe.log || true)
           if grep -q 'Axioms:' probe.log || [ "$expected" -ne 15 ] || [ "$closed" -ne "$expected" ]; then
             echo "::error::probe.v did not report 15 axiom-free theorems"
+            exit 1
+          fi
+
+      - name: Compile BB44/verify_44b (44-B, the entry, and 44-A) and run the probe
+        working-directory: BB44/verify_44b
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
+          expected=$(grep -c '^Print Assumptions' probe.v)
+          closed=$(grep -c 'Closed under the global context' probe.log || true)
+          if grep -q 'Axioms:' probe.log || [ "$expected" -ne 18 ] || [ "$closed" -ne "$expected" ]; then
+            echo "::error::probe.v did not report 18 axiom-free theorems"
             exit 1
           fi
 

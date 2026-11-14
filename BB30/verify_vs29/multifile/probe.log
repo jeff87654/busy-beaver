@@ -1,0 +1,41 @@
+BB29_upper.halts_with =
+fun NB : nat =>
+exists
+  c : BB292.BB292.Q *
+      (Streams.Stream BB292.BB292.Sym * BB292.BB292.Sym *
+       Streams.Stream BB292.BB292.Sym),
+  Individual292.Individual292.Permute.Flip.Compute.TM.evstep BB29_tm.tm
+    Individual292.Individual292.Permute.Flip.Compute.TM.c0 c /\
+  Individual292.Individual292.Permute.Flip.Compute.TM.halted BB29_tm.tm c /\
+  BB29_bound.ones c NB
+     : nat -> Prop
+
+Arguments BB29_upper.halts_with NB%nat_scope
+BB29_upper.T4_upper
+     : BB29_hydra.T 4 S 1 <= Ord.FGH (Ord.orep (Ord.ofin 3) 7 Ord.oz) 26
+BB29_upper.T4_lt_w9
+     : BB29_hydra.T 4 S 1 + 25 <= Ord.FGH (Ord.opow (Ord.ofin 9)) 10
+BB29_upper.halts_with_exact
+     : forall NB : nat,
+       BB29_upper.halts_with NB -> NB = BB29_hydra.T 4 S 1 + 1
+BB29_upper.halts_with_upper
+     : forall NB : nat,
+       BB29_upper.halts_with NB ->
+       NB + 24 <= Ord.FGH (Ord.opow (Ord.ofin 9)) 10
+BB30_vs_BB29.BB30_beats_BB29
+     : exists
+         (c : BB302.BB302.Q *
+              (Streams.Stream BB302.BB302.Sym * BB302.BB302.Sym *
+               Streams.Stream BB302.BB302.Sym)) (N : nat),
+         Individual302.Individual302.Permute.Flip.Compute.TM.evstep
+           BB30_tm.tm Individual302.Individual302.Permute.Flip.Compute.TM.c0
+           c /\
+         Individual302.Individual302.Permute.Flip.Compute.TM.halted
+           BB30_tm.tm c /\
+         BB30_game.ones c N /\
+         (forall NB : nat, BB29_upper.halts_with NB -> NB + 22 <= N)
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
