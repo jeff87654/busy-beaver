@@ -1,0 +1,12 @@
+2 of 2 shared files byte-identical to ../../verify_jz19/multifile's
+The Coq Proof Assistant, version 8.20.1
+== BB192.v ==
+   ok, 155 s
+== Individual192.v ==
+   ok, 90 s
+== BB19_J19_w2_sq.v ==
+Closed under the global context
+Closed under the global context
+   ok, 459 s
+COMPILE DONE
+probe: 3 of 3 theorems closed under the global context

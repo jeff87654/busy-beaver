@@ -1,6 +1,40 @@
 # BB18/: 18 states, 2 symbols
 
-## Current entry: J18_w2_C (Argon, on Jacobzheng's engine)
+## Current entry: R18c (this project's machine, in the R18a family; Coq proof by Argon)
+
+    1LH0LG_0LI1RC_0LD1LA_0RE1LD_0RH1RL_1RB1RF_1LA1LG_1RF1RM_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LN1RM_1LQ0LO_0LR1LP_1LQ1LN_1LF0LM_0RC1RZ
+
+Halts from the blank tape; R1 (`1RZ` in the string) is the halt. It is read on a 1 and writes 1, so σ = N, where N
+is the number of ones when R1 is read. Machine-checked, with the standard fast-growing hierarchy and no axioms:
+
+    f_(ω·2)(f_(ω+1)(f_4(2))) < N = σ        (sigma_lower_bound)
+    f_(ω·2)(2·f_ω^9(35)) < N                (sigma_lower_bound: J18_w2_C's proved bound, below)
+
+and the exact score N = 2(j + 1) + 1 for the j given by the machine's recursion (`score_exact`; not evaluated). Both
+are also proved for the same machine in tree normal form (`halt_tnf`, `sigma_lower_bound_tnf`).
+
+R18c is R18a (below) with six entries changed: the exits of the period-3 rewriter N0, O0, P0 and the dispatch states
+Q and R. The engine, the two lists and J20's mod-3 schedule are unchanged (exactly two refills, then the halt, at
+level f_(ω·2)). The new exits give a different expansion head map and a longer refill, [2, 2] at the boot and
+[3, 2^(k+1)] at the second exhaustion, so the first round already ends at outer level 1, and the last round runs at
+an outer level of order f_(ω+1)(f_4(2)), where J18_w2_C's runs at one of order f_ω^15 (paper estimate).
+
+Its proved bound is above J18_w2_C's (stated in the same theorem with the same definitions), so BB(18) has its best
+proved bound here. Comparison with J18_w2_C's exact score: on paper only (the write-up, section 4). The 19-state
+J19_sq ([`../BB19/`](../BB19/)) has a higher proved bound. Not yet reviewed by the bbchallenge community.
+
+- [`1LH0LG_0LI1RC..._1LF0LM_0RC1RZ.md`](1LH0LG_0LI1RC_0LD1LA_0RE1LD_0RH1RL_1RB1RF_1LA1LG_1RF1RM_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LN1RM_1LQ0LO_0LR1LP_1LQ1LN_1LF0LM_0RC1RZ.md):
+  the write-up (the table, the changes to R18a, the rules, the refill, the run, the mod-3 invariant, the size,
+  verification, comparisons, credit).
+- [`verify_r18c/`](verify_r18c/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_lower_bound`, `halt_tnf`, `sigma_lower_bound_tnf`. About a minute to compile; built and probed in CI (job
+  `bb13-bb14`), which requires five closed `Print Assumptions` reports.
+
+This project's machine: found on 2026-11-07 by the search for compressions of Jacobzheng's J20 that produced R18a
+(then listed as an unproved variant); Coq proof by Argon, a Google Gemini model run by the repository owner in
+Google's Antigravity (2026-11-09); re-checked here.
+
+## Previous entry: J18_w2_C (Argon, on Jacobzheng's engine)
 
     0LB1LF_0RC1LB_0RD1RM_1LE0RN_1LF1LE_1LG0LE_1RH1RP_1RI1RH_0LJ1RA_1LK1LJ_0LL1LJ_1RM1RC_0RM0RH_1LE1RO_1RZ1RD_0LF0RQ_0LH1RR_0LF1RP
 
@@ -20,9 +54,9 @@ J20 and R18a, the mod-3 invariant makes the third merged block land in the halti
 the halt, at level f_(ω·2). Its first refill comes later than R18a's, after G has been iterated G(10) + 1 times, so
 its argument to f_(ω·2) is f_ω^9(35)-sized instead of f_ω(f_ω(f_10(2))).
 
-In Coq (`beats_R18a`, `beats_J16`): N is above R18a's and J16_w2's proved bounds, so BB(18) and, by BB(19) ≥ BB(18) + 1,
-BB(19) have their best proved bounds here. J20 ([`../BB20/`](../BB20/)) has a higher proved bound. Not yet reviewed by
-the bbchallenge community.
+In Coq (`beats_R18a`, `beats_J16`): N is above R18a's and J16_w2's proved bounds, so from 2026-11-08 to 2026-11-13
+BB(18) and, by BB(19) ≥ BB(18) + 1, BB(19) had their best proved bounds here. R18c (above) has a higher proved bound.
+Not yet reviewed by the bbchallenge community.
 
 - [`0LB1LF_0RC1LB..._0LH1RR_0LF1RP.md`](0LB1LF_0RC1LB_0RD1RM_1LE0RN_1LF1LE_1LG0LE_1RH1RP_1RI1RH_0LJ1RA_1LK1LJ_0LL1LJ_1RM1RC_0RM0RH_1LE1RO_1RZ1RD_0LF0RQ_0LH1RR_0LF1RP.md):
   the write-up (the table, the expansion and the refill, the run, the mod-3 invariant, the size, verification,
@@ -34,7 +68,7 @@ the bbchallenge community.
 Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-08), by
 compressing Jacobzheng's J20 by two states; re-checked here, with the comparison file.
 
-## Previous entry: R18a (derived from Jacobzheng's J20)
+## Earlier entry: R18a (derived from Jacobzheng's J20)
 
     1LH0LG_0LI1RC_0LD1LA_0RE1LD_0RH1RL_1RB1RF_1LA1LG_1RF1RM_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LN1RM_0LQ0LO_1LR1LP_0LQ1LN_0RO1LB_0LL1RZ
 

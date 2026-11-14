@@ -1,6 +1,41 @@
 # BB19/: 19 states, 2 symbols
 
-## Current entry: J19 (Jacobzheng's machine)
+## Current entry: J19_sq (Argon, on Jacobzheng's engine)
+
+    1LB0LM_1RC1RN_1RD1RC_0LE1RQ_1LF1LE_0LG1LE_1RH1RI_0RH0RC_0RJ1RH_0RS0RK_1LN1RL_1LM1RJ_1LA1LM_0LA0RO_0LC1RP_0LA1RN_0LR1LA_0RI1LR_1RZ1LL
+
+Halts from the blank tape; S0 (`1RZ` in the string) is the halt. It is read on a 0 and writes 1, so σ = N + 1, where
+N is the number of ones when S0 is read. Machine-checked, with the standard fast-growing hierarchy and no axioms:
+
+    f_(ω·2)(f_(ω·2)(f_5(2))) < N,   σ = N + 1          (sigma_lower_bound)
+    f_(ω·2)(2·f_ω^9(35)) < N                           (sigma_lower_bound: J18_w2_C's proved BB(18) bound)
+    f_(ω·2)(f_(ω+2)(f_(ω+2)(f_10(2)))) < N             (sigma_lower_bound: J20's proved BB(20) bound)
+
+and the exact score N = 2(j + 1) + 1 for the j given by the machine's recursion (`score_exact`; not evaluated).
+
+J19_sq runs Jacobzheng's J20 engine and two lists with the expansion and level maps of Argon's J18_w2_C
+([`../BB18/`](../BB18/)), and a new four-state refill that can park a **sentinel** (a single 1) behind the outer
+list. The outer rounds never reach it; at the next exhaustion the merged block ends next to it, and the refill reads
+it. Since the second and the third merged blocks are both ≡ 0 (mod 3), only the sentinel tells them apart: the
+second refills, the third halts. So there are three refills and two rounds at level f_(ω·2), where the 18-state
+entries have one.
+
+Its proved bound is above BB(18) + 1's (R18c's f_(ω·2)(f_(ω+1)(f_4(2))): on paper; J18_w2_C's: in Coq, the
+same theorem), so BB(19) has its own best proved bound again, and it is also above the proved bound of Jacobzheng's
+20-state J20. Comparisons with the exact scores of R18c and J20: on paper only (the write-up, section 4). The
+20-state J20_cube ([`../BB20/`](../BB20/)) has a higher proved bound. Not yet reviewed by the bbchallenge community.
+
+- [`1LB0LM_1RC1RN..._0RI1LR_1RZ1LL.md`](1LB0LM_1RC1RN_1RD1RC_0LE1RQ_1LF1LE_0LG1LE_1RH1RI_0RH0RC_0RJ1RH_0RS0RK_1LN1RL_1LM1RJ_1LA1LM_0LA0RO_0LC1RP_0LA1RN_0LR1LA_0RI1LR_1RZ1LL.md):
+  the write-up (the table, the rules, the sentinel refill, the run, the mod-3 invariant, the size, verification,
+  comparisons, credit).
+- [`verify_j19sq/`](verify_j19sq/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
+  `sigma_lower_bound`. About a minute to compile; built and probed in CI (job `bb13-bb14`), which requires three
+  closed `Print Assumptions` reports.
+
+Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-09), on
+Jacobzheng's J19/J20 architecture; re-checked here.
+
+## Previous entry: J19 (Jacobzheng's machine)
 
     1RQ1RL_0LI1RC_0LD1LF_0RA1LD_1RB1RE_1LH0LG_1LF1LG_1RE1RM_1LJ1LI_0LK1LI_1RL1RA_0RL0RE_0LN1RM_1LO0LO_1RE1LP_1LN1LN_1LR1RQ_1RZ1LS_0LE0LR
 
@@ -26,8 +61,8 @@ the BB(18) entries. No proved upper bound; not yet reviewed by the bbchallenge c
 
 In Coq, the 18-state R18a ([`../BB18/`](../BB18/), derived from Jacobzheng's J20) has a proved bound above J19's
 (`beats_J19`: f_(ω+7)(f_(ω+7)(5)) < σ(R18a)), so BB(19) ≥ BB(18) + 1 is the better proved bound for BB(19).
-Since 2026-11-08 the BB(18) entry is Argon's J18_w2_C, above R18a in Coq (`beats_R18a`), so BB(19) ≥ BB(18) + 1 >
-f_(ω·2)(2·f_ω^9(35)). Argon's 19-state J19_w2 (proved f_(ω·2)(2·f_ω(f_2(15))) < N) is below R18a's proved bound
+From 2026-11-08 the BB(18) entry was Argon's J18_w2_C, above R18a in Coq (`beats_R18a`), so BB(19) ≥ BB(18) + 1 >
+f_(ω·2)(2·f_ω^9(35)); since 2026-11-13 BB(19) has its own entry again, J19_sq (above). Argon's 19-state J19_w2 (proved f_(ω·2)(2·f_ω(f_2(15))) < N) is below R18a's proved bound
 and is not listed.
 
 - [`1RQ1RL_0LI1RC..._1RZ1LS_0LE0LR.md`](1RQ1RL_0LI1RC_0LD1LF_0RA1LD_1RB1RE_1LH0LG_1LF1LG_1RE1RM_1LJ1LI_0LK1LI_1RL1RA_0RL0RE_0LN1RM_1LO0LO_1RE1LP_1LN1LN_1LR1RQ_1RZ1LS_0LE0LR.md):
