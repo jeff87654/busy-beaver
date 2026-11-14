@@ -225,3 +225,36 @@ Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
+B21_vs_J20cube.B21_beats_J20cube_exact
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ B21_vs_J20cube.W.tm ]->* c /\
+         halted B21_vs_J20cube.W.tm c /\
+         B21_vs_J20cube.Sc.onesN c N /\
+         (forall k1 a2 k2 a3 k3 a4 j : nat,
+          B21_vs_J20cube.C.iter 2 (B21_vs_J20cube.C.ho 0) 10 + 4 =
+          3 * S (S k1) + 1 ->
+          a2 = B21_vs_J20cube.C.hoc 0 (S k1) 10 ->
+          a2 + 2 * S k1 + 2 = 3 * S (S k2) ->
+          a3 = B21_vs_J20cube.C.hoc 0 k2 10 ->
+          a3 + 2 * S k2 + 2 = 3 * S k3 + 2 ->
+          a4 =
+          B21_vs_J20cube.C.iter 4 (B21_vs_J20cube.C.ho k3)
+            (B21_vs_J20cube.C.hoc 0 k3 10) ->
+          a4 + 2 * S k3 + 2 = 3 * S j -> 2 * S j + 1 + 1 < N)
+B21_vs_J20cube.B21_beats_J20cube_score
+     : exists NJ : nat,
+         (exists
+            c : BB202.BB202.Q *
+                (Stream BB202.BB202.Sym * BB202.BB202.Sym *
+                 Stream BB202.BB202.Sym),
+            Individual202.Individual202.Permute.Flip.Compute.TM.evstep
+              B21_vs_J20cube.C.tm
+              Individual202.Individual202.Permute.Flip.Compute.TM.c0 c /\
+            Individual202.Individual202.Permute.Flip.Compute.TM.halted
+              B21_vs_J20cube.C.tm c /\ B21_vs_J20cube.C.ones c NJ) /\
+         (exists (c : Q * tape) (N : nat),
+            c0 -[ B21_vs_J20cube.W.tm ]->* c /\
+            halted B21_vs_J20cube.W.tm c /\
+            B21_vs_J20cube.Sc.onesN c N /\ NJ + 1 < N)
+Closed under the global context
+Closed under the global context

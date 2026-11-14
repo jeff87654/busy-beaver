@@ -257,8 +257,8 @@ above it.
 0LI0LF_0RJ1RG_0RD1LC_1RH1RE_1LO0RH_1LA1LF_0LC1LA_1RB1RH_1RD0LF_1LP0RK_0LM1LL_0LL1LM_1LE1LN_0RQ0LM_0RP1LO_1LR0RH_1LF1RQ_1RZ0LS_1LH0LT_1LH1LU_0LE1LR
 ```
 
-- **Proved (Coq):** f_(ω²)(f_(ω²)(f_(ω²)(4↑↑341))) < N, σ = N + 1, one f_(ω²) above the wiki's claimed f_(ω²)^2(4↑↑341), which is also proved in the wiki's form (`sigma_lower_bound_wsq`), so the wiki's claim is confirmed and the new bound is stronger; halts at the sixth refill, by a residue schedule mod 4 and a dominance invariant; in Coq, above J20's proved bound f_(ω·2)(f_(ω+2)^2(f_10(2))) (the previous BB(20) entry, `beats_J20`); far above J20_cube's proved f_(ω·2)^3(f_5(2)) (BB(20)) on paper, as an f_(ω²)-class bound (not yet reviewed by the bbchallenge community)
-- **Main theorems:** `halt`, `sigma_lower_bound_wsq3`, `sigma_lower_bound_wsq`, `beats_J20`, `sigma_lower_bound`
+- **Proved (Coq):** f_(ω²)(f_(ω²)(f_(ω²)(4↑↑341))) < N, σ = N + 1, one f_(ω²) above the wiki's claimed f_(ω²)^2(4↑↑341), which is also proved in the wiki's form (`sigma_lower_bound_wsq`), so the wiki's claim is confirmed and the new bound is stronger; halts at the sixth refill, by a residue schedule mod 4 and a dominance invariant; in Coq, above J20's proved bound f_(ω·2)(f_(ω+2)^2(f_10(2))) (the previous BB(20) entry, `beats_J20`); in Coq above the exact score of J20_cube (BB(20)) + 1 (`B21_beats_J20cube_exact`, `B21_beats_J20cube_score`, by an upper bound on J20_cube's score from its own definitions and `JZ_UB.v`) (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `halt`, `sigma_lower_bound_wsq3`, `sigma_lower_bound_wsq`, `beats_J20`, `sigma_lower_bound`, `B21_beats_J20cube_exact`, `B21_beats_J20cube_score`
 - **Checked:** CI `bb13-bb14`
 - **Found by:** Racheline (the bbchallenge wiki's BB(21) champion, listed as not independently verified); analysis and Coq proof here
 - **Added:** 2026-11-08 (#53; ω² bound #55)
@@ -467,7 +467,7 @@ BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB
   entry's exact score + 1 (`BB53_beats_BB43`, by that entry's Coq upper bound); hydra30, hydra32 and hydra34 are above the
   exact scores of hydra29, hydra31 and hydra33 (`BB30_beats_BB29`, `BB32_beats_BB31`, `BB34_beats_BB33`, by upper
   bounds proved on the published hydra29, hydra31 and hydra33 files, `BB29_upper.T4_upper`, `BB31_upper.upper_bound`,
-  `BB33_upper.upper_bound`); B21's proved bound is above J20's (`beats_J20`), and W2PR's above B21's (`beats_B21`). `beats_J20` and `beats_B21` compare proved lower bounds, not upper bounds on the other machine's σ. **On
+  `BB33_upper.upper_bound`); B21's proved bound is above J20's (`beats_J20`), and W2PR's above B21's (`beats_B21`); B21 is above the exact score of J20_cube (BB(20)) + 1 (`B21_beats_J20cube_exact`, `B21_beats_J20cube_score`, in `BB21/verify_w2`, by an upper bound from J20_cube's own definitions). `beats_J20` and `beats_B21` compare proved lower bounds, not upper bounds on the other machine's σ. **On
   paper only:** M12's proved lower bound exceeds T12a's (T12a is f_(ω+1)(f_(ω+1)(·))-class); M13b's and M14b's
   proved lower bounds exceed those of the previous BB(13) and BB(14) entries M13 and M14 (kept in `BB13/`, `BB14/`;
   neither has a proved upper bound) and the published BB(14)–BB(16) lower bounds; M13b runs M12's whole computation

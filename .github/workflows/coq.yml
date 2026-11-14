@@ -385,7 +385,7 @@ jobs:
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
           # one 'Closed under the global context' per Print Assumptions line of probe.v (3 for M13b/M14b, 4 for
-          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, B21 and W2PR, 4 for W2PR's verify_w2, 5 for R18a, B21's verify_w2, J15_fw13, J18_w2_C and J20_cube, 6 for M11b, M16_C and M14_31, 7 for J16_w2, J17_champ and J19_sq, 9 for C4, M13_19, M14_fw3 and R18c)
+          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, B21 and W2PR, 4 for W2PR's verify_w2, 5 for R18a, J15_fw13, J18_w2_C and J20_cube, 6 for M11b, M16_C and M14_31, 7 for B21's verify_w2, J16_w2, J17_champ and J19_sq, 9 for C4, M13_19, M14_fw3 and R18c)
           expected=$(grep -c '^Print Assumptions' probe.v)
           closed=$(grep -c 'Closed under the global context' probe.log || true)
           if grep -q 'Axioms:' probe.log || [ "$expected" -lt 3 ] || [ "$closed" -ne "$expected" ]; then

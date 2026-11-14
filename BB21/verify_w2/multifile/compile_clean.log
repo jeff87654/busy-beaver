@@ -1,63 +1,628 @@
-18 of 18 shared files byte-identical to the published copies
+20 of 20 shared files byte-identical to the published copies
 The Coq Proof Assistant, version 8.20.1
 == BB202.v ==
-   ok, 16 s
+   ok, 9 s
 == Individual202.v ==
    ok, 7 s
 == BB20_JZ20.v ==
 Closed under the global context
 Closed under the global context
-   ok, 17 s
+   ok, 14 s
 == BB182.v ==
-   ok, 9 s
+   ok, 7 s
 == Individual182.v ==
-   ok, 9 s
+   ok, 8 s
 == BB18_R18a.v ==
 Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
-   ok, 23 s
+   ok, 14 s
 == BB212.v ==
    ok, 9 s
 == Individual212.v ==
-   ok, 9 s
+   ok, 6 s
 == BB21_B21_absdef.v ==
-   ok, 9 s
+   ok, 7 s
 == BB21_B21_tm.v ==
-   ok, 23 s
+   ok, 17 s
 == BB21_B21_sim.v ==
-   ok, 11 s
-== BB21_B21_grow.v ==
    ok, 9 s
+== BB21_B21_grow.v ==
+   ok, 6 s
 == BB21_B21_steps.v ==
-   ok, 12 s
+File ".\BB21_B21_steps.v", line 63, characters 35-45:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_steps.v", line 63, characters 35-45:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_steps.v", line 63, characters 35-45:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+   ok, 9 s
 == BB21_B21_inv.v ==
-   ok, 16 s
+File ".\BB21_B21_inv.v", line 176, characters 95-105:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 176, characters 95-105:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 176, characters 95-105:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 176, characters 95-105:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 176, characters 95-105:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 178, characters 74-84:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 178, characters 74-84:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 178, characters 74-84:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 213, characters 48-58:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 213, characters 48-58:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 213, characters 48-58:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 218, characters 40-50:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 218, characters 40-50:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 218, characters 40-50:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 218, characters 40-50:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 218, characters 40-50:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 218, characters 40-50:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 223, characters 28-38:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 223, characters 28-38:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 223, characters 28-38:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 227, characters 60-70:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 227, characters 60-70:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 227, characters 60-70:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 232, characters 45-55:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 232, characters 45-55:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 232, characters 45-55:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 232, characters 45-55:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 232, characters 45-55:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 232, characters 45-55:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 233, characters 40-50:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 233, characters 40-50:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 233, characters 40-50:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 244, characters 53-63:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 244, characters 53-63:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 244, characters 53-63:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 261, characters 28-38:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 261, characters 28-38:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 261, characters 28-38:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 316, characters 27-49:
+Warning: Notation Nat.div_le_upper_bound is deprecated since 8.17.
+Use Div0.div_le_upper_bound instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 316, characters 27-49:
+Warning: Notation Nat.div_le_upper_bound is deprecated since 8.17.
+Use Div0.div_le_upper_bound instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 319, characters 21-35:
+Warning: Notation Nat.mul_div_le is deprecated since 8.17.
+Use Div0.mul_div_le instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 319, characters 21-35:
+Warning: Notation Nat.mul_div_le is deprecated since 8.17.
+Use Div0.mul_div_le instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 404, characters 51-66:
+Warning: Notation Nat.div_le_mono is deprecated since 8.17.
+Use Div0.div_le_mono instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 404, characters 51-66:
+Warning: Notation Nat.div_le_mono is deprecated since 8.17.
+Use Div0.div_le_mono instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 433, characters 24-34:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 433, characters 24-34:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 433, characters 24-34:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 457, characters 26-48:
+Warning: Notation Nat.div_le_upper_bound is deprecated since 8.17.
+Use Div0.div_le_upper_bound instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 457, characters 26-48:
+Warning: Notation Nat.div_le_upper_bound is deprecated since 8.17.
+Use Div0.div_le_upper_bound instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 642, characters 21-35:
+Warning: Notation Nat.mul_div_le is deprecated since 8.17.
+Use Div0.mul_div_le instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 642, characters 21-35:
+Warning: Notation Nat.mul_div_le is deprecated since 8.17.
+Use Div0.mul_div_le instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 741, characters 62-72:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 741, characters 62-72:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_inv.v", line 741, characters 62-72:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+   ok, 12 s
 == BB21_B21_proc.v ==
-   ok, 12 s
+File ".\BB21_B21_proc.v", line 51, characters 41-51:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 51, characters 41-51:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 51, characters 41-51:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 51, characters 41-51:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 51, characters 41-51:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 58, characters 13-23:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 58, characters 13-23:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 58, characters 13-23:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 58, characters 13-23:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 58, characters 13-23:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 58, characters 41-51:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 58, characters 41-51:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 58, characters 41-51:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 58, characters 41-51:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 58, characters 41-51:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 169, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 169, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 169, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 169, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 169, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 220, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 220, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 220, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 220, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 220, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 222, characters 61-71:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 222, characters 61-71:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 222, characters 61-71:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 236, characters 59-69:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 236, characters 59-69:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_proc.v", line 236, characters 59-69:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+   ok, 9 s
 == BB21_B21_phase.v ==
-   ok, 11 s
+File ".\BB21_B21_phase.v", line 23, characters 2-29:
+Warning: Unused introduction pattern: u
+[unused-intro-pattern,tactics,default]
+File ".\BB21_B21_phase.v", line 52, characters 53-63:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_phase.v", line 52, characters 53-63:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_phase.v", line 52, characters 53-63:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_phase.v", line 81, characters 40-50:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_phase.v", line 81, characters 40-50:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_phase.v", line 81, characters 40-50:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+   ok, 6 s
 == BB21_B21_run.v ==
-   ok, 12 s
+File ".\BB21_B21_run.v", line 24, characters 93-103:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_run.v", line 24, characters 93-103:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_run.v", line 26, characters 50-60:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_run.v", line 26, characters 50-60:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_run.v", line 26, characters 50-60:
+Warning: Notation app_length is deprecated since 8.20.
+Use length_app instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+   ok, 9 s
 == BB21_B21_score.v ==
+File ".\BB21_B21_score.v", line 56, characters 37-47:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_score.v", line 56, characters 37-47:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_score.v", line 56, characters 37-47:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
    ok, 9 s
 == BB_FGH_wa.v ==
-   ok, 9 s
+   ok, 6 s
 == BB_FGH_wa2.v ==
-   ok, 9 s
+   ok, 6 s
 == BB21_B21_qnt.v ==
-   ok, 14 s
+   ok, 7 s
 == BB21_B21_qnt2.v ==
-   ok, 8 s
-== BB21_B21_qnt3.v ==
-   ok, 6 s
-== BB21_B21_qnt4.v ==
-   ok, 6 s
-== BB21_B21_bound.v ==
-   ok, 13 s
-== BB21_B21_w2.v ==
+File ".\BB21_B21_qnt2.v", line 15, characters 16-31:
+Warning: Notation Nat.div_le_mono is deprecated since 8.17.
+Use Div0.div_le_mono instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt2.v", line 15, characters 16-31:
+Warning: Notation Nat.div_le_mono is deprecated since 8.17.
+Use Div0.div_le_mono instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt2.v", line 121, characters 14-28:
+Warning: Notation Nat.mul_div_le is deprecated since 8.17.
+Use Div0.mul_div_le instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt2.v", line 121, characters 14-28:
+Warning: Notation Nat.mul_div_le is deprecated since 8.17.
+Use Div0.mul_div_le instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt2.v", line 139, characters 14-28:
+Warning: Notation Nat.mul_div_le is deprecated since 8.17.
+Use Div0.mul_div_le instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt2.v", line 139, characters 14-28:
+Warning: Notation Nat.mul_div_le is deprecated since 8.17.
+Use Div0.mul_div_le instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
    ok, 9 s
+== BB21_B21_qnt3.v ==
+File ".\BB21_B21_qnt3.v", line 88, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 88, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 88, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 88, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 88, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 155, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 155, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 155, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 155, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 155, characters 40-50:
+Warning: Notation rev_length is deprecated since 8.20.
+Use length_rev instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 157, characters 61-71:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 157, characters 61-71:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 157, characters 61-71:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 173, characters 59-69:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 173, characters 59-69:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt3.v", line 173, characters 59-69:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+   ok, 8 s
+== BB21_B21_qnt4.v ==
+File ".\BB21_B21_qnt4.v", line 82, characters 69-79:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 82, characters 69-79:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 82, characters 69-79:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 85, characters 14-24:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 85, characters 14-24:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 85, characters 14-24:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 87, characters 113-123:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 87, characters 113-123:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 87, characters 113-123:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 90, characters 60-75:
+Warning: Notation Nat.div_le_mono is deprecated since 8.17.
+Use Div0.div_le_mono instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 90, characters 60-75:
+Warning: Notation Nat.div_le_mono is deprecated since 8.17.
+Use Div0.div_le_mono instead.
+[deprecated-syntactic-definition-since-8.17,deprecated-since-8.17,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 124, characters 64-74:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 124, characters 64-74:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+File ".\BB21_B21_qnt4.v", line 124, characters 64-74:
+Warning: Notation map_length is deprecated since 8.20.
+Use length_map instead.
+[deprecated-syntactic-definition-since-8.20,deprecated-since-8.20,deprecated-syntactic-definition,deprecated,default]
+   ok, 8 s
+== BB21_B21_bound.v ==
+   ok, 8 s
+== BB21_B21_w2.v ==
+   ok, 7 s
+== BB20_J20_w2_cube.v ==
+Closed under the global context
+Closed under the global context
+   ok, 29 s
+== JZ_UB.v ==
+   ok, 6 s
+== B21_vs_J20cube.v ==
+Closed under the global context
+Closed under the global context
+   ok, 8 s
 COMPILE DONE
-probe: 5 of 5 theorems closed under the global context
+probe: 7 of 7 theorems closed under the global context

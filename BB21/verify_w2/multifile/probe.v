@@ -8,7 +8,7 @@
     (2) the main theorems have the stated types; (3) they use no axioms.  It also prints the definitions the
     statements use.  The setup names states L and O, so directions are written TM.L / TM.R. *)
 
-From BB8 Require BB21_B21_w2 BB_FGH_wa BB21_B21_absdef BB21_B21_score BB20_JZ20.
+From BB8 Require BB21_B21_w2 BB_FGH_wa BB21_B21_absdef BB21_B21_score BB20_JZ20 B21_vs_J20cube.
 From BB8 Require Import Individual212.
 From Coq Require Import PeanoNat.
 Local Open Scope sym_scope.
@@ -62,3 +62,8 @@ Print Assumptions BB21_B21_w2.sigma_lower_bound.
 Print Assumptions BB21_B21_w2.sigma_lower_bound_wsq3.
 Print Assumptions BB21_B21_w2.sigma_lower_bound_wsq.
 Print Assumptions BB21_B21_w2.beats_J20.
+
+Check B21_vs_J20cube.B21_beats_J20cube_exact.
+Check B21_vs_J20cube.B21_beats_J20cube_score.
+Print Assumptions B21_vs_J20cube.B21_beats_J20cube_exact.
+Print Assumptions B21_vs_J20cube.B21_beats_J20cube_score.

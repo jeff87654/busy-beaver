@@ -31,8 +31,11 @@ The fast-growing hierarchy below ω³ is defined in `BB_FGH_wa.v` in the standar
 
 `BB_FGH_wa.v` also proves that these agree with the definitions in J20's and R18a's files (`f_wk_JZ`, `f_w2_JZ`,
 `f_wk_R18`, `f_w2_R18`: f_wa 1 k = f_wk k, f_wa 2 0 = f_w2). That is why it loads those two proofs.
-`beats_J20` compares B21 with J20's proved lower bound. Neither machine has a proved upper bound on σ; the real
-comparison (ω² against ω·2) is on paper.
+`beats_J20` compares B21 with J20's proved lower bound. Against J20_cube (the current BB(20) entry) the comparison
+is with its exact score: `B21_vs_J20cube.v` (written by this project, agent claims-prover, 2026-11-13) loads
+J20_cube's proof (`BB20_J20_w2_cube.v`) and the generic upper bounds of `JZ_UB.v`, byte-identical copies of
+[`../../BB20/verify_j20cube/multifile/`](../../BB20/verify_j20cube/multifile/)'s, and proves
+`B21_beats_J20cube_exact` and `B21_beats_J20cube_score` (NJ + 1 < N: σ(B21) > σ(J20_cube) + 1).
 
 **How the bound is proved** (`BB21_B21_qnt*.v`, `BB21_B21_bound.v`; generic in the refill rule). Every block above the
 frontier gets a potential, H-style, at its depth: the depth-j family Mq satisfies f_(ω·j) ≤ Mq_j pointwise (`Mq_fgh`).
@@ -53,8 +56,10 @@ f_(ω²), and the losses at each refill (a factor 4) are absorbed by `fwsq_S` (`
 | `BB21_B21_qnt.v` to `BB21_B21_qnt4.v` | potentials, B0min bookkeeping, quantitative frontier processing (`proc_q`) and phases (`phase_from_work_q`) |
 | `BB21_B21_bound.v` | phases 4 to 6, `sigma_lower_bound_wsq3`, `sigma_lower_bound_wsq`, `beats_J20_bound` |
 | `BB21_B21_w2.v` | the table and the five headline theorems |
+| `BB20_J20_w2_cube.v`, `JZ_UB.v` | J20_cube's proof and the generic upper bounds, **byte-identical** to [`../../BB20/verify_j20cube/multifile/`](../../BB20/verify_j20cube/multifile/)'s |
+| `B21_vs_J20cube.v` | `B21_beats_J20cube_exact`, `B21_beats_J20cube_score` |
 | `probe.v` | the independent probe (below) |
-| `share_check.sh` | checks that the 18 copied files are byte-identical to the published ones |
+| `share_check.sh` | checks that the 20 copied files are byte-identical to the published ones |
 | `compile_clean.sh`, `_CoqProject` | build script (runs `share_check.sh` first when the other trees are present), project file |
 | `compile_clean.log`, `probe.log`, `sha256.txt` | logs of a from-scratch build (about 5 minutes) and of the probe, hashes of the source files |
 
@@ -67,7 +72,7 @@ f_(ω²), and the losses at each refill (a factor 4) are absorbed by `fwsq_S` (`
 and `Flip.vo` built. `probe.v` checks the compiled transition table of `BB21_B21_w2.tm` against the machine string
 entry by entry (42 checks generated from the string, not from the Coq file) and the blank start configuration. It
 prints the definitions the statements use (including `f`, `f_wa`, `f_wsq` and J20's `f_wk`, `f_w2`) and runs
-`Print Assumptions` on the five theorems above: all five are closed under the global context. CI job `bb13-bb14` runs
+`Print Assumptions` on the five theorems above and on the two comparisons with J20_cube: all seven are closed under the global context. CI job `bb13-bb14` runs
 the same script.
 
 The proof was also checked with this project's `check.py` (21 states: the statement `halts tm c0` read from the file,
