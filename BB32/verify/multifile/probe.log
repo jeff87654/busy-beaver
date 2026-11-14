@@ -1,0 +1,294 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = qA
+     : q0 = qA
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB32_tm.tm (qA, 0) = Some (1, R, qC)
+     : BB32_tm.tm (qA, 0) = Some (1, R, qC)
+eq_refl : BB32_tm.tm (qA, 1) = Some (1, L, qT)
+     : BB32_tm.tm (qA, 1) = Some (1, L, qT)
+eq_refl : BB32_tm.tm (qB, 0) = None
+     : BB32_tm.tm (qB, 0) = None
+eq_refl : BB32_tm.tm (qB, 1) = Some (0, L, qZ)
+     : BB32_tm.tm (qB, 1) = Some (0, L, qZ)
+eq_refl : BB32_tm.tm (qC, 0) = Some (0, R, qD)
+     : BB32_tm.tm (qC, 0) = Some (0, R, qD)
+eq_refl : BB32_tm.tm (qC, 1) = Some (1, R, qU)
+     : BB32_tm.tm (qC, 1) = Some (1, R, qU)
+eq_refl : BB32_tm.tm (qD, 0) = Some (0, R, qE)
+     : BB32_tm.tm (qD, 0) = Some (0, R, qE)
+eq_refl : BB32_tm.tm (qD, 1) = Some (0, R, qW)
+     : BB32_tm.tm (qD, 1) = Some (0, R, qW)
+eq_refl : BB32_tm.tm (qE, 0) = Some (0, R, qF)
+     : BB32_tm.tm (qE, 0) = Some (0, R, qF)
+eq_refl : BB32_tm.tm (qE, 1) = Some (0, R, qF)
+     : BB32_tm.tm (qE, 1) = Some (0, R, qF)
+eq_refl : BB32_tm.tm (qF, 0) = Some (0, R, qG)
+     : BB32_tm.tm (qF, 0) = Some (0, R, qG)
+eq_refl : BB32_tm.tm (qF, 1) = Some (1, R, qS)
+     : BB32_tm.tm (qF, 1) = Some (1, R, qS)
+eq_refl : BB32_tm.tm (qG, 0) = Some (0, R, qH)
+     : BB32_tm.tm (qG, 0) = Some (0, R, qH)
+eq_refl : BB32_tm.tm (qG, 1) = Some (1, R, qF)
+     : BB32_tm.tm (qG, 1) = Some (1, R, qF)
+eq_refl : BB32_tm.tm (qH, 0) = Some (0, R, qI)
+     : BB32_tm.tm (qH, 0) = Some (0, R, qI)
+eq_refl : BB32_tm.tm (qH, 1) = Some (1, R, qI)
+     : BB32_tm.tm (qH, 1) = Some (1, R, qI)
+eq_refl : BB32_tm.tm (qI, 0) = Some (0, L, qJ)
+     : BB32_tm.tm (qI, 0) = Some (0, L, qJ)
+eq_refl : BB32_tm.tm (qI, 1) = Some (1, R, qH)
+     : BB32_tm.tm (qI, 1) = Some (1, R, qH)
+eq_refl : BB32_tm.tm (qJ, 0) = Some (1, L, qK)
+     : BB32_tm.tm (qJ, 0) = Some (1, L, qK)
+eq_refl : BB32_tm.tm (qJ, 1) = Some (1, L, qAA)
+     : BB32_tm.tm (qJ, 1) = Some (1, L, qAA)
+eq_refl : BB32_tm.tm (qK, 0) = Some (0, R, qL)
+     : BB32_tm.tm (qK, 0) = Some (0, R, qL)
+eq_refl : BB32_tm.tm (qK, 1) = Some (1, L, qO)
+     : BB32_tm.tm (qK, 1) = Some (1, L, qO)
+eq_refl : BB32_tm.tm (qL, 0) = Some (1, R, qM)
+     : BB32_tm.tm (qL, 0) = Some (1, R, qM)
+eq_refl : BB32_tm.tm (qL, 1) = Some (1, R, qL)
+     : BB32_tm.tm (qL, 1) = Some (1, R, qL)
+eq_refl : BB32_tm.tm (qM, 0) = Some (0, R, qN)
+     : BB32_tm.tm (qM, 0) = Some (0, R, qN)
+eq_refl : BB32_tm.tm (qM, 1) = Some (1, R, qV)
+     : BB32_tm.tm (qM, 1) = Some (1, R, qV)
+eq_refl : BB32_tm.tm (qN, 0) = Some (1, L, qJ)
+     : BB32_tm.tm (qN, 0) = Some (1, L, qJ)
+eq_refl : BB32_tm.tm (qN, 1) = Some (1, R, qM)
+     : BB32_tm.tm (qN, 1) = Some (1, R, qM)
+eq_refl : BB32_tm.tm (qO, 0) = Some (0, L, qP)
+     : BB32_tm.tm (qO, 0) = Some (0, L, qP)
+eq_refl : BB32_tm.tm (qO, 1) = Some (1, L, qP)
+     : BB32_tm.tm (qO, 1) = Some (1, L, qP)
+eq_refl : BB32_tm.tm (qP, 0) = Some (0, L, qQ)
+     : BB32_tm.tm (qP, 0) = Some (0, L, qQ)
+eq_refl : BB32_tm.tm (qP, 1) = Some (1, L, qO)
+     : BB32_tm.tm (qP, 1) = Some (1, L, qO)
+eq_refl : BB32_tm.tm (qQ, 0) = Some (0, L, qR)
+     : BB32_tm.tm (qQ, 0) = Some (0, L, qR)
+eq_refl : BB32_tm.tm (qQ, 1) = Some (1, L, qA)
+     : BB32_tm.tm (qQ, 1) = Some (1, L, qA)
+eq_refl : BB32_tm.tm (qR, 0) = Some (1, R, qD)
+     : BB32_tm.tm (qR, 0) = Some (1, R, qD)
+eq_refl : BB32_tm.tm (qR, 1) = Some (1, L, qQ)
+     : BB32_tm.tm (qR, 1) = Some (1, L, qQ)
+eq_refl : BB32_tm.tm (qS, 0) = Some (0, L, qZ)
+     : BB32_tm.tm (qS, 0) = Some (0, L, qZ)
+eq_refl : BB32_tm.tm (qS, 1) = Some (1, R, qF)
+     : BB32_tm.tm (qS, 1) = Some (1, R, qF)
+eq_refl : BB32_tm.tm (qT, 0) = Some (0, L, qA)
+     : BB32_tm.tm (qT, 0) = Some (0, L, qA)
+eq_refl : BB32_tm.tm (qT, 1) = Some (1, L, qA)
+     : BB32_tm.tm (qT, 1) = Some (1, L, qA)
+eq_refl : BB32_tm.tm (qU, 0) = Some (1, R, qH)
+     : BB32_tm.tm (qU, 0) = Some (1, R, qH)
+eq_refl : BB32_tm.tm (qU, 1) = Some (0, R, qM)
+     : BB32_tm.tm (qU, 1) = Some (0, R, qM)
+eq_refl : BB32_tm.tm (qV, 0) = Some (0, R, qM)
+     : BB32_tm.tm (qV, 0) = Some (0, R, qM)
+eq_refl : BB32_tm.tm (qV, 1) = Some (1, R, qM)
+     : BB32_tm.tm (qV, 1) = Some (1, R, qM)
+eq_refl : BB32_tm.tm (qW, 0) = Some (0, R, qX)
+     : BB32_tm.tm (qW, 0) = Some (0, R, qX)
+eq_refl : BB32_tm.tm (qW, 1) = Some (1, R, qY)
+     : BB32_tm.tm (qW, 1) = Some (1, R, qY)
+eq_refl : BB32_tm.tm (qX, 0) = Some (1, L, qO)
+     : BB32_tm.tm (qX, 0) = Some (1, L, qO)
+eq_refl : BB32_tm.tm (qX, 1) = Some (1, R, qW)
+     : BB32_tm.tm (qX, 1) = Some (1, R, qW)
+eq_refl : BB32_tm.tm (qY, 0) = Some (0, R, qW)
+     : BB32_tm.tm (qY, 0) = Some (0, R, qW)
+eq_refl : BB32_tm.tm (qY, 1) = Some (1, R, qW)
+     : BB32_tm.tm (qY, 1) = Some (1, R, qW)
+eq_refl : BB32_tm.tm (qZ, 0) = Some (1, L, qAA)
+     : BB32_tm.tm (qZ, 0) = Some (1, L, qAA)
+eq_refl : BB32_tm.tm (qZ, 1) = Some (0, L, qB)
+     : BB32_tm.tm (qZ, 1) = Some (0, L, qB)
+eq_refl : BB32_tm.tm (qAA, 0) = Some (0, L, qAE)
+     : BB32_tm.tm (qAA, 0) = Some (0, L, qAE)
+eq_refl : BB32_tm.tm (qAA, 1) = Some (1, L, qAB)
+     : BB32_tm.tm (qAA, 1) = Some (1, L, qAB)
+eq_refl : BB32_tm.tm (qAB, 0) = Some (0, R, qD)
+     : BB32_tm.tm (qAB, 0) = Some (0, R, qD)
+eq_refl : BB32_tm.tm (qAB, 1) = Some (1, L, qAC)
+     : BB32_tm.tm (qAB, 1) = Some (1, L, qAC)
+eq_refl : BB32_tm.tm (qAC, 0) = Some (0, L, qJ)
+     : BB32_tm.tm (qAC, 0) = Some (0, L, qJ)
+eq_refl : BB32_tm.tm (qAC, 1) = Some (1, L, qAD)
+     : BB32_tm.tm (qAC, 1) = Some (1, L, qAD)
+eq_refl : BB32_tm.tm (qAD, 0) = Some (0, L, qAA)
+     : BB32_tm.tm (qAD, 0) = Some (0, L, qAA)
+eq_refl : BB32_tm.tm (qAD, 1) = Some (1, L, qAE)
+     : BB32_tm.tm (qAD, 1) = Some (1, L, qAE)
+eq_refl : BB32_tm.tm (qAE, 0) = Some (0, R, qP)
+     : BB32_tm.tm (qAE, 0) = Some (0, R, qP)
+eq_refl : BB32_tm.tm (qAE, 1) = Some (1, L, qAF)
+     : BB32_tm.tm (qAE, 1) = Some (1, L, qAF)
+eq_refl : BB32_tm.tm (qAF, 0) = Some (0, L, qAC)
+     : BB32_tm.tm (qAF, 0) = Some (0, L, qAC)
+eq_refl : BB32_tm.tm (qAF, 1) = Some (1, L, qJ)
+     : BB32_tm.tm (qAF, 1) = Some (1, L, qJ)
+Ord.fs =
+fix fs (x : Ord.ord) (n : nat) {struct x} : Ord.ord :=
+  match x with
+  | Ord.oz => Ord.oz
+  | Ord.ow a Ord.oz =>
+      match a with
+      | Ord.oz => Ord.oz
+      | Ord.ow _ _ =>
+          match Ord.opred a with
+          | Some a' => Ord.orep a' n Ord.oz
+          | None => Ord.ow (fs a n) Ord.oz
+          end
+      end
+  | Ord.ow a (Ord.ow _ _ as b) => Ord.ow a (fs b n)
+  end
+     : Ord.ord -> nat -> Ord.ord
+
+Arguments Ord.fs x n%nat_scope
+Inductive fgh : Ord.ord -> nat -> nat -> Prop :=
+    fgh_zero : forall n : nat, Ord.fgh Ord.oz n (S n)
+  | fgh_succ : forall (x b : Ord.ord) (n m : nat),
+               Ord.okind x = Ord.KSucc b -> Ord.fghi b n n m -> Ord.fgh x n m
+  | fgh_lim : forall (x : Ord.ord) (n m : nat),
+              Ord.okind x = Ord.KLim ->
+              Ord.fgh (Ord.fs x n) n m -> Ord.fgh x n m
+  with fghi : Ord.ord -> nat -> nat -> nat -> Prop :=
+    fghi_O : forall (b : Ord.ord) (y : nat), Ord.fghi b 0 y y
+  | fghi_S : forall (b : Ord.ord) (k y y1 m : nat),
+             Ord.fgh b y y1 -> Ord.fghi b k y1 m -> Ord.fghi b (S k) y m.
+
+Arguments Ord.fgh _ (_ _)%nat_scope
+Arguments Ord.fgh_zero n%nat_scope
+Arguments Ord.fgh_succ x b (n m)%nat_scope _ _
+Arguments Ord.fgh_lim x (n m)%nat_scope _ _
+Arguments Ord.fghi _ (_ _ _)%nat_scope
+Arguments Ord.fghi_O b y%nat_scope
+Arguments Ord.fghi_S b (k y y1 m)%nat_scope _ _
+Ord.FGH =
+fun (x : Ord.ord) (n : nat) =>
+match Ord.nf_dec x with
+| Specif.left H => proj1_sig (Ord.fgh_total x H n)
+| No => 0
+end
+     : Ord.ord -> nat -> nat
+
+Arguments Ord.FGH x n%nat_scope
+Ord.tower =
+fix tower (k : nat) : Ord.ord :=
+  match k with
+  | 0 => Ord.one
+  | S k' => Ord.opow (tower k')
+  end
+     : nat -> Ord.ord
+
+Arguments Ord.tower k%nat_scope
+Ord.powtower =
+fix powtower (j : nat) (y : Ord.ord) {struct j} : Ord.ord :=
+  match j with
+  | 0 => y
+  | S j' => Ord.opow (powtower j' y)
+  end
+     : nat -> Ord.ord -> Ord.ord
+
+Arguments Ord.powtower j%nat_scope y
+Ord.opow = fun a : Ord.ord => Ord.ow a Ord.oz
+     : Ord.ord -> Ord.ord
+
+Arguments Ord.opow a
+Ord.ofin = fun k : nat => Ord.orep Ord.oz k Ord.oz
+     : nat -> Ord.ord
+
+Arguments Ord.ofin k%nat_scope
+Ord.orep =
+fix orep (a : Ord.ord) (k : nat) (y : Ord.ord) {struct k} : Ord.ord :=
+  match k with
+  | 0 => y
+  | S k' => Ord.ow a (orep a k' y)
+  end
+     : Ord.ord -> nat -> Ord.ord -> Ord.ord
+
+Arguments Ord.orep a k%nat_scope y
+Ord.one = Ord.ow Ord.oz Ord.oz
+     : Ord.ord
+Hardy.HH =
+fun (x : Ord.ord) (n : nat) =>
+match Ord.nf_dec x with
+| Specif.left H => proj1_sig (Hardy.hardy_total x H n)
+| No => 0
+end
+     : Ord.ord -> nat -> nat
+
+Arguments Hardy.HH x n%nat_scope
+BB32_halt.hs0 = HydraOrd.plug BB32_halt.sp0 []
+     : list HydraOrd.tree
+BB32_game.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = BB32_game.count1 L + BB32_game.sym_val s + BB32_game.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB32_game.ones c N%nat_scope
+BB32_game.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB32_game.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB32_game.count1 xs%list_scope
+BB32_game.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB32_game.sym_val s%sym_scope
+BB32_bound.a32 =
+Ord.powtower 2 (Ord.orep (Ord.ofin 8) 3 Ord.oz)
+     : Ord.ord
+BB32_halt.halt
+     : halts BB32_tm.tm c0
+BB32_halt.hardy_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB32_tm.tm ]->* c /\
+         halted BB32_tm.tm c /\
+         BB32_game.ones c N /\
+         Hardy.HH (HydraOrd.olist BB32_halt.hs0) 4 <= N + 2
+BB32_halt.x0_eq
+     : HydraOrd.olist BB32_halt.hs0 =
+       Ord.powtower 3 (Ord.orep (Ord.ofin 8) 3 Ord.oz)
+BB32_bound.hardy_score
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB32_tm.tm ]->* c /\
+         halted BB32_tm.tm c /\
+         BB32_game.ones c N /\ Ord.FGH BB32_bound.a32 4 <= N + 2
+BB32_bound.sigma_lower_bound_w4_8
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB32_tm.tm ]->* c /\
+         halted BB32_tm.tm c /\
+         BB32_game.ones c N /\ Ord.FGH (Ord.tower 4) 8 < N
+BB32_bound.sigma_lower_bound_w4
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB32_tm.tm ]->* c /\
+         halted BB32_tm.tm c /\
+         BB32_game.ones c N /\ Ord.FGH (Ord.tower 4) 4 < N
+BB32_bound.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB32_tm.tm ]->* c /\
+         halted BB32_tm.tm c /\
+         BB32_game.ones c N /\ Ord.FGH (Ord.tower 4) 3 < N
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

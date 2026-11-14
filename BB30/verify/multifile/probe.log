@@ -1,0 +1,276 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = qA
+     : q0 = qA
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB30_tm.tm (qA, 0) = Some (1, R, qC)
+     : BB30_tm.tm (qA, 0) = Some (1, R, qC)
+eq_refl : BB30_tm.tm (qA, 1) = Some (1, L, qAA)
+     : BB30_tm.tm (qA, 1) = Some (1, L, qAA)
+eq_refl : BB30_tm.tm (qB, 0) = None
+     : BB30_tm.tm (qB, 0) = None
+eq_refl : BB30_tm.tm (qB, 1) = Some (0, L, qY)
+     : BB30_tm.tm (qB, 1) = Some (0, L, qY)
+eq_refl : BB30_tm.tm (qC, 0) = Some (0, R, qD)
+     : BB30_tm.tm (qC, 0) = Some (0, R, qD)
+eq_refl : BB30_tm.tm (qC, 1) = Some (1, R, qW)
+     : BB30_tm.tm (qC, 1) = Some (1, R, qW)
+eq_refl : BB30_tm.tm (qD, 0) = Some (0, R, qE)
+     : BB30_tm.tm (qD, 0) = Some (0, R, qE)
+eq_refl : BB30_tm.tm (qD, 1) = Some (0, R, qN)
+     : BB30_tm.tm (qD, 1) = Some (0, R, qN)
+eq_refl : BB30_tm.tm (qE, 0) = Some (0, R, qF)
+     : BB30_tm.tm (qE, 0) = Some (0, R, qF)
+eq_refl : BB30_tm.tm (qE, 1) = Some (0, R, qF)
+     : BB30_tm.tm (qE, 1) = Some (0, R, qF)
+eq_refl : BB30_tm.tm (qF, 0) = Some (0, R, qG)
+     : BB30_tm.tm (qF, 0) = Some (0, R, qG)
+eq_refl : BB30_tm.tm (qF, 1) = Some (1, R, qX)
+     : BB30_tm.tm (qF, 1) = Some (1, R, qX)
+eq_refl : BB30_tm.tm (qG, 0) = Some (0, R, qH)
+     : BB30_tm.tm (qG, 0) = Some (0, R, qH)
+eq_refl : BB30_tm.tm (qG, 1) = Some (1, R, qF)
+     : BB30_tm.tm (qG, 1) = Some (1, R, qF)
+eq_refl : BB30_tm.tm (qH, 0) = Some (0, R, qI)
+     : BB30_tm.tm (qH, 0) = Some (0, R, qI)
+eq_refl : BB30_tm.tm (qH, 1) = Some (1, R, qI)
+     : BB30_tm.tm (qH, 1) = Some (1, R, qI)
+eq_refl : BB30_tm.tm (qI, 0) = Some (0, L, qJ)
+     : BB30_tm.tm (qI, 0) = Some (0, L, qJ)
+eq_refl : BB30_tm.tm (qI, 1) = Some (1, R, qH)
+     : BB30_tm.tm (qI, 1) = Some (1, R, qH)
+eq_refl : BB30_tm.tm (qJ, 0) = Some (1, L, qK)
+     : BB30_tm.tm (qJ, 0) = Some (1, L, qK)
+eq_refl : BB30_tm.tm (qJ, 1) = Some (1, L, qU)
+     : BB30_tm.tm (qJ, 1) = Some (1, L, qU)
+eq_refl : BB30_tm.tm (qK, 0) = Some (0, L, qL)
+     : BB30_tm.tm (qK, 0) = Some (0, L, qL)
+eq_refl : BB30_tm.tm (qK, 1) = Some (1, L, qP)
+     : BB30_tm.tm (qK, 1) = Some (1, L, qP)
+eq_refl : BB30_tm.tm (qL, 0) = Some (1, L, qM)
+     : BB30_tm.tm (qL, 0) = Some (1, L, qM)
+eq_refl : BB30_tm.tm (qL, 1) = Some (0, R, qD)
+     : BB30_tm.tm (qL, 1) = Some (0, R, qD)
+eq_refl : BB30_tm.tm (qM, 0) = Some (0, R, qD)
+     : BB30_tm.tm (qM, 0) = Some (0, R, qD)
+eq_refl : BB30_tm.tm (qM, 1) = Some (1, L, qT)
+     : BB30_tm.tm (qM, 1) = Some (1, L, qT)
+eq_refl : BB30_tm.tm (qN, 0) = Some (0, R, qO)
+     : BB30_tm.tm (qN, 0) = Some (0, R, qO)
+eq_refl : BB30_tm.tm (qN, 1) = Some (1, R, qV)
+     : BB30_tm.tm (qN, 1) = Some (1, R, qV)
+eq_refl : BB30_tm.tm (qO, 0) = Some (1, L, qP)
+     : BB30_tm.tm (qO, 0) = Some (1, L, qP)
+eq_refl : BB30_tm.tm (qO, 1) = Some (1, R, qN)
+     : BB30_tm.tm (qO, 1) = Some (1, R, qN)
+eq_refl : BB30_tm.tm (qP, 0) = Some (0, L, qQ)
+     : BB30_tm.tm (qP, 0) = Some (0, L, qQ)
+eq_refl : BB30_tm.tm (qP, 1) = Some (1, L, qQ)
+     : BB30_tm.tm (qP, 1) = Some (1, L, qQ)
+eq_refl : BB30_tm.tm (qQ, 0) = Some (0, L, qR)
+     : BB30_tm.tm (qQ, 0) = Some (0, L, qR)
+eq_refl : BB30_tm.tm (qQ, 1) = Some (1, L, qP)
+     : BB30_tm.tm (qQ, 1) = Some (1, L, qP)
+eq_refl : BB30_tm.tm (qR, 0) = Some (0, L, qS)
+     : BB30_tm.tm (qR, 0) = Some (0, L, qS)
+eq_refl : BB30_tm.tm (qR, 1) = Some (1, L, qA)
+     : BB30_tm.tm (qR, 1) = Some (1, L, qA)
+eq_refl : BB30_tm.tm (qS, 0) = Some (1, R, qD)
+     : BB30_tm.tm (qS, 0) = Some (1, R, qD)
+eq_refl : BB30_tm.tm (qS, 1) = Some (1, L, qR)
+     : BB30_tm.tm (qS, 1) = Some (1, L, qR)
+eq_refl : BB30_tm.tm (qT, 0) = Some (0, R, qQ)
+     : BB30_tm.tm (qT, 0) = Some (0, R, qQ)
+eq_refl : BB30_tm.tm (qT, 1) = Some (1, L, qZ)
+     : BB30_tm.tm (qT, 1) = Some (1, L, qZ)
+eq_refl : BB30_tm.tm (qU, 0) = Some (0, L, qT)
+     : BB30_tm.tm (qU, 0) = Some (0, L, qT)
+eq_refl : BB30_tm.tm (qU, 1) = Some (1, L, qM)
+     : BB30_tm.tm (qU, 1) = Some (1, L, qM)
+eq_refl : BB30_tm.tm (qV, 0) = Some (0, R, qN)
+     : BB30_tm.tm (qV, 0) = Some (0, R, qN)
+eq_refl : BB30_tm.tm (qV, 1) = Some (1, R, qN)
+     : BB30_tm.tm (qV, 1) = Some (1, R, qN)
+eq_refl : BB30_tm.tm (qW, 0) = Some (1, R, qH)
+     : BB30_tm.tm (qW, 0) = Some (1, R, qH)
+eq_refl : BB30_tm.tm (qW, 1) = Some (0, R, qAB)
+     : BB30_tm.tm (qW, 1) = Some (0, R, qAB)
+eq_refl : BB30_tm.tm (qX, 0) = Some (0, L, qY)
+     : BB30_tm.tm (qX, 0) = Some (0, L, qY)
+eq_refl : BB30_tm.tm (qX, 1) = Some (1, R, qF)
+     : BB30_tm.tm (qX, 1) = Some (1, R, qF)
+eq_refl : BB30_tm.tm (qY, 0) = Some (1, L, qU)
+     : BB30_tm.tm (qY, 0) = Some (1, L, qU)
+eq_refl : BB30_tm.tm (qY, 1) = Some (0, L, qB)
+     : BB30_tm.tm (qY, 1) = Some (0, L, qB)
+eq_refl : BB30_tm.tm (qZ, 0) = Some (0, L, qU)
+     : BB30_tm.tm (qZ, 0) = Some (0, L, qU)
+eq_refl : BB30_tm.tm (qZ, 1) = Some (1, L, qJ)
+     : BB30_tm.tm (qZ, 1) = Some (1, L, qJ)
+eq_refl : BB30_tm.tm (qAA, 0) = Some (0, L, qA)
+     : BB30_tm.tm (qAA, 0) = Some (0, L, qA)
+eq_refl : BB30_tm.tm (qAA, 1) = Some (1, L, qA)
+     : BB30_tm.tm (qAA, 1) = Some (1, L, qA)
+eq_refl : BB30_tm.tm (qAB, 0) = Some (0, R, qAD)
+     : BB30_tm.tm (qAB, 0) = Some (0, R, qAD)
+eq_refl : BB30_tm.tm (qAB, 1) = Some (1, R, qAC)
+     : BB30_tm.tm (qAB, 1) = Some (1, R, qAC)
+eq_refl : BB30_tm.tm (qAC, 0) = Some (0, R, qAB)
+     : BB30_tm.tm (qAC, 0) = Some (0, R, qAB)
+eq_refl : BB30_tm.tm (qAC, 1) = Some (1, R, qAB)
+     : BB30_tm.tm (qAC, 1) = Some (1, R, qAB)
+eq_refl : BB30_tm.tm (qAD, 0) = Some (1, L, qJ)
+     : BB30_tm.tm (qAD, 0) = Some (1, L, qJ)
+eq_refl : BB30_tm.tm (qAD, 1) = Some (1, R, qAB)
+     : BB30_tm.tm (qAD, 1) = Some (1, R, qAB)
+Ord.fs =
+fix fs (x : Ord.ord) (n : nat) {struct x} : Ord.ord :=
+  match x with
+  | Ord.oz => Ord.oz
+  | Ord.ow a Ord.oz =>
+      match a with
+      | Ord.oz => Ord.oz
+      | Ord.ow _ _ =>
+          match Ord.opred a with
+          | Some a' => Ord.orep a' n Ord.oz
+          | None => Ord.ow (fs a n) Ord.oz
+          end
+      end
+  | Ord.ow a (Ord.ow _ _ as b) => Ord.ow a (fs b n)
+  end
+     : Ord.ord -> nat -> Ord.ord
+
+Arguments Ord.fs x n%nat_scope
+Inductive fgh : Ord.ord -> nat -> nat -> Prop :=
+    fgh_zero : forall n : nat, Ord.fgh Ord.oz n (S n)
+  | fgh_succ : forall (x b : Ord.ord) (n m : nat),
+               Ord.okind x = Ord.KSucc b -> Ord.fghi b n n m -> Ord.fgh x n m
+  | fgh_lim : forall (x : Ord.ord) (n m : nat),
+              Ord.okind x = Ord.KLim ->
+              Ord.fgh (Ord.fs x n) n m -> Ord.fgh x n m
+  with fghi : Ord.ord -> nat -> nat -> nat -> Prop :=
+    fghi_O : forall (b : Ord.ord) (y : nat), Ord.fghi b 0 y y
+  | fghi_S : forall (b : Ord.ord) (k y y1 m : nat),
+             Ord.fgh b y y1 -> Ord.fghi b k y1 m -> Ord.fghi b (S k) y m.
+
+Arguments Ord.fgh _ (_ _)%nat_scope
+Arguments Ord.fgh_zero n%nat_scope
+Arguments Ord.fgh_succ x b (n m)%nat_scope _ _
+Arguments Ord.fgh_lim x (n m)%nat_scope _ _
+Arguments Ord.fghi _ (_ _ _)%nat_scope
+Arguments Ord.fghi_O b y%nat_scope
+Arguments Ord.fghi_S b (k y y1 m)%nat_scope _ _
+Ord.FGH =
+fun (x : Ord.ord) (n : nat) =>
+match Ord.nf_dec x with
+| Specif.left H => proj1_sig (Ord.fgh_total x H n)
+| No => 0
+end
+     : Ord.ord -> nat -> nat
+
+Arguments Ord.FGH x n%nat_scope
+Ord.tower =
+fix tower (k : nat) : Ord.ord :=
+  match k with
+  | 0 => Ord.one
+  | S k' => Ord.opow (tower k')
+  end
+     : nat -> Ord.ord
+
+Arguments Ord.tower k%nat_scope
+Ord.powtower =
+fix powtower (j : nat) (y : Ord.ord) {struct j} : Ord.ord :=
+  match j with
+  | 0 => y
+  | S j' => Ord.opow (powtower j' y)
+  end
+     : nat -> Ord.ord -> Ord.ord
+
+Arguments Ord.powtower j%nat_scope y
+Ord.opow = fun a : Ord.ord => Ord.ow a Ord.oz
+     : Ord.ord -> Ord.ord
+
+Arguments Ord.opow a
+Ord.ofin = fun k : nat => Ord.orep Ord.oz k Ord.oz
+     : nat -> Ord.ord
+
+Arguments Ord.ofin k%nat_scope
+Ord.orep =
+fix orep (a : Ord.ord) (k : nat) (y : Ord.ord) {struct k} : Ord.ord :=
+  match k with
+  | 0 => y
+  | S k' => Ord.ow a (orep a k' y)
+  end
+     : Ord.ord -> nat -> Ord.ord -> Ord.ord
+
+Arguments Ord.orep a k%nat_scope y
+Ord.one = Ord.ow Ord.oz Ord.oz
+     : Ord.ord
+Hardy.HH =
+fun (x : Ord.ord) (n : nat) =>
+match Ord.nf_dec x with
+| Specif.left H => proj1_sig (Hardy.hardy_total x H n)
+| No => 0
+end
+     : Ord.ord -> nat -> nat
+
+Arguments Hardy.HH x n%nat_scope
+BB30_halt.hs0 = HydraOrd.plug BB30_halt.sp0 []
+     : list HydraOrd.tree
+BB30_game.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = BB30_game.count1 L + BB30_game.sym_val s + BB30_game.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB30_game.ones c N%nat_scope
+BB30_game.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB30_game.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB30_game.count1 xs%list_scope
+BB30_game.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB30_game.sym_val s%sym_scope
+BB30_halt.halt
+     : halts BB30_tm.tm c0
+BB30_halt.hardy_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB30_tm.tm ]->* c /\
+         halted BB30_tm.tm c /\
+         BB30_game.ones c N /\
+         Hardy.HH (HydraOrd.olist BB30_halt.hs0) 10 <= N + 2
+BB30_halt.x0_eq
+     : HydraOrd.olist BB30_halt.hs0 = Ord.powtower 2 (Ord.ofin 9)
+BB30_bound.hardy_score
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB30_tm.tm ]->* c /\
+         halted BB30_tm.tm c /\
+         BB30_game.ones c N /\ Ord.FGH (Ord.opow (Ord.ofin 9)) 10 <= N + 2
+BB30_bound.sigma_lower_bound_w2_9
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB30_tm.tm ]->* c /\
+         halted BB30_tm.tm c /\
+         BB30_game.ones c N /\ Ord.FGH (Ord.tower 2) 9 < N
+BB30_bound.sigma_lower_bound
+     : exists (c : Q * tape) (N : nat),
+         c0 -[ BB30_tm.tm ]->* c /\
+         halted BB30_tm.tm c /\
+         BB30_game.ones c N /\ Ord.FGH (Ord.tower 2) 3 < N
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
