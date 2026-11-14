@@ -75,7 +75,7 @@ jobs:
               - '{BB8/**,BB9/verify_c04/**,BB9/verify_fw2/multifile/**}'
               - '!**/*.md'
             bb13-bb14:                    # also builds BB11/verify* (M11b, C4), BB12/verify_m12 (M12), BB15/verify, BB16/verify*, BB17/verify*, BB18/verify*, BB19/verify*, BB20/verify*, BB21/verify*, BB25/verify* and BB29/30/31/32/33/verify, BB34_2/verify
-              - '{BB11/verify*/**,BB12/verify_m12/**,BB13/**,BB14/**,BB15/verify/**,BB16/verify*/**,BB17/verify*/**,BB18/verify*/**,BB19/verify*/**,BB20/verify*/**,BB21/verify*/**,BB25/verify*/**,BB29/verify/**,BB30/verify/**,BB31/verify/**,BB32/verify/**,BB33/verify/**,BB34_2/verify/**}'
+              - '{BB11/verify*/**,BB12/verify_m12/**,BB13/**,BB14/**,BB15/verify/**,BB16/verify*/**,BB17/verify*/**,BB18/verify*/**,BB19/verify*/**,BB20/verify*/**,BB21/verify*/**,BB25/verify*/**,BB29/verify/**,BB30/verify/**,BB31/verify/**,BB32/verify*/**,BB33/verify/**,BB34_2/verify*/**}'
               - '!**/*.md'
             bb9-fw2:
               - 'BB9/verify_fw2/**'
@@ -104,8 +104,8 @@ jobs:
             bb54:
               - 'BB54/**'
               - '!**/*.md'
-            bb53:
-              - 'BB53/**'
+            bb53:                         # BB53/verify_cmp also loads BB43/verify and a copy of BB31/verify/multifile/Ord.v
+              - '{BB53/**,BB43/verify/**,BB31/verify/multifile/Ord.v}'
               - '!**/*.md'
             bb7:
               - 'BB7/**'
@@ -328,7 +328,8 @@ jobs:
     # checked by its share_check.sh; about 3 minutes; BB25/verify_w2: its omega^2 bound, with copies of
     # verify/ and BB21/verify_w2, about 5 minutes), and BB29/31/33/verify (mxdys's hydra machines, below epsilon_0) and
     # BB30/32/verify, BB34_2/verify (Argon's 30-, 32- and 34-state hydra machines; BB34_2 because BB34/ is BB(3,4)) (about
-    # a minute each). The job id is historical.
+    # a minute each), and BB32/verify_vs31, BB34_2/verify_vs33 (upper bounds for hydra31's and hydra33's scores and the
+    # comparisons with hydra32 and hydra34, on byte-identical copies of both machines' files). The job id is historical.
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
@@ -346,7 +347,8 @@ jobs:
               'BB20/verify/multifile', 'BB20/verify_j20cube/multifile', 'BB21/verify/multifile', 'BB21/verify_w2/multifile',
               'BB25/verify/multifile', 'BB25/verify_w2/multifile',
               'BB29/verify/multifile', 'BB30/verify/multifile', 'BB31/verify/multifile', 'BB32/verify/multifile',
-              'BB33/verify/multifile', 'BB34_2/verify/multifile']
+              'BB33/verify/multifile', 'BB34_2/verify/multifile', 'BB32/verify_vs31/multifile',
+              'BB34_2/verify_vs33/multifile']
     container:
       image: coqorg/coq:8.20.1
       options: --user root
@@ -822,8 +824,8 @@ jobs:
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
           expected=$(grep -c '^Print Assumptions' probe.v)
           closed=$(grep -c 'Closed under the global context' probe.log || true)
-          if grep -q 'Axioms:' probe.log || [ "$expected" -ne 11 ] || [ "$closed" -ne "$expected" ]; then
-            echo "::error::probe.v did not report 11 axiom-free theorems"
+          if grep -q 'Axioms:' probe.log || [ "$expected" -ne 15 ] || [ "$closed" -ne "$expected" ]; then
+            echo "::error::probe.v did not report 15 axiom-free theorems"
             exit 1
           fi
 
@@ -833,7 +835,8 @@ jobs:
     # BB54/verify: Jacobzheng's machine 1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ (5 states, 4 symbols,
     # the previous entry): halting (bb54_halts) and the exact score sigma = 2 M1 + 2 M0 + X + 5; the wiki's bound is not proved
     # here (about two minutes); BB54/verify_54l: Argon's 54-L 1RB3LC1LD2RA_2RC1RZ2LB2LB_1LD3RC1LE2RA_3RC0LB1LD3LD_3RC1LC3LE2RE,
-    # halting and f_omega1(2^16) < sigma, f_omega = Knuth-arrow function (about a minute).
+    # halting and f_omega1(2^16) < sigma, f_omega = Knuth-arrow function, and (BB54_J_upper.v, loading BB54/verify's compiled
+    # files, so it runs second) an upper bound for the previous entry's sigma below 54-L's (about a minute).
     runs-on: ubuntu-latest
     timeout-minutes: 60
     container:
@@ -873,14 +876,14 @@ jobs:
             exit 1
           fi
 
-      - name: Compile BB54/verify_54l (54-L) and run the probe
+      - name: Compile BB54/verify_54l (54-L and the comparison) and run the probe
         working-directory: BB54/verify_54l
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
           expected=$(grep -c '^Print Assumptions' probe.v)
           closed=$(grep -c 'Closed under the global context' probe.log || true)
-          if grep -q 'Axioms:' probe.log || [ "$expected" -ne 8 ] || [ "$closed" -ne "$expected" ]; then
-            echo "::error::probe.v did not report 8 axiom-free theorems"
+          if grep -q 'Axioms:' probe.log || [ "$expected" -ne 11 ] || [ "$closed" -ne "$expected" ]; then
+            echo "::error::probe.v did not report 11 axiom-free theorems"
             exit 1
           fi
 
@@ -888,7 +891,8 @@ jobs:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb53 == 'true'
     # BB53/: Argon's 53-Main 1RB1LC1RA_1LA2LC1RB_1LB1LD2LC_2RE2LD1RA_1RZ2RE1RB (5 states, 3 symbols): halting and
-    # f_omega(f_omega 7) < sigma with f_omega n = 2^(n arrows) n (about a minute).
+    # f_omega(f_omega 7) < sigma with f_omega n = 2^(n arrows) n (about a minute); BB53/verify_cmp: above the BB(4,3) entry's
+    # exact sigma + 1 (loads BB43/verify) and the bound in the standard fast-growing hierarchy (loads a copy of Ord.v).
     runs-on: ubuntu-latest
     timeout-minutes: 60
     container:
@@ -926,6 +930,17 @@ jobs:
           closed=$(grep -c 'Closed under the global context' probe.log || true)
           if grep -q 'Axioms:' probe.log || [ "$expected" -ne 8 ] || [ "$closed" -ne "$expected" ]; then
             echo "::error::probe.v did not report 8 axiom-free theorems"
+            exit 1
+          fi
+
+      - name: Compile BB53/verify_cmp (53-Main's comparisons) and run the probe
+        working-directory: BB53/verify_cmp
+        run: |
+          BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
+          expected=$(grep -c '^Print Assumptions' probe.v)
+          closed=$(grep -c 'Closed under the global context' probe.log || true)
+          if grep -q 'Axioms:' probe.log || [ "$expected" -ne 5 ] || [ "$closed" -ne "$expected" ]; then
+            echo "::error::probe.v did not report 5 axiom-free theorems"
             exit 1
           fi
 

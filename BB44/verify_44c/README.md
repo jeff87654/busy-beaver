@@ -24,6 +24,11 @@ root `TM44`) and proves
   above);
 - `beats_loader3229_score : length TM44.BB44_run.final_cells < length Local.BB44_run.final_cells`.
 
+`BB44_sigma_cfg.v` (written here) reads the score off the halting configuration: with `nonzero_cells c N` ("the
+tape of c is a finite word padded with blanks, with N nonzero cells"), `c_final_nonzero : nonzero_cells c_final sigma`,
+`nonzero_cells_unique`, `c_final_head` (the head reads a 2 and `tm (A, 2) = None`) and
+`sigma_is_score : exists c, c0 -->* c /\ halted tm c /\ nonzero_cells c sigma /\ (forall N, nonzero_cells c N -> N = sigma)`.
+
 ## Files
 
 | file | content |
@@ -33,6 +38,7 @@ root `TM44`) and proves
 | `BB44_run.v` | sealed constants, `reaches_final`, `final_halted`, `bb44_halts`, the final tape and its count |
 | `BB44_bound.v` | Knuth arrows, the closed forms, `sigma_exact_closed_form`, `sigma_beats_official_bb44`, `bb44_new_champion_main` |
 | `BB44C_vs_loader3229.v` | the comparison with the previous entry (above) |
+| `BB44_sigma_cfg.v` | σ read off the halting configuration (above) |
 | `probe.v` | the independent probe (below) |
 | `compile_clean.sh`, `_CoqProject` | build script, project file |
 | `compile_clean.log`, `probe.log`, `sha256.txt` | logs of a from-scratch build, hashes of the source files |
@@ -44,5 +50,5 @@ root `TM44`) and proves
 It compiles the five proof files, then (building `../verify` first if its `.vo` files are missing) the comparison,
 then the probe. `probe.v` checks the compiled transition table against the machine string entry by entry (16 lines
 generated from the string, not from the Coq file), prints the definitions the statements use, and runs
-`Print Assumptions` on 11 theorems: all are closed under the global context. CI job `bb44` builds `../verify` and
+`Print Assumptions` on 15 theorems: all are closed under the global context. CI job `bb44` builds `../verify` and
 then this directory.

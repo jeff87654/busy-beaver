@@ -4,4 +4,5 @@ BB44.v
 Individual44.v
 BB44_rules.v
 BB44_run.v
+BB44_sigma_cfg.v
 BB44_bound.v

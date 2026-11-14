@@ -15,7 +15,7 @@ Machine-checked, with the standard fast-growing hierarchy and no axioms:
 
     f_{ω^ω^(ω^8·3)}(4) ≤ N + 2,  hence  f_{ω↑↑4}(8) < N        (hardy_score, sigma_lower_bound_w4_8)
 
-No upper bound is proved.
+No upper bound for hydra32 is proved. hydra32 is above the exact score of hydra31 (BB(31)) in Coq: [`verify_vs31/`](verify_vs31/) proves an upper bound for hydra31's score and `BB32_beats_BB31` (N ≥ N(hydra31) + 6).
 
 - [`hydra32.md`](hydra32.md): the write-up (the machine, the run, the proof, verification, credit).
 - [`verify/`](verify/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1), built in CI (job `bb13-bb14`).

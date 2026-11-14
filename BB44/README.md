@@ -23,7 +23,8 @@ the 3-stack of one descent, 2·g_3(0) + 1 = 65533 cells, becomes the arrow level
 - [`verify_44c/`](verify_44c/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `bb44_halts`, `reaches_final`,
   `final_halted`, `final_cells_count`, `final_cells_all_nonblank`, `sigma_exact_closed_form`,
   `sigma_beats_official_bb44`, `bb44_new_champion_main`, and the comparison `knuth_same`, `beats_loader3229_exact`,
-  `beats_loader3229_score`. Built and probed in CI (job `bb44`, after `verify/`), which requires 11 closed
+  `beats_loader3229_score`, and `sigma_is_score` (σ read off the halting configuration). Built and probed in CI
+  (job `bb44`, after `verify/`), which requires 15 closed
   `Print Assumptions` reports.
 
 Found and proved by **Argon** (a Google Gemini model run by the repository owner), 2026-11-09. Re-checked, compared

@@ -58,7 +58,7 @@ constructor q + its spreadsheet-column name.
 | Level | Machine-checked, with the standard fast-growing hierarchy of `Ord.v`: f_{ω^ω^ω^ω^ω^4}(5) ≤ N + 2 (`hardy_score`), hence f_{ω↑↑6}(4) < N (`sigma_lower_bound_w6_4`). N is the number of ones at the halt; the halt is B reading 0 (B0 = `---`), so σ = N, or N + 1 if the halting transition is taken to write a 1. |
 | Exact score | Not computed (no closed form). |
 | Steps | Not computed. |
-| Compared with BB(33) | On paper (an argument, not a Coq lemma) above hydra33 (the BB(33) entry), so above BB(33) + 1. In Coq only above hydra33's proved lower bound. |
+| Compared with BB(33) | Machine-checked: above the exact score of hydra33 (the BB(33) entry) by at least 3, against an upper bound proved on hydra33's published files (`BB33_upper.upper_bound`, `BB34_beats_BB33`), so above BB(33) + 1. |
 
 ## How it works
 
@@ -87,9 +87,15 @@ m + 1 ones. From C(2) this gives N + 2 ≥ H_{ω^ω^ω^ω^ω^ω^4}(5) (`hardy_bo
 
 ## Comparison with BB(33)
 
-hydra33 is the BB(33) entry; its proved bound is f_{ω^ω^ω^ω^ω^3}(4) ≤ N + 2, so f_{ω↑↑6}(3) < N; no upper bound for it is proved. In Coq, hydra34's bound f_{ω↑↑6}(4) < N is above that proved lower
-bound. That hydra34 is above hydra33 itself, and so above BB(33) + 1, is an argument on paper: the initial hydras are ω^ω^ω^ω^ω^ω^4 at Hardy argument 5 (hydra34) and ω^ω^ω^ω^ω^ω^3 at argument 4 (hydra33): the top exponent is 4 instead of 3 and the argument one larger. This is the smallest margin of the three new entries; it holds if hydra33's N lies within the usual slack of H_x0(4) (each round lands in [α[m+3], α)).
-A Coq lemma that would close it: an upper bound for hydra33's N (none is proved), for example N(hydra33) + 2 < f_{ω^ω^ω^ω^ω^4}(5).
+hydra33 is the BB(33) entry. Its published proof gives the lower bound f_{ω^ω^ω^ω^ω^3}(4) ≤ N + 2. An **upper** bound for its
+score is proved in [`verify_vs33/`](verify_vs33/) (`BB33_upper.upper_bound`): for every halting configuration
+reachable from the blank tape, N + 2 ≤ f_{ω^ω^ω^ω^ω^3}(6) (Coq: `FGH (powtower 5 (ofin 3)) 6`). The proof (`HydraUpper.v`) shows that on the
+hydras these machines visit, a chop moves the hydra ordinal x exactly to x[n] or x[n+1] (`chop_exact`), and that
+H_x(n+2) never increases along a round. With f_{ω^ω^ω^ω^ω^3}(6) + 3 ≤ f_{ω^ω^ω^ω^ω^4}(5) (`cmp_33_34`), `BB34_beats_BB33` proves that hydra34 halts with N
+ones where N ≥ N(hydra33) + 3 for any number N(hydra33) of ones with which hydra33 halts. Both machines halt on
+B0 = `---`, so the convention for σ is the same, and hydra34 is above BB(33) + 1 in Coq. The machine files in
+`verify_vs33/multifile` are byte-identical copies of `verify/multifile` and of the published hydra33 files
+(`share_check.sh`).
 
 ## Verification
 

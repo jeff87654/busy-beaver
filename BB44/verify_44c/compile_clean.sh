@@ -14,6 +14,10 @@ for f in BB44 Individual44 BB44_rules BB44_run BB44_bound; do
   "$COQC" -Q "$BUSYCOQ" BusyCoq -Q . Local "$f.v"
   echo "   ok, $(( $(date +%s) - start )) s"
 done
+echo "== BB44_sigma_cfg.v =="
+start=$(date +%s)
+"$COQC" -Q "$BUSYCOQ" BusyCoq -Q . Local BB44_sigma_cfg.v
+echo "   ok, $(( $(date +%s) - start )) s"
 # the comparison with the previous entry (loader3229's machine) needs ../verify compiled (logical path TM44)
 if [ ! -f ../verify/BB44_score.vo ]; then (cd ../verify && bash ./compile_clean.sh); fi
 echo "== BB44C_vs_loader3229.v =="
@@ -22,4 +26,4 @@ start=$(date +%s)
 echo "   ok, $(( $(date +%s) - start )) s"
 echo "COMPILE DONE"
 "$COQC" -Q "$BUSYCOQ" BusyCoq -Q ../verify TM44 -Q . Local probe.v > probe.log
-echo "probe: $(grep -c 'Closed under the global context' probe.log) of 11 theorems closed under the global context"
+echo "probe: $(grep -c 'Closed under the global context' probe.log) of 15 theorems closed under the global context"

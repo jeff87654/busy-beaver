@@ -122,3 +122,29 @@ Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
+BB44_sigma_cfg.nonzero_cells =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list sym) (s : sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = BB44_sigma_cfg.cnt L + BB44_sigma_cfg.nzv s + BB44_sigma_cfg.cnt R
+     : Q * tape -> nat -> Prop
+
+Arguments BB44_sigma_cfg.nonzero_cells c N%nat_scope
+BB44_sigma_cfg.c_final_nonzero
+     : BB44_sigma_cfg.nonzero_cells c_final sigma
+BB44_sigma_cfg.nonzero_cells_unique
+     : forall (c : Q * tape) (N N' : nat),
+       BB44_sigma_cfg.nonzero_cells c N ->
+       BB44_sigma_cfg.nonzero_cells c N' -> N = N'
+BB44_sigma_cfg.c_final_head
+     : exists l r : side, c_final = (A, (l, 2, r)) /\ tm (A, 2) = None
+BB44_sigma_cfg.sigma_is_score
+     : exists c : Q * tape,
+         c0 -->* c /\
+         halted tm c /\
+         BB44_sigma_cfg.nonzero_cells c sigma /\
+         (forall N : nat, BB44_sigma_cfg.nonzero_cells c N -> N = sigma)
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

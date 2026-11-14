@@ -16,9 +16,11 @@ the halt, `None` in Coq) it proves:
   `f_omega2 n = f_omega (f_omega n)` and `f_omega1 n = Nat.iter n f_omega n`;
 - `BB54_bound.bb54_new_champion_main`: all of the above in one statement.
 
-The name `sigma_beats_official_bb54` is Argon's: the theorem is the inequality above. That f_ω²(2 ↑^4 2 ↑^3 4) is
-an upper bound for the previous entry's σ is a hand calculation in [`../README.md`](../README.md#the-size-of-σ),
-not a Coq proof.
+The name `sigma_beats_official_bb54` is Argon's: the theorem is the inequality above. `BB54_J_upper.v` (written
+here) loads the previous entry's development ([`../verify/`](../verify/), logical root `TM54`) and proves that
+f_ω²(2 ↑^4 2 ↑^3 4) is an upper bound for that machine's exact σ (`sigma_final_upper`, formerly a hand calculation in
+[`../README.md`](../README.md#the-size-of-σ)), hence `new_beats_jacobzheng : TM54.BB54_halt.sigma_final <
+Local.BB54_run.sigma`.
 
 ## Files
 
@@ -28,6 +30,7 @@ not a Coq proof.
 | `BB54_rules.v` | the transition table `tm`, sweeps, `turnaround`, `B_rule`, the 25-step start `start_to_B5`, `B_sweep`, `D_step`, `D_chain` |
 | `BB54_run.v` | sealed constants, `reaches_final`, `final_halted`, `bb54_halts`, the final tape and its count |
 | `BB54_bound.v` | Knuth arrows, `f_omega`, closed forms, the two bounds, `bb54_new_champion_main` |
+| `BB54_J_upper.v` | the upper bound for the previous entry and the comparison (above) |
 | `probe.v` | the independent probe (below) |
 | `compile_clean.sh`, `_CoqProject` | build script, project file |
 | `compile_clean.log`, `probe.log`, `sha256.txt` | logs of a from-scratch build, hashes of the source files |
@@ -37,5 +40,6 @@ not a Coq proof.
     BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh
 
 `probe.v` checks the compiled transition table against the machine string entry by entry (20 lines generated from
-the string, not from the Coq file), prints the definitions the statements use, and runs `Print Assumptions` on 8
-theorems: all are closed under the global context. CI job `bb54` runs the same script.
+the string, not from the Coq file), prints the definitions the statements use, and runs `Print Assumptions` on 11
+theorems: all are closed under the global context. The script builds `../verify` first if its `.vo` files are
+missing. CI job `bb54` runs the same script after building `../verify`.

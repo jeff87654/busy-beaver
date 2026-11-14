@@ -17,10 +17,12 @@ where **F(n) = 2 ↑^(n+1) (n + 3)** is `f_omega` of the files (the Knuth-arrow 
 f_(ω+1)(65536) < σ for the FGH). The exact σ is 2·M + K + 5 for (K, M) = `step_pair` iterated 2·g_4(0) + 5 times
 from (0, 1) (not evaluated).
 
-**Comparison with the previous entry (below), partly on paper.** Jacobzheng's machine has an exact σ in Coq, and
-the hand calculation in the section [The size of σ](#the-size-of-σ) below (not a Coq proof) places it below
-F(F(2 ↑^4 2 ↑^3 4)). 54-L's σ is above that number in Coq. So 54-L beats the previous entry modulo that paper upper
-bound; a Coq lemma σ(Jacobzheng) ≤ F(F(2X + 4)) would close it. Not yet reviewed by the bbchallenge community.
+**Comparison with the previous entry (below), in Coq.** Jacobzheng's machine has an exact σ in Coq, and
+[`verify_54l/BB54_J_upper.v`](verify_54l/BB54_J_upper.v) (written here, loading the published development) proves
+the upper bound of the section [The size of σ](#the-size-of-σ) below, which was a hand calculation:
+`sigma_final_upper : sigma_final <= f_omega2 (knuth 4 2 (knuth 3 2 4))`. With 54-L's `sigma_beats_official_bb54` this
+gives `new_beats_jacobzheng : TM54.BB54_halt.sigma_final < Local.BB54_run.sigma`, both σ counted after the halting
+write. Not yet reviewed by the bbchallenge community.
 
 **The wiki.** The bbchallenge wiki's Champions page (read 2026-11-13) now lists for BB(5,4) a newer machine,
 `1RB3LB1RD2RA_2LC3RB1LC2RA_3RB1LB3LC2RC_1LE2LE3LE1RZ_3RC2LE1LE3LE` by Big_numbers (Nov 2026), with the runtime bound
@@ -36,8 +38,9 @@ the machine halts in B reading 1.
   the write-up.
 - [`verify_54l/`](verify_54l/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `bb54_halts`, `reaches_final`,
   `final_halted`, `final_cells_count`, `final_cells_all_nonblank`, `sigma_beats_official_bb54`,
-  `sigma_beats_f_omega1_65536`, `bb54_new_champion_main`. Built and probed in CI (job `bb54`), which requires 8
-  closed `Print Assumptions` reports.
+  `sigma_beats_f_omega1_65536`, `bb54_new_champion_main`, and the comparison `sigma_final_upper`,
+  `new_beats_jacobzheng`. Built and probed in CI (job `bb54`, after `verify/`), which requires 11 closed
+  `Print Assumptions` reports.
 
 Found and proved by **Argon** (a Google Gemini model run by the repository owner), 2026-11-09 (54-L is a label used
 here). Re-checked and packaged here, 2026-11-13.

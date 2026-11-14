@@ -22,7 +22,8 @@ and packaged here on 2026-11-13. "53-Main" is Argon's name for it.
 | Halts | **Yes**, machine-checked (Coq, no axioms): `bb53_halts`. The halting transition is E0 = `1RZ`. |
 | Score | σ = 2·M + 6 nonzero cells after the halting write, for an explicit M (`M53_final`, below; not evaluated). |
 | Bounds | Machine-checked, with **F(n) = 2 ↑^n n** (`f_omega` in `BB53_bound.v`, defined there; not the fast-growing hierarchy's f_ω): F(F(7)) < σ and F(2 ↑^8 3) < σ (`sigma_exceeds_f_omega2`); also 2 ↑↑↑ 2 ↑↑↑ 2 ↑↑↑ 2^96 < σ (`sigma_beats_official_bb43`). In arrows: **2 ↑^x x < σ with x = 2 ↑^7 7**. |
-| FGH reading (on paper) | F(n) is below the FGH f_ω(n) for n = 2, 3 and above it from n = 4 on, so f_ω(f_ω(7)) < σ for the FGH f_ω. |
+| In the FGH | Machine-checked (`sigma_exceeds_FGH`, [`verify_cmp/`](verify_cmp/)): f_ω(f_ω(7)) < σ and f_ω(2 ↑^8 3) < σ for the standard f_ω of `Ord.v` (via f_ω(n) ≤ F(n) for n ≥ 4, `FGH_omega_le_home`; F(n) is below f_ω(n) for n = 2, 3). |
+| Compared with BB(4,3) | Machine-checked: above the BB(4,3) entry's exact σ + 1 (`BB53_beats_BB43`, against that entry's Coq upper bound). |
 | Steps | Not computed. |
 | Wiki | The bbchallenge wiki's Champions page (read 2026-11-13) has no BB(5,3) champion (the row is empty). |
 
@@ -66,8 +67,12 @@ start), `BB53_run.v` (the sealed constants M2_0 … M2_4, M3_0, M53_final, `reac
 
 The name `sigma_beats_official_bb43` is Argon's. Its statement, 2 ↑↑↑ 2 ↑↑↑ 2 ↑↑↑ 2^96 < σ, is the shape of the
 *lower* bound of the BB(4,3) entry (Kropitz's machine, σ = 4·e₄ + 18 with
-2 ↑↑↑ 2 ↑↑↑ 2 ↑↑↑ (2^96 − 1) < e₄ ≤ 2 ↑↑↑ 2 ↑↑↑ 2 ↑↑↑ (2^96 + 6)), not a comparison with that machine's σ. On paper,
-BB(4,3)'s σ ≤ 4·(2 ↑↑↑ 2 ↑↑↑ 2 ↑↑↑ (2^96 + 6)) + 18 is far below F(7) = 2 ↑^7 7, so 53-Main is far above BB(4,3) + 1.
+2 ↑↑↑ 2 ↑↑↑ 2 ↑↑↑ (2^96 − 1) < e₄ ≤ 2 ↑↑↑ 2 ↑↑↑ 2 ↑↑↑ (2^96 + 6)), not a comparison with that machine's σ. The comparison is
+`BB53_beats_BB43` in [`verify_cmp/BB53_vs_BB43.v`](verify_cmp/BB53_vs_BB43.v) (written here): it loads the BB(4,3)
+development ([`../BB43/verify/`](../BB43/verify/), logical root `TM43`), whose `sigma_bounds` give
+σ ≤ 4·(2 ↑↑↑ 2 ↑↑↑ 2 ↑↑↑ (2^96 + 6)) + 18, bridges the identical Knuth-arrow definitions and proves
+`TM43.BB43_run.sigma + 1 < Local.BB53_run.sigma`. [`verify_cmp/BB53_fgh.v`](verify_cmp/BB53_fgh.v) restates the
+bound in `Ord.v`'s fast-growing hierarchy (`sigma_exceeds_FGH`).
 
 Score convention: σ counts the nonzero cells of the explicit tape after the halting write; `final_cells` is that tape
 read off `c_final`, and this reading is not itself a Coq lemma (as in the other multi-symbol entries).

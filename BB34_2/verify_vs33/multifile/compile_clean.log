@@ -1,0 +1,60 @@
+share_check: 20 identical, 0 different
+== BB332.v ==
+   ok, 10 s
+== Individual332.v ==
+   ok, 10 s
+== BB342.v ==
+   ok, 13 s
+== Individual342.v ==
+   ok, 10 s
+== BB33_tm.v ==
+   ok, 10 s
+== BB33_rules.v ==
+   ok, 10 s
+== BB34_tm.v ==
+   ok, 11 s
+== BB34_rules.v ==
+   ok, 15 s
+== Ord.v ==
+   ok, 10 s
+== Hardy.v ==
+   ok, 10 s
+== HydraOrd.v ==
+   ok, 14 s
+== BB33_scan.v ==
+   ok, 10 s
+== BB33_round.v ==
+   ok, 10 s
+== BB33_game.v ==
+   ok, 12 s
+== BB33_halt.v ==
+Closed under the global context
+   ok, 27 s
+== BB34_scan.v ==
+   ok, 13 s
+== BB34_round.v ==
+   ok, 11 s
+== BB34_game.v ==
+   ok, 11 s
+== BB34_halt.v ==
+Closed under the global context
+   ok, 17 s
+== BB34_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 13 s
+== HydraUpper.v ==
+   ok, 10 s
+== BB33_upper.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 13 s
+== BB34_vs_BB33.v ==
+Closed under the global context
+Closed under the global context
+   ok, 11 s
+COMPILE DONE
+probe: 6 of 6 theorems closed under the global context

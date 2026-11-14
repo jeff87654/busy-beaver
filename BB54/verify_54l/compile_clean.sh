@@ -14,6 +14,12 @@ for f in BB54 Individual54 BB54_rules BB54_run BB54_bound; do
   "$COQC" -Q "$BUSYCOQ" BusyCoq -Q . Local "$f.v"
   echo "   ok, $(( $(date +%s) - start )) s"
 done
+# the comparison with the previous entry (Jacobzheng's machine) needs ../verify compiled (logical path TM54)
+if [ ! -f ../verify/BB54_bound.vo ]; then (cd ../verify && bash ./compile_clean.sh); fi
+echo "== BB54_J_upper.v =="
+start=$(date +%s)
+"$COQC" -Q "$BUSYCOQ" BusyCoq -Q ../verify TM54 -Q . Local BB54_J_upper.v
+echo "   ok, $(( $(date +%s) - start )) s"
 echo "COMPILE DONE"
-"$COQC" -Q "$BUSYCOQ" BusyCoq -Q . Local probe.v > probe.log
-echo "probe: $(grep -c 'Closed under the global context' probe.log) of 8 theorems closed under the global context"
+"$COQC" -Q "$BUSYCOQ" BusyCoq -Q ../verify TM54 -Q . Local probe.v > probe.log
+echo "probe: $(grep -c 'Closed under the global context' probe.log) of 11 theorems closed under the global context"

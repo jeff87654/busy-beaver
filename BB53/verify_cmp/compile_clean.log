@@ -1,0 +1,36 @@
+share_check: 1 identical, 0 different
+== BB53.v ==
+   ok, 11 s
+== Individual53.v ==
+   ok, 10 s
+== BB53_rules.v ==
+   ok, 14 s
+== BB53_run.v ==
+   ok, 10 s
+== BB53_bound.v ==
+   ok, 11 s
+COMPILE DONE
+probe: 8 of 8 theorems closed under the global context
+== BB43.v ==
+   ok, 10 s
+== Individual43.v ==
+   ok, 10 s
+== BB43_rules.v ==
+   ok, 83 s
+== BB43_run.v ==
+   ok, 16 s
+== BB43_score.v ==
+   ok, 17 s
+COMPILE DONE
+probe: 13 of 13 theorems closed under the global context
+== Ord.v ==
+   ok, 10 s
+== BB53_vs_BB43.v ==
+Closed under the global context
+   ok, 11 s
+== BB53_fgh.v ==
+Closed under the global context
+Closed under the global context
+   ok, 10 s
+COMPILE DONE
+probe: 5 of 5 theorems closed under the global context

@@ -65,7 +65,7 @@ f_omega1 = fun n : nat => PeanoNat.Nat.iter n f_omega n
      : nat -> nat
 
 Arguments f_omega1 n%nat_scope
-sigma = 2 * M_final + K_final + 5
+BB54_run.sigma = 2 * BB54_run.g40 + 8
      : nat
 final_cells =
 ([3] ^^ (2 * M_final + 1) ++ [2] ^^ S K_final ++ [1; 1; 1])%list
@@ -74,13 +74,19 @@ c_final =
 1 >> [2] ^^ S K_final *> [3] ^^ (2 * M_final + 1) *> const 0 {{B}}>
 1 >> 1 >> const 0
      : Q * tape
-Bcfg =
-fun (k n m : nat) (r : Stream sym) =>
-[2] ^^ k *> [3] ^^ (2 * m + 1) *> const 0 {{A}}> [1] ^^ n *> r
-     : nat -> nat -> nat -> Stream sym -> Q * tape
+BB54_rules.Bcfg =
+fun (k n m : nat) (r : Stream BB54.sym) =>
+[BB54.S2] ^^ k *> [BB54.S3] ^^ (2 * m + 1) *> const BB54.S0 {{BB54.A
+}}> [BB54.S1] ^^ n *> r
+     : nat ->
+       nat ->
+       nat ->
+       Stream BB54.sym ->
+       BB54.BB54.Q *
+       (Stream BB54.BB54.Sym * BB54.BB54.Sym * Stream BB54.BB54.Sym)
 
-Arguments Bcfg (k n m)%nat_scope r
-g =
+Arguments BB54_rules.Bcfg (k n m)%nat_scope r
+BB54_rules.g =
 fix g (k m : nat) {struct k} : nat :=
   match k with
   | 0 => S m
@@ -88,7 +94,7 @@ fix g (k m : nat) {struct k} : nat :=
   end
      : nat -> nat -> nat
 
-Arguments g (k m)%nat_scope
+Arguments BB54_rules.g (k m)%nat_scope
 bb54_halts
      : halts tm c0
 reaches_final
@@ -116,6 +122,25 @@ Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+BB54_halt.sigma_final =
+2 * BB54_halt.M1s + 2 * BB54_halt.M0s +
+2 * PeanoNat.Nat.div (BB54_rules.g 5 (BB54_rules.g 4 0)) 2 + 5
+     : nat
+BB54_J_upper.bound_gen
+     : forall Xv Mv0 Mv1 : nat,
+       2 <= Xv ->
+       Mv0 = BB54_dphase.gchain (2 * Xv) 3 0 ->
+       Mv1 = BB54_dphase.gchain (2 * Mv0) (S (Xv + 1)) 0 ->
+       2 * Mv1 + 2 * Mv0 + 2 * PeanoNat.Nat.div Xv 2 + 5 <=
+       BB54_score.f_omega2 (2 * Xv + 4)
+BB54_J_upper.sigma_final_upper
+     : BB54_halt.sigma_final <=
+       BB54_score.f_omega2 (BB54_score.knuth 4 2 (BB54_score.knuth 3 2 4))
+BB54_J_upper.new_beats_jacobzheng
+     : BB54_halt.sigma_final < sigma
 Closed under the global context
 Closed under the global context
 Closed under the global context
