@@ -1,0 +1,7 @@
+-Q ../../busycoq/verify BusyCoq
+-Q . Local
+BB53.v
+Individual53.v
+BB53_rules.v
+BB53_run.v
+BB53_bound.v

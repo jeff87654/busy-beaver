@@ -1,7 +1,51 @@
 # BB(5, 4)
 
-BB(5,4) champion **1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ** (Jacobzheng, 2026; the machine the bbchallenge wiki's Champions page lists
-for BB(5,4)).  The Coq development here, by MiniMax (contributed by loader3229, PR #48), proves two things, axiom-free:
+## Current entry: 54-L (Argon)
+
+```
+1RB3LC1LD2RA_2RC1RZ2LB2LB_1LD3RC1LE2RA_3RC0LB1LD3LD_3RC1LC3LE2RE
+```
+
+Halts from the blank tape (B1 = `1RZ`). Machine-checked, axiom-free, for σ the number of nonzero cells after the
+halting write:
+
+    F^65536(65536) < σ                 (sigma_beats_f_omega1_65536: f_omega1 (2 ^ 16) < sigma)
+    F(F(2 ↑^4 2 ↑^3 4)) < σ            (sigma_beats_official_bb54: f_omega2 (knuth 4 2 (knuth 3 2 4)) < sigma)
+
+where **F(n) = 2 ↑^(n+1) (n + 3)** is `f_omega` of the files (the Knuth-arrow function of the previous entry's
+`BB54_score.v`, not the fast-growing hierarchy's f_ω; it is at least as large, so on paper
+f_(ω+1)(65536) < σ for the FGH). The exact σ is 2·M + K + 5 for (K, M) = `step_pair` iterated 2·g_4(0) + 5 times
+from (0, 1) (not evaluated).
+
+**Comparison with the previous entry (below), partly on paper.** Jacobzheng's machine has an exact σ in Coq, and
+the hand calculation in the section [The size of σ](#the-size-of-σ) below (not a Coq proof) places it below
+F(F(2 ↑^4 2 ↑^3 4)). 54-L's σ is above that number in Coq. So 54-L beats the previous entry modulo that paper upper
+bound; a Coq lemma σ(Jacobzheng) ≤ F(F(2X + 4)) would close it. Not yet reviewed by the bbchallenge community.
+
+**The wiki.** The bbchallenge wiki's Champions page (read 2026-11-13) now lists for BB(5,4) a newer machine,
+`1RB3LB1RD2RA_2LC3RB1LC2RA_3RB1LB3LC2RC_1LE2LE3LE1RZ_3RC2LE1LE3LE` by Big_numbers (Nov 2026), with the runtime bound
+> f_ω^3(2 ↑^15 5), marked "not independently verified". That machine is not compared here: no upper bound for it is
+known to us, so no claim is made against it.
+
+54-L runs Kropitz's 3-state, 4-symbol engine (states A, C, E) with two more states (B, D) that turn the 3-stack of
+the first descent into a reservoir of 2·g_4(0) + 5 twos on the right; each two then drives one level lift
+(`D_step`: B(k+1, 0, m) 2 r → B(2m+1, 0, g_(2m)^(k+2)(0)) r), so the arrow level is lifted 2 ↑^3 4 + 1 times before
+the machine halts in B reading 1.
+
+- [`1RB3LC1LD2RA_2RC1RZ2LB2LB_1LD3RC1LE2RA_3RC0LB1LD3LD_3RC1LC3LE2RE.md`](1RB3LC1LD2RA_2RC1RZ2LB2LB_1LD3RC1LE2RA_3RC0LB1LD3LD_3RC1LC3LE2RE.md):
+  the write-up.
+- [`verify_54l/`](verify_54l/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `bb54_halts`, `reaches_final`,
+  `final_halted`, `final_cells_count`, `final_cells_all_nonblank`, `sigma_beats_official_bb54`,
+  `sigma_beats_f_omega1_65536`, `bb54_new_champion_main`. Built and probed in CI (job `bb54`), which requires 8
+  closed `Print Assumptions` reports.
+
+Found and proved by **Argon** (a Google Gemini model run by the repository owner), 2026-11-09 (54-L is a label used
+here). Re-checked and packaged here, 2026-11-13.
+
+## Previous entry: Jacobzheng's machine (2026-11-08 to 2026-11-13)
+
+The BB(5,4) machine **1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ** (Jacobzheng, 2026; the machine the bbchallenge wiki's Champions page listed
+for BB(5,4) when this entry was added).  The Coq development here, by MiniMax (contributed by loader3229, PR #48), proves two things, axiom-free:
 
 * **the machine halts from the blank tape** (`bb54_halts : halts tm c0`, `BB54_halt.v`);
 * **the exact value of its σ**, as a closed expression in Ligocki's `g` hierarchy (`bb54_halt_main`):
@@ -28,7 +72,7 @@ The write-up of the mathematics is in
 [1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ.md](1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ.md);
 the Coq development is in [verify/](verify/).
 
-## What is proved
+### What is proved
 
 | theorem | file | statement |
 | --- | --- | --- |
@@ -75,7 +119,7 @@ three further tricks that the halting proof needs (the big numbers are
 *notations* rather than definitions, they are sealed with `Opaque` where they
 occur inside a list, and every arithmetic step is a `rewrite`).
 
-## The run
+### The run
 
     0^inf A> 0^inf  -(9 steps)->      B(2, 1, 0)  0^inf
         ->  B(2, 0, 2)  0^inf                     (B_rule, level 1)
@@ -110,7 +154,7 @@ so the number of nonzero cells at halting is
 
     σ = 2 M1 + 2 M0 + X + 5 .
 
-## The size of σ
+### The size of σ
 
 `g` is a tower of tetrations in disguise: `2 g_(k+1)(m) + 4 = 2 ↑^k (2m+4)`
 (Ligocki's closed form, proved in `BB54_score.v` as `g_closed`).  Call the
@@ -177,7 +221,7 @@ of the inner towers:
   inequality that decides the comparison of the two bounds, and whose
   direction an earlier version of this write-up had reversed.
 
-## Build
+### Build
 
     cd verify
     BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh
@@ -186,7 +230,7 @@ Needs Coq 8.20.1 and a busycoq checkout (the `verify/` directory of it); the
 whole build takes about 40 s.  See [verify/README.md](verify/README.md) for
 details.
 
-## Layout
+### Layout
 
     README.md                                       this file
     1LD3LB---2RA_...1RZ.md                          the mathematical write-up
@@ -197,7 +241,7 @@ details.
     tools/macro_e.py                                the (k,n,m) parameters of the run
     tools/gen_start.py                              generator for verify/BB54_start.v
 
-## Status
+### Status
 
 **The machine halts, and its σ is known exactly.**  `BB54.v`,
 `Individual54.v`, `BB54_rules.v`, `BB54_start.v`, `BB54_run.v`,

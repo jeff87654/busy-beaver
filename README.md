@@ -41,9 +41,10 @@ notebook: only what is proved here counts.
 | [**BB(33)**](#bb33) | [hydra33](BB33/hydra33.md) | f_(ω↑↑6)(3) < N | mxdys | 2026&#8209;10&#8209;27 |
 | [**BB(34)**](#bb342) | [hydra34](BB34_2/hydra34.md) | f_(ω↑↑6)(4) < N | Argon | 2026&#8209;11&#8209;13 |
 | [**BB(4,3)**](#bb43) | [write-up](BB43/1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD.md) | σ = 4·e₄ + 18, 2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < e₄ | Kropitz | 2026&#8209;10&#8209;17 |
+| [**BB(5,3)**](#bb53) | [53-Main](BB53/1RB1LC1RA_1LA2LC1RB_1LB1LD2LC_2RE2LD1RA_1RZ2RE1RB.md) | 2↑^x x < σ, x = 2↑^7 7 | Argon | 2026&#8209;11&#8209;13 |
 | [**BB(3,4)**](#bb34) | [write-up](BB34/1RB3LB1RZ2RA_2LC3RB1LC2RA_3RB1LB3LC2RC.md) | σ = 2↑^15 5 + 14 | Kropitz | 2026&#8209;11&#8209;08 |
-| [**BB(4,4)**](#bb44) | [write-up](BB44/0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA.md) | σ = 2↑^509 3 + 510 | loader3229 | 2026&#8209;11&#8209;08 |
-| [**BB(5,4)**](#bb54) | [write-up](BB54/1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ.md) | halts, with an exact formula for σ (no bound in Coq) | Jacobzheng | 2026&#8209;11&#8209;08 |
+| [**BB(4,4)**](#bb44) | [44-C](BB44/1RB3LB1RZ2RA_1LC3RB1LD2RA_3RB2LC1LC3LC_3RB1LB3LD2RD.md) | σ = 2↑^65532 6 + 65532 | Argon | 2026&#8209;11&#8209;13 |
+| [**BB(5,4)**](#bb54) | [54-L](BB54/1RB3LC1LD2RA_2RC1RZ2LB2LB_1LD3RC1LE2RA_3RC0LB1LD3LD_3RC1LC3LE2RE.md) | F^65536(65536) < σ, F(n) = 2↑^(n+1)(n+3) | Argon | 2026&#8209;11&#8209;13 |
 
 Each row label links to the entry's record under [Entry details](#entry-details): the machine string, the full
 statement, the theorem names, how it is checked and the credit. The machine name links to its write-up. σ and N
@@ -376,6 +377,20 @@ BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB
 - **Found by:** Kropitz (machine), Polygon (analysis); Coq proof here
 - **Added:** 2026-10-17 (#22, #23)
 
+#### BB(5,3)
+
+**53-Main** · [write-up](BB53/1RB1LC1RA_1LA2LC1RB_1LB1LD2LC_2RE2LD1RA_1RZ2RE1RB.md)
+
+```
+1RB1LC1RA_1LA2LC1RB_1LB1LD2LC_2RE2LD1RA_1RZ2RE1RB
+```
+
+- **Proved (Coq):** F(F(7)) < σ and F(2↑^8 3) < σ, with F(n) = 2↑^n n (`f_omega` of the files, not the FGH f_ω; F(n) ≥ f_ω(n) for n ≥ 4, so on paper f_ω(f_ω(7)) < σ in the FGH); that is, 2↑^x x < σ with x = 2↑^7 7; on paper far above the BB(4,3) entry's σ; the wiki's Champions page (read 2026-11-13) has no BB(5,3) champion (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `bb53_halts`, `sigma_exceeds_f_omega2`, `sigma_beats_official_bb43`, `bb53_new_champion_main`
+- **Checked:** CI `bb53`
+- **Found by:** Argon (machine and Coq proof, 2026-11-09), a 3-symbol version of Kropitz's BB(3,4) engine; probe and packaging here
+- **Added:** 2026-11-13
+
 #### BB(3,4)
 
 [write-up](BB34/1RB3LB1RZ2RA_2LC3RB1LC2RA_3RB1LB3LC2RC.md)
@@ -392,31 +407,31 @@ BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB
 
 #### BB(4,4)
 
-[write-up](BB44/0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA.md)
+**44-C** · [write-up](BB44/1RB3LB1RZ2RA_1LC3RB1LD2RA_3RB2LC1LC3LC_3RB1LB3LD2RD.md) · the previous entry, loader3229's machine, is kept in [`BB44/`](BB44/README.md)
 
 ```
-0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA
+1RB3LB1RZ2RA_1LC3RB1LD2RA_3RB2LC1LC3LC_3RB1LB3LD2RD
 ```
 
-- **Proved (Coq):** σ = 2↑^509 3 + 510 exactly (the wiki's champion, listed as > 2↑^509 3 and as not independently verified)
-- **Main theorems:** `bb44_halts`, `bb44_main`, `sigma_eq`
+- **Proved (Coq):** σ = 2↑^65532 6 + 65532 exactly; in Coq above the exact score of loader3229's machine, the previous entry and the wiki's BB(4,4) champion (σ = 2↑^509 3 + 510, its `sigma_eq`; `beats_loader3229_exact` loads both developments) (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `bb44_halts`, `sigma_exact_closed_form`, `sigma_beats_official_bb44`, `bb44_new_champion_main`, `beats_loader3229_exact`, `beats_loader3229_score`
 - **Checked:** CI `bb44`
-- **Found by:** loader3229 (machine, 2026); Coq proof by MiniMax, contributed by loader3229; reviewed and packaged here
-- **Added:** 2026-11-08 (#48)
+- **Found by:** Argon (machine and Coq proof, 2026-11-09), on Kropitz's BB(3,4) engine; comparison file, probe and packaging here
+- **Added:** 2026-11-13
 
 #### BB(5,4)
 
-[write-up](BB54/1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ.md)
+**54-L** · [write-up](BB54/1RB3LC1LD2RA_2RC1RZ2LB2LB_1LD3RC1LE2RA_3RC0LB1LD3LD_3RC1LC3LE2RE.md) · the previous entry, Jacobzheng's machine, is kept in [`BB54/`](BB54/README.md)
 
 ```
-1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ
+1RB3LC1LD2RA_2RC1RZ2LB2LB_1LD3RC1LE2RA_3RC0LB1LD3LD_3RC1LC3LE2RE
 ```
 
-- **Proved (Coq):** halts, with σ = 2·M1 + 2·M0 + X + 5 exactly, for X = g_5(g_4(0)) and nested `g` chains M0, M1 (Ligocki's `g` hierarchy; see [BB54/README.md](BB54/README.md)). Only halting and this exact formula are proved: the wiki's bound f_ω²(10↑^4 10↑↑65533) is on paper only, a hand calculation in the README
-- **Main theorems:** `bb54_halts`, `bb54_halt_main`
+- **Proved (Coq):** F^65536(65536) < σ and F(F(2↑^4 2↑^3 4)) < σ, with F(n) = 2↑^(n+1)(n+3) (`f_omega` of the files, a Knuth-arrow function, not the FGH f_ω; on paper f_(ω+1)(65536) < σ in the FGH). The previous entry, Jacobzheng's machine, has an exact σ in Coq but no proved upper bound in closed form; [`BB54/README.md`](BB54/README.md)'s hand calculation (on paper) puts its σ below F(F(2↑^4 2↑^3 4)), so 54-L is above it modulo that paper upper bound. The wiki's Champions page (read 2026-11-13) lists a newer BB(5,4) machine by Big_numbers (runtime > f_ω^3(2↑^15 5), not independently verified), which is not compared here (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `bb54_halts`, `sigma_beats_f_omega1_65536`, `sigma_beats_official_bb54`, `bb54_new_champion_main`
 - **Checked:** CI `bb54`
-- **Found by:** Jacobzheng (machine, 2026; the wiki's champion, listed as not independently verified); Coq proof by MiniMax, contributed by loader3229; reviewed and packaged here
-- **Added:** 2026-11-08 (#48)
+- **Found by:** Argon (machine and Coq proof, 2026-11-09), on Kropitz's BB(3,4) engine; probe and packaging here
+- **Added:** 2026-11-13
 
 ### Notes
 
@@ -426,9 +441,10 @@ BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB
   `1RZ` read on a 1, so σ = N. The hydra machines hydra29 to hydra34
   halt on B0 = `---` read on a 0, so σ = N or N + 1 by convention; their bounds are on N, so they hold for σ
   either way (their strings use the characters after Z as state names, and in hydra30, hydra32 and hydra34 `Z` is an
-  ordinary state, the 26th). Each write-up's "Main facts" table says which. For the 4-symbol entries BB(3,4), BB(4,4) and BB(5,4),
-  σ is the number of nonzero symbols after the halting transition `1RZ` (read on a 2 for BB(3,4) and BB(4,4), on a 3
-  for BB(5,4)), counted from the explicit final tape, as for BB(4,3).
+  ordinary state, the 26th). Each write-up's "Main facts" table says which. For the multi-symbol entries BB(5,3), BB(3,4), BB(4,4) and
+  BB(5,4), σ is the number of nonzero symbols after the halting transition `1RZ` (read on a 0 for 53-Main, on a 2 for
+  BB(3,4) and 44-C, on a 1 for 54-L; the previous entries loader3229's and Jacobzheng's read a 2 and a 3), counted from
+  the explicit final tape, as for BB(4,3).
 - Rows not in the table: BB(n + k) ≥ BB(n) + k (the standard fact BB(n + 1) ≥ BB(n) + 1: redirect the halting
   transition into one new state that adds a 1 before halting), so an entry also bounds the next rows, as the BB(11) entry says for BB(12). In particular B21's
   proved bound is the best here for BB(21) to BB(24), and W2PR's for BB(25) to BB(28) (the wiki's Champions table has
@@ -439,8 +455,11 @@ BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB
   sequences (`Ord.v` in their `verify/` directories), and ω↑↑k = ω^ω^…^ω (k omegas). a ↑^k b is Knuth's up-arrow.
 - Comparisons, in Coq: champ_231 and champ_232 are above the BB(7) champion's score 3·(2↑^13 3) + 22 (our analysis
   of that machine, on paper) and the wiki's lower bound 2↑^11 (2↑^11 3); M8 beats champ35's and fw2's exact scores;
-  h003 is above M8's Coq upper bound; n1 beats Racheline's 2024 BB(10) champion against that machine's Coq-proved exact score; M11b is above n1's Coq upper bound; C4 is above M11b's exact score (`beats_M11b`, `beats_M11b_score`: M11b's Coq upper bound) and above M12's exact score (`beats_M12_exact`, `beats_M12_score`: an upper bound on M12 from its own definitions); M13_19 is above M13b's exact score and M14_fw3 above M14_31's (`beats_M13b_exact`, `beats_M14_31_exact`: Coq upper bounds on those scores, proved from the older machines' own definitions); T12a (the previous BB(12) entry, kept in `BB12/`) beats n1's exact score; R18a's proved bound is above J19's and M18_229round's proved bounds (`beats_J19`, `beats_M18_229`); M14_31's is above M14d_18's (`beats_M14d_18`), J15_fw13's above M14_31's (`beats_M14_31`), J16_w2's above J15_fw13's, M14_31's, M16_C's and M17_B's (`beats_J15`, `beats_M14_31`, `beats_M16_C`, `beats_M17_B`), and J18_w2_C's above R18a's and J16_w2's (`beats_R18a`, `beats_J16`); besides its own bound, J17_champ's `sigma_lower_bound` states J16_w2's proved bound, R18c's states J18_w2_C's, J19_sq's states J18_w2_C's and J20's, and J20_cube's states J20's (with the same definitions), so each is above the proved bound of the entry it replaces (for J19_sq against R18c's proved bound + 1, on paper); these compare proved lower bounds; B21's proved bound is above J20's (`beats_J20`), and W2PR's above B21's (`beats_B21`). `beats_J20` and `beats_B21` compare proved lower bounds, not upper bounds on the other machine's σ. **On
-  paper only:** M12's proved lower bound exceeds T12a's (T12a is f_(ω+1)(f_(ω+1)(·))-class); M13b's and M14b's
+  h003 is above M8's Coq upper bound; n1 beats Racheline's 2024 BB(10) champion against that machine's Coq-proved exact score; M11b is above n1's Coq upper bound; C4 is above M11b's exact score (`beats_M11b`, `beats_M11b_score`: M11b's Coq upper bound) and above M12's exact score (`beats_M12_exact`, `beats_M12_score`: an upper bound on M12 from its own definitions); M13_19 is above M13b's exact score and M14_fw3 above M14_31's (`beats_M13b_exact`, `beats_M14_31_exact`: Coq upper bounds on those scores, proved from the older machines' own definitions); T12a (the previous BB(12) entry, kept in `BB12/`) beats n1's exact score; R18a's proved bound is above J19's and M18_229round's proved bounds (`beats_J19`, `beats_M18_229`); M14_31's is above M14d_18's (`beats_M14d_18`), J15_fw13's above M14_31's (`beats_M14_31`), J16_w2's above J15_fw13's, M14_31's, M16_C's and M17_B's (`beats_J15`, `beats_M14_31`, `beats_M16_C`, `beats_M17_B`), and J18_w2_C's above R18a's and J16_w2's (`beats_R18a`, `beats_J16`); besides its own bound, J17_champ's `sigma_lower_bound` states J16_w2's proved bound, R18c's states J18_w2_C's, J19_sq's states J18_w2_C's and J20's, and J20_cube's states J20's (with the same definitions), so each is above the proved bound of the entry it replaces (for J19_sq against R18c's proved bound + 1, on paper); these compare proved lower bounds; 44-C (BB(4,4)) is above the exact score of loader3229's machine
+  (`beats_loader3229_exact`: both exact, in one Coq file); B21's proved bound is above J20's (`beats_J20`), and W2PR's above B21's (`beats_B21`). `beats_J20` and `beats_B21` compare proved lower bounds, not upper bounds on the other machine's σ. **On
+  paper only:** 54-L's proved F(F(2↑^4 2↑^3 4)) < σ (F(n) = 2↑^(n+1)(n+3)) is above Jacobzheng's BB(5,4) machine's σ by
+  the hand calculation in `BB54/README.md`; 53-Main's proved 2↑^x x < σ (x = 2↑^7 7) is far above the BB(4,3) entry's
+  σ ≤ 4·2↑↑↑2↑↑↑2↑↑↑(2^96 + 6) + 18 (its Coq upper bound). M12's proved lower bound exceeds T12a's (T12a is f_(ω+1)(f_(ω+1)(·))-class); M13b's and M14b's
   proved lower bounds exceed those of the previous BB(13) and BB(14) entries M13 and M14 (kept in `BB13/`, `BB14/`;
   neither has a proved upper bound) and the published BB(14)–BB(16) lower bounds; M13b runs M12's whole computation
   and then continues. None of these f_(ω+2)-class entries has been compared with the f_(ω+2)-class BB(17)/BB(18)
@@ -490,14 +509,17 @@ BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB
   this project's machine (2026-11-13), M12 with one state removed, found by an exact macro enumeration of M12's core
   plus one state; its Coq proof was written here. B21 was found by Racheline and is listed on the wiki's Champions
   page as the BB(21) champion; the analysis and the Coq proofs that confirm the wiki's bound (and one more f_(ω²))
-  were done here. W2PR is this project's machine, built on Racheline's B21. The Coq proofs of
-  the 4-symbol entries BB(3,4), BB(4,4) and BB(5,4) were written by MiniMax (an AI model) and contributed by loader3229
+  were done here. W2PR is this project's machine, built on Racheline's B21. 44-C (BB(4,4)), 54-L (BB(5,4)) and
+  53-Main (BB(5,3)) are Argon's machines and Coq proofs (2026-11-09), on the engine of Kropitz's BB(3,4) champion
+  (Ligocki's configurations and `g` hierarchy); they were re-checked here, and 44-C's comparison file was written
+  here. The Coq proofs of the earlier 4-symbol entries BB(3,4), loader3229's BB(4,4) and Jacobzheng's BB(5,4) machines
+  were written by MiniMax (an AI model) and contributed by loader3229
   (#48); they were reviewed, re-built and packaged here (CI jobs, `bb54_halts`). Their machines are by Pavel Kropitz
-  (analysed by Shawn Ligocki), loader3229 and Jacobzheng, all listed on the bbchallenge wiki's Champions page.
+  (analysed by Shawn Ligocki), loader3229 and Jacobzheng, all listed on the bbchallenge wiki's Champions page when they were added.
 - Each directory has a README with the entry's files, its full list of theorems and how to build it:
   [BB7](BB7/README.md), [BB8](BB8/README.md), [BB9](BB9/README.md), [BB10](BB10/README.md),
   [BB11](BB11/README.md), [BB12](BB12/README.md), [BB13](BB13/README.md), [BB14](BB14/README.md), [BB15](BB15/README.md), [BB16](BB16/README.md), [BB17](BB17/README.md), [BB18](BB18/README.md), [BB19](BB19/README.md), [BB20](BB20/README.md), [BB21](BB21/README.md), [BB25](BB25/README.md), [BB29](BB29/README.md), [BB30](BB30/README.md),
-  [BB31](BB31/README.md), [BB32](BB32/README.md), [BB33](BB33/README.md), [BB34_2](BB34_2/README.md) (34 states, 2 symbols), [BB43](BB43/README.md), [BB34](BB34/README.md), [BB44](BB44/README.md),
+  [BB31](BB31/README.md), [BB32](BB32/README.md), [BB33](BB33/README.md), [BB34_2](BB34_2/README.md) (34 states, 2 symbols), [BB43](BB43/README.md), [BB53](BB53/README.md), [BB34](BB34/README.md), [BB44](BB44/README.md),
   [BB54](BB54/README.md), [PA](PA/README.md), [ZF](ZF/README.md).
 
 ## Consistency machines
@@ -543,10 +565,12 @@ elsewhere point at these paths.
 | BB(11) | [`1RG0LH_..._1LH1LI_1LJ1RE`](BB11/1RG0LH_1RK1RC_0LD1LA_0RE1LD_0LI1RF_1RZ0RG_1RB1RG_1LA1LH_0LK0LJ_1LH1LI_1LJ1RE.md) (M11b, by Argon), f_(ω+1)(f_ω(f_ω(5))) < N, σ = N + 1 < f_(ω+1)(f_ω(f_ω(6))) | 2026-10-26 to 2026-11-13 | C4 (`beats_M11b_score`, against its exact score) | C4's comparison loads its Coq files; its comparison with n1 stays ([`BB11/verify/`](BB11/verify/), CI `bb13-bb14`) |
 | BB(13) | [`1RB1RA_..._0LH1LK_1RZ0LH`](BB13/1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_1RZ0LH.md) (M13b), f_(ω+2)^6(f_(ω+1)(f_(ω+1)(3))) < σ | 2026-10-28 to 2026-11-12 | M13_19 (`beats_M13b_exact`, against its exact score) | M13_19's comparison loads its Coq files ([`BB13/verify_m13b/`](BB13/verify_m13b/), CI `bb13-bb14`) |
 | BB(14) | [`1RB1RA_..._0LK0LH_1LM---`](BB14/1RB1RA_1RI1RC_0LD1LG_0RE1LD_0RN1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_0LK0LH_1LM---.md) (M14_31), f_(ω+2)^30(f_(ω+1)(f_(ω+1)(3))) < σ | 2026-11-08 to 2026-11-12 | M14_fw3 (`beats_M14_31_exact`, against its exact score) | M14_fw3's comparison loads its Coq file ([`BB14/verify_m14_31/`](BB14/verify_m14_31/), CI `bb13-bb14`) |
+| BB(4,4) | [`0LB3LB1RZ2RA_..._0RD2RC2LB0RA`](BB44/0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA.md) (loader3229; Coq proof by MiniMax), σ = 2↑^509 3 + 510 exactly | 2026-11-08 to 2026-11-13 | 44-C (`beats_loader3229_exact`, against its exact score) | 44-C's comparison loads its Coq files ([`BB44/verify/`](BB44/verify/), CI `bb44`) |
+| BB(5,4) | [`1LD3LB---2RA_..._------1LD1RZ`](BB54/1LD3LB---2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_3RB---3LE3LD_------1LD1RZ.md) (Jacobzheng; Coq proof by MiniMax), halts, σ = 2·M1 + 2·M0 + X + 5 exactly | 2026-11-08 to 2026-11-13 | 54-L (on paper: its σ is below F(F(2↑^4 2↑^3 4)), which 54-L's proved bound exceeds) | kept as published ([`BB54/verify/`](BB54/verify/), CI `bb54`) |
 
 ## Layout and CI
 
-- `BBn/`: one directory per number of states (`BB43/`: 4 states, 3 symbols; `BB34/`, `BB44/`, `BB54/`: 3, 4 and 5 states, 4 symbols;
+- `BBn/`: one directory per number of states (`BB43/`, `BB53/`: 4 and 5 states, 3 symbols; `BB34/`, `BB44/`, `BB54/`: 3, 4 and 5 states, 4 symbols;
   `BB34_2/`: 34 states, 2 symbols). In each: the write-ups
   (`<machine string>.md`, older ones `.txt`), `verify*/` (Coq, on [busycoq](https://github.com/meithecatte/busycoq)
   at commit `bd2e36f` with Coq 8.20.1, unless the README says otherwise), `tools/` (independent simulators that

@@ -1,0 +1,124 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : tm (A, 0) = Some (1, R, B)
+     : tm (A, 0) = Some (1, R, B)
+eq_refl : tm (A, 1) = Some (3, L, B)
+     : tm (A, 1) = Some (3, L, B)
+eq_refl : tm (A, 2) = None
+     : tm (A, 2) = None
+eq_refl : tm (A, 3) = Some (2, R, A)
+     : tm (A, 3) = Some (2, R, A)
+eq_refl : tm (B, 0) = Some (1, L, C)
+     : tm (B, 0) = Some (1, L, C)
+eq_refl : tm (B, 1) = Some (3, R, B)
+     : tm (B, 1) = Some (3, R, B)
+eq_refl : tm (B, 2) = Some (1, L, D)
+     : tm (B, 2) = Some (1, L, D)
+eq_refl : tm (B, 3) = Some (2, R, A)
+     : tm (B, 3) = Some (2, R, A)
+eq_refl : tm (C, 0) = Some (3, R, B)
+     : tm (C, 0) = Some (3, R, B)
+eq_refl : tm (C, 1) = Some (2, L, C)
+     : tm (C, 1) = Some (2, L, C)
+eq_refl : tm (C, 2) = Some (1, L, C)
+     : tm (C, 2) = Some (1, L, C)
+eq_refl : tm (C, 3) = Some (3, L, C)
+     : tm (C, 3) = Some (3, L, C)
+eq_refl : tm (D, 0) = Some (3, R, B)
+     : tm (D, 0) = Some (3, R, B)
+eq_refl : tm (D, 1) = Some (1, L, B)
+     : tm (D, 1) = Some (1, L, B)
+eq_refl : tm (D, 2) = Some (3, L, D)
+     : tm (D, 2) = Some (3, L, D)
+eq_refl : tm (D, 3) = Some (2, R, D)
+     : tm (D, 3) = Some (2, R, D)
+knuth =
+fix knuth (n a b : nat) {struct n} : nat :=
+  match n with
+  | 0 => a * b
+  | S n' => PeanoNat.Nat.iter b (knuth n' a) 1
+  end
+     : nat -> nat -> nat -> nat
+
+Arguments knuth (n a b)%nat_scope
+BB44_run.sigma = 2 * BB44_run.g509 + 514
+     : nat
+BB44_run.final_cells =
+([BB44.S3] ^^ (2 * BB44_run.g509 + 1) ++
+ [BB44.S2] ^^ 510 ++ [BB44.S1; BB44.S1; BB44.S3])%list
+     : list BB44.sym
+BB44_run.c_final =
+BB44_rules.Bcfg 510 0 BB44_run.g509
+  (BB44.S2 >> BB44.S1 >> BB44.S3 >> const BB44.S0)
+     : BB44.BB44.Q *
+       (Stream BB44.BB44.Sym * BB44.BB44.Sym * Stream BB44.BB44.Sym)
+BB44_rules.Bcfg =
+fun (k n m : nat) (r : Stream BB44.sym) =>
+[BB44.S2] ^^ k *> [BB44.S3] ^^ (2 * m + 1) *> const BB44.S0 {{BB44.A
+}}> [BB44.S1] ^^ n *> r
+     : nat ->
+       nat ->
+       nat ->
+       Stream BB44.sym ->
+       BB44.BB44.Q *
+       (Stream BB44.BB44.Sym * BB44.BB44.Sym * Stream BB44.BB44.Sym)
+
+Arguments BB44_rules.Bcfg (k n m)%nat_scope r
+BB44_rules.g =
+fix g (k m : nat) {struct k} : nat :=
+  match k with
+  | 0 => S m
+  | S k' => PeanoNat.Nat.iter (2 * m + 2) (g k') 0
+  end
+     : nat -> nat -> nat
+
+Arguments BB44_rules.g (k m)%nat_scope
+BB44_run.bb44_halts
+     : Individual44.Individual44.Permute.Flip.Compute.TM.halts BB44_rules.tm
+         Individual44.Individual44.Permute.Flip.Compute.TM.c0
+BB44_run.reaches_final
+     : Individual44.Individual44.Permute.Flip.Compute.TM.evstep BB44_rules.tm
+         Individual44.Individual44.Permute.Flip.Compute.TM.c0
+         BB44_run.c_final
+BB44_run.final_halted
+     : Individual44.Individual44.Permute.Flip.Compute.TM.halted BB44_rules.tm
+         BB44_run.c_final
+BB44_run.final_cells_count
+     : length BB44_run.final_cells = BB44_run.sigma
+BB44_run.final_cells_all_nonblank
+     : forall x : BB44.sym, List.In x BB44_run.final_cells -> x <> BB44.S0
+sigma_exact_closed_form
+     : sigma =
+       knuth (PeanoNat.Nat.pow 2 16 - 4) 2 6 + (PeanoNat.Nat.pow 2 16 - 4)
+sigma_beats_official_bb44
+     : knuth 509 2 3 + 510 < sigma
+bb44_new_champion_main
+     : halts tm c0 /\
+       c0 -->* c_final /\
+       halted tm c_final /\
+       length final_cells = sigma /\
+       (forall y : sym, List.In y final_cells -> y <> 0) /\
+       sigma =
+       knuth (PeanoNat.Nat.pow 2 16 - 4) 2 6 + (PeanoNat.Nat.pow 2 16 - 4) /\
+       knuth 509 2 3 + 510 < sigma
+BB44C_vs_loader3229.knuth_same
+     : forall n a b : nat, BB44_score.knuth n a b = knuth n a b
+BB44C_vs_loader3229.beats_loader3229_exact
+     : BB44_run.sigma < sigma
+BB44C_vs_loader3229.beats_loader3229_score
+     : length BB44_run.final_cells < length final_cells
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

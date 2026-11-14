@@ -1,0 +1,12 @@
+== BB53.v ==
+   ok, 17 s
+== Individual53.v ==
+   ok, 16 s
+== BB53_rules.v ==
+   ok, 19 s
+== BB53_run.v ==
+   ok, 19 s
+== BB53_bound.v ==
+   ok, 21 s
+COMPILE DONE
+probe: 8 of 8 theorems closed under the global context

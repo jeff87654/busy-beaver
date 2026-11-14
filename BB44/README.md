@@ -1,6 +1,38 @@
 # BB(4, 4)
 
-BB(4,4) champion **0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA**: a full
+## Current entry: 44-C (Argon)
+
+```
+1RB3LB1RZ2RA_1LC3RB1LD2RA_3RB2LC1LC3LC_3RB1LB3LD2RD
+```
+
+Halts from the blank tape (A2 = `1RZ`), with, machine-checked and axiom-free,
+
+    σ = 2 ↑^65532 6 + 65532          (sigma_exact_closed_form; 65532 = 2^16 − 4 arrows)
+
+nonzero cells after the halting write. In Coq, the exact score of the previous entry (below), σ = 2 ↑^509 3 + 510,
+is smaller: `beats_loader3229_exact` in [`verify_44c/BB44C_vs_loader3229.v`](verify_44c/BB44C_vs_loader3229.v) loads
+both developments and joins that entry's `sigma_eq` with 44-C's `sigma_beats_official_bb44`. Not yet reviewed by the
+bbchallenge community.
+
+The machine runs the same engine (Kropitz's BB(3,4) core, Ligocki's `B(k,n,m)` and `g` hierarchy) and adds a lift:
+the 3-stack of one descent, 2·g_3(0) + 1 = 65533 cells, becomes the arrow level of the next one.
+
+- [`1RB3LB1RZ2RA_1LC3RB1LD2RA_3RB2LC1LC3LC_3RB1LB3LD2RD.md`](1RB3LB1RZ2RA_1LC3RB1LD2RA_3RB2LC1LC3LC_3RB1LB3LD2RD.md):
+  the write-up (table, the run, the proof, verification, credit).
+- [`verify_44c/`](verify_44c/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `bb44_halts`, `reaches_final`,
+  `final_halted`, `final_cells_count`, `final_cells_all_nonblank`, `sigma_exact_closed_form`,
+  `sigma_beats_official_bb44`, `bb44_new_champion_main`, and the comparison `knuth_same`, `beats_loader3229_exact`,
+  `beats_loader3229_score`. Built and probed in CI (job `bb44`, after `verify/`), which requires 11 closed
+  `Print Assumptions` reports.
+
+Found and proved by **Argon** (a Google Gemini model run by the repository owner), 2026-11-09. Re-checked, compared
+with the previous entry and packaged here, 2026-11-13.
+
+## Previous entry: loader3229's machine (2026-11-08 to 2026-11-13)
+
+The BB(4,4) machine **0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA** (loader3229, 2026; the bbchallenge wiki's BB(4,4)
+champion, Champions page read 2026-11-13): a full
 **axiom-free Coq proof** that it halts from the blank tape with
 
     σ = (2 ↑^509 3) + 510
@@ -18,7 +50,7 @@ descent itself ports over unchanged — but the machine only *reaches* the
 descent after two BB(4,4)-specific phases, which are proved here as well
 (`B_phase` and `D_phase`).
 
-## The main results
+### The main results
 
 | theorem | file | statement |
 | --- | --- | --- |
@@ -41,7 +73,7 @@ and `2 ↑^509 3` is beyond any arithmetic.  Both are kept symbolic: `g509` is s
 a `sig` so that no tactic can evaluate it, and `knuth 509 2 3` is only ever manipulated by
 rewriting.  See [verify/coq_quirks.md](verify/coq_quirks.md) for the details.
 
-## The run
+### The run
 
     0^inf A> 0^inf  -(98 steps)->  B(2, 6, 0)  0^inf
         ->  B(2, 0, 126)  0^inf                (B_rule, k = 1)
@@ -51,7 +83,7 @@ rewriting.  See [verify/coq_quirks.md](verify/coq_quirks.md) for the details.
         ->  B(510, 0, g_509(0))  2 1 3 0^inf  (B_rule, k = 509)
         -(A2 = 1RZ)->  0^inf 3^(2 g_509(0)+1) 2^510 1 Z> 1 3 0^inf .
 
-## Build
+### Build
 
     cd verify
     BUSYCOQ=/path/to/busycoq/verify ./compile_clean.sh
@@ -60,7 +92,7 @@ Needs Coq 8.20.1 and a busycoq checkout (commit `bd2e36f`), whose seven needed
 `verify/` files must be compiled first.  The whole build takes about 20 s.
 See [verify/README.md](verify/README.md) for details.
 
-## Layout
+### Layout
 
     README.md                                       this file
     0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA.md   the mathematical write-up
@@ -69,7 +101,7 @@ See [verify/README.md](verify/README.md) for details.
     tools/check.py                                  cross-check of the start and of the two phases
     tools/gen_start.py                              generator for verify/BB44_start.v
 
-## Status
+### Status
 
 **Complete.**  `BB44.v`, `Individual44.v`, `BB44_rules.v`, `BB44_start.v`, `BB44_run.v`,
 `BB44_score.v` and `probe.v` all compile from scratch on Coq 8.20.1, and `probe.v` reports
