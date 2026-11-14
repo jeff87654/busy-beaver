@@ -1,0 +1,31 @@
+== BB342.v ==
+   ok, 18 s
+== Individual342.v ==
+   ok, 32 s
+== BB34_tm.v ==
+   ok, 24 s
+== BB34_rules.v ==
+   ok, 144 s
+== Ord.v ==
+   ok, 15 s
+== Hardy.v ==
+   ok, 15 s
+== HydraOrd.v ==
+   ok, 18 s
+== BB34_scan.v ==
+   ok, 26 s
+== BB34_round.v ==
+   ok, 85 s
+== BB34_game.v ==
+   ok, 15 s
+== BB34_halt.v ==
+Closed under the global context
+   ok, 20 s
+== BB34_bound.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 17 s
+COMPILE DONE
+probe: 7 of 7 theorems closed under the global context

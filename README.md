@@ -35,8 +35,11 @@ notebook: only what is proved here counts.
 | [**BB(21)**](#bb21) | [B21](BB21/0LI0LF_0RJ1RG_0RD1LC_1RH1RE_1LO0RH_1LA1LF_0LC1LA_1RB1RH_1RD0LF_1LP0RK_0LM1LL_0LL1LM_1LE1LN_0RQ0LM_0RP1LO_1LR0RH_1LF1RQ_1RZ0LS_1LH0LT_1LH1LU_0LE1LR.md) | f_(ω²)(f_(ω²)(f_(ω²)(4↑↑341))) < N | Racheline | 2026&#8209;11&#8209;08 |
 | [**BB(25)**](#bb25) | [W2PR](BB25/0LI0LF_0RJ1RG_0RD1LC_1RH1RE_1LO0RH_1LA1LF_0LC1LA_1RB1RH_1RD0LF_1LP0RK_0LM1LL_0LL1LM_1LE1LN_0RQ0LM_0RP1LO_1LR0RH_1LF1RQ_1RZ0LS_1LH0LT_1LH1LU_0LE1LV_0LH0LW_1LH0LX_1LH1LY_0LE1LR.md) | f_(ω²)^5(4↑↑341) < N | this project | 2026&#8209;11&#8209;08 |
 | [**BB(29)**](#bb29) | [hydra29](BB29/hydra29.md) | f_(ω^ω)(3) < N | mxdys | 2026&#8209;10&#8209;27 |
+| [**BB(30)**](#bb30) | [hydra30](BB30/hydra30.md) | f_(ω^ω)(9) < N | Argon | 2026&#8209;11&#8209;13 |
 | [**BB(31)**](#bb31) | [hydra31](BB31/hydra31.md) | f_(ω^ω^ω^ω)(3) < N | mxdys | 2026&#8209;10&#8209;27 |
+| [**BB(32)**](#bb32) | [hydra32](BB32/hydra32.md) | f_(ω↑↑4)(8) < N | Argon | 2026&#8209;11&#8209;13 |
 | [**BB(33)**](#bb33) | [hydra33](BB33/hydra33.md) | f_(ω↑↑6)(3) < N | mxdys | 2026&#8209;10&#8209;27 |
+| [**BB(34)**](#bb342) | [hydra34](BB34_2/hydra34.md) | f_(ω↑↑6)(4) < N | Argon | 2026&#8209;11&#8209;13 |
 | [**BB(4,3)**](#bb43) | [write-up](BB43/1RB1RD1LC_2LB1RB1LC_1RZ1LA1LD_0RB2RA2RD.md) | σ = 4·e₄ + 18, 2↑↑↑2↑↑↑2↑↑↑(2^96 − 1) < e₄ | Kropitz | 2026&#8209;10&#8209;17 |
 | [**BB(3,4)**](#bb34) | [write-up](BB34/1RB3LB1RZ2RA_2LC3RB1LC2RA_3RB1LB3LC2RC.md) | σ = 2↑^15 5 + 14 | Kropitz | 2026&#8209;11&#8209;08 |
 | [**BB(4,4)**](#bb44) | [write-up](BB44/0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA.md) | σ = 2↑^509 3 + 510 | loader3229 | 2026&#8209;11&#8209;08 |
@@ -287,6 +290,20 @@ above it.
 - **Found by:** mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here
 - **Added:** 2026-10-27
 
+#### BB(30)
+
+**hydra30** · [write-up](BB30/hydra30.md) · hydra machine: up to renaming, hydra29 with one transition redirected into one new state, and another start state
+
+```
+1RC1L[_---0LY_0RD1RW_0RE0RN_0RF0RF_0RG1RX_0RH1RF_0RI1RI_0LJ1RH_1LK1LU_0LL1LP_1LM0RD_0RD1LT_0RO1RV_1LP1RN_0LQ1LQ_0LR1LP_0LS1LA_1RD1LR_0RQ1LZ_0LT1LM_0RN1RN_1RH0R\_0LY1RF_1LU0LB_0LU1LJ_0LA1LA_0R^1R]_0R\1R\_1LJ1R\
+```
+
+- **Proved (Coq):** f_(ω^9)(10) ≤ N + 2, so f_(ω^ω)(9) < N (`Z` is an ordinary state here; the only halt is B0 = `---`); on paper (an argument, not a Coq lemma) above hydra29's exact N = T₄(S)(1) + 1, an f_(ω^4)-level number at a small argument, so above BB(29) + 1; in Coq only above hydra29's proved lower bound f_(ω^ω)(3) (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `halt`, `hardy_bound`, `hardy_score`, `sigma_lower_bound_w2_9`, `sigma_lower_bound`
+- **Checked:** CI `bb13-bb14`
+- **Found by:** Argon (machine and Coq proof, 2026-11-09), from mxdys's hydra machines (the BB(29), BB(31) and BB(33) entries); probe and packaging here
+- **Added:** 2026-11-13
+
 #### BB(31)
 
 **hydra31** · [write-up](BB31/hydra31.md) · hydra machine
@@ -301,6 +318,20 @@ above it.
 - **Found by:** mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here
 - **Added:** 2026-10-27
 
+#### BB(32)
+
+**hydra32** · [write-up](BB32/hydra32.md) · hydra machine: up to renaming, hydra31 with one transition redirected into one new state, and another start state
+
+```
+1RC1LT_---0LZ_0RD1RU_0RE0RW_0RF0RF_0RG1RS_0RH1RF_0RI1RI_0LJ1RH_1LK1L[_0RL1LO_1RM1RL_0RN1RV_1LJ1RM_0LP1LP_0LQ1LO_0LR1LA_1RD1LQ_0LZ1RF_0LA1LA_1RH0RM_0RM1RM_0RX1RY_1LO1RW_0RW1RW_1L[0LB_0L_1L\_0RD1L]_0LJ1L^_0L[1L__0RP1L`_0L]1LJ
+```
+
+- **Proved (Coq):** f_(ω^ω^(ω^8·3))(4) ≤ N + 2, so f_(ω↑↑4)(8) < N (`Z` is an ordinary state here; the only halt is B0 = `---`); on paper (an argument, not a Coq lemma) above hydra31, whose game starts from ω^ω^ω^ω^4 against hydra32's ω^ω^ω^(ω^8·3) at the same argument 4, so above BB(31) + 1; in Coq only above hydra31's proved lower bound (hydra31 has no proved upper bound) (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `halt`, `hardy_bound`, `hardy_score`, `sigma_lower_bound_w4_8`, `sigma_lower_bound_w4`
+- **Checked:** CI `bb13-bb14`
+- **Found by:** Argon (machine and Coq proof, 2026-11-09), from mxdys's hydra machines (the BB(29), BB(31) and BB(33) entries); probe and packaging here
+- **Added:** 2026-11-13
+
 #### BB(33)
 
 **hydra33** · [write-up](BB33/hydra33.md) · hydra machine
@@ -314,6 +345,22 @@ above it.
 - **Checked:** CI `bb13-bb14`
 - **Found by:** mxdys (AI-generated, posted in the bbchallenge Discord); Coq proof here
 - **Added:** 2026-10-27
+
+#### BB(34,2)
+
+BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB34/` is BB(3,4) (below)
+
+**hydra34** · [write-up](BB34_2/hydra34.md) · hydra machine: up to renaming, hydra33 with one transition redirected into one new state, and another start state
+
+```
+1LC1LT_---0LS_1RD1LH_0RE0RC_0RF1RF_0RG1RE_1LA1RF_0LI1LI_0LJ1LH_0LK1LY_1RL1LJ_0RM0RV_0RN0RN_0RO1RR_0RP1RN_0RQ1RQ_0LA1RP_0LS1RN_1LT0LB_0La1LU_0RL1L\_0RX1RW_0RV1RV_1LH1RV_1RZ1L^_0RL1R[_1RP0RF_0LA1L]_0LT1L__0LY1LY_0LU1L`_0L\1La_0RI1Lb_0L_1LA
+```
+
+- **Proved (Coq):** f_(ω^ω^ω^ω^ω^4)(5) ≤ N + 2, so f_(ω↑↑6)(4) < N (`Z` is an ordinary state here; the only halt is B0 = `---`); on paper (an argument, not a Coq lemma) above hydra33, whose game starts from ω^ω^ω^ω^ω^ω^3 at argument 4 against hydra34's ω^ω^ω^ω^ω^ω^4 at argument 5, so above BB(33) + 1, the smallest margin of the three new hydra entries; in Coq only above hydra33's proved lower bound (hydra33 has no proved upper bound) (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `halt`, `hardy_bound`, `hardy_score`, `sigma_lower_bound_w6_4`, `sigma_lower_bound_w6`
+- **Checked:** CI `bb13-bb14`
+- **Found by:** Argon (machine and Coq proof, 2026-11-09), from mxdys's hydra machines (the BB(29), BB(31) and BB(33) entries); probe and packaging here
+- **Added:** 2026-11-13
 
 #### BB(4,3)
 
@@ -376,9 +423,10 @@ above it.
 - σ is the score: the number of ones on the tape after the halting transition. Where the halting transition is read
   on a 1 (champ_231/232: C1 undefined; M8 and h003: H1 undefined; the previous BB(14) entry M14_31: N1 undefined), σ = N, the ones count of the
   halted configuration; where it is `1RZ` read on a 0 (n1, C4, M12, M13_19, M14_fw3, J15_fw13, J16_w2, J17_champ, J19_sq, J20_cube, B21, W2PR, and the previous entries M11b, M13, M13b, M14, M14b, M14d_18, M16_B, M16_C, M17_B, J18_w2_C, M18_229round, BB18_fw3, J19, M19_fw4 and J20), σ = N + 1; R18c (R1), the previous BB(18) entries R18a (R1) and M18_4round (R1) and the earlier BB(19) entry M19_fw4_A (S1) halt on
-  `1RZ` read on a 1, so σ = N. The hydra machines BB29, BB31
-  and BB33 halt on B0 = `---` read on a 0, so σ = N or N + 1 by convention; their bounds are on N, so they hold for σ
-  either way. Each write-up's "Main facts" table says which. For the 4-symbol entries BB(3,4), BB(4,4) and BB(5,4),
+  `1RZ` read on a 1, so σ = N. The hydra machines hydra29 to hydra34
+  halt on B0 = `---` read on a 0, so σ = N or N + 1 by convention; their bounds are on N, so they hold for σ
+  either way (their strings use the characters after Z as state names, and in hydra30, hydra32 and hydra34 `Z` is an
+  ordinary state, the 26th). Each write-up's "Main facts" table says which. For the 4-symbol entries BB(3,4), BB(4,4) and BB(5,4),
   σ is the number of nonzero symbols after the halting transition `1RZ` (read on a 2 for BB(3,4) and BB(4,4), on a 3
   for BB(5,4)), counted from the explicit final tape, as for BB(4,3).
 - Rows not in the table: BB(n + k) ≥ BB(n) + k (the standard fact BB(n + 1) ≥ BB(n) + 1: redirect the halting
@@ -387,7 +435,7 @@ above it.
   no rows between BB(21) and BB(29)).
 - Fast-growing hierarchy, as defined in the Coq files: f_0(n) = n + 1, f_(k+1)(n) = f_k^n(n), f_ω(n) = f_n(n),
   f_(ω+1)(n) = f_ω^n(n), f_(ω+2)(n) = f_(ω+1)^n(n), f_(ω+3)(n) = f_(ω+2)^n(n), f_(ω+4)(n) = f_(ω+3)^n(n), and in general f_(ω+k+1)(n) = f_(ω+k)^n(n) (`f_wk` in J19's and J20's files) and
-  f_(ω·2)(n) = f_(ω+n)(n) (`f_w2`; R18a's, J16_w2's, J17_champ's, J18_w2_C's, R18c's, J19_sq's and J20_cube's files use the same definitions); f_(ω·(a+1))(n) = f_(ω·a+n)(n) and f_(ω²)(n) = f_(ω·n)(n) (`f_wa`, `f_wsq` in `BB_FGH_wa.v`, B21's and W2PR's `verify_w2/`); for BB29–BB33, f_α for all α < ε₀ with the standard fundamental
+  f_(ω·2)(n) = f_(ω+n)(n) (`f_w2`; R18a's, J16_w2's, J17_champ's, J18_w2_C's, R18c's, J19_sq's and J20_cube's files use the same definitions); f_(ω·(a+1))(n) = f_(ω·a+n)(n) and f_(ω²)(n) = f_(ω·n)(n) (`f_wa`, `f_wsq` in `BB_FGH_wa.v`, B21's and W2PR's `verify_w2/`); for the hydra machines (BB29–BB34), f_α for all α < ε₀ with the standard fundamental
   sequences (`Ord.v` in their `verify/` directories), and ω↑↑k = ω^ω^…^ω (k omegas). a ↑^k b is Knuth's up-arrow.
 - Comparisons, in Coq: champ_231 and champ_232 are above the BB(7) champion's score 3·(2↑^13 3) + 22 (our analysis
   of that machine, on paper) and the wiki's lower bound 2↑^11 (2↑^11 3); M8 beats champ35's and fw2's exact scores;
@@ -414,7 +462,12 @@ above it.
   f_(ω+2)(x) ≥ f_(ω+1)(x) = f_ω^x(x) ≥ f_ω^10(35) ≥ 2·f_ω^9(35). B21's proved f_(ω²)^3(4↑↑341) and W2PR's proved f_(ω²)^5(4↑↑341)
   are compared with J20's and B21's in Coq (above). J17_champ's, R18c's, J19_sq's and J20_cube's runs are compared
   with the exact scores of the machines they replace (J16_w2 + 1, J18_w2_C, R18c + 1 and J20, J20 and J19_sq + 1) in
-  their write-ups, section 4, by the sizes of the levels their last rounds run at. None of these machines has a proved upper bound, so the
+  their write-ups, section 4, by the sizes of the levels their last rounds run at. hydra30's proved
+  f_(ω^9)(10) ≤ N + 2 is above hydra29's exact N = T₄(S)(1) + 1 (an f_(ω^4)-level number at a small argument);
+  hydra32 and hydra34 start their games from larger ordinals than hydra31 and hydra33 (ω^ω^ω^(ω^8·3) against
+  ω^ω^ω^ω^4, both at argument 4; ω^ω^ω^ω^ω^ω^4 at argument 5 against ω^ω^ω^ω^ω^ω^3 at argument 4), and a hydra game
+  ends within the usual slack of its Hardy bound; hydra34's margin over hydra33 is the smallest. None of these
+  machines has a proved upper bound in the fast-growing hierarchy (hydra29's exact count is a recursion), so the
   comparisons are not machine-checked, and they have not yet been reviewed by the bbchallenge community. J19 and J20
   are Jacobzheng's machines, the wiki's BB(19) and BB(20) champions (listed there as not independently verified);
   the Coq proofs here confirm the wiki's bounds exactly. The wiki lists them as bounds on the number of steps; σ is
@@ -423,7 +476,10 @@ above it.
   section has the details. Argon is a Google Gemini model run by the repository owner in Google's Antigravity; its
   machines and Coq files were re-checked here. The hydra machines BB29, BB31 and BB33 were found by mxdys, who posted
   them in the bbchallenge Discord (#large-bb-domains, 2026-10-26) as unverified AI-generated results with the bounds
-  f_(ω^ω)(3), f_(ω^ω^ω^ω)(3) and f_(ω↑↑6)(3); the analysis and the Coq proofs that confirm those bounds were done here.
+  f_(ω^ω)(3), f_(ω^ω^ω^ω)(3) and f_(ω↑↑6)(3); the analysis and the Coq proofs that confirm those bounds were done here. hydra30,
+  hydra32 and hydra34 are Argon's machines (2026-11-09): up to a renaming of states, mxdys's hydra29, hydra31 and
+  hydra33 with one transition redirected into one new state and another start state, so that a much larger first
+  hydra is built from the blank tape; Argon also wrote their Coq proofs, which were re-checked here.
   J19 and J20 were found by Jacobzheng and are listed on the bbchallenge wiki's Champions page as the BB(19) and
   BB(20) champions; the analysis and the Coq proofs that confirm the wiki's bounds were done here. R18a is this
   project's machine, derived from Jacobzheng's J20. J15_fw13, J16_w2 and J18_w2_C are Argon's machines (2026-11-08),
@@ -440,8 +496,8 @@ above it.
   (analysed by Shawn Ligocki), loader3229 and Jacobzheng, all listed on the bbchallenge wiki's Champions page.
 - Each directory has a README with the entry's files, its full list of theorems and how to build it:
   [BB7](BB7/README.md), [BB8](BB8/README.md), [BB9](BB9/README.md), [BB10](BB10/README.md),
-  [BB11](BB11/README.md), [BB12](BB12/README.md), [BB13](BB13/README.md), [BB14](BB14/README.md), [BB15](BB15/README.md), [BB16](BB16/README.md), [BB17](BB17/README.md), [BB18](BB18/README.md), [BB19](BB19/README.md), [BB20](BB20/README.md), [BB21](BB21/README.md), [BB25](BB25/README.md), [BB29](BB29/README.md),
-  [BB31](BB31/README.md), [BB33](BB33/README.md), [BB43](BB43/README.md), [BB34](BB34/README.md), [BB44](BB44/README.md),
+  [BB11](BB11/README.md), [BB12](BB12/README.md), [BB13](BB13/README.md), [BB14](BB14/README.md), [BB15](BB15/README.md), [BB16](BB16/README.md), [BB17](BB17/README.md), [BB18](BB18/README.md), [BB19](BB19/README.md), [BB20](BB20/README.md), [BB21](BB21/README.md), [BB25](BB25/README.md), [BB29](BB29/README.md), [BB30](BB30/README.md),
+  [BB31](BB31/README.md), [BB32](BB32/README.md), [BB33](BB33/README.md), [BB34_2](BB34_2/README.md) (34 states, 2 symbols), [BB43](BB43/README.md), [BB34](BB34/README.md), [BB44](BB44/README.md),
   [BB54](BB54/README.md), [PA](PA/README.md), [ZF](ZF/README.md).
 
 ## Consistency machines
@@ -490,7 +546,8 @@ elsewhere point at these paths.
 
 ## Layout and CI
 
-- `BBn/`: one directory per number of states (`BB43/`: 4 states, 3 symbols; `BB34/`, `BB44/`, `BB54/`: 3, 4 and 5 states, 4 symbols). In each: the write-ups
+- `BBn/`: one directory per number of states (`BB43/`: 4 states, 3 symbols; `BB34/`, `BB44/`, `BB54/`: 3, 4 and 5 states, 4 symbols;
+  `BB34_2/`: 34 states, 2 symbols). In each: the write-ups
   (`<machine string>.md`, older ones `.txt`), `verify*/` (Coq, on [busycoq](https://github.com/meithecatte/busycoq)
   at commit `bd2e36f` with Coq 8.20.1, unless the README says otherwise), `tools/` (independent simulators that
   re-check the write-ups' rules), and a `README.md` index.
