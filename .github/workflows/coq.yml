@@ -1,7 +1,7 @@
 name: Coq proofs
 
 # Builds busycoq at the pinned commit with Coq 8.20.1 and checks the proofs of each entry: BB8/verify, BB8/verify_m8,
-# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB7/holdouts, BB11/verify (without the n1 comparison), BB12/verify_m12, BB13/, BB14/, BB15/, BB16/, BB17/, BB18/, BB19/, BB20/, BB21/, BB25/, BB29/ to BB33/, BB34_2/, BB43/, BB53/, BB34/, BB44/, BB54/, FGH/, PA/m238, PA/goldbach and ZF/. Not built here, because they take long
+# BB9/verify_fw2 (stage 1), BB9/verify_c04, BB9/verify_f3, BB9/verify_c7, BB9/verify_h003, BB7/, BB7/holdouts, BB11/verify (without the n1 comparison), BB12/verify_m12, BB12/verify_p12, BB13/, BB14/, BB15/, BB16/, BB17/, BB18/, BB19/, BB20/, BB21/, BB25/, BB29/ to BB33/, BB34_2/, BB43/, BB53/, BB34/, BB44/, BB54/, FGH/, PA/m238, PA/goldbach and ZF/. Not built here, because they take long
 # (recorded local builds are in their directories): BB10/ (about 20 minutes), BB11/'s comparison with n1 (about 6 minutes), BB12/verify (about 3 hours) and stage 2 of
 # BB9/verify_fw2 (about 2 hours).
 #
@@ -75,8 +75,8 @@ jobs:
             bb8-m8:
               - '{BB8/**,BB9/verify_c04/**,BB9/verify_fw2/multifile/**}'
               - '!**/*.md'
-            bb13-bb14:                    # also builds BB11/verify* (M11b, C4), BB12/verify_m12 (M12), BB15/verify, BB16/verify*, BB17/verify*, BB18/verify*, BB19/verify*, BB20/verify*, BB21/verify*, BB25/verify* and BB29/30/31/32/33/verify, BB34_2/verify
-              - '{BB11/verify*/**,BB12/verify_m12/**,BB13/**,BB14/**,BB15/verify/**,BB16/verify*/**,BB17/verify*/**,BB18/verify*/**,BB19/verify*/**,BB20/verify*/**,BB21/verify*/**,BB25/verify*/**,BB29/verify/**,BB30/verify*/**,BB31/verify/**,BB32/verify*/**,BB33/verify/**,BB34_2/verify*/**}'
+            bb13-bb14:                    # also builds BB11/verify* (M11b, C4), BB12/verify_m12 (M12), BB12/verify_p12 (P12), BB15/verify, BB16/verify*, BB17/verify*, BB18/verify*, BB19/verify*, BB20/verify*, BB21/verify*, BB25/verify* and BB29/30/31/32/33/verify, BB34_2/verify
+              - '{BB11/verify*/**,BB12/verify_m12/**,BB12/verify_p12/**,BB13/**,BB14/**,BB15/verify/**,BB16/verify*/**,BB17/verify*/**,BB18/verify*/**,BB19/verify*/**,BB20/verify*/**,BB21/verify*/**,BB25/verify*/**,BB29/verify/**,BB30/verify*/**,BB31/verify/**,BB32/verify*/**,BB33/verify/**,BB34_2/verify*/**}'
               - '!**/*.md'
             bb9-fw2:
               - 'BB9/verify_fw2/**'
@@ -315,7 +315,8 @@ jobs:
     needs: changes
     if: needs.changes.outputs.all == 'true' || needs.changes.outputs.bb13-bb14 == 'true'
     # BB11/verify (M11b, f_(omega+1); its comparison with n1 is not built here), BB11/verify_c4 (C4, the 11-state
-    # f_(omega+2)^2 machine, with copies of M11b's and M12's proofs for its comparisons), BB12/verify_m12, BB13/, BB14/: the 12-,
+    # f_(omega+2)^2 machine, with copies of M11b's and M12's proofs for its comparisons), BB12/verify_p12 (P12, the 12-state
+    # f_(omega+2)^8 machine, with a copy of C4's proof for its comparison), BB12/verify_m12, BB13/, BB14/: the 12-,
     # 13- and 14-state f_(omega+2) machines M12, M13, M13b, M13_19, M14, M14b, M14d_18 and M14_31 and the 14-state
     # f_(omega+3) machine M14_fw3 (verify_m13_19 and verify_m14_fw3 also compare with M13b's and M14_31's exact
     # scores, loading byte-identical copies of their proofs), BB15/verify (Argon's 15-state
@@ -339,7 +340,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        dir: ['BB11/verify/multifile', 'BB11/verify_c4/multifile', 'BB12/verify_m12/multifile', 'BB13/verify/multifile', 'BB13/verify_m13b/multifile',
+        dir: ['BB11/verify/multifile', 'BB11/verify_c4/multifile', 'BB12/verify_m12/multifile', 'BB12/verify_p12/multifile', 'BB13/verify/multifile', 'BB13/verify_m13b/multifile',
               'BB13/verify_m13_19/multifile',
               'BB14/verify/multifile', 'BB14/verify_m14b/multifile', 'BB14/verify_m14d/multifile',
               'BB14/verify_m14_31/multifile', 'BB14/verify_m14_fw3/multifile', 'BB15/verify/multifile',
@@ -385,7 +386,7 @@ jobs:
         run: |
           BUSYCOQ="$RUNNER_TEMP/busycoq/verify" bash ./compile_clean.sh 2>&1 | tee compile_ci.log
           # one 'Closed under the global context' per Print Assumptions line of probe.v (3 for M13b/M14b, 4 for
-          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, B21 and W2PR, 4 for W2PR's verify_w2, 5 for R18a, J15_fw13, J18_w2_C and J20_cube, 6 for M11b, M16_C and M14_31, 7 for B21's verify_w2, J16_w2, J17_champ and J19_sq, 9 for C4, M13_19, M14_fw3 and R18c)
+          # M12-M14, M14d_18, BB16, BB17, BB18 and BB19, 3 for M18_4round, M18_229round, M19_fw4_A, J19, J20, B21 and W2PR, 4 for W2PR's verify_w2, 5 for P12, R18a, J15_fw13, J18_w2_C and J20_cube, 6 for M11b, M16_C and M14_31, 7 for B21's verify_w2, J16_w2, J17_champ and J19_sq, 9 for C4, M13_19, M14_fw3 and R18c)
           expected=$(grep -c '^Print Assumptions' probe.v)
           closed=$(grep -c 'Closed under the global context' probe.log || true)
           if grep -q 'Axioms:' probe.log || [ "$expected" -lt 3 ] || [ "$closed" -ne "$expected" ]; then

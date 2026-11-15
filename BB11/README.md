@@ -20,9 +20,10 @@ changed); the string above is the start-A relabelling the proof is about. A roun
 of zeros that is the counter of an f_(ω+1) loop; two stocks give two f_(ω+2) loops, and the halt hinges on two
 parities settled by W mod 4. Not yet reviewed by the bbchallenge community.
 
-C4 is also above the exact score of M12, the 12-state entry, in Coq: M12's exact count is at most
+C4 is also above the exact score of M12, the previous 12-state entry, in Coq: M12's exact count is at most
 f_(ω+2)(4·f_(ω+1)^6(12)) + 3, proved from M12's own definitions (`beats_M12_exact`, `beats_M12_score`). So
-BB(12) ≥ BB(11) + 1 beats M12 itself.
+BB(12) ≥ BB(11) + 1 beat M12 itself. The 12-state P12 ([`../BB12/`](../BB12/)) is above C4's exact score + 1, in
+Coq (`beats_C4_exact`, `beats_C4_score`, loading a copy of `BB11_C4.v`).
 
 - [`1RB1RH_1RC0LD..._1RK0RG_1RZ0LB.md`](1RB1RH_1RC0LD_1LD1RJ_1LE1LB_1LF1LE_1RG0LE_1RA1RG_0LI1LF_0RC1LI_1RK0RG_1RZ0LB.md): the write-up (the table and the M12 naming, the stocks and rounds,
   the run, verification, comparisons, credit).
