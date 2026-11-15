@@ -30,7 +30,7 @@ start-A table. The halting transition K0 is undefined in the Coq table (`---`); 
 | Exact score | Machine-checked formula: N = u + 3 + p ones when K0 is read, where (p, u) = `nFIN` is given by the recursion of section 2 (`score_exact`). K0 is read on a 0 and the halting transition writes a 1, so σ = N + 1. Not evaluated as a number. |
 | Level | Machine-checked, with the standard fast-growing hierarchy: f_(ω+2)(f_(ω+2)(f_5(34))) < N (`sigma_lower_bound`), and f_(ω+2)(f_(ω+2)(34)) < N (`sigma_lower_bound_34`). |
 | M11b (previous BB(11) entry) | **In Coq, against its exact score**: M11b's proved upper bound N_M11b + 1 < f_(ω+1)(f_ω(f_ω(6))) (`sigma_bracket_m11`, with σ(M11b) = N_M11b + 1) is below C4's N (`beats_M11b`); `beats_M11b_score` (`BB11_C4_cmp.v`) joins the two statements, loading M11b's proof files: NM + 1 < N for the numbers of ones on the two halting tapes. |
-| M12 (BB(12) entry) | **In Coq, against its exact score** (`BB11_C4_vs_M12.v`): M12's halting tape holds exactly fst pb2 + snd pb2/2 + 3 ones (M12's `score_exact`), proved here to be at most f_(ω+2)(4·f_(ω+1)^6(12)) + 3, below C4's N (`beats_M12_exact`, `beats_M12_score`). Both halt reading a 0, so σ(C4) > σ(M12) and BB(12) ≥ BB(11) + 1 > σ(M12). `beats_M12_lower` compares with M12's proved lower bound only. |
+| M12 (previous BB(12) entry) | **In Coq, against its exact score** (`BB11_C4_vs_M12.v`): M12's halting tape holds exactly fst pb2 + snd pb2/2 + 3 ones (M12's `score_exact`), proved here to be at most f_(ω+2)(4·f_(ω+1)^6(12)) + 3, below C4's N (`beats_M12_exact`, `beats_M12_score`). Both halt reading a 0, so σ(C4) > σ(M12) and BB(12) ≥ BB(11) + 1 > σ(M12). `beats_M12_lower` compares with M12's proved lower bound only. |
 | Steps | Not computed. |
 
 ## 1. How it works
@@ -97,8 +97,9 @@ literal checks are described in the working notes, and every rule cited here is 
   definitions of M12's maps (the same W, Kc, Kc_full, Kd_step, Kd_iter and D_reload as in M13b; the argument is that of
   the BB(13) comparison file), M12's exact count is at most f_(ω+2)(4·f_(ω+1)^6(12)) + 3, below C4's lower bound
   (`beats_M12_exact`, `beats_M12_score`). With BB(12) ≥ BB(11) + 1 (redirect the halt into one new state that writes a
-  1), C4 gives a 12-state score above M12's. M12's row is kept as the 12-state machine of record here, with a note,
-  as for BB(17).
+  1), C4 gives a 12-state score above M12's. M12's row was kept as the 12-state machine of record here, with a note,
+  until P12 (2026-11-15, [`../BB12/`](../BB12/)), a 12-state machine above C4's exact score + 1 in Coq
+  (`beats_C4_exact`).
 - Not yet reviewed by the bbchallenge community.
 
 ## Credit
