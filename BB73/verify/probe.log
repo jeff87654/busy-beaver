@@ -1,0 +1,21 @@
+bb73_halts
+     : halts tm c0
+reaches_final
+     : c0 -->* c_final
+final_halted
+     : halted tm c_final
+fomega1_lt_sigma
+     : f_omega1 11 < sigma
+bb73_main
+     : halts tm c0 /\
+       c0 -->* c_final /\
+       halted tm c_final /\ sigma = 2 * mfin + 5 /\ f_omega1 11 < sigma
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

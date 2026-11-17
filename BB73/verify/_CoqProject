@@ -1,0 +1,8 @@
+-Q . TM73
+-Q ../../busycoq/verify BusyCoq
+BB73.v
+Individual73.v
+BB73_rules.v
+BB73_start.v
+BB73_run.v
+BB73_score.v
