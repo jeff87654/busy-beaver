@@ -1,0 +1,23 @@
+bb83_halts
+     : halts tm c0
+reaches_final
+     : c0 -->* c_final
+final_halted
+     : halted tm c_final
+fomega1_iter3_lt_sigma
+     : PeanoNat.Nat.iter 3 f_omega1 (PeanoNat.Nat.iter 3 f_omega 14) < sigma
+bb83_main
+     : halts tm c0 /\
+       c0 -->* c_final /\
+       halted tm c_final /\
+       sigma = 2 * mfin + 7 /\
+       PeanoNat.Nat.iter 3 f_omega1 (PeanoNat.Nat.iter 3 f_omega 14) < sigma
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

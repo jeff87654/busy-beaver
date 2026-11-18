@@ -1,0 +1,8 @@
+-Q . TM83
+-Q ../../busycoq/verify BusyCoq
+BB83.v
+Individual83.v
+BB83_rules.v
+BB83_start.v
+BB83_run.v
+BB83_score.v

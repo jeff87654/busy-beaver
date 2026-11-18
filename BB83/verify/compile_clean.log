@@ -1,0 +1,16 @@
+== BB83.v ==
+   ok, 4 s
+== Individual83.v ==
+   ok, 4 s
+== BB83_rules.v ==
+   ok, 4 s
+== BB83_start.v ==
+   ok, 7 s
+== BB83_run.v ==
+   ok, 3 s
+== BB83_score.v ==
+   ok, 4 s
+COMPILE DONE
+probe: 9 theorems closed under the global context
+0
+no axioms
