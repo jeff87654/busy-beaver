@@ -1,0 +1,17 @@
+== BB74.v ==
+   ok, 4 s
+== Individual74.v ==
+   ok, 3 s
+== BB74_rules.v ==
+   ok, 4 s
+== BB74_start.v ==
+   ok, 45 s
+== BB74_run.v ==
+   ok, 4 s
+== BB74_score.v ==
+   ok, 3 s
+COMPILE DONE
+probe: 9 theorems closed under the global context
+0
+no axioms
+EXIT=0

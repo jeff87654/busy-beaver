@@ -1,0 +1,21 @@
+bb74_halts
+     : halts tm c0
+reaches_final
+     : c0 -->* c_final
+final_halted
+     : halted tm c_final
+fomega3_21_lt_sigma
+     : f_omega3 21 < sigma
+bb74_main
+     : halts tm c0 /\
+       c0 -->* c_final /\
+       halted tm c_final /\ sigma = 2 * mfin + 7 /\ f_omega3 21 < sigma
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
