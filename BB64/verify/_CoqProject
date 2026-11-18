@@ -1,0 +1,13 @@
+-Q /d/busycoq/verify BusyCoq
+-Q . TM64
+-Q ../fgh BB8
+BB64.v
+Individual64.v
+BB64_rules.v
+BB64_run.v
+BB64_score.v
+BB64_bound.v
+../fgh/Ord.v
+../fgh/KnuthFGH.v
+FGH_BB64.v
+probe.v

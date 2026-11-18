@@ -1,0 +1,8 @@
+-Q . TM74
+-Q ../../busycoq/verify BusyCoq
+BB74.v
+Individual74.v
+BB74_rules.v
+BB74_start.v
+BB74_run.v
+BB74_score.v
