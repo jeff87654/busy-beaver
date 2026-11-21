@@ -1,0 +1,30 @@
+== fgh/Ord.v ==
+   ok, 4 s
+== fgh/KnuthFGH.v ==
+   ok, 4 s
+== BB64.v ==
+   ok, 4 s
+== Individual64.v ==
+   ok, 4 s
+== BB64_rules.v ==
+   ok, 4 s
+== BB64_run.v ==
+   ok, 3 s
+== BB64_score.v ==
+   ok, 4 s
+== BB64_bound.v ==
+   ok, 6 s
+== FGH_BB64.v ==
+Closed under the global context
+   ok, 6 s
+COMPILE DONE
+== probe ==
+probe: 8 of 8 theorems closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

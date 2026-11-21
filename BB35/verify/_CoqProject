@@ -1,0 +1,8 @@
+-Q . TM35
+-Q ../../busycoq/verify BusyCoq
+BB35.v
+Individual35.v
+BB35_rules.v
+BB35_start.v
+BB35_run.v
+BB35_score.v

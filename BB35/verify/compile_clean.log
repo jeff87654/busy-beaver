@@ -1,0 +1,14 @@
+== BB35.v ==
+   ok, 3 s
+== Individual35.v ==
+   ok, 3 s
+== BB35_rules.v ==
+   ok, 3 s
+== BB35_start.v ==
+   ok, 17 s
+== BB35_run.v ==
+   ok, 3 s
+== BB35_score.v ==
+   ok, 3 s
+COMPILE DONE
+probe: 35 of 35 theorems closed under the global context
