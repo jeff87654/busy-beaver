@@ -1,6 +1,47 @@
 # BB14/: 14 states, 2 symbols
 
-## Current entry: M14_fw3
+## Current entry: M14_fw3x4
+
+    1RB0LK_1RC1RB_1RD1RM_1RE0LH_1LF1RI_0LA1LG_1RL0LF_1LK1LD_1RJ0RB_1RG0LK_1LA1LK_1RZ0LF_0LN1LA_0RE1LN
+
+Halts from the blank tape; L0 (`1RZ` in the string) is the halt, so σ = N + 1, where N is the number of ones when L0
+is read. Machine-checked, with the standard fast-growing hierarchy and no axioms:
+
+    f_(ω+3)^4(f_ω(4)) < N,   σ = N + 1        (sigma_bound; f_(ω+3)(n) = f_(ω+2)^n(n))
+
+the exact score N = p + a + 7 for the explicit pair (p, a) = `pa_final` (`score_exact`; not evaluated), and, against
+the exact score of the previous entry M14_fw3 (below): M14_fw3's halting tape holds exactly p + a + 6 ones for its
+(p, a) = `pa_final`, that number is at most f_(ω+3)(f_ω(13)), and it is below N (`beats_M14_fw3_exact`,
+`beats_M14_fw3_score`, `beats_M14_fw3_all`). Both halt reading a 0, so M14_fw3x4's σ is the larger.
+
+In the state order of M12's core, M14_fw3x4 is M14_fw3 with E0, L0, L1, M0, N0 and N1 changed and started in G
+(`1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LL1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_0LG1LN_1RN0LH_1RK0LL`, start G). The
+unary counter E of M14_fw3 is followed on the tape by a sentinel tail (1111, then 11, then 011, then 10); when the
+counter runs out, the sentinel starts a short bridge that writes a new counter of about half of a value just produced
+and leaves the next, shorter sentinel. That gives four nested f_(ω+3) loops, from a first counter
+E₀ = W_5(1)/2 − 1 ≥ f_ω(4), before the halt.
+
+The 15- and 16-state entries are unchanged: J15_fw13's proved f_(ω+13)(20) ([`../BB15/`](../BB15/)) and J16_w2's
+f_(ω·2)(f_15(2)) ([`../BB16/`](../BB16/)) are far above M14_fw3x4's proved f_(ω+3)^4(f_ω(4)). M14_fw3x4 has no proved
+upper bound; on paper its score is of level f_(ω+3), far below f_(ω+13)(20), so BB(14) + 1 does not improve the
+BB(15) row. Not yet reviewed by the bbchallenge community.
+
+- [`1RB0LK_1RC1RB..._1RZ0LF_0LN1LA_0RE1LN.md`](1RB0LK_1RC1RB_1RD1RM_1RE0LH_1LF1RI_0LA1LG_1RL0LF_1LK1LD_1RJ0RB_1RG0LK_1LA1LK_1RZ0LF_0LN1LA_0RE1LN.md):
+  the write-up (the table in both state orders, the four loops and their sentinels, the run, verification and the
+  independent audit, comparisons, credit).
+- [`verify_m14_fw3x4/`](verify_m14_fw3x4/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): Neon's file unchanged;
+  `halt`, `score_exact`, `sigma_bound` for the table of the machine string (`BB14_M14_fw3x4_entry.v`);
+  `beats_M14_fw3_exact`, `beats_M14_fw3_score`, `beats_M14_fw3_all`, `M14_fw3_score_agrees` (against M14_fw3's
+  exact score, loading its proof unchanged); and the audit's restatement over independent definitions
+  (`BB14_M14_fw3x4_audit.v`). About 2.5 minutes to compile; built and probed in CI (job `bb13-bb14`), which requires
+  fourteen closed `Print Assumptions` reports.
+- [`tools/m14_fw3x4_lit_chk.py`](tools/m14_fw3x4_lit_chk.py): an independent literal simulator from the audit: the two
+  strings are the same machine, the 240-step opening, and 659 instances of the file's macro and bridge rules.
+
+Found and proved by Gemini 4 Neon, a Google Gemini model run by the repository owner in Google's Antigravity
+(2026-11-22/23); audited and re-checked here, with the entry file and the comparison file.
+
+## Previous entry: M14_fw3
 
     1RB1RA_1RI1RC_0LD1LG_0RE1LD_0LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_1LN1LK_1RK0LH_1LD0RK
 
@@ -30,12 +71,13 @@ BB(15) row. Not yet reviewed by the bbchallenge community.
 - [`verify_m14_fw3/`](verify_m14_fw3/): the Coq proofs (busycoq `bd2e36f`, Coq 8.20.1): `halt`, `score_exact`,
   `sigma_bound`, `beats_M14_31` (against M14_31's proved lower bound), the `_tnf` versions for the relabelled table,
   and `beats_M14_31_exact`, `beats_M14_31_score` (against M14_31's exact score). Built and probed in CI (job
-  `bb13-bb14`), which requires nine closed `Print Assumptions` reports.
+  `bb13-bb14`), which requires nine closed `Print Assumptions` reports. M14_fw3x4's comparison loads
+  `BB14_M14_fw3.v` (a byte-identical copy in `verify_m14_fw3x4/multifile/`, checked by its `share_check.sh`).
 
 Found and proved by Argon, a Google Gemini model run by the repository owner in Google's Antigravity (2026-11-09);
 re-checked here, with the comparison file.
 
-## Previous entry: M14_31
+## Earlier entry: M14_31
 
     1RB1RA_1RI1RC_0LD1LG_0RE1LD_0RN1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_0LK0LH_1LM---
 

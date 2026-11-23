@@ -1,0 +1,354 @@
+c0 = (q0, tape0)
+     : Q * tape
+eq_refl : q0 = A
+     : q0 = A
+eq_refl : s0 = 0
+     : s0 = 0
+eq_refl : BB14_M14_fw3x4.c0_core = (G, tape0)
+     : BB14_M14_fw3x4.c0_core = (G, tape0)
+eq_refl : BB14_M14_fw3x4_entry.tm (A, 0) = Some (1, R, B)
+     : BB14_M14_fw3x4_entry.tm (A, 0) = Some (1, R, B)
+eq_refl : BB14_M14_fw3x4_entry.tm (A, 1) = Some (0, TM.L, K)
+     : BB14_M14_fw3x4_entry.tm (A, 1) = Some (0, TM.L, K)
+eq_refl : BB14_M14_fw3x4_entry.tm (B, 0) = Some (1, R, C)
+     : BB14_M14_fw3x4_entry.tm (B, 0) = Some (1, R, C)
+eq_refl : BB14_M14_fw3x4_entry.tm (B, 1) = Some (1, R, B)
+     : BB14_M14_fw3x4_entry.tm (B, 1) = Some (1, R, B)
+eq_refl : BB14_M14_fw3x4_entry.tm (C, 0) = Some (1, R, D)
+     : BB14_M14_fw3x4_entry.tm (C, 0) = Some (1, R, D)
+eq_refl : BB14_M14_fw3x4_entry.tm (C, 1) = Some (1, R, M)
+     : BB14_M14_fw3x4_entry.tm (C, 1) = Some (1, R, M)
+eq_refl : BB14_M14_fw3x4_entry.tm (D, 0) = Some (1, R, E)
+     : BB14_M14_fw3x4_entry.tm (D, 0) = Some (1, R, E)
+eq_refl : BB14_M14_fw3x4_entry.tm (D, 1) = Some (0, TM.L, H)
+     : BB14_M14_fw3x4_entry.tm (D, 1) = Some (0, TM.L, H)
+eq_refl : BB14_M14_fw3x4_entry.tm (E, 0) = Some (1, TM.L, F)
+     : BB14_M14_fw3x4_entry.tm (E, 0) = Some (1, TM.L, F)
+eq_refl : BB14_M14_fw3x4_entry.tm (E, 1) = Some (1, R, I)
+     : BB14_M14_fw3x4_entry.tm (E, 1) = Some (1, R, I)
+eq_refl : BB14_M14_fw3x4_entry.tm (F, 0) = Some (0, TM.L, A)
+     : BB14_M14_fw3x4_entry.tm (F, 0) = Some (0, TM.L, A)
+eq_refl : BB14_M14_fw3x4_entry.tm (F, 1) = Some (1, TM.L, G)
+     : BB14_M14_fw3x4_entry.tm (F, 1) = Some (1, TM.L, G)
+eq_refl : BB14_M14_fw3x4_entry.tm (G, 0) = Some (1, R, L)
+     : BB14_M14_fw3x4_entry.tm (G, 0) = Some (1, R, L)
+eq_refl : BB14_M14_fw3x4_entry.tm (G, 1) = Some (0, TM.L, F)
+     : BB14_M14_fw3x4_entry.tm (G, 1) = Some (0, TM.L, F)
+eq_refl : BB14_M14_fw3x4_entry.tm (H, 0) = Some (1, TM.L, K)
+     : BB14_M14_fw3x4_entry.tm (H, 0) = Some (1, TM.L, K)
+eq_refl : BB14_M14_fw3x4_entry.tm (H, 1) = Some (1, TM.L, D)
+     : BB14_M14_fw3x4_entry.tm (H, 1) = Some (1, TM.L, D)
+eq_refl : BB14_M14_fw3x4_entry.tm (I, 0) = Some (1, R, J)
+     : BB14_M14_fw3x4_entry.tm (I, 0) = Some (1, R, J)
+eq_refl : BB14_M14_fw3x4_entry.tm (I, 1) = Some (0, R, B)
+     : BB14_M14_fw3x4_entry.tm (I, 1) = Some (0, R, B)
+eq_refl : BB14_M14_fw3x4_entry.tm (J, 0) = Some (1, R, G)
+     : BB14_M14_fw3x4_entry.tm (J, 0) = Some (1, R, G)
+eq_refl : BB14_M14_fw3x4_entry.tm (J, 1) = Some (0, TM.L, K)
+     : BB14_M14_fw3x4_entry.tm (J, 1) = Some (0, TM.L, K)
+eq_refl : BB14_M14_fw3x4_entry.tm (K, 0) = Some (1, TM.L, A)
+     : BB14_M14_fw3x4_entry.tm (K, 0) = Some (1, TM.L, A)
+eq_refl : BB14_M14_fw3x4_entry.tm (K, 1) = Some (1, TM.L, K)
+     : BB14_M14_fw3x4_entry.tm (K, 1) = Some (1, TM.L, K)
+eq_refl : BB14_M14_fw3x4_entry.tm (L, 0) = None
+     : BB14_M14_fw3x4_entry.tm (L, 0) = None
+eq_refl : BB14_M14_fw3x4_entry.tm (L, 1) = Some (0, TM.L, F)
+     : BB14_M14_fw3x4_entry.tm (L, 1) = Some (0, TM.L, F)
+eq_refl : BB14_M14_fw3x4_entry.tm (M, 0) = Some (0, TM.L, N)
+     : BB14_M14_fw3x4_entry.tm (M, 0) = Some (0, TM.L, N)
+eq_refl : BB14_M14_fw3x4_entry.tm (M, 1) = Some (1, TM.L, A)
+     : BB14_M14_fw3x4_entry.tm (M, 1) = Some (1, TM.L, A)
+eq_refl : BB14_M14_fw3x4_entry.tm (N, 0) = Some (0, R, E)
+     : BB14_M14_fw3x4_entry.tm (N, 0) = Some (0, R, E)
+eq_refl : BB14_M14_fw3x4_entry.tm (N, 1) = Some (1, TM.L, N)
+     : BB14_M14_fw3x4_entry.tm (N, 1) = Some (1, TM.L, N)
+eq_refl : BB14_M14_fw3x4.tm_tnf (A, 0) = Some (1, R, B)
+     : BB14_M14_fw3x4.tm_tnf (A, 0) = Some (1, R, B)
+eq_refl : BB14_M14_fw3x4.tm_tnf (A, 1) = Some (0, TM.L, K)
+     : BB14_M14_fw3x4.tm_tnf (A, 1) = Some (0, TM.L, K)
+eq_refl : BB14_M14_fw3x4.tm_tnf (B, 0) = Some (1, R, C)
+     : BB14_M14_fw3x4.tm_tnf (B, 0) = Some (1, R, C)
+eq_refl : BB14_M14_fw3x4.tm_tnf (B, 1) = Some (1, R, B)
+     : BB14_M14_fw3x4.tm_tnf (B, 1) = Some (1, R, B)
+eq_refl : BB14_M14_fw3x4.tm_tnf (C, 0) = Some (1, R, D)
+     : BB14_M14_fw3x4.tm_tnf (C, 0) = Some (1, R, D)
+eq_refl : BB14_M14_fw3x4.tm_tnf (C, 1) = Some (1, R, M)
+     : BB14_M14_fw3x4.tm_tnf (C, 1) = Some (1, R, M)
+eq_refl : BB14_M14_fw3x4.tm_tnf (D, 0) = Some (1, R, E)
+     : BB14_M14_fw3x4.tm_tnf (D, 0) = Some (1, R, E)
+eq_refl : BB14_M14_fw3x4.tm_tnf (D, 1) = Some (0, TM.L, H)
+     : BB14_M14_fw3x4.tm_tnf (D, 1) = Some (0, TM.L, H)
+eq_refl : BB14_M14_fw3x4.tm_tnf (E, 0) = Some (1, TM.L, F)
+     : BB14_M14_fw3x4.tm_tnf (E, 0) = Some (1, TM.L, F)
+eq_refl : BB14_M14_fw3x4.tm_tnf (E, 1) = Some (1, R, I)
+     : BB14_M14_fw3x4.tm_tnf (E, 1) = Some (1, R, I)
+eq_refl : BB14_M14_fw3x4.tm_tnf (F, 0) = Some (0, TM.L, A)
+     : BB14_M14_fw3x4.tm_tnf (F, 0) = Some (0, TM.L, A)
+eq_refl : BB14_M14_fw3x4.tm_tnf (F, 1) = Some (1, TM.L, G)
+     : BB14_M14_fw3x4.tm_tnf (F, 1) = Some (1, TM.L, G)
+eq_refl : BB14_M14_fw3x4.tm_tnf (G, 0) = Some (1, R, L)
+     : BB14_M14_fw3x4.tm_tnf (G, 0) = Some (1, R, L)
+eq_refl : BB14_M14_fw3x4.tm_tnf (G, 1) = Some (0, TM.L, F)
+     : BB14_M14_fw3x4.tm_tnf (G, 1) = Some (0, TM.L, F)
+eq_refl : BB14_M14_fw3x4.tm_tnf (H, 0) = Some (1, TM.L, K)
+     : BB14_M14_fw3x4.tm_tnf (H, 0) = Some (1, TM.L, K)
+eq_refl : BB14_M14_fw3x4.tm_tnf (H, 1) = Some (1, TM.L, D)
+     : BB14_M14_fw3x4.tm_tnf (H, 1) = Some (1, TM.L, D)
+eq_refl : BB14_M14_fw3x4.tm_tnf (I, 0) = Some (1, R, J)
+     : BB14_M14_fw3x4.tm_tnf (I, 0) = Some (1, R, J)
+eq_refl : BB14_M14_fw3x4.tm_tnf (I, 1) = Some (0, R, B)
+     : BB14_M14_fw3x4.tm_tnf (I, 1) = Some (0, R, B)
+eq_refl : BB14_M14_fw3x4.tm_tnf (J, 0) = Some (1, R, G)
+     : BB14_M14_fw3x4.tm_tnf (J, 0) = Some (1, R, G)
+eq_refl : BB14_M14_fw3x4.tm_tnf (J, 1) = Some (0, TM.L, K)
+     : BB14_M14_fw3x4.tm_tnf (J, 1) = Some (0, TM.L, K)
+eq_refl : BB14_M14_fw3x4.tm_tnf (K, 0) = Some (1, TM.L, A)
+     : BB14_M14_fw3x4.tm_tnf (K, 0) = Some (1, TM.L, A)
+eq_refl : BB14_M14_fw3x4.tm_tnf (K, 1) = Some (1, TM.L, K)
+     : BB14_M14_fw3x4.tm_tnf (K, 1) = Some (1, TM.L, K)
+eq_refl : BB14_M14_fw3x4.tm_tnf (L, 0) = None
+     : BB14_M14_fw3x4.tm_tnf (L, 0) = None
+eq_refl : BB14_M14_fw3x4.tm_tnf (L, 1) = Some (0, TM.L, F)
+     : BB14_M14_fw3x4.tm_tnf (L, 1) = Some (0, TM.L, F)
+eq_refl : BB14_M14_fw3x4.tm_tnf (M, 0) = Some (0, TM.L, N)
+     : BB14_M14_fw3x4.tm_tnf (M, 0) = Some (0, TM.L, N)
+eq_refl : BB14_M14_fw3x4.tm_tnf (M, 1) = Some (1, TM.L, A)
+     : BB14_M14_fw3x4.tm_tnf (M, 1) = Some (1, TM.L, A)
+eq_refl : BB14_M14_fw3x4.tm_tnf (N, 0) = Some (0, R, E)
+     : BB14_M14_fw3x4.tm_tnf (N, 0) = Some (0, R, E)
+eq_refl : BB14_M14_fw3x4.tm_tnf (N, 1) = Some (1, TM.L, N)
+     : BB14_M14_fw3x4.tm_tnf (N, 1) = Some (1, TM.L, N)
+eq_refl : BB14_M14_fw3x4.tm (A, 0) = Some (1, R, B)
+     : BB14_M14_fw3x4.tm (A, 0) = Some (1, R, B)
+eq_refl : BB14_M14_fw3x4.tm (A, 1) = Some (1, R, A)
+     : BB14_M14_fw3x4.tm (A, 1) = Some (1, R, A)
+eq_refl : BB14_M14_fw3x4.tm (B, 0) = Some (1, R, I)
+     : BB14_M14_fw3x4.tm (B, 0) = Some (1, R, I)
+eq_refl : BB14_M14_fw3x4.tm (B, 1) = Some (1, R, C)
+     : BB14_M14_fw3x4.tm (B, 1) = Some (1, R, C)
+eq_refl : BB14_M14_fw3x4.tm (C, 0) = Some (0, TM.L, D)
+     : BB14_M14_fw3x4.tm (C, 0) = Some (0, TM.L, D)
+eq_refl : BB14_M14_fw3x4.tm (C, 1) = Some (1, TM.L, G)
+     : BB14_M14_fw3x4.tm (C, 1) = Some (1, TM.L, G)
+eq_refl : BB14_M14_fw3x4.tm (D, 0) = Some (0, R, E)
+     : BB14_M14_fw3x4.tm (D, 0) = Some (0, R, E)
+eq_refl : BB14_M14_fw3x4.tm (D, 1) = Some (1, TM.L, D)
+     : BB14_M14_fw3x4.tm (D, 1) = Some (1, TM.L, D)
+eq_refl : BB14_M14_fw3x4.tm (E, 0) = Some (1, TM.L, L)
+     : BB14_M14_fw3x4.tm (E, 0) = Some (1, TM.L, L)
+eq_refl : BB14_M14_fw3x4.tm (E, 1) = Some (1, R, F)
+     : BB14_M14_fw3x4.tm (E, 1) = Some (1, R, F)
+eq_refl : BB14_M14_fw3x4.tm (F, 0) = Some (1, R, M)
+     : BB14_M14_fw3x4.tm (F, 0) = Some (1, R, M)
+eq_refl : BB14_M14_fw3x4.tm (F, 1) = Some (0, R, A)
+     : BB14_M14_fw3x4.tm (F, 1) = Some (0, R, A)
+eq_refl : BB14_M14_fw3x4.tm (G, 0) = Some (1, R, A)
+     : BB14_M14_fw3x4.tm (G, 0) = Some (1, R, A)
+eq_refl : BB14_M14_fw3x4.tm (G, 1) = Some (0, TM.L, H)
+     : BB14_M14_fw3x4.tm (G, 1) = Some (0, TM.L, H)
+eq_refl : BB14_M14_fw3x4.tm (H, 0) = Some (1, TM.L, G)
+     : BB14_M14_fw3x4.tm (H, 0) = Some (1, TM.L, G)
+eq_refl : BB14_M14_fw3x4.tm (H, 1) = Some (1, TM.L, H)
+     : BB14_M14_fw3x4.tm (H, 1) = Some (1, TM.L, H)
+eq_refl : BB14_M14_fw3x4.tm (I, 0) = Some (1, R, E)
+     : BB14_M14_fw3x4.tm (I, 0) = Some (1, R, E)
+eq_refl : BB14_M14_fw3x4.tm (I, 1) = Some (0, TM.L, J)
+     : BB14_M14_fw3x4.tm (I, 1) = Some (0, TM.L, J)
+eq_refl : BB14_M14_fw3x4.tm (J, 0) = Some (1, TM.L, H)
+     : BB14_M14_fw3x4.tm (J, 0) = Some (1, TM.L, H)
+eq_refl : BB14_M14_fw3x4.tm (J, 1) = Some (1, TM.L, I)
+     : BB14_M14_fw3x4.tm (J, 1) = Some (1, TM.L, I)
+eq_refl : BB14_M14_fw3x4.tm (K, 0) = None
+     : BB14_M14_fw3x4.tm (K, 0) = None
+eq_refl : BB14_M14_fw3x4.tm (K, 1) = Some (0, TM.L, L)
+     : BB14_M14_fw3x4.tm (K, 1) = Some (0, TM.L, L)
+eq_refl : BB14_M14_fw3x4.tm (L, 0) = Some (0, TM.L, G)
+     : BB14_M14_fw3x4.tm (L, 0) = Some (0, TM.L, G)
+eq_refl : BB14_M14_fw3x4.tm (L, 1) = Some (1, TM.L, N)
+     : BB14_M14_fw3x4.tm (L, 1) = Some (1, TM.L, N)
+eq_refl : BB14_M14_fw3x4.tm (M, 0) = Some (1, R, N)
+     : BB14_M14_fw3x4.tm (M, 0) = Some (1, R, N)
+eq_refl : BB14_M14_fw3x4.tm (M, 1) = Some (0, TM.L, H)
+     : BB14_M14_fw3x4.tm (M, 1) = Some (0, TM.L, H)
+eq_refl : BB14_M14_fw3x4.tm (N, 0) = Some (1, R, K)
+     : BB14_M14_fw3x4.tm (N, 0) = Some (1, R, K)
+eq_refl : BB14_M14_fw3x4.tm (N, 1) = Some (0, TM.L, L)
+     : BB14_M14_fw3x4.tm (N, 1) = Some (0, TM.L, L)
+BB14_M14_fw3x4.iter =
+fix iter (X : Type) (n : nat) (g : X -> X) (x : X) {struct n} : X :=
+  match n with
+  | 0 => x
+  | S n' => g (iter X n' g x)
+  end
+     : forall {X : Type}, nat -> (X -> X) -> X -> X
+
+Arguments BB14_M14_fw3x4.iter {X}%type_scope n%nat_scope g%function_scope x
+BB14_M14_fw3x4.f =
+fix f (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => BB14_M14_fw3x4.iter n (f k') n
+  end
+     : nat -> nat -> nat
+
+Arguments BB14_M14_fw3x4.f (k _)%nat_scope
+BB14_M14_fw3x4.f_omega = fun n : nat => BB14_M14_fw3x4.f n n
+     : nat -> nat
+
+Arguments BB14_M14_fw3x4.f_omega n%nat_scope
+BB14_M14_fw3x4.f_omega1 =
+fun n : nat => BB14_M14_fw3x4.iter n BB14_M14_fw3x4.f_omega n
+     : nat -> nat
+
+Arguments BB14_M14_fw3x4.f_omega1 n%nat_scope
+BB14_M14_fw3x4.f_omega2 =
+fun n : nat => BB14_M14_fw3x4.iter n BB14_M14_fw3x4.f_omega1 n
+     : nat -> nat
+
+Arguments BB14_M14_fw3x4.f_omega2 n%nat_scope
+BB14_M14_fw3x4.f_omega3 =
+fun n : nat => BB14_M14_fw3x4.iter n BB14_M14_fw3x4.f_omega2 n
+     : nat -> nat
+
+Arguments BB14_M14_fw3x4.f_omega3 n%nat_scope
+BB14_M14_fw3x4.sym_val =
+fun s : Sym => match s with
+               | 0 => 0
+               | 1 => 1
+               end
+     : Sym -> nat
+
+Arguments BB14_M14_fw3x4.sym_val s%sym_scope
+BB14_M14_fw3x4.count1 =
+fix count1 (xs : list Sym) : nat :=
+  match xs with
+  | []%list => 0
+  | (x :: t)%list => BB14_M14_fw3x4.sym_val x + count1 t
+  end
+     : list Sym -> nat
+
+Arguments BB14_M14_fw3x4.count1 xs%list_scope
+BB14_M14_fw3x4.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N =
+  BB14_M14_fw3x4.count1 L + BB14_M14_fw3x4.sym_val s +
+  BB14_M14_fw3x4.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB14_M14_fw3x4.ones c N%nat_scope
+BB14_M14_fw3.ones =
+fun (c : Q * tape) (N : nat) =>
+exists (q : Q) (L R : list Sym) (s : Sym),
+  c = (q, (L *> const 0, s, R *> const 0)) /\
+  N = BB14_M14_fw3.count1 L + BB14_M14_fw3.sym_val s + BB14_M14_fw3.count1 R
+     : Q * tape -> nat -> Prop
+
+Arguments BB14_M14_fw3.ones c N%nat_scope
+BB14_M14_fw3x4_entry.halt
+     : halts BB14_M14_fw3x4_entry.tm c0
+BB14_M14_fw3x4_entry.score_exact
+     : exists c : Q * tape,
+         c0 -[ BB14_M14_fw3x4_entry.tm ]->* c /\
+         halted BB14_M14_fw3x4_entry.tm c /\
+         BB14_M14_fw3x4.ones c BB14_M14_fw3x4.N_final
+BB14_M14_fw3x4_entry.sigma_bound
+     : exists (c : Q * tape) (n : nat),
+         c0 -[ BB14_M14_fw3x4_entry.tm ]->* c /\
+         halted BB14_M14_fw3x4_entry.tm c /\
+         BB14_M14_fw3x4.ones c n /\
+         n >
+         BB14_M14_fw3x4.iter 4 BB14_M14_fw3x4.f_omega3
+           (BB14_M14_fw3x4.f_omega 4)
+BB14_M14_fw3x4.halt
+     : halts BB14_M14_fw3x4.tm BB14_M14_fw3x4.c0_core
+BB14_M14_fw3x4.score_exact
+     : exists c : Q * tape,
+         BB14_M14_fw3x4.c0_core -[ BB14_M14_fw3x4.tm ]->* c /\
+         halted BB14_M14_fw3x4.tm c /\
+         BB14_M14_fw3x4.ones c BB14_M14_fw3x4.N_final
+BB14_M14_fw3x4.sigma_bound
+     : exists (c : Q * tape) (n : nat),
+         BB14_M14_fw3x4.c0_core -[ BB14_M14_fw3x4.tm ]->* c /\
+         halted BB14_M14_fw3x4.tm c /\
+         BB14_M14_fw3x4.ones c n /\
+         n >
+         BB14_M14_fw3x4.iter 4 BB14_M14_fw3x4.f_omega3
+           (BB14_M14_fw3x4.f_omega 4)
+BB14_M14_fw3x4.beats_M14_fw3_exact
+     : (exists
+          (c_old : Q * tape) (n_old : nat) (c_new : Q * tape) 
+        (n_new : nat),
+          c0 -[ BB14_M14_fw3x4.tm_M14_fw3_tnf ]->* c_old /\
+          halted BB14_M14_fw3x4.tm_M14_fw3_tnf c_old /\
+          BB14_M14_fw3x4.ones c_old n_old /\
+          c0 -[ BB14_M14_fw3x4.tm_tnf ]->* c_new /\
+          halted BB14_M14_fw3x4.tm_tnf c_new /\
+          BB14_M14_fw3x4.ones c_new n_new /\ n_old < n_new) /\
+       (forall (c_old : Q * tape) (n_old : nat),
+        c0 -[ BB14_M14_fw3x4.tm_M14_fw3_tnf ]->* c_old ->
+        halted BB14_M14_fw3x4.tm_M14_fw3_tnf c_old ->
+        BB14_M14_fw3x4.ones c_old n_old -> n_old < BB14_M14_fw3x4.N_final)
+BB14_M14_fw3x4_cmp.M14_fw3_score_agrees
+     : fst BB14_M14_fw3.pa_final + snd BB14_M14_fw3.pa_final + 6 =
+       BB14_M14_fw3x4.M14_Old.N_old
+BB14_M14_fw3x4_cmp.beats_M14_fw3_all
+     : forall (c1 : Q * tape) (n1 : nat) (c2 : Q * tape) (n2 : nat),
+       c0 -[ BB14_M14_fw3.tm ]->* c1 ->
+       halted BB14_M14_fw3.tm c1 ->
+       BB14_M14_fw3.ones c1 n1 ->
+       c0 -[ BB14_M14_fw3x4_entry.tm ]->* c2 ->
+       halted BB14_M14_fw3x4_entry.tm c2 ->
+       BB14_M14_fw3x4.ones c2 n2 -> n1 < n2
+BB14_M14_fw3x4_cmp.beats_M14_fw3_exact
+     : exists (c : Q * tape) (n : nat),
+         c0 -[ BB14_M14_fw3x4_entry.tm ]->* c /\
+         halted BB14_M14_fw3x4_entry.tm c /\
+         BB14_M14_fw3x4.ones c n /\
+         fst BB14_M14_fw3.pa_final + snd BB14_M14_fw3.pa_final + 6 < n
+BB14_M14_fw3x4_cmp.beats_M14_fw3_score
+     : exists N3 : nat,
+         (exists c : Q * tape,
+            c0 -[ BB14_M14_fw3.tm ]->* c /\
+            halted BB14_M14_fw3.tm c /\ BB14_M14_fw3.ones c N3) /\
+         (exists (c : Q * tape) (n : nat),
+            c0 -[ BB14_M14_fw3x4_entry.tm ]->* c /\
+            halted BB14_M14_fw3x4_entry.tm c /\
+            BB14_M14_fw3x4.ones c n /\ N3 < n)
+BB14_M14_fw3x4_audit.my_new_halts
+     : halts BB14_M14_fw3x4_audit.my_new c0
+BB14_M14_fw3x4_audit.my_new_sigma
+     : (exists (c : Q * tape) (n : nat),
+          c0 -[ BB14_M14_fw3x4_audit.my_new ]->* c /\
+          halted BB14_M14_fw3x4_audit.my_new c /\
+          BB14_M14_fw3x4_audit.my_ones c n) /\
+       (forall (c : Q * tape) (n : nat),
+        c0 -[ BB14_M14_fw3x4_audit.my_new ]->* c ->
+        halted BB14_M14_fw3x4_audit.my_new c ->
+        BB14_M14_fw3x4_audit.my_ones c n ->
+        Nat.iter 4 (BB14_M14_fw3x4_audit.fwk 3) (BB14_M14_fw3x4_audit.fw 4) <
+        n)
+BB14_M14_fw3x4_audit.my_beats
+     : halts BB14_M14_fw3x4_audit.my_old c0 /\
+       (forall (c1 : Q * tape) (n1 : nat) (c2 : Q * tape) (n2 : nat),
+        c0 -[ BB14_M14_fw3x4_audit.my_old ]->* c1 ->
+        halted BB14_M14_fw3x4_audit.my_old c1 ->
+        BB14_M14_fw3x4_audit.my_ones c1 n1 ->
+        c0 -[ BB14_M14_fw3x4_audit.my_new ]->* c2 ->
+        halted BB14_M14_fw3x4_audit.my_new c2 ->
+        BB14_M14_fw3x4_audit.my_ones c2 n2 -> n1 < n2)
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

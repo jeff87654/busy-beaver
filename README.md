@@ -25,7 +25,7 @@ notebook: only what is proved here counts.
 | [**BB(11)**](#bb11) | [C4](BB11/1RB1RH_1RC0LD_1LD1RJ_1LE1LB_1LF1LE_1RG0LE_1RA1RG_0LI1LF_0RC1LI_1RK0RG_1RZ0LB.md) | f_(ω+2)(f_(ω+2)(f_5(34))) < N | this project | 2026&#8209;11&#8209;13 |
 | [**BB(12)**](#bb12) | [P12](BB12/1RB1RA_1RI1RC_0LD1LG_0RE1LD_1RZ1RF_0LL0RA_1RA0LH_1LG1LH_1RK0LJ_1LH1LI_0LL0RD_0LH1LK.md) | f_(ω+2)^8(f_3(6)) < N | this project | 2026&#8209;11&#8209;15 |
 | [**BB(13)**](#bb13) | [M13_19](BB13/1RB1RA_1RI1RC_0LD1LG_0RE1LD_0LM1RF_1RG0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_0LM1LK_0LG1LL.md) | f_(ω+2)^19(f_ω(3)) < N | Argon | 2026&#8209;11&#8209;12 |
-| [**BB(14)**](#bb14) | [M14_fw3](BB14/1RB1RA_1RI1RC_0LD1LG_0RE1LD_0LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_1LN1LK_1RK0LH_1LD0RK.md) | f_(ω+3)(f_ω(3)) < N | Argon | 2026&#8209;11&#8209;12 |
+| [**BB(14)**](#bb14) | [M14_fw3x4](BB14/1RB0LK_1RC1RB_1RD1RM_1RE0LH_1LF1RI_0LA1LG_1RL0LF_1LK1LD_1RJ0RB_1RG0LK_1LA1LK_1RZ0LF_0LN1LA_0RE1LN.md) | f_(ω+3)^4(f_ω(4)) < N | Gemini 4 Neon | 2026&#8209;11&#8209;23 |
 | [**BB(15)**](#bb15) | [J15_fw13](BB15/1LH0LG_0LI1RC_0LD1LA_0RE1LD_0RH1RL_1RB1RF_1LA1LG_1RF0RO_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LA0RN_0LA1RO_1RZ1RM.md) | f_(ω+13)(20) < N | Argon | 2026&#8209;11&#8209;08 |
 | [**BB(16)**](#bb16) | [J16_w2](BB16/1LG1LA_0LI1RC_0LD1LG_0RE1LD_0RM1RL_1RB1RF_1LH0LA_1RF0RN_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LG0RN_0RP1RO_1RZ1RM_1LB1LI.md) | f_(ω·2)(f_15(2)) < N | Argon | 2026&#8209;11&#8209;08 |
 | [**BB(17)**](#bb17) | [J17_champ](BB17/1LG1RH_0LI1RC_0LD1LQ_0RE1LD_0RP1RL_1RB1RF_1LQ1LG_1RF0RO_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LQ0RN_0LQ1RO_1RZ1RM_0LQ0RA_1LH0LG.md) | f_(ω·2)(f_ω^3(f_14(2))) < N | Argon | 2026&#8209;11&#8209;13 |
@@ -152,17 +152,17 @@ are defined in the [notes](#notes).
 
 #### BB(14)
 
-**M14_fw3** · [write-up](BB14/1RB1RA_1RI1RC_0LD1LG_0RE1LD_0LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_1LN1LK_1RK0LH_1LD0RK.md) · the previous entries M14_31, M14d_18 and M14b are kept in [`BB14/`](BB14/README.md)
+**M14_fw3x4** · [write-up](BB14/1RB0LK_1RC1RB_1RD1RM_1RE0LH_1LF1RI_0LA1LG_1RL0LF_1LK1LD_1RJ0RB_1RG0LK_1LA1LK_1RZ0LF_0LN1LA_0RE1LN.md) · M14_fw3 with six transitions changed and four nested f_(ω+3) loops; the previous entries M14_fw3, M14_31, M14d_18 and M14b are kept in [`BB14/`](BB14/README.md)
 
 ```
-1RB1RA_1RI1RC_0LD1LG_0RE1LD_0LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_1LN1LK_1RK0LH_1LD0RK
+1RB0LK_1RC1RB_1RD1RM_1RE0LH_1LF1RI_0LA1LG_1RL0LF_1LK1LD_1RJ0RB_1RG0LK_1LA1LK_1RZ0LF_0LN1LA_0RE1LN
 ```
 
-- **Proved (Coq):** f_(ω+3)(f_ω(3)) < N, σ = N + 1, with N = p + a + 6 exactly for (p, a) = `pa_final`; in Coq, above the exact score of M14_31, the previous entry (its σ = N = p + a + 4 for (p, a) = `pa32`, proved below f_(ω+2)^64(f_ω(3)) from M14_31's own definitions); far below the proved bounds of the BB(15) and BB(16) entries, so those rows stay (not yet reviewed by the bbchallenge community)
-- **Main theorems:** `halt`, `score_exact`, `sigma_bound`, `beats_M14_31`, `beats_M14_31_exact`, `beats_M14_31_score` (and `_tnf` versions for the relabelled table)
-- **Checked:** CI `bb13-bb14`
-- **Found by:** Argon (machine and Coq proof); exact-score comparison, probe and packaging here
-- **Added:** 2026-11-12
+- **Proved (Coq):** f_(ω+3)^4(f_ω(4)) < N, σ = N + 1, with N = p + a + 7 exactly for (p, a) = `pa_final`; in Coq, above the exact score of M14_fw3, the previous entry (its N = p + a + 6 for its (p, a) = `pa_final`, proved at most f_(ω+3)(f_ω(13)) from M14_fw3's own definitions), for every halting configuration of both machines; far below the proved bounds of the BB(15) and BB(16) entries, so those rows stay (not yet reviewed by the bbchallenge community)
+- **Main theorems:** `halt`, `score_exact`, `sigma_bound` (`BB14_M14_fw3x4_entry.v`, for the table of the machine string), `beats_M14_fw3_exact`, `beats_M14_fw3_score`, `beats_M14_fw3_all`, `M14_fw3_score_agrees` (`BB14_M14_fw3x4_cmp.v`)
+- **Checked:** CI `bb13-bb14`; independent audit (from-source build, statements re-proved over independent definitions in `BB14_M14_fw3x4_audit.v`, literal simulator `BB14/tools/m14_fw3x4_lit_chk.py`)
+- **Found by:** Gemini 4 Neon (machine and Coq proof); audit, entry and comparison files, probe and packaging here
+- **Added:** 2026-11-23
 
 #### BB(15)
 
@@ -435,8 +435,8 @@ BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB
 ### Notes
 
 - σ is the score: the number of ones on the tape after the halting transition. Where the halting transition is read
-  on a 1 (champ_231/232: C1 undefined; M8 and h003: H1 undefined; the previous BB(14) entry M14_31: N1 undefined), σ = N, the ones count of the
-  halted configuration; where it is `1RZ` read on a 0 (n1, C4, P12, M13_19, M14_fw3, J15_fw13, J16_w2, J17_champ, J19_sq, J20_cube, B21, W2PR, and the previous entries M11b, M12, M13, M13b, M14, M14b, M14d_18, M16_B, M16_C, M17_B, J18_w2_C, M18_229round, BB18_fw3, J19, M19_fw4 and J20), σ = N + 1; R18c (R1), the previous BB(18) entries R18a (R1) and M18_4round (R1) and the earlier BB(19) entry M19_fw4_A (S1) halt on
+  on a 1 (champ_231/232: C1 undefined; M8 and h003: H1 undefined; the earlier BB(14) entry M14_31: N1 undefined), σ = N, the ones count of the
+  halted configuration; where it is `1RZ` read on a 0 (n1, C4, P12, M13_19, M14_fw3x4, J15_fw13, J16_w2, J17_champ, J19_sq, J20_cube, B21, W2PR, and the previous entries M11b, M12, M13, M13b, M14, M14b, M14d_18, M14_fw3, M16_B, M16_C, M17_B, J18_w2_C, M18_229round, BB18_fw3, J19, M19_fw4 and J20), σ = N + 1; R18c (R1), the previous BB(18) entries R18a (R1) and M18_4round (R1) and the earlier BB(19) entry M19_fw4_A (S1) halt on
   `1RZ` read on a 1, so σ = N. The hydra machines hydra29 to hydra34
   halt on B0 = `---` read on a 0, so σ = N or N + 1 by convention; their bounds are on N, so they hold for σ
   either way (their strings use the characters after Z as state names, and in hydra30, hydra32 and hydra34 `Z` is an
@@ -459,7 +459,7 @@ BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB
   entries stay in their details blocks.
 - Comparisons, in Coq: champ_231 and champ_232 are above the BB(7) champion's score 3·(2↑^13 3) + 22 (our analysis
   of that machine, on paper) and the wiki's lower bound 2↑^11 (2↑^11 3); M8 beats champ35's and fw2's exact scores;
-  h003 is above M8's Coq upper bound; n1 beats Racheline's 2024 BB(10) champion against that machine's Coq-proved exact score; M11b is above n1's Coq upper bound; C4 is above M11b's exact score (`beats_M11b`, `beats_M11b_score`: M11b's Coq upper bound) and above M12's exact score (`beats_M12_exact`, `beats_M12_score`: an upper bound on M12 from its own definitions); P12 (BB(12)) is above C4's exact score + 1 (`beats_C4_exact`, `beats_C4_score`: an upper bound on C4 from its own definitions), so above BB(11) + 1 as given by C4; M13_19 is above M13b's exact score and M14_fw3 above M14_31's (`beats_M13b_exact`, `beats_M14_31_exact`: Coq upper bounds on those scores, proved from the older machines' own definitions); T12a (the previous BB(12) entry, kept in `BB12/`) beats n1's exact score; R18a's proved bound is above J19's and M18_229round's proved bounds (`beats_J19`, `beats_M18_229`); M14_31's is above M14d_18's (`beats_M14d_18`), J15_fw13's above M14_31's (`beats_M14_31`), J16_w2's above J15_fw13's, M14_31's, M16_C's and M17_B's (`beats_J15`, `beats_M14_31`, `beats_M16_C`, `beats_M17_B`), and J18_w2_C's above R18a's and J16_w2's (`beats_R18a`, `beats_J16`); J17_champ, R18c, J19_sq and J20_cube are above the exact scores of the machines they replace (`beats_J16_exact`: BB(16) + 1 = J16_w2 + 1; `beats_J18C_exact` and `beats_J17_exact`: J18_w2_C and BB(17) + 1; `beats_R18c_exact` and `beats_J20_exact`: BB(18) + 1 and J20; `beats_J19sq_exact`: BB(19) + 1), by upper bounds on those scores proved from the older machines' own definitions with the generic bounds of `JZ_UB.v`; besides its own bound, each one's `sigma_lower_bound` also states the replaced entry's proved bound; the following compare proved lower bounds; 44-B (BB(4,4)) is above the exact scores of 44-A and 44-C
+  h003 is above M8's Coq upper bound; n1 beats Racheline's 2024 BB(10) champion against that machine's Coq-proved exact score; M11b is above n1's Coq upper bound; C4 is above M11b's exact score (`beats_M11b`, `beats_M11b_score`: M11b's Coq upper bound) and above M12's exact score (`beats_M12_exact`, `beats_M12_score`: an upper bound on M12 from its own definitions); P12 (BB(12)) is above C4's exact score + 1 (`beats_C4_exact`, `beats_C4_score`: an upper bound on C4 from its own definitions), so above BB(11) + 1 as given by C4; M13_19 is above M13b's exact score and M14_fw3 above M14_31's (`beats_M13b_exact`, `beats_M14_31_exact`: Coq upper bounds on those scores, proved from the older machines' own definitions); M14_fw3x4 is above M14_fw3's exact score (`beats_M14_fw3_exact`, `beats_M14_fw3_all`: Neon's file proves M14_fw3's exact count at most f_(ω+3)(f_ω(13)) from its own definitions, and `M14_fw3_score_agrees` identifies that count with the published one); T12a (the previous BB(12) entry, kept in `BB12/`) beats n1's exact score; R18a's proved bound is above J19's and M18_229round's proved bounds (`beats_J19`, `beats_M18_229`); M14_31's is above M14d_18's (`beats_M14d_18`), J15_fw13's above M14_31's (`beats_M14_31`), J16_w2's above J15_fw13's, M14_31's, M16_C's and M17_B's (`beats_J15`, `beats_M14_31`, `beats_M16_C`, `beats_M17_B`), and J18_w2_C's above R18a's and J16_w2's (`beats_R18a`, `beats_J16`); J17_champ, R18c, J19_sq and J20_cube are above the exact scores of the machines they replace (`beats_J16_exact`: BB(16) + 1 = J16_w2 + 1; `beats_J18C_exact` and `beats_J17_exact`: J18_w2_C and BB(17) + 1; `beats_R18c_exact` and `beats_J20_exact`: BB(18) + 1 and J20; `beats_J19sq_exact`: BB(19) + 1), by upper bounds on those scores proved from the older machines' own definitions with the generic bounds of `JZ_UB.v`; besides its own bound, each one's `sigma_lower_bound` also states the replaced entry's proved bound; the following compare proved lower bounds; 44-B (BB(4,4)) is above the exact scores of 44-A and 44-C
   (`BB44B_beats_A`, `BB44B_beats_C`: all exact, in one development), and 44-C above the exact score of loader3229's
   machine (`beats_loader3229_exact`); 54-L (BB(5,4)) is above the exact score of Jacobzheng's
   machine (`new_beats_jacobzheng`, by the Coq upper bound `sigma_final_upper`); 53-Main (BB(5,3)) is above the BB(4,3)
@@ -508,7 +508,11 @@ BB(34) with 2 symbols; its directory is [`BB34_2/`](BB34_2/README.md), since `BB
   compressions of Jacobzheng's J19/J20 architecture; their comparison files were written here. J17_champ, J19_sq and
   J20_cube are Argon's machines and Coq proofs (2026-11-09) on the same architecture. R18c is this project's machine
   (found 2026-11-07 with R18a); its Coq proof was written by Argon (2026-11-09). M13_19 and M14_fw3
-  are Argon's machines (2026-11-09), built on M12's core; their exact-score comparison files were written here. C4 is
+  are Argon's machines (2026-11-09), built on M12's core; their exact-score comparison files were written here.
+  M14_fw3x4 is a machine of Gemini 4 Neon, another Google Gemini model run by the repository owner in Google's
+  Antigravity (2026-11-22/23), built on M14_fw3; Neon also wrote its Coq proof, which was audited here (from-source
+  build, statements re-proved over independent definitions, literal simulator), and the entry and comparison files
+  were written here. C4 is
   this project's machine (2026-11-13), M12 with one state removed, found by an exact macro enumeration of M12's core
   plus one state; its Coq proof was written here. P12 is this project's machine (2026-11-15), M12 with five
   transitions changed, found by an exhaustive enumeration of M12's core with three transitions and two states free
@@ -572,6 +576,7 @@ elsewhere point at these paths.
 | BB(12) | [`1RB1RA_..._1RZ0LL_0LH1LK`](BB12/1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RG0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_0LH1LK.md) (M12, by Argon), f_(ω+2)(f_(ω+1)(f_(ω+1)(3))) < σ | 2026-10-26 to 2026-11-15 (from 2026-11-13 below BB(11) + 1 via C4, `beats_M12_exact`) | P12 (`beats_C4_exact`, against C4's exact score) | C4's comparison loads its Coq files and P12 uses copies of its busycoq files; M13b and M14b are built on the machine ([`BB12/verify_m12/`](BB12/verify_m12/), CI `bb13-bb14`) |
 | BB(13) | [`1RB1RA_..._0LH1LK_1RZ0LH`](BB13/1RB1RA_1RI1RC_0LD1LG_0RE1LD_1LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_1RZ0LH.md) (M13b), f_(ω+2)^6(f_(ω+1)(f_(ω+1)(3))) < σ | 2026-10-28 to 2026-11-12 | M13_19 (`beats_M13b_exact`, against its exact score) | M13_19's comparison loads its Coq files ([`BB13/verify_m13b/`](BB13/verify_m13b/), CI `bb13-bb14`) |
 | BB(14) | [`1RB1RA_..._0LK0LH_1LM---`](BB14/1RB1RA_1RI1RC_0LD1LG_0RE1LD_0RN1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_0LL0LL_0LH1LK_0LK0LH_1LM---.md) (M14_31), f_(ω+2)^30(f_(ω+1)(f_(ω+1)(3))) < σ | 2026-11-08 to 2026-11-12 | M14_fw3 (`beats_M14_31_exact`, against its exact score) | M14_fw3's comparison loads its Coq file ([`BB14/verify_m14_31/`](BB14/verify_m14_31/), CI `bb13-bb14`) |
+| BB(14) | [`1RB1RA_..._1LN1LK_1RK0LH_1LD0RK`](BB14/1RB1RA_1RI1RC_0LD1LG_0RE1LD_0LK1RF_1RM0RA_1RA0LH_1LG1LH_1RE0LJ_1LH1LI_1RZ0LL_1LN1LK_1RK0LH_1LD0RK.md) (M14_fw3, by Argon), f_(ω+3)(f_ω(3)) < N, σ = N + 1 | 2026-11-12 to 2026-11-23 | M14_fw3x4 (`beats_M14_fw3_exact`, against its exact score) | M14_fw3x4's comparison loads its Coq file ([`BB14/verify_m14_fw3/`](BB14/verify_m14_fw3/), CI `bb13-bb14`) |
 | BB(18) | [`0LB1LF_..._0LH1RR_0LF1RP`](BB18/0LB1LF_0RC1LB_0RD1RM_1LE0RN_1LF1LE_1LG0LE_1RH1RP_1RI1RH_0LJ1RA_1LK1LJ_0LL1LJ_1RM1RC_0RM0RH_1LE1RO_1RZ1RD_0LF0RQ_0LH1RR_0LF1RP.md) (J18_w2_C, by Argon), f_(ω·2)(2·f_ω^9(35)) < N, σ = N + 1 | 2026-11-08 to 2026-11-13 | R18c (`beats_J18C_exact`, against its exact score) | R18c's comparison loads its Coq file ([`BB18/verify_j18c/`](BB18/verify_j18c/), CI `bb13-bb14`) |
 | BB(20) | [`1LH0LG_..._0LF1LT_0LF0LR`](BB20/1LH0LG_0LI1RC_0LD1LA_0RE1LD_1RQ1RL_1RB1RF_1LA1LG_1RF1RM_1LJ1LI_0LK1LI_1RL1RE_0RL0RF_0LN1RM_0RF0LO_0RF1LP_0RF1LN_1LR1RQ_1RZ1LS_0LF1LT_0LF0LR.md) (J20, by Jacobzheng), f_(ω·2)(f_(ω+2)(f_(ω+2)(f_10(2)))) < N, σ = N + 1 | 2026-11-07 to 2026-11-13 | J20_cube (via J19_sq: `beats_J19sq_exact` and `beats_J20_exact`, against exact scores) | J19_sq's comparison loads its Coq file ([`BB20/verify/`](BB20/verify/), CI `bb13-bb14`) |
 | BB(4,4) | [`0LB3LB1RZ2RA_..._0RD2RC2LB0RA`](BB44/0LB3LB1RZ2RA_1LD3RB1LC2RA_3RB1LB3LC2RC_0RD2RC2LB0RA.md) (loader3229; Coq proof by MiniMax), σ = 2↑^509 3 + 510 exactly | 2026-11-08 to 2026-11-13 | 44-C (`beats_loader3229_exact`, against its exact score) | 44-C's comparison loads its Coq files ([`BB44/verify/`](BB44/verify/), CI `bb44`) |
