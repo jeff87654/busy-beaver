@@ -1,0 +1,103 @@
+3 of 3 shared files byte-identical to ../../verify_m14_fw3/multifile's
+The Coq Proof Assistant, version 8.20.1
+== BB142.v ==
+   ok, 8 s
+== Individual142.v ==
+   ok, 9 s
+== BB14_M14_fw3.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 23 s
+== BB14_M14_fw3x4.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 41 s
+== BB14_M14_fw3x4_entry.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 10 s
+== BB14_M14_fw3x4_cmp.v ==
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 11 s
+== BB14_M14_fw3x4_audit.v ==
+TM = Q * Sym -> option (Sym * dir * Q)
+     : Type
+halts =
+fun (tm : TM) (c0 : Q * tape) => exists n : nat, halts_in tm c0 n
+     : TM -> Q * tape -> Prop
+
+Arguments halts tm c0
+halts_in =
+fun (tm : TM) (c : Q * tape) (n : nat) =>
+exists ch : Q * tape, c -[ tm ]->> n / ch /\ halted tm ch
+     : TM -> Q * tape -> nat -> Prop
+
+Arguments halts_in tm c n%nat_scope
+halted =
+fun (tm : TM) (c : Q * tape) =>
+let (q, p) := c in let (p0, _) := p in let (_, s) := p0 in tm (q, s) = None
+     : TM -> Q * tape -> Prop
+
+Arguments halted tm c
+c0 = (q0, tape0)
+     : Q * tape
+tape0 = (const s0, s0, const s0)
+     : tape
+q0 = A
+     : state
+my_ones =
+fun (c : Q * tape) (n : nat) =>
+exists (q : Q) (l : list sym) (s : Sym) (r : list sym),
+  c = (q, (l *> const 0, s, r *> const 0)) /\
+  n = length (filter is1 (rev l ++ s :: r))
+     : Q * tape -> nat -> Prop
+
+Arguments my_ones c n%nat_scope
+fgh =
+fix fgh (k : nat) : nat -> nat :=
+  match k with
+  | 0 => S
+  | S k' => fun n : nat => Nat.iter n (fgh k') n
+  end
+     : nat -> nat -> nat
+
+Arguments fgh (k _)%nat_scope
+fw = fun n : nat => fgh n n
+     : nat -> nat
+
+Arguments fw n%nat_scope
+fwk =
+fix fwk (k : nat) : nat -> nat :=
+  match k with
+  | 0 => fw
+  | S k' => fun n : nat => Nat.iter n (fwk k') n
+  end
+     : nat -> nat -> nat
+
+Arguments fwk (k _)%nat_scope
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+   ok, 10 s
+COMPILE DONE
+probe: 14 of 14 theorems closed under the global context
